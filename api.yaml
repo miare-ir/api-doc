@@ -1,0 +1,376 @@
+openapi: 3.0.0
+info:
+  title: Miare API Roadmap
+  version: 2.0.0
+
+servers:
+  - url: 'https://ws.mia.re/trip-management/third-party-api/v2'
+    description: Main server
+
+  - url: 'https://staging.ws.mia.re/trip-management/third-party-api/v2'
+    description: Development server
+
+security:
+  - ApiKeyAuth: []
+
+components:
+  schemas:
+    Location:
+      type: object
+      properties:
+        latitude:
+          type: number
+          example: 35.778680
+        longitude:
+          type: number
+          example: 51.423191
+
+    ManifestItem:
+      type: object
+      properties:
+        name:
+          type: string
+          example: پیتزا پپرونی خانواده
+        quantity:
+          type: integer
+          minimum: 0
+          example: 1
+
+    Pickup:
+      type: object
+      properties:
+        name:
+          type: string
+          example: رستوران بزرگمهر
+        phone_number:
+          type: string
+          example: '02188664422'
+        address:
+          type: string
+          example: 'تهران، صادقیه، بلوار آیت‌الله کاشانی، پلاک ۱۸'
+        image:
+          type: string
+          format: uri
+          example: 'https://example.com/restaurants/bm_logo.png'
+        location:
+          $ref: '#/components/schemas/Location'
+        deadline:
+          type: string
+          format: date-time
+          example: '2019-09-08T19:12:00+0430'
+    
+    Course:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '37b230a5-47c7-4541-b69b-12f24756db82'
+        bill_number:
+          type: string
+          example: '118'
+        name:
+          type: string
+          example: علی علوی
+        phone_number:
+          type: string
+          example: '09123456789'
+        address:
+          type: string
+          example: 'تهران، خیابان استاد معین، پلاک ۱۲'
+        location:
+          $ref: '#/components/schemas/Location'
+        manifest_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ManifestItem'
+        tracking_url:
+          type: string
+          example: 'https://www.mia.re/p/trip_watching/#!/37b230a547'
+        dropped_off_at:
+          type: string
+          format: date-time
+          example: '2019-09-08T19:35:28+0430'
+    
+    Trip:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '1ffa1372-a52f-43ed-9aec-276743ae34d7'
+        area:
+          type: object
+          properties:
+            id:
+              type: string
+              example: '20'
+            name:
+              type: string
+              example: 'جردن شمالی'
+        state:
+          type: string
+          enum: [assign_queue, pickup, dropoff, delivered, canceled_by_miare, canceled_by_client]
+        pickup:
+          $ref: '#/components/schemas/Pickup'
+        courses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Course'
+        created_at:
+          type: string
+          format: date-time
+          example: '2019-09-08T19:10:28+0430'
+        assigned_at:
+          type: string
+          format: date-time
+          example: '2019-09-08T19:10:32+0430'
+        picked_up_at:
+          type: string
+          format: date-time
+          example: '2019-09-08T19:12:28+0430'
+        courier:
+          type: object
+          properties:
+            name:
+              type: string
+              example: احمد کاظمی
+            image:
+              type: string
+              example: 'https://files.miare.ir/miare/media/SD-Square_1024.jpg'
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+
+paths:
+  /trips/:
+    post:
+      summary: Creates a new trip.
+      description: >-
+        Creates a new trip with the given information and puts it in the trip
+        processing cycle. A successful call to this endpoint will lead to a
+        "added" event for the recently created trip.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pickup:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    phone_number:
+                      type: string
+                    address:
+                      type: string
+                    image:
+                      type: string
+                    location:
+                      type: object
+                      properties:
+                        latitude:
+                          type: number
+                        longitude:
+                          type: number
+                      required:
+                      - latitude
+                      - longitude
+                    deadline:
+                      type: string
+                  required:
+                  - name
+                  - phone_number
+                  - address
+                  - image
+                  - location
+                  - deadline
+                courses:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      bill_number:
+                        type: string
+                      name:
+                        type: string
+                      phone_number:
+                        type: string
+                      address:
+                        type: string
+                      location:
+                        type: object
+                        properties:
+                          latitude:
+                            type: number
+                          longitude:
+                            type: number
+                        required:
+                        - latitude
+                        - longitude
+                      manifest_items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            quantity:
+                              type: integer
+                          required:
+                          - name
+                          - quantity
+                    required:
+                    - bill_number
+                    - address
+                    - location
+              required:
+              - pickup
+              - courses
+            example:
+              pickup:
+                name: رستوران بزرگمهر
+                phone_number: 02188664422
+                address: تهران، صادقیه، بلوار آیت الله کاشانی
+                image: https://example.com/restaurants/bm_logo.png
+                location:
+                  latitude: 35.77868
+                  longitude: 51.423191
+                deadline: '2019-09-08T19:12:00+0000'
+              courses:
+              - bill_number: '118'
+                name: علی علوی
+                phone_number: 09123456789
+                address: تهران، خیابان استاد معین، پلاک ۱۲
+                location:
+                  latitude: 35.737004
+                  longitude: 51.413569
+                manifest_items:
+                - name: پیتزا پپرونی خانواده
+                  quantity: 2
+
+      responses:
+        '200':
+          description: The created trip.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trip'
+
+  /trips/{trip_id}/cancel/:
+    post:
+      summary: Cancels a trip.
+      parameters:
+        - in: path
+          name: trip_id
+          required: true
+          schema:
+            type: string
+          description: The trip ID
+      description: >-
+        Cancels a given trip.
+      responses:
+        '200':
+          description: The just cancelled trip.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trip'
+
+  /trips/{trip_id}/courses/:
+    patch:
+      summary: Adds a course to a trip.
+      parameters:
+        - in: path
+          name: trip_id
+          required: true
+          schema:
+            type: string
+          description: The trip ID
+      description: >-
+        Adds a course to the given trip.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                bill_number:
+                  type: string
+                name:
+                  type: string
+                phone_number:
+                  type: string
+                address:
+                  type: string
+                location:
+                  type: object
+                  properties:
+                    latitude:
+                      type: number
+                    longitude:
+                      type: number
+                  required:
+                  - latitude
+                  - longitude
+                manifest_items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      quantity:
+                        type: integer
+                    required:
+                    - name
+                    - quantity
+              required:
+              - bill_number
+              - address
+              - location
+            example:
+              bill_number: '138'
+              name: علی علوی
+              phone_number: 09123456789
+              address: تهران، خیابان استاد معین، پلاک ۱۲
+              location:
+                latitude: 35.737004
+                longitude: 51.413569
+              manifest_items:
+              - name: پیتزا پپرونی خانواده
+                quantity: 2
+
+
+      responses:
+        '200':
+          description: The just cancelled trip.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trip'
+
+
+  /courses/{course_id}/:
+    delete:
+      summary: Deletes a course.
+      parameters:
+        - in: path
+          name: course_id
+          required: true
+          schema:
+            type: string
+          description: The course ID
+      description: >-
+        Deletes a course from its trip.
+      responses:
+        '200':
+          description: The just cancelled trip.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trip'
