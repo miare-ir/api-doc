@@ -672,6 +672,32 @@
           }
         }
       }
+    },
+    "/ws/drivers/": {
+      "get": {
+        "tags": [
+          "events"
+        ],
+        "summary": "Documented events which may occure in a driver websocket connection",
+        "description": "These are only the events related to closing connecitopn of driver. ",
+        "responses": {
+          "default": {
+            "description": ""
+          },
+          "x-4000": {
+            "description": "Driver connection closes with this code when it is recognized as duplicate connection after auth message received."
+          },
+          "x-4005": {
+            "description": "Driver connection closes with this code when the driver's allocation is ended."
+          },
+          "x-4010": {
+            "description": "Driver connection closes with this code when the newly authenticated driver has no active allocation is ended."
+          },
+          "x-4015": {
+            "description": "Driver connection closes with this code when gets suspended."
+          }
+        }
+      }
     }
   }
 }
