@@ -1,0 +1,677 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "This is Miare Third-Party API, designed to enable registered Miare users to integrate our delivery services into their applications.",
+    "version": "2.1.0",
+    "title": "Miare API",
+    "contact": {
+      "email": "sazary@miare.ir"
+    }
+  },
+  "tags": [
+    {
+      "name": "delivery",
+      "description": "Delivery related services"
+    },
+    {
+      "name": "events",
+      "description": "Realtime webhook events"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://ws.mia.re/trip-management/third-party-api/v2"
+    },
+    {
+      "url": "https://staging.ws.mia.re/trip-management/third-party-api/v2"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "auth": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      }
+    },
+    "schemas": {
+      "Trip": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique ID of this trip",
+            "example": "wpeiru0p-qefq-32pf-nvld-hr9er9dfjas2"
+          },
+          "area": {
+            "$ref": "#/components/schemas/Area"
+          },
+          "state": {
+            "type": "string",
+            "description": "Current state of this trip",
+            "example": "pickup",
+            "enum": [
+              "assign_queue",
+              "pickup",
+              "dropoff",
+              "delivered",
+              "canceled_by_miare",
+              "canceled_by_client"
+            ]
+          },
+          "pickup": {
+            "$ref": "#/components/schemas/Pickup"
+          },
+          "courses": {
+            "type": "array",
+            "description": "All of the different courses at which parts of this trip should be dropped off",
+            "xml": {
+              "name": "course",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/Course"
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The exact moment at which this trip is created for the first time",
+            "example": "2019-04-12T13:58:42+0000"
+          },
+          "assigned_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The time this trip was assigned to its current courier",
+            "example": "2019-04-12T13:59:59+0000"
+          },
+          "picked_up_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The time at which the courier picked up the items from pickup location",
+            "example": "2019-04-12T14:10:42+0000"
+          },
+          "courier": {
+            "$ref": "#/components/schemas/Courier"
+          },
+          "test_mode": {
+            "type": "boolean",
+            "description": "Whether or not this trip was created in test mode",
+            "example": false
+          }
+        },
+        "xml": {
+          "name": "Trip"
+        }
+      },
+      "Pickup": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The human readable name of the pickup",
+            "example": "رستوران بزرگمهر"
+          },
+          "phone_number": {
+            "type": "string",
+            "description": "The phone number associated with the source which will be used by courier and support staffs in order to contact to pickup if necessary",
+            "example": "0212345678"
+          },
+          "address": {
+            "type": "string",
+            "description": "The human readable address of the source, preferably down to every necessary detail for a human to find the source quickly",
+            "example": "تهران، صادقیه، بلوار آیت الله کاشانی"
+          },
+          "image": {
+            "type": "string",
+            "format": "uri",
+            "description": "A valid URL which points to an image file which should be the logo of the pickup. This image will be used in both support panel, and courier’s application, so make sure that the URL is both reachable and is configured to allow CORS requests",
+            "example": "https://example.com/restaurants/bm_logo.png"
+          },
+          "location": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The time that you expect the courier to arrive at the pickup, so optimally it should be the time package content is ready and packaged",
+            "example": "2019-04-12T14:12:00+0000"
+          }
+        },
+        "xml": {
+          "name": "Pickup"
+        }
+      },
+      "Course": {
+        "type": "object",
+        "required": [
+          "bill_number",
+          "name",
+          "phone_number",
+          "address"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The unique identifier of this course",
+            "example": "wpeiru0p-qefq-32pf-nvld-hr9er9dfjas2"
+          },
+          "bill_number": {
+            "type": "string",
+            "description": "An string field left for you to store sort of a human readable bill number in it which will be used as a reference point among our support team, you and the pickup staffs",
+            "example": "DEL-119"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the dropp-off",
+            "example": "علی علوی"
+          },
+          "phone_number": {
+            "type": "string",
+            "description": "The phone number associated with the drop-off which will be used by courier and support staffs in order to contact to them if necessary",
+            "example": "09123456789"
+          },
+          "address": {
+            "type": "string",
+            "description": "The human readable drop-off address, preferably down to every necessary detail for a human to find it quickly",
+            "example": "هران، خیابان استاد معین، پلاک ۱۲"
+          },
+          "location": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "manifest_items": {
+            "type": "array",
+            "xml": {
+              "name": "manifest_item",
+              "wrapped": true
+            },
+            "description": "The contents of the package to be delivered to the drop-off",
+            "items": {
+              "$ref": "#/components/schemas/ManifestItem"
+            }
+          },
+          "tracking_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "The URL of Miare Tracking webpage which can be given to user so he/she can follow the courier in real-time",
+            "example": "https://mia.re/t/73c939d1/"
+          },
+          "dropped_off_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The time this course was dropped off by courier",
+            "example": "2019-04-12T14:06:42+0000"
+          }
+        },
+        "xml": {
+          "name": "Course"
+        }
+      },
+      "Location": {
+        "type": "object",
+        "properties": {
+          "latitude": {
+            "type": "number",
+            "format": "double",
+            "example": "35.737004"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double",
+            "example": "51.413569"
+          }
+        },
+        "xml": {
+          "name": "Location"
+        }
+      },
+      "ManifestItem": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Human readable name of the content which will be verified by courier",
+            "example": "پیتزا پپرونی خانواده"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0,
+            "description": "The quanitiy of the given item",
+            "example": 2
+          }
+        },
+        "xml": {
+          "name": "ManifestItem"
+        }
+      },
+      "Area": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of area",
+            "example": "59"
+          },
+          "name": {
+            "type": "string",
+            "description": "Textual name of the area",
+            "example": "فردوس شرق"
+          }
+        },
+        "xml": {
+          "name": "Area"
+        }
+      },
+      "Courier": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the driver",
+            "example": "علی لطفی"
+          },
+          "image": {
+            "type": "string",
+            "format": "uri",
+            "description": "A photo of the courier",
+            "example": "https://files.miare.ir/avatars/gheuIej.jpg"
+          }
+        },
+        "xml": {
+          "name": "Courier"
+        }
+      },
+      "Event": {
+        "type": "object",
+        "properties": {
+          "event": {
+            "type": "string",
+            "description": "The event being reported",
+            "enum": [
+              "added",
+              "assigned",
+              "course_added",
+              "course_deleted",
+              "picked_up",
+              "course_dropped_off",
+              "delivered",
+              "canceled_by_client",
+              "canceled_by_miare"
+            ]
+          },
+          "trip": {
+            "$ref": "#/components/schemas/Trip"
+          }
+        },
+        "xml": {
+          "name": "Event"
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Constant error code",
+            "example": "trip_not_found"
+          },
+          "detail": {
+            "type": "string",
+            "description": "Human readable explanation of the error",
+            "example": "Could not find trip with id \"wrong_id\""
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "EventBody": {
+        "description": "Event happened for a trip",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Event"
+            }
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/trips/": {
+      "post": {
+        "tags": [
+          "delivery"
+        ],
+        "summary": "Creates a new trip and puts it in the assign queue",
+        "description": "Note that trip creation will fail if you don't have enough concurrency limit in the area of the pickup location of the given trip.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "pickup": {
+                    "$ref": "#/components/schemas/Pickup"
+                  },
+                  "courses": {
+                    "type": "array",
+                    "xml": {
+                      "name": "course",
+                      "wrapped": true
+                    },
+                    "items": {
+                      "$ref": "#/components/schemas/Course"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully created trip",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Trip"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "A validation error indicating failure in trip creation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "parse_error",
+                        "invalid_request_body",
+                        "concurrency_limit"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
+    "/trips/{trip_id}/cancel/": {
+      "post": {
+        "tags": [
+          "delivery"
+        ],
+        "summary": "Cancels the given trip",
+        "description": "Note that a trip CANNOT be cancelled when it has passed 30 seconds since we’ve assigned it to a courier or the courier has already arrived at the source. In special cases which you still need to cancel the trip, please contact our support.",
+        "parameters": [
+          {
+            "name": "trip_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the trip to be cancelled",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully cancelled trip",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Trip"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "A validation error indicating failure in trip cancellation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "parse_error",
+                        "invalid_request_body",
+                        "canceling_ended_trip",
+                        "invalid_state_change",
+                        "canceling_arrived_trip",
+                        "canceling_after_deadline"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
+    "/trips/{trip_id}/courses/": {
+      "post": {
+        "tags": [
+          "delivery"
+        ],
+        "summary": "Add a course to the given trip",
+        "description": "Note that you cannot add a course to an already picked up trip.",
+        "parameters": [
+          {
+            "name": "trip_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the trip to add a course to",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "bill_number",
+                  "name",
+                  "phone_number",
+                  "address"
+                ],
+                "properties": {
+                  "bill_number": {
+                    "type": "string",
+                    "description": "An string field left for you to store sort of a human readable bill number in it which will be used as a reference point among our support team, you and the pickup staffs",
+                    "example": "DEL-119"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the dropp-off",
+                    "example": "علی علوی"
+                  },
+                  "phone_number": {
+                    "type": "string",
+                    "description": "The phone number associated with the drop-off which will be used by courier and support staffs in order to contact to them if necessary",
+                    "example": "09123456789"
+                  },
+                  "address": {
+                    "type": "string",
+                    "description": "The human readable drop-off address, preferably down to every necessary detail for a human to find it quickly",
+                    "example": "هران، خیابان استاد معین، پلاک ۱۲"
+                  },
+                  "location": {
+                    "$ref": "#/components/schemas/Location"
+                  },
+                  "manifest_items": {
+                    "type": "array",
+                    "xml": {
+                      "name": "manifest_item",
+                      "wrapped": true
+                    },
+                    "description": "The contents of the package to be delivered to the drop-off",
+                    "items": {
+                      "$ref": "#/components/schemas/ManifestItem"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully added a course to the trip",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Trip"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "A validation error indicating failure in adding the course",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "parse_error",
+                        "invalid_request_body"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
+    "/courses/{course_id}/": {
+      "delete": {
+        "tags": [
+          "delivery"
+        ],
+        "summary": "Removes the given course from its trip",
+        "description": "Note you cannot remove an alreay picked up course.",
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the course to be removed",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully removed the course",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Trip"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "A validation error indicating failure in coures removal",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "parse_error",
+                        "invalid_request_body"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
+    "/subscribe/": {
+      "post": {
+        "tags": [
+          "events"
+        ],
+        "summary": "Callbacks made by our server",
+        "description": "There are different callbacks which will be made in different lifetime stages of a trip. All of them will be sent to the webhook address you’ve provided to the technical team. All of them will contain credential token as a HTTP header as described in the Authentication section and a `X-Miare-API-Version` header indicating the version of API in which the Event’s format will be.",
+        "responses": {
+          "default": {
+            "description": "This is just a placeholder for events"
+          }
+        },
+        "callbacks": {
+          "event": {
+            "your_webhook_url": {
+              "post": {
+                "requestBody": {
+                  "$ref": "#/components/requestBodies/EventBody"
+                },
+                "responses": {
+                  "200": {
+                    "description": "OK"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
