@@ -16,6 +16,10 @@
     {
       "name": "events",
       "description": "Realtime webhook events"
+    },
+    {
+      "name": "accounting",
+      "description": "Accounting related services"
     }
   ],
   "servers": [
@@ -99,6 +103,52 @@
             "type": "boolean",
             "description": "Whether or not this trip was created in test mode",
             "example": false
+          }
+        },
+        "xml": {
+          "name": "Trip"
+        }
+      },
+      "DriverAllocation": {
+        "type": "object",
+        "properties": {
+          "area_name": {
+            "type": "string",
+            "description": "The name of area related to the allocation",
+            "example": "فردوس شرقی"
+          },
+          "state": {
+            "type": "number",
+            "description": "The priority of allocation, the greater value has higher priority",
+            "example": 10,
+            "enum": [
+              10,
+              20
+            ]
+          },
+          "starting_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Inclusive date which allocation is valid from",
+            "example": "2020-01-19"
+          },
+          "expired_at": {
+            "type": "string",
+            "format": "date",
+            "description": "Exclusive date which allocation is valid until",
+            "example": "2020-01-20"
+          },
+          "start_time": {
+            "type": "string",
+            "format": "time",
+            "description": "The start time of related Interval to the allocation",
+            "example": "11:30:00"
+          },
+          "end_time": {
+            "type": "string",
+            "format": "time",
+            "description": "The end time of related Interval to the allocation",
+            "example": "11:30:00"
           }
         },
         "xml": {
@@ -665,6 +715,64 @@
                 "responses": {
                   "200": {
                     "description": "OK"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounting/drivers/current-allocations/": {
+      "get": {
+        "tags": [
+          "accounting"
+        ],
+        "summary": "Fetch current requester allocations",
+        "description": "This endpoint is implemented for drivers to see their active allocations within last and next 29 minutes",
+        "servers": [
+          {
+            "url": "https://www.staging.mia.re"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetched current allocations of driver",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DriverAllocation"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounting/drivers/week-allocations/": {
+      "get": {
+        "tags": [
+          "accounting"
+        ],
+        "summary": "Fetch current week requester allocations",
+        "description": "This endpoint is implemented for drivers to see their allocations, active during current week",
+        "servers": [
+          {
+            "url": "https://www.staging.mia.re"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetched current allocations of driver",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DriverAllocation"
                   }
                 }
               }
