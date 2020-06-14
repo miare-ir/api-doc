@@ -752,6 +752,35 @@
         }
       }
     },
+    "/api/accounting/drivers/week-allocations/": {
+      "get": {
+        "tags": [
+          "accounting"
+        ],
+        "summary": "Fetch current week requester allocations",
+        "description": "This endpoint is implemented for drivers to see their allocations, active during current week",
+        "servers": [
+          {
+            "url": "https://www.staging.mia.re"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetched current allocations of driver",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DriverAllocation"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/ws/drivers/": {
       "get": {
         "tags": [
