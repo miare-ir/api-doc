@@ -112,6 +112,11 @@
       "DriverAllocation": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "number",
+            "description": "The id of serialized allocation",
+            "example": 3
+          },
           "area_name": {
             "type": "string",
             "description": "The name of area related to the allocation",
@@ -152,7 +157,7 @@
           }
         },
         "xml": {
-          "name": "Trip"
+          "name": "Allocation"
         }
       },
       "Pickup": {
