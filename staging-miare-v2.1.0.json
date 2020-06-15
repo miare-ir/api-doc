@@ -122,7 +122,7 @@
             "description": "The name of area related to the allocation",
             "example": "فردوس شرقی"
           },
-          "state": {
+          "priority": {
             "type": "number",
             "description": "The priority of allocation, the greater value has higher priority",
             "example": 10,
@@ -141,7 +141,8 @@
             "type": "string",
             "format": "date",
             "description": "Exclusive date which allocation is valid until",
-            "example": "2020-01-20"
+            "example": "2020-01-20",
+            "nullable": true
           },
           "start_time": {
             "type": "string",
@@ -786,6 +787,33 @@
         }
       }
     },
+    "/api/accounting/drivers/upcoming-allocation/": {
+      "get": {
+        "tags": [
+          "accounting"
+        ],
+        "summary": "Fetch first upcoming or ongoing allocation of requester driver",
+        "description": "This endpoint is implemented for drivers to see their current or the first next allocation.",
+        "servers": [
+          {
+            "url": "https://www.staging.mia.re"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetched first upcoming allocation of driver",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/DriverAllocation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/ws/drivers/": {
       "get": {
         "tags": [
@@ -804,7 +832,7 @@
             "description": "Driver connection closes with this code when the driver's allocation is ended."
           },
           "x-4010": {
-            "description": "Driver connection closes with this code when the newly authenticated driver has no active allocation is ended."
+            "description": "Driver connection closes with this code when the newly authenticated driver has no active allocation."
           },
           "x-4015": {
             "description": "Driver connection closes with this code when gets suspended."
