@@ -544,6 +544,61 @@
             "description": "Determins if the plan has the same type of Platinum"
           }
         }
+      },
+      "Notification": {
+        "title": "Notification",
+        "type": "object",
+        "x-examples": {
+          "message-example": {
+            "message_type": "message",
+            "payload": {
+              "id": 1,
+              "title": "مازاد درآمد",
+              "message": "تبریک! شما مشمول مازاد درآمد شدید",
+              "image": null
+            }
+          },
+          "ticket-example": {
+            "message_type": "ticket",
+            "payload": {
+              "id": 2,
+              "title": "پاسخ برای تیکت",
+              "message": "شما یک پیام خوانده نشده دارید، لطفا در اولین فرصت بخش تیکت‌ها در برنامه «میاره» را مشاهده نمائید.",
+              "image": null
+            }
+          }
+        },
+        "description": "Represents the data format of serialized message over GCM",
+        "properties": {
+          "message_type": {
+            "type": "string",
+            "enum": [
+              "message",
+              "ticket"
+            ]
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "title": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "image": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uri"
+              }
+            }
+          }
+        }
       }
     },
     "requestBodies": {
