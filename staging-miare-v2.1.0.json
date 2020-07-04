@@ -1298,7 +1298,9 @@
     "/tracking/drivers/rejects/": {
       "get": {
         "summary": "Today Rejects Count",
-        "tags": [],
+        "tags": [
+          "delivery"
+        ],
         "responses": {
           "200": {
             "description": "OK",
