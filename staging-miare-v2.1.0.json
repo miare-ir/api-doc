@@ -1194,9 +1194,6 @@
     "/accounting/drivers/trip-salary/{trip_id}/": {
       "get": {
         "summary": "Trip Salary",
-        "tags": [
-          "delivery"
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -1249,7 +1246,10 @@
           }
         },
         "operationId": "get-accounting-trip-salary",
-        "description": "Returns info about the salary of a trip for drivers"
+        "description": "Returns info about the salary of a trip for drivers",
+        "tags": [
+          "accounting"
+        ]
       },
       "parameters": [
         {
