@@ -40,7 +40,7 @@
       "description": "API"
     },
     {
-      "url": "https://staging.mia.re/api",
+      "url": "https://www.staging.mia.re/api",
       "description": "API - Staging"
     }
   ],
@@ -860,7 +860,7 @@
         }
       }
     },
-    "/api/accounting/drivers/current-allocations/": {
+    "/accounting/drivers/current-allocations/": {
       "get": {
         "tags": [
           "accounting"
@@ -887,9 +887,10 @@
             }
           }
         }
-      }
+      },
+      "parameters": []
     },
-    "/api/accounting/drivers/week-allocations/": {
+    "/accounting/drivers/week-allocations/": {
       "get": {
         "tags": [
           "accounting"
@@ -916,9 +917,10 @@
             }
           }
         }
-      }
+      },
+      "parameters": []
     },
-    "/api/accounting/drivers/upcoming-allocation/": {
+    "/accounting/drivers/upcoming-allocation/": {
       "get": {
         "tags": [
           "accounting"
@@ -943,7 +945,8 @@
             }
           }
         }
-      }
+      },
+      "parameters": []
     },
     "/ws/drivers/": {
       "get": {
@@ -1138,7 +1141,7 @@
         }
       }
     },
-    "/api/tracking/problems/": {
+    "/tracking/problems/": {
       "get": {
         "summary": "Problems",
         "tags": [
