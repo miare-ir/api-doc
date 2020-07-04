@@ -511,6 +511,39 @@
             "type": "boolean"
           }
         }
+      },
+      "DriverPlan": {
+        "title": "DriverPlan",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "assign_weight": {
+            "type": "number"
+          },
+          "type": {
+            "type": "integer"
+          },
+          "intervals": {
+            "type": "array",
+            "items": {}
+          },
+          "max_acceptable_absence_hours": {
+            "type": "integer"
+          },
+          "min_acceptable_courses_count": {
+            "type": "integer"
+          },
+          "reservable": {
+            "type": "boolean",
+            "description": "Determins if the plan has the same type of Platinum"
+          }
+        },
+        "description": ""
       }
     },
     "requestBodies": {
