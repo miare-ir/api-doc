@@ -3,7 +3,7 @@
   "info": {
     "description": "This is Miare Third-Party API, designed to enable registered Miare users to integrate our delivery services into their applications.",
     "version": "2.1.0",
-    "title": "Miare API",
+    "title": "Miare",
     "contact": {
       "email": "sazary@miare.ir"
     }
@@ -28,16 +28,20 @@
   ],
   "servers": [
     {
-      "url": "https://ws.mia.re/trip-management/third-party-api/v2"
+      "url": "https://ws.mia.re/trip-management/third-party-api/v2",
+      "description": "3rd Party"
     },
     {
-      "url": "https://staging.ws.mia.re/trip-management/third-party-api/v2"
+      "url": "https://staging.ws.mia.re/trip-management/third-party-api/v2",
+      "description": "3rd Party - Staging"
     },
     {
-      "url": "https://www.mia.re/api"
+      "url": "https://www.mia.re/api",
+      "description": "API"
     },
     {
-      "url": "https://staging.mia.re/api"
+      "url": "https://staging.mia.re/api",
+      "description": "API - Staging"
     }
   ],
   "components": {
@@ -117,7 +121,8 @@
         },
         "xml": {
           "name": "Trip"
-        }
+        },
+        "x-examples": {}
       },
       "DriverAllocation": {
         "type": "object",
@@ -455,6 +460,55 @@
             "type": "string",
             "description": "Human readable explanation of the error",
             "example": "Could not find trip with id \"wrong_id\""
+          }
+        }
+      },
+      "Problem": {
+        "title": "Problem",
+        "description": "Represents the problem choosable for Issue",
+        "type": "object",
+        "x-examples": {
+          "example": {
+            "id": 1,
+            "title": "آدرس را نمی‌شناسم",
+            "type": {
+              "id": 1,
+              "title": "عدم امکان تکمیل سفر",
+              "is_resolvable": false
+            }
+          }
+        },
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/ProblemType"
+          }
+        }
+      },
+      "ProblemType": {
+        "title": "ProblemType",
+        "type": "object",
+        "x-examples": {
+          "example": {
+            "id": 1,
+            "title": "عدم امکان تکمیل سفر",
+            "is_resolvable": false
+          }
+        },
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "is_resolvable": {
+            "type": "boolean"
           }
         }
       }
@@ -1083,6 +1137,56 @@
           }
         }
       }
+    },
+    "/api/tracking/problems/": {
+      "get": {
+        "summary": "Problems",
+        "tags": [
+          "delivery"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Problem"
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": [
+                      {
+                        "id": 1,
+                        "title": "آدرس را نمی‌شناسم",
+                        "type": {
+                          "id": 1,
+                          "title": "عدم امکان تکمیل سفر",
+                          "is_resolvable": false
+                        }
+                      },
+                      {
+                        "id": 2,
+                        "title": "موتورم خراب شده است یا بنزین ندارم",
+                        "type": {
+                          "id": 1,
+                          "title": "عدم امکان تکمیل سفر",
+                          "is_resolvable": false
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-tracking-problems",
+        "description": "Returns unarchived problems exposed to Drivers"
+      },
+      "parameters": []
     }
   },
   "security": [
