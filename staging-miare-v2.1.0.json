@@ -507,7 +507,7 @@
           "title": {
             "type": "string"
           },
-          "is_resolvable": {
+          "resolvable": {
             "type": "boolean"
           }
         }
@@ -1255,7 +1255,7 @@
                         "type": {
                           "id": 1,
                           "title": "عدم امکان تکمیل سفر",
-                          "is_resolvable": false
+                          "resolvable": false
                         }
                       },
                       {
@@ -1264,7 +1264,7 @@
                         "type": {
                           "id": 1,
                           "title": "عدم امکان تکمیل سفر",
-                          "is_resolvable": false
+                          "resolvable": false
                         }
                       }
                     ]
