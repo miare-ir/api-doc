@@ -1242,7 +1242,7 @@
             }
           },
           "403": {
-            "description": "When driver doesn't own the trip or his plan is not of tpye reservable"
+            "description": "When driver doesn't own the trip or his plan is not reservable"
           }
         },
         "operationId": "get-accounting-trip-salary",
