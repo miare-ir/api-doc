@@ -1190,6 +1190,77 @@
         "description": "Returns unarchived problems exposed to Drivers"
       },
       "parameters": []
+    },
+    "/accounting/drivers/trip-salary/{trip_id}/": {
+      "get": {
+        "summary": "Trip Salary",
+        "tags": [
+          "delivery"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "courses_salary": {
+                      "type": "number"
+                    },
+                    "extra_salary_items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "amount": {
+                            "type": "number"
+                          },
+                          "reason": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "courses_count": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "courses_salary": 10000,
+                      "courses_count": 3,
+                      "extra_salary_items": [
+                        {
+                          "amount": 5000,
+                          "reason": "شرایط برفی"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When driver doesn't own the trip or his plan is not of tpye reservable"
+          }
+        },
+        "operationId": "get-accounting-trip-salary",
+        "description": "Returns info about the salary of a trip for drivers"
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "trip_id",
+          "in": "path",
+          "required": true
+        }
+      ]
     }
   },
   "security": [
