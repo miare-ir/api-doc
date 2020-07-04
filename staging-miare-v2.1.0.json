@@ -1294,6 +1294,37 @@
           "required": true
         }
       ]
+    },
+    "/tracking/drivers/rejects/": {
+      "get": {
+        "summary": "Today Rejects Count",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "count": 2
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-tracking-drivers-rejects"
+      }
     }
   },
   "security": [
