@@ -1325,7 +1325,8 @@
             }
           }
         },
-        "operationId": "get-tracking-drivers-rejects"
+        "operationId": "get-tracking-drivers-rejects",
+        "description": "Return number of rejects from driver which has happened today"
       }
     }
   },
