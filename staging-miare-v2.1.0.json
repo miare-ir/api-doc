@@ -471,7 +471,7 @@
           "example": {
             "id": 1,
             "title": "آدرس را نمی‌شناسم",
-            "type": {
+            "category": {
               "id": 1,
               "title": "عدم امکان تکمیل سفر",
               "is_resolvable": false
@@ -485,13 +485,13 @@
           "title": {
             "type": "string"
           },
-          "type": {
-            "$ref": "#/components/schemas/ProblemType"
+          "category": {
+            "$ref": "#/components/schemas/ProblemCategory"
           }
         }
       },
-      "ProblemType": {
-        "title": "ProblemType",
+      "ProblemCategory": {
+        "title": "ProblemCategory",
         "type": "object",
         "x-examples": {
           "example": {
