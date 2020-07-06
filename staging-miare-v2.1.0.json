@@ -474,7 +474,7 @@
             "category": {
               "id": 1,
               "title": "عدم امکان تکمیل سفر",
-              "is_resolvable": false
+              "auto_revoke_on_create": false
             }
           }
         },
@@ -497,7 +497,7 @@
           "example": {
             "id": 1,
             "title": "عدم امکان تکمیل سفر",
-            "is_resolvable": false
+            "auto_revoke_on_create": false
           }
         },
         "properties": {
@@ -507,7 +507,7 @@
           "title": {
             "type": "string"
           },
-          "resolvable": {
+          "auto_revoke_on_create": {
             "type": "boolean"
           }
         }
@@ -1252,19 +1252,19 @@
                       {
                         "id": 1,
                         "title": "آدرس را نمی‌شناسم",
-                        "type": {
+                        "category": {
                           "id": 1,
                           "title": "عدم امکان تکمیل سفر",
-                          "resolvable": false
+                          "auto_revoke_on_create": true
                         }
                       },
                       {
                         "id": 2,
                         "title": "موتورم خراب شده است یا بنزین ندارم",
-                        "type": {
+                        "category": {
                           "id": 1,
                           "title": "عدم امکان تکمیل سفر",
-                          "resolvable": false
+                          "auto_revoke_on_create": true
                         }
                       }
                     ]
