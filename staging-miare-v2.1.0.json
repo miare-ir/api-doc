@@ -37,11 +37,15 @@
     },
     {
       "url": "https://www.mia.re/api",
-      "description": "API"
+      "description": "Django API"
     },
     {
       "url": "https://www.staging.mia.re/api",
-      "description": "API - Staging"
+      "description": "Django API - Staging"
+    },
+    {
+      "description": "Go API - staging",
+      "url": "https://staging.ws.mia.re"
     }
   ],
   "components": {
@@ -1350,9 +1354,9 @@
         }
       ]
     },
-    "/tracking/drivers/rejects/": {
+    "/trip-management/driver-api/refusings/": {
       "get": {
-        "summary": "Today Rejects Count",
+        "summary": "Today Refusings Count",
         "tags": [
           "delivery"
         ],
@@ -1383,9 +1387,10 @@
             }
           }
         },
-        "operationId": "get-tracking-drivers-rejects",
-        "description": "Return number of rejects from driver which has happened today"
-      }
+        "operationId": "get-tracking-drivers-refusings",
+        "description": "Return number of refusing from driver which has happened today"
+      },
+      "parameters": []
     }
   },
   "security": [
