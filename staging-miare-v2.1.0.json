@@ -1548,7 +1548,7 @@
     },
     "/area/driver-areas/": {
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "Driver Areas",
         "tags": [
           "delivery"
         ],
