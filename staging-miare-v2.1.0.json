@@ -603,6 +603,160 @@
             }
           }
         }
+      },
+      "DriverArea": {
+        "title": "DriverArea",
+        "type": "object",
+        "x-examples": {
+          "example": {
+            "type": "Feature",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    51.410995423278784,
+                    35.75178947678033
+                  ],
+                  [
+                    51.41437601058966,
+                    35.75236448783447
+                  ],
+                  [
+                    51.41608289947508,
+                    35.75241707766311
+                  ],
+                  [
+                    51.41783270370476,
+                    35.75171215711329
+                  ],
+                  [
+                    51.41996874603275,
+                    35.75069377287796
+                  ],
+                  [
+                    51.41975,
+                    35.75898
+                  ],
+                  [
+                    51.4213585423279,
+                    35.764430621902875
+                  ],
+                  [
+                    51.421853967914565,
+                    35.76584161592507
+                  ],
+                  [
+                    51.42770366539005,
+                    35.775432270258094
+                  ],
+                  [
+                    51.427215302963305,
+                    35.77935129337725
+                  ],
+                  [
+                    51.4220116170884,
+                    35.785208827223016
+                  ],
+                  [
+                    51.41961352184293,
+                    35.78923397961277
+                  ],
+                  [
+                    51.415976045646616,
+                    35.79079819176944
+                  ],
+                  [
+                    51.410919680881534,
+                    35.779561982767575
+                  ],
+                  [
+                    51.41210702117913,
+                    35.77346182827735
+                  ],
+                  [
+                    51.40970771163936,
+                    35.76051262997255
+                  ],
+                  [
+                    51.40944746378896,
+                    35.757159687273045
+                  ],
+                  [
+                    51.410136661376974,
+                    35.7559546866528
+                  ],
+                  [
+                    51.41051874603269,
+                    35.75426535475744
+                  ],
+                  [
+                    51.410995423278784,
+                    35.75178947678033
+                  ]
+                ]
+              ]
+            },
+            "properties": {
+              "id": 17,
+              "name": "جردن",
+              "manual_assign_enabled": false
+            }
+          }
+        },
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "Feature"
+            ],
+            "example": "Feature"
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "manual_assign_enabled": {
+                "type": "boolean"
+              }
+            }
+          },
+          "geometry": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "Polygon"
+                ],
+                "example": "Polygon"
+              },
+              "coordinates": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 1,
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {
+                      "type": "number",
+                      "exclusiveMinimum": false,
+                      "exclusiveMaximum": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "requestBodies": {
@@ -1389,6 +1543,108 @@
         },
         "operationId": "get-tracking-drivers-refusings",
         "description": "Return number of refusing from driver which has happened today"
+      },
+      "parameters": []
+    },
+    "/area/driver-areas/": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "FeatureCollection"
+                      ],
+                      "example": "FeatureCollection"
+                    },
+                    "features": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/DriverArea"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "type": "FeatureCollection",
+                      "features": [
+                        {
+                          "type": "Feature",
+                          "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                              [
+                                [
+                                  51.400484319372595,
+                                  35.77711998973699
+                                ],
+                                [
+                                  51.402285798950174,
+                                  35.77715689235952
+                                ],
+                                [
+                                  51.409926283111645,
+                                  35.77201786907895
+                                ],
+                                [
+                                  51.39114434603266,
+                                  35.774689473198926
+                                ]
+                              ]
+                            ]
+                          },
+                          "properties": {
+                            "id": 1,
+                            "name": "شیخ بهایی",
+                            "manual_assign_enabled": true
+                          }
+                        },
+                        {
+                          "type": "Feature",
+                          "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                              [
+                                [
+                                  51.37682978902819,
+                                  35.790869849127894
+                                ],
+                                [
+                                  51.365755603073445,
+                                  35.786687126523816
+                                ],
+                                [
+                                  51.36732868769171,
+                                  35.78070592083067
+                                ]
+                              ]
+                            ]
+                          },
+                          "properties": {
+                            "id": 12,
+                            "name": "سعادت آباد جدید",
+                            "manual_assign_enabled": false
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-area-driver-areas"
       },
       "parameters": []
     }
