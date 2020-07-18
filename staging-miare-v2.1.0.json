@@ -1549,7 +1549,9 @@
     "/area/driver-areas/": {
       "get": {
         "summary": "Your GET endpoint",
-        "tags": [],
+        "tags": [
+          "delivery"
+        ],
         "responses": {
           "200": {
             "description": "OK",
