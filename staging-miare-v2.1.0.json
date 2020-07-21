@@ -1130,6 +1130,7 @@
                 "examples": {
                   "example-1": {
                     "value": {
+                      "id": 1,
                       "name": "مرکزی",
                       "explanation": "شامل مناطق یوسف آباد، بهشتی و شیخ بهایی",
                       "image": "example_image.jpg"
