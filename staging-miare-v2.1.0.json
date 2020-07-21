@@ -3,7 +3,7 @@
   "info": {
     "description": "This is Miare Third-Party API, designed to enable registered Miare users to integrate our delivery services into their applications.",
     "version": "2.1.0",
-    "title": "Miare API",
+    "title": "Miare",
     "contact": {
       "email": "sazary@miare.ir"
     }
@@ -28,16 +28,24 @@
   ],
   "servers": [
     {
-      "url": "https://ws.mia.re/trip-management/third-party-api/v2"
+      "url": "https://ws.mia.re/trip-management/third-party-api/v2",
+      "description": "3rd Party"
     },
     {
-      "url": "https://staging.ws.mia.re/trip-management/third-party-api/v2"
+      "url": "https://staging.ws.mia.re/trip-management/third-party-api/v2",
+      "description": "3rd Party - Staging"
     },
     {
-      "url": "https://www.mia.re/api"
+      "url": "https://www.mia.re/api",
+      "description": "Django API"
     },
     {
-      "url": "https://staging.mia.re/api"
+      "url": "https://www.staging.mia.re/api",
+      "description": "Django API - Staging"
+    },
+    {
+      "description": "Go API - staging",
+      "url": "https://staging.ws.mia.re"
     }
   ],
   "components": {
@@ -117,7 +125,8 @@
         },
         "xml": {
           "name": "Trip"
-        }
+        },
+        "x-examples": {}
       },
       "DriverAllocation": {
         "type": "object",
@@ -455,6 +464,411 @@
             "type": "string",
             "description": "Human readable explanation of the error",
             "example": "Could not find trip with id \"wrong_id\""
+          }
+        }
+      },
+      "Problem": {
+        "title": "Problem",
+        "description": "Represents the problem choosable for Issue",
+        "type": "object",
+        "x-examples": {
+          "example": {
+            "id": 1,
+            "title": "آدرس را نمی‌شناسم",
+            "category": {
+              "id": 1,
+              "title": "عدم امکان تکمیل سفر",
+              "auto_revoke_on_create": false
+            }
+          }
+        },
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "category": {
+            "$ref": "#/components/schemas/ProblemCategory"
+          }
+        }
+      },
+      "ProblemCategory": {
+        "title": "ProblemCategory",
+        "type": "object",
+        "x-examples": {
+          "example": {
+            "id": 1,
+            "title": "عدم امکان تکمیل سفر",
+            "auto_revoke_on_create": false
+          }
+        },
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "auto_revoke_on_create": {
+            "type": "boolean"
+          }
+        }
+      },
+      "DriverPlan": {
+        "title": "DriverPlan",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "assign_weight": {
+            "type": "number"
+          },
+          "type": {
+            "type": "integer"
+          },
+          "intervals": {
+            "type": "array",
+            "items": {}
+          },
+          "max_acceptable_absence_hours": {
+            "type": "integer"
+          },
+          "min_acceptable_courses_count": {
+            "type": "integer"
+          },
+          "reservable": {
+            "type": "boolean",
+            "description": "Determins if the plan has the same type of Platinum"
+          }
+        }
+      },
+      "Notification": {
+        "title": "Notification",
+        "type": "object",
+        "x-examples": {
+          "message-example": {
+            "message_type": "message",
+            "payload": {
+              "id": 1,
+              "title": "مازاد درآمد",
+              "message": "تبریک! شما مشمول مازاد درآمد شدید",
+              "image": null
+            }
+          },
+          "ticket-example": {
+            "message_type": "ticket",
+            "payload": {
+              "id": 2,
+              "title": "پاسخ برای تیکت",
+              "message": "شما یک پیام خوانده نشده دارید، لطفا در اولین فرصت بخش تیکت‌ها در برنامه «میاره» را مشاهده نمائید.",
+              "image": null
+            }
+          }
+        },
+        "description": "Represents the data format of serialized message over GCM",
+        "properties": {
+          "message_type": {
+            "type": "string",
+            "enum": [
+              "message",
+              "ticket"
+            ]
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "title": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "image": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uri"
+              }
+            }
+          }
+        }
+      },
+      "DriverArea": {
+        "title": "DriverArea",
+        "type": "object",
+        "x-examples": {
+          "example": {
+            "type": "Feature",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    51.410995423278784,
+                    35.75178947678033
+                  ],
+                  [
+                    51.41437601058966,
+                    35.75236448783447
+                  ],
+                  [
+                    51.41608289947508,
+                    35.75241707766311
+                  ],
+                  [
+                    51.41783270370476,
+                    35.75171215711329
+                  ],
+                  [
+                    51.41996874603275,
+                    35.75069377287796
+                  ],
+                  [
+                    51.41975,
+                    35.75898
+                  ],
+                  [
+                    51.4213585423279,
+                    35.764430621902875
+                  ],
+                  [
+                    51.421853967914565,
+                    35.76584161592507
+                  ],
+                  [
+                    51.42770366539005,
+                    35.775432270258094
+                  ],
+                  [
+                    51.427215302963305,
+                    35.77935129337725
+                  ],
+                  [
+                    51.4220116170884,
+                    35.785208827223016
+                  ],
+                  [
+                    51.41961352184293,
+                    35.78923397961277
+                  ],
+                  [
+                    51.415976045646616,
+                    35.79079819176944
+                  ],
+                  [
+                    51.410919680881534,
+                    35.779561982767575
+                  ],
+                  [
+                    51.41210702117913,
+                    35.77346182827735
+                  ],
+                  [
+                    51.40970771163936,
+                    35.76051262997255
+                  ],
+                  [
+                    51.40944746378896,
+                    35.757159687273045
+                  ],
+                  [
+                    51.410136661376974,
+                    35.7559546866528
+                  ],
+                  [
+                    51.41051874603269,
+                    35.75426535475744
+                  ],
+                  [
+                    51.410995423278784,
+                    35.75178947678033
+                  ]
+                ]
+              ]
+            },
+            "properties": {
+              "id": 17,
+              "name": "جردن",
+              "manual_assign_enabled": false
+            }
+          }
+        },
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "Feature"
+            ],
+            "example": "Feature"
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "manual_assign_enabled": {
+                "type": "boolean"
+              }
+            }
+          },
+          "geometry": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "Polygon"
+                ],
+                "example": "Polygon"
+              },
+              "coordinates": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 1,
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {
+                      "type": "number",
+                      "exclusiveMinimum": false,
+                      "exclusiveMaximum": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "TripInDailyKPI": {
+        "title": "TripInDailyKPI",
+        "type": "object",
+        "x-tags": [
+          "accounting"
+        ],
+        "x-examples": {
+          "example": {
+            "request_datetime": "2020-01-15T11:45:23.484003+03:30",
+            "assign_datetime": "2020-01-15T11:45:53.264385+03:30",
+            "id": 1724657,
+            "courses": [
+              {
+                "id": 2630921,
+                "end_datetime": "2020-01-15T12:03:11+03:30",
+                "radial_end_to_end_distance": 0.009783316341434355,
+                "is_long": false
+              }
+            ],
+            "course_bonuses": [],
+            "source_title": "فودکورت لوکال‌هاست",
+            "is_round_trip": true,
+            "end_datetime": "2020-01-15T12:03:21+03:30",
+            "raw_salary": 15500
+          }
+        },
+        "description": "",
+        "properties": {
+          "request_datetime": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2020-01-15T11:45:23.484003+03:30"
+          },
+          "assign_datetim": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2020-01-15T11:45:23.484003+03:30"
+          },
+          "courses": {
+            "type": "array",
+            "items": {}
+          },
+          "id": {
+            "type": "integer",
+            "example": 1724657
+          },
+          "course_bonuses": {
+            "type": "array",
+            "items": {}
+          },
+          "source_title": {
+            "type": "string",
+            "example": "فودکورت لوکال‌هاست"
+          },
+          "is_round_trip": {
+            "type": "boolean"
+          },
+          "end_datetime": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2020-01-15T12:03:21+03:30"
+          },
+          "raw_salary": {
+            "type": "integer"
+          }
+        }
+      },
+      "Absence": {
+        "title": "Absence",
+        "type": "object",
+        "x-tags": [
+          "accounting",
+          "delivery"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "start_datetime": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2020-01-15T16:01:48.265866+03:30"
+          },
+          "end_datetime": {
+            "type": "string",
+            "example": "2020-01-15T16:01:48.265866+03:30"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "tag": {
+            "type": "integer",
+            "enum": [
+              0,
+              10,
+              20
+            ],
+            "example": 10
+          },
+          "comment": {
+            "type": "string"
+          }
+        },
+        "x-examples": {
+          "example": {
+            "id": 12838542,
+            "start_datetime": "2020-01-15T16:01:48.265866+03:30",
+            "end_datetime": "2020-01-15T17:30:00+03:30",
+            "status": false,
+            "tag": 20,
+            "comment": ""
           }
         }
       },
@@ -828,7 +1242,7 @@
         }
       }
     },
-    "/api/accounting/drivers/current-allocations/": {
+    "/accounting/drivers/current-allocations/": {
       "get": {
         "tags": [
           "accounting"
@@ -855,9 +1269,10 @@
             }
           }
         }
-      }
+      },
+      "parameters": []
     },
-    "/api/accounting/drivers/week-allocations/": {
+    "/accounting/drivers/week-allocations/": {
       "get": {
         "tags": [
           "accounting"
@@ -885,9 +1300,10 @@
             }
           }
         }
-      }
+      },
+      "parameters": []
     },
-    "/api/accounting/drivers/upcoming-allocation/": {
+    "/accounting/drivers/upcoming-allocation/": {
       "get": {
         "tags": [
           "accounting"
@@ -912,7 +1328,8 @@
             }
           }
         }
-      }
+      },
+      "parameters": []
     },
     "/ws/drivers/": {
       "get": {
@@ -1110,6 +1527,638 @@
         }
       }
     },
+    "/tracking/problems/": {
+      "get": {
+        "summary": "Problems",
+        "tags": [
+          "delivery"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Problem"
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": [
+                      {
+                        "id": 1,
+                        "title": "آدرس را نمی‌شناسم",
+                        "category": {
+                          "id": 1,
+                          "title": "عدم امکان تکمیل سفر",
+                          "auto_revoke_on_create": true
+                        }
+                      },
+                      {
+                        "id": 2,
+                        "title": "موتورم خراب شده است یا بنزین ندارم",
+                        "category": {
+                          "id": 1,
+                          "title": "عدم امکان تکمیل سفر",
+                          "auto_revoke_on_create": true
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-tracking-problems",
+        "description": "Returns unarchived problems exposed to Drivers"
+      },
+      "parameters": []
+    },
+    "/accounting/drivers/trip-salary/{trip_id}/": {
+      "get": {
+        "summary": "Trip Salary",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "courses_salary": {
+                      "type": "number"
+                    },
+                    "extra_salary_items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "amount": {
+                            "type": "number"
+                          },
+                          "reason": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "courses_count": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "courses_salary": 10000,
+                      "courses_count": 3,
+                      "extra_salary_items": [
+                        {
+                          "amount": 5000,
+                          "reason": "شرایط برفی"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When driver doesn't own the trip or his plan is not reservable"
+          }
+        },
+        "operationId": "get-accounting-trip-salary",
+        "description": "Returns info about the salary of a trip for drivers",
+        "tags": [
+          "accounting"
+        ]
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "trip_id",
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
+    "/trip-management/driver-api/refusings/": {
+      "get": {
+        "summary": "Today Refusings Count",
+        "tags": [
+          "delivery"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "count"
+                  ]
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "count": 2
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-tracking-drivers-refusings",
+        "description": "Return number of refusing from driver which has happened today"
+      },
+      "parameters": []
+    },
+    "/area/driver-areas/": {
+      "get": {
+        "summary": "Driver Areas",
+        "tags": [
+          "delivery"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "FeatureCollection"
+                      ],
+                      "example": "FeatureCollection"
+                    },
+                    "features": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/DriverArea"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "type": "FeatureCollection",
+                      "features": [
+                        {
+                          "type": "Feature",
+                          "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                              [
+                                [
+                                  51.400484319372595,
+                                  35.77711998973699
+                                ],
+                                [
+                                  51.402285798950174,
+                                  35.77715689235952
+                                ],
+                                [
+                                  51.409926283111645,
+                                  35.77201786907895
+                                ],
+                                [
+                                  51.39114434603266,
+                                  35.774689473198926
+                                ]
+                              ]
+                            ]
+                          },
+                          "properties": {
+                            "id": 1,
+                            "name": "شیخ بهایی",
+                            "manual_assign_enabled": true
+                          }
+                        },
+                        {
+                          "type": "Feature",
+                          "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                              [
+                                [
+                                  51.37682978902819,
+                                  35.790869849127894
+                                ],
+                                [
+                                  51.365755603073445,
+                                  35.786687126523816
+                                ],
+                                [
+                                  51.36732868769171,
+                                  35.78070592083067
+                                ]
+                              ]
+                            ]
+                          },
+                          "properties": {
+                            "id": 12,
+                            "name": "سعادت آباد جدید",
+                            "manual_assign_enabled": false
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-area-driver-areas"
+      },
+      "parameters": []
+    },
+    "/accounting/drivers/daily-kpi/": {
+      "get": {
+        "summary": "Daily KPI",
+        "tags": [
+          "accounting"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "bonus_courses_count": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "long_courses_count": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "courses_count": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "round_trips_count": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "absences": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Absence"
+                      }
+                    },
+                    "date": {
+                      "type": "string",
+                      "format": "date",
+                      "example": "2020-01-15"
+                    },
+                    "absence_seconds": {
+                      "type": "number",
+                      "example": 5291.734134,
+                      "minimum": 0
+                    },
+                    "trips": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TripInDailyKPI"
+                      }
+                    },
+                    "course_bonuses": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "bonus_courses_count": 0,
+                      "long_courses_count": 1,
+                      "courses_count": 10,
+                      "round_trips_count": 6,
+                      "absences": [
+                        {
+                          "id": 12838542,
+                          "start_datetime": "2020-01-15T16:01:48.265866+03:30",
+                          "end_datetime": "2020-01-15T17:30:00+03:30",
+                          "status": false,
+                          "tag": 20,
+                          "comment": ""
+                        }
+                      ],
+                      "date": "2020-01-15",
+                      "absence_seconds": 5291.734134,
+                      "trips": [
+                        {
+                          "request_datetime": "2020-01-15T15:02:53.507091+03:30",
+                          "assign_datetime": "2020-01-15T15:03:05.289311+03:30",
+                          "id": 1726120,
+                          "courses": [
+                            {
+                              "id": 2633380,
+                              "end_datetime": "2020-01-15T15:28:27+03:30",
+                              "radial_end_to_end_distance": 3.1678023226569194,
+                              "is_long": true
+                            }
+                          ],
+                          "course_bonuses": [],
+                          "source_title": "تهیه غذا گل یاس",
+                          "is_round_trip": false,
+                          "end_datetime": "2020-01-15T15:28:27+03:30"
+                        },
+                        {
+                          "request_datetime": "2020-01-15T14:39:25.449147+03:30",
+                          "assign_datetime": "2020-01-15T14:39:29.256853+03:30",
+                          "id": 1725971,
+                          "courses": [
+                            {
+                              "id": 2633140,
+                              "end_datetime": "2020-01-15T14:55:12+03:30",
+                              "radial_end_to_end_distance": 0.554773538189989,
+                              "is_long": false
+                            }
+                          ],
+                          "course_bonuses": [],
+                          "source_title": "اهورا",
+                          "is_round_trip": true,
+                          "end_datetime": "2020-01-15T15:02:23+03:30"
+                        },
+                        {
+                          "request_datetime": "2020-01-15T14:25:17.004720+03:30",
+                          "assign_datetime": "2020-01-15T14:25:25.658206+03:30",
+                          "id": 1725866,
+                          "courses": [
+                            {
+                              "id": 2632978,
+                              "end_datetime": "2020-01-15T14:36:04+03:30",
+                              "radial_end_to_end_distance": 0.2553254029662656,
+                              "is_long": false
+                            },
+                            {
+                              "id": 2632979,
+                              "end_datetime": "2020-01-15T14:32:19+03:30",
+                              "radial_end_to_end_distance": 0.18872457058450023,
+                              "is_long": false
+                            }
+                          ],
+                          "course_bonuses": [],
+                          "source_title": "اهورا",
+                          "is_round_trip": true,
+                          "end_datetime": "2020-01-15T14:37:52+03:30"
+                        },
+                        {
+                          "request_datetime": "2020-01-15T13:46:07.714467+03:30",
+                          "assign_datetime": "2020-01-15T13:46:17.157006+03:30",
+                          "id": 1725562,
+                          "courses": [
+                            {
+                              "id": 2632496,
+                              "end_datetime": "2020-01-15T14:19:28+03:30",
+                              "radial_end_to_end_distance": 0.011249108275583031,
+                              "is_long": false
+                            },
+                            {
+                              "id": 2632494,
+                              "end_datetime": "2020-01-15T14:19:14+03:30",
+                              "radial_end_to_end_distance": 0.012657498618597367,
+                              "is_long": false
+                            },
+                            {
+                              "id": 2632455,
+                              "end_datetime": "2020-01-15T14:19:06+03:30",
+                              "radial_end_to_end_distance": 0.4748264050348156,
+                              "is_long": false
+                            }
+                          ],
+                          "course_bonuses": [],
+                          "source_title": "اهورا",
+                          "is_round_trip": true,
+                          "end_datetime": "2020-01-15T14:22:53+03:30"
+                        },
+                        {
+                          "request_datetime": "2020-01-15T12:53:16.024924+03:30",
+                          "assign_datetime": "2020-01-15T12:53:36.253022+03:30",
+                          "id": 1725094,
+                          "courses": [
+                            {
+                              "id": 2631605,
+                              "end_datetime": "2020-01-15T13:12:26+03:30",
+                              "radial_end_to_end_distance": 0.9553523969044245,
+                              "is_long": false
+                            }
+                          ],
+                          "course_bonuses": [],
+                          "source_title": "شادی اندرزگو",
+                          "is_round_trip": true,
+                          "end_datetime": "2020-01-15T13:20:00+03:30"
+                        },
+                        {
+                          "request_datetime": "2020-01-15T12:03:03.267951+03:30",
+                          "assign_datetime": "2020-01-15T12:03:26.474656+03:30",
+                          "id": 1724727,
+                          "courses": [
+                            {
+                              "id": 2631028,
+                              "end_datetime": "2020-01-15T12:07:43+03:30",
+                              "radial_end_to_end_distance": 0.01429344236475458,
+                              "is_long": false
+                            }
+                          ],
+                          "course_bonuses": [],
+                          "source_title": "کترینگ پلو",
+                          "is_round_trip": true,
+                          "end_datetime": "2020-01-15T12:23:17.427800+03:30"
+                        },
+                        {
+                          "request_datetime": "2020-01-15T11:45:23.484003+03:30",
+                          "assign_datetime": "2020-01-15T11:45:53.264385+03:30",
+                          "id": 1724657,
+                          "courses": [
+                            {
+                              "id": 2630921,
+                              "end_datetime": "2020-01-15T12:03:11+03:30",
+                              "radial_end_to_end_distance": 0.009783316341434355,
+                              "is_long": false
+                            }
+                          ],
+                          "course_bonuses": [],
+                          "source_title": "ساندویچ ایرونی",
+                          "is_round_trip": true,
+                          "end_datetime": "2020-01-15T12:03:21+03:30"
+                        }
+                      ],
+                      "course_bonuses": []
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-accounting-drivers-daily-kpi",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": "2020-01-15"
+            },
+            "in": "query",
+            "name": "date",
+            "required": true,
+            "description": ""
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "header",
+            "name": "ENTITY-ID",
+            "description": "The ID of the driver in case that the request is from operation agent"
+          }
+        ],
+        "description": "Returns detailed accounting report of a driver per date"
+      }
+    },
+    "/re": {
+      "get": {
+        "summary": "lj",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Driverzone"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-re",
+        "description": ""
+      }
+    },
+    "/reservation/capacities/": {
+      "get": {
+        "summary": "Get Capacities",
+        "tags": [
+          "reservation"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "area": {
+                        "$ref": "#/components/schemas/Area"
+                      },
+                      "date": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "reserved_interval_ids": {
+                        "type": "array",
+                        "uniqueItems": true,
+                        "items": {
+                          "type": "integer"
+                        }
+                      },
+                      "interval_capacities": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "interval": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "name": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "capacity": {
+                              "type": "integer",
+                              "minimum": 0
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": [
+                      {
+                        "date": "2020-01-01",
+                        "area": {
+                          "id": 1,
+                          "name": "شیخ بهایی"
+                        },
+                        "reserved_interval_ids": [
+                          2,
+                          3
+                        ],
+                        "interval_capacities": [
+                          {
+                            "interval": {
+                              "id": 2,
+                              "name": "ظهر"
+                            },
+                            "capacity": 2
+                          },
+                          {
+                            "interval": {
+                              "id": 3,
+                              "name": "شب"
+                            },
+                            "capacity": 0
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-reservation-capacities",
+        "description": "Returns capacity report for area-date-interval"
+      }
+    },
     "/driver-areas/zones/": {
       "get": {
         "summary": "zones",
@@ -1145,5 +2194,10 @@
         "description": "Returns All zones"
       }
     }
-  }
+  },
+  "security": [
+    {
+      "auth": []
+    }
+  ]
 }
