@@ -430,6 +430,13 @@
             "items": {
               "$ref": "#/components/schemas/OrderItem"
             }
+          },
+          "expired_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
           }
         }
       },
@@ -1460,8 +1467,70 @@
                     "$ref": "#/components/schemas/Order"
                   }
                 },
-                "examples": {
-                  "example-1": {}
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create new order",
+        "operationId": "post-reservation-orders",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                },
+                "examples": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (Validation error occures on request body)"
+          },
+          "403": {
+            "description": "Forbidden (Requesting intervals are full of capacity)"
+          }
+        },
+        "description": "Create an order with its items",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "interval_id": {
+                      "type": "integer"
+                    },
+                    "area_id": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "example": {
+                  "value": [
+                    {
+                      "date": "2020-01-01",
+                      "interval_id": 1,
+                      "area_id": 1
+                    },
+                    {
+                      "date": "2020-01-01",
+                      "interval_id": 2,
+                      "area_id": 1
+                    }
+                  ]
                 }
               }
             }
