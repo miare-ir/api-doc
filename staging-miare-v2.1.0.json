@@ -871,6 +871,19 @@
             "comment": ""
           }
         }
+      },
+      "Driverzone": {
+        "title": "DriverZone",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "uri"
+          }
+        },
+        "x-examples": {
+          "example-1": {}
+        }
       }
     },
     "requestBodies": {
@@ -2011,6 +2024,126 @@
           }
         ],
         "description": "Returns detailed accounting report of a driver per date"
+      }
+    },
+    "/re": {
+      "get": {
+        "summary": "lj",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Driverzone"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-re",
+        "description": ""
+      }
+    },
+    "/reservation/capacities/": {
+      "get": {
+        "summary": "Get Capacities",
+        "tags": [
+          "reservation"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "area": {
+                        "$ref": "#/components/schemas/Area"
+                      },
+                      "date": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "reserved_interval_ids": {
+                        "type": "array",
+                        "uniqueItems": true,
+                        "items": {
+                          "type": "integer"
+                        }
+                      },
+                      "interval_capacities": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "interval": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "name": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "capacity": {
+                              "type": "integer",
+                              "minimum": 0
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": [
+                      {
+                        "date": "2020-01-01",
+                        "area": {
+                          "id": 1,
+                          "name": "شیخ بهایی"
+                        },
+                        "reserved_interval_ids": [
+                          2,
+                          3
+                        ],
+                        "interval_capacities": [
+                          {
+                            "interval": {
+                              "id": 2,
+                              "name": "ظهر"
+                            },
+                            "capacity": 2
+                          },
+                          {
+                            "interval": {
+                              "id": 3,
+                              "name": "شب"
+                            },
+                            "capacity": 0
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-reservation-capacities",
+        "description": "Returns capacity report for area-date-interval"
       }
     }
   },
