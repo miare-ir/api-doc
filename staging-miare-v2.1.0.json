@@ -387,6 +387,9 @@
       },
       "Order": {
         "type": "object",
+        "xml": {
+          "name": "Order"
+        },
         "properties": {
           "id": {
             "type": "integer",
@@ -417,13 +420,17 @@
                 "$ref": "#/components/schemas/Payment"
               },
               {
-                "nullable": true
+                "type": "null"
               }
             ]
+          },
+          "items": {
+            "type": "array",
+            "description": "Items of this order",
+            "items": {
+              "$ref": "#/components/schemas/OrderItem"
+            }
           }
-        },
-        "xml": {
-          "name": "Order"
         }
       },
       "Event": {
@@ -893,6 +900,51 @@
         "x-examples": {
           "example": {}
         }
+      },
+      "OrderItem": {
+        "title": "OrderItem",
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "amount": {
+            "type": "integer"
+          },
+          "interval_areas": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "interval": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "area": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-examples": {},
+        "description": "Describes each row of an Order object"
       }
     },
     "requestBodies": {
