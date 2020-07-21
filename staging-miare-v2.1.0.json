@@ -408,7 +408,7 @@
                 "$ref": "#/components/schemas/Payment"
               },
               {
-                  "nullable": true
+                "nullable": true
               }
             ]
           }
@@ -456,6 +456,28 @@
             "description": "Human readable explanation of the error",
             "example": "Could not find trip with id \"wrong_id\""
           }
+        }
+      },
+      "DriverZone": {
+        "title": "DriverZone",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "explanation": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "x-examples": {
+          "example": {}
         }
       }
     },
@@ -857,7 +879,8 @@
                   "items": {
                     "$ref": "#/components/schemas/DriverAllocation"
                   }
-                }
+                },
+                "examples": {}
               }
             }
           }
@@ -925,37 +948,37 @@
         "summary": "Orders that have been placed to reserve shifts",
         "description": "These orders are all of orders that this driver have placed, whether they've been paid or not.",
         "parameters": [
-            {
-                "in": "query",
-                "name": "status",
-                "schema": {
-                    "type": "string",
-                    "enum": [
-                        "successful",
-                        "pending"
-                    ]
-                },
-                "required": true,
-                "description": "Which type of orders do we want to fetch"
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "successful",
+                "pending"
+              ]
             },
-            {
-                "in": "query",
-                "name": "from_date",
-                "schema": {
-                    "type": "string",
-                    "format": "date"
-                },
-                "description": "Only fetch orders from this date"
+            "required": true,
+            "description": "Which type of orders do we want to fetch"
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string",
+              "format": "date"
             },
-            {
-                "in": "query",
-                "name": "to_date",
-                "schema": {
-                    "type": "string",
-                    "format": "date"
-                },
-                "description": "Only fetch orders until this date"
-            }
+            "description": "Only fetch orders from this date"
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Only fetch orders until this date"
+          }
         ],
         "responses": {
           "200": {
@@ -967,6 +990,9 @@
                   "items": {
                     "$ref": "#/components/schemas/Order"
                   }
+                },
+                "examples": {
+                  "example-1": {}
                 }
               }
             }
@@ -987,7 +1013,9 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["order_id"],
+                "required": [
+                  "order_id"
+                ],
                 "properties": {
                   "order_id": {
                     "type": "integer",
@@ -1006,11 +1034,17 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["http_method", "url"],
+                  "required": [
+                    "http_method",
+                    "url"
+                  ],
                   "properties": {
                     "http_method": {
                       "type": "string",
-                      "enum": ["GET", "POST"]
+                      "enum": [
+                        "GET",
+                        "POST"
+                      ]
                     },
                     "url": {
                       "type": "string",
@@ -1060,7 +1094,10 @@
                   "properties": {
                     "code": {
                       "type": "string",
-                      "enum": ["no_provider_available", "no_profile"]
+                      "enum": [
+                        "no_provider_available",
+                        "no_profile"
+                      ]
                     },
                     "details": {
                       "type": "string"
@@ -1071,6 +1108,40 @@
             }
           }
         }
+      }
+    },
+    "/driver-areas/zones/": {
+      "get": {
+        "summary": "zones",
+        "tags": [
+          "reservation"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DriverZone"
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "name": "مرکزی",
+                      "explanation": "شامل مناطق یوسف آباد، بهشتی و شیخ بهایی",
+                      "image": "example_image.jpg"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-driver-areas-zones",
+        "description": "Returns All zones"
       }
     }
   }
