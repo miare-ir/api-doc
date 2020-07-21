@@ -872,17 +872,26 @@
           }
         }
       },
-      "Driverzone": {
+      "DriverZone": {
         "title": "DriverZone",
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer",
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "explanation": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string",
             "format": "uri"
           }
         },
         "x-examples": {
-          "example-1": {}
+          "example": {}
         }
       }
     },
@@ -1285,7 +1294,8 @@
                   "items": {
                     "$ref": "#/components/schemas/DriverAllocation"
                   }
-                }
+                },
+                "examples": {}
               }
             }
           }
@@ -1397,6 +1407,9 @@
                   "items": {
                     "$ref": "#/components/schemas/Order"
                   }
+                },
+                "examples": {
+                  "example-1": {}
                 }
               }
             }
@@ -2144,6 +2157,41 @@
         },
         "operationId": "get-reservation-capacities",
         "description": "Returns capacity report for area-date-interval"
+      }
+    },
+    "/driver-areas/zones/": {
+      "get": {
+        "summary": "zones",
+        "tags": [
+          "reservation"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DriverZone"
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "id": 1,
+                      "name": "مرکزی",
+                      "explanation": "شامل مناطق یوسف آباد، بهشتی و شیخ بهایی",
+                      "image": "example_image.jpg"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-driver-areas-zones",
+        "description": "Returns All zones"
       }
     }
   },
