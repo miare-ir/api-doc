@@ -875,6 +875,9 @@
       "DriverZone": {
         "title": "DriverZone",
         "type": "object",
+        "x-examples": {
+          "example": {}
+        },
         "properties": {
           "id": {
             "type": "integer"
@@ -884,14 +887,95 @@
           },
           "explanation": {
             "type": "string"
+          }
+        }
+      },
+      "DriverActivityZone": {
+        "title": "DriverActivityZone",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
           },
-          "image": {
+          "driver": {
+            "$ref": "#/components/schemas/Driver"
+          },
+          "zone": {
+            "$ref": "#/components/schemas/DriverZone"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Driver": {
+        "title": "Driver",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "user": {
+            "$ref": ""
+          },
+          "national_id": {
+            "type": "integer"
+          },
+          "avatar": {
             "type": "string",
             "format": "uri"
+          },
+          "available": {
+            "type": "boolean"
+          },
+          "present_at_shift_start": {
+            "type": "boolean"
+          },
+          "busy": {
+            "type": "boolean"
+          },
+          "phone": {
+            "type": "integer"
+          },
+          "quit_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "quit_type": {
+            "type": "integer"
+          },
+          "quit_reason": {
+            "type": "string"
+          },
+          "rating": {
+            "type": [
+              "string",
+              "integer"
+            ]
+          },
+          "is_suspended": {
+            "type": "boolean"
+          },
+          "suspension_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "tags": {
+            "$ref": "#/components/schemas/DriverTag"
           }
-        },
-        "x-examples": {
-          "example": {}
+        }
+      },
+      "DriverTag": {
+        "title": "DriverTag",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
         }
       }
     },
@@ -2159,7 +2243,7 @@
         "description": "Returns capacity report for area-date-interval"
       }
     },
-    "/driver-areas/zones/": {
+    "area/driver-areas/zones/": {
       "get": {
         "summary": "zones",
         "tags": [
@@ -2173,17 +2257,37 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/DriverZone"
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/DriverZone"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "driver_active_zone": {
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    ]
                   }
                 },
                 "examples": {
                   "example-1": {
-                    "value": {
-                      "id": 1,
-                      "name": "مرکزی",
-                      "explanation": "شامل مناطق یوسف آباد، بهشتی و شیخ بهایی",
-                      "image": "example_image.jpg"
-                    }
+                    "value": [
+                      {
+                        "id": 1,
+                        "name": "مرکزی",
+                        "explanation": "شامل مناطق یوسف آباد و شیخ بهایی",
+                        "driver_active_zone": true
+                      },
+                      {
+                        "id": 2,
+                        "name": "شمالی",
+                        "explanation": "شامل مناطق اندرزگو و الهیه",
+                        "driver_active_zone": false
+                      }
+                    ]
                   }
                 }
               }
@@ -2191,7 +2295,48 @@
           }
         },
         "operationId": "get-driver-areas-zones",
-        "description": "Returns All zones"
+        "description": "Returns All zones and driver active zone"
+      },
+      "parameters": []
+    },
+    "/area/driver-areas/set-zone/": {
+      "post": {
+        "summary": "",
+        "operationId": "post-area-driver-areas-set-zone",
+        "responses": {
+          "200": {
+            "description": "{\n    \"status\": \"ok\"\n}"
+          },
+          "400": {
+            "description": "Bad Request, if zone_id is not included in request\n\n{\n    \"detail\": \"Invalid input.\",\n    \"code\": \"invalid\",\n    \"metadata\": {\n        \"field_name\": \"zone_id\",\n        \"required_data_type\": \"None\"\n    }\n}"
+          },
+          "404": {
+            "description": "Not Found, if zone_id is not valid\n{\n    \"detail\": \"Not found.\",\n    \"code\": \"not_found\"\n}"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "zone_id": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "examples": {
+                "example": {
+                  "value": {
+                    "zone_id": [
+                      "1"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
