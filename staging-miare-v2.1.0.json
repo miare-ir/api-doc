@@ -2425,7 +2425,7 @@
     },
     "/area/driver-areas/set-zone/": {
       "post": {
-        "summary": "",
+        "summary": "Set Zone",
         "operationId": "post-area-driver-areas-set-zone",
         "responses": {
           "200": {
@@ -2460,7 +2460,10 @@
               }
             }
           }
-        }
+        },
+        "tags": [
+          "reservation"
+        ]
       }
     }
   },
