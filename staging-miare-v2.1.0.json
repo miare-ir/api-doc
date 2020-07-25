@@ -2388,7 +2388,7 @@
                       {
                         "type": "object",
                         "properties": {
-                          "driver_active_zone": {
+                          "is_active": {
                             "type": "boolean"
                           }
                         }
@@ -2403,13 +2403,13 @@
                         "id": 1,
                         "name": "مرکزی",
                         "explanation": "شامل مناطق یوسف آباد و شیخ بهایی",
-                        "driver_active_zone": true
+                        "is_active": true
                       },
                       {
                         "id": 2,
                         "name": "شمالی",
                         "explanation": "شامل مناطق اندرزگو و الهیه",
-                        "driver_active_zone": false
+                        "is_active": false
                       }
                     ]
                   }
