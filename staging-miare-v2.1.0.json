@@ -2329,13 +2329,6 @@
                         "type": "string",
                         "format": "date"
                       },
-                      "reserved_interval_ids": {
-                        "type": "array",
-                        "uniqueItems": true,
-                        "items": {
-                          "type": "integer"
-                        }
-                      },
                       "interval_capacities": {
                         "type": "array",
                         "items": {
@@ -2355,6 +2348,9 @@
                             "capacity": {
                               "type": "integer",
                               "minimum": 0
+                            },
+                            "reserved": {
+                              "type": "boolean"
                             }
                           }
                         }
@@ -2371,24 +2367,22 @@
                           "id": 1,
                           "name": "شیخ بهایی"
                         },
-                        "reserved_interval_ids": [
-                          2,
-                          3
-                        ],
                         "interval_capacities": [
                           {
                             "interval": {
                               "id": 2,
                               "name": "ظهر"
                             },
-                            "capacity": 2
+                            "capacity": 2,
+                            "reserved": true
                           },
                           {
                             "interval": {
                               "id": 3,
                               "name": "شب"
                             },
-                            "capacity": 0
+                            "capacity": 0,
+                            "reserved": false
                           }
                         ]
                       }
