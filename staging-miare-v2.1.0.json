@@ -1036,6 +1036,38 @@
         },
         "x-examples": {},
         "description": "Describes each row of an Order object"
+      },
+      "DailyKPI": {
+        "title": "DailyKPI",
+        "type": "object",
+        "properties": {
+          "absence_seconds": {
+            "type": "integer"
+          },
+          "absences": {
+            "type": "array",
+            "items": {}
+          },
+          "bonus_courses_count": {
+            "type": "integer"
+          },
+          "courses_count": {
+            "type": "integer"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "long_courses_count": {
+            "type": "integer"
+          },
+          "round_trips_count": {
+            "type": "integer"
+          },
+          "trips_count": {
+            "type": "integer"
+          }
+        }
       }
     },
     "requestBodies": {
@@ -2053,6 +2085,10 @@
                     "course_bonuses": {
                       "type": "array",
                       "items": {}
+                    },
+                    "trips_count": {
+                      "type": "integer",
+                      "minimum": 0
                     }
                   }
                 },
@@ -2463,6 +2499,251 @@
         },
         "tags": [
           "reservation"
+        ]
+      }
+    },
+    "/accounting/drivers/week_review/": {
+      "get": {
+        "summary": "Week Review Report",
+        "tags": [
+          "accounting"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "balance": {
+                      "type": "string"
+                    },
+                    "comission_items": {
+                      "type": "string"
+                    },
+                    "current_week_balance": {
+                      "type": "string"
+                    },
+                    "daily_kpi": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/DailyKPI"
+                      }
+                    },
+                    "debt_items": {
+                      "type": "integer"
+                    },
+                    "due_from_last_week": {
+                      "type": "integer"
+                    },
+                    "kpi_review": {
+                      "type": "object"
+                    },
+                    "out_of_shift_comissions": {
+                      "type": "integer",
+                      "enum": [
+                        0
+                      ]
+                    },
+                    "out_of_shift_kilometers": {
+                      "type": "integer",
+                      "enum": [
+                        0
+                      ]
+                    },
+                    "plan": {
+                      "$ref": "#/components/schemas/DriverPlan"
+                    },
+                    "punishment_items": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "referral_items": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "reward_items": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "shifts": {
+                      "type": "array",
+                      "maxItems": 0,
+                      "items": {}
+                    },
+                    "total_comission": {
+                      "type": "integer",
+                      "enum": [
+                        "0"
+                      ]
+                    },
+                    "total_debt": {
+                      "type": "integer"
+                    },
+                    "total_punishment": {
+                      "type": "integer"
+                    },
+                    "total_referral": {
+                      "type": "integer"
+                    },
+                    "total_reward": {
+                      "type": "integer"
+                    },
+                    "": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "reward_items": [
+                        {
+                          "created_at": "2020-07-12T11:31:06.444472Z",
+                          "type": {
+                            "id": 31,
+                            "name": "مسیر طولانی"
+                          },
+                          "id": 446342,
+                          "reason": "درآمد مازاد مسیر دور آشپزخانه آذری",
+                          "amount": 2000
+                        }
+                      ],
+                      "debt_items": [],
+                      "commission_items": [],
+                      "total_punishment": 0,
+                      "total_commission": 0,
+                      "total_debt": 0,
+                      "total_reward": 2000,
+                      "total_referral": 0,
+                      "due_from_last_week": -1594153,
+                      "out_of_shift_kilometers": 0,
+                      "balance": -1592153,
+                      "plan": {
+                        "name": "طرح بسیار موقتی",
+                        "id": 146,
+                        "assign_weight": 1,
+                        "type": 3,
+                        "intervals": [
+                          {
+                            "id": 13,
+                            "name": "اینتروالی برای تست",
+                            "start_time": "10:15:00",
+                            "end_time": "23:30:00"
+                          }
+                        ],
+                        "reservable": false,
+                        "max_acceptable_absence_hours": 12,
+                        "min_acceptable_courses_count": 85
+                      },
+                      "referral_items": [],
+                      "kpi_review": {
+                        "fix_salary": 0,
+                        "courses_salary": 9000,
+                        "balance_change": 9000,
+                        "fix_reward": null,
+                        "absence_punishments": [],
+                        "plan_fix_reward": 0,
+                        "fix_salary_applicable": false,
+                        "reward_threshold": 0,
+                        "dynamic_reward": null
+                      },
+                      "out_of_shift_commission": 0,
+                      "daily_kpi": [
+                        {
+                          "trips_count": 0,
+                          "courses_count": 0,
+                          "date": "2020-07-11",
+                          "long_courses_count": 0,
+                          "absences": [],
+                          "absence_seconds": 0,
+                          "bonus_courses_count": 0,
+                          "round_trips_count": 0
+                        },
+                        {
+                          "trips_count": 1,
+                          "courses_count": 3,
+                          "date": "2020-07-12",
+                          "long_courses_count": 1,
+                          "absences": [],
+                          "absence_seconds": 0,
+                          "bonus_courses_count": 0,
+                          "round_trips_count": 0
+                        },
+                        {
+                          "trips_count": 0,
+                          "courses_count": 0,
+                          "date": "2020-07-13",
+                          "long_courses_count": 0,
+                          "absences": [],
+                          "absence_seconds": 0,
+                          "bonus_courses_count": 0,
+                          "round_trips_count": 0
+                        },
+                        {
+                          "trips_count": 0,
+                          "courses_count": 0,
+                          "date": "2020-07-14",
+                          "long_courses_count": 0,
+                          "absences": [],
+                          "absence_seconds": 0,
+                          "bonus_courses_count": 0,
+                          "round_trips_count": 0
+                        },
+                        {
+                          "trips_count": 0,
+                          "courses_count": 0,
+                          "date": "2020-07-15",
+                          "long_courses_count": 0,
+                          "absences": [],
+                          "absence_seconds": 0,
+                          "bonus_courses_count": 0,
+                          "round_trips_count": 0
+                        },
+                        {
+                          "trips_count": 0,
+                          "courses_count": 0,
+                          "date": "2020-07-16",
+                          "long_courses_count": 0,
+                          "absences": [],
+                          "absence_seconds": 0,
+                          "bonus_courses_count": 0,
+                          "round_trips_count": 0
+                        },
+                        {
+                          "trips_count": 0,
+                          "courses_count": 0,
+                          "date": "2020-07-17",
+                          "long_courses_count": 0,
+                          "absences": [],
+                          "absence_seconds": 0,
+                          "bonus_courses_count": 0,
+                          "round_trips_count": 0
+                        }
+                      ],
+                      "punishment_items": [],
+                      "shifts": [],
+                      "current_week_balance": -1592153
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-accounting-drivers-week_review",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "in": "query",
+            "name": "date",
+            "description": "",
+            "required": true
+          }
         ]
       }
     }
