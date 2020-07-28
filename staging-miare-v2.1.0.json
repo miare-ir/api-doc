@@ -2376,8 +2376,8 @@
                             "interval": {
                               "id": 2,
                               "name": "ظهر",
-                              "start_time": "11:30",
-                              "end_time": "15:30"
+                              "start_time": "11:30:00",
+                              "end_time": "15:30:00"
                             },
                             "capacity": 2,
                             "reserved": true
@@ -2386,8 +2386,8 @@
                             "interval": {
                               "id": 3,
                               "name": "شب",
-                              "start_time": "19:30",
-                              "end_time": "23:30"
+                              "start_time": "19:30:00",
+                              "end_time": "23:30:00"
                             },
                             "capacity": 0,
                             "reserved": false
