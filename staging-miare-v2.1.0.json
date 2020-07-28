@@ -995,6 +995,8 @@
       "OrderItem": {
         "title": "OrderItem",
         "type": "object",
+        "x-examples": {},
+        "description": "Describes each row of an Order object",
         "properties": {
           "date": {
             "type": "string",
@@ -1009,15 +1011,7 @@
               "type": "object",
               "properties": {
                 "interval": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer"
-                    },
-                    "name": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/Interval"
                 },
                 "area": {
                   "type": "object",
@@ -1033,9 +1027,7 @@
               }
             }
           }
-        },
-        "x-examples": {},
-        "description": "Describes each row of an Order object"
+        }
       },
       "DailyKPI": {
         "title": "DailyKPI",
@@ -1066,6 +1058,26 @@
           },
           "trips_count": {
             "type": "integer"
+          }
+        }
+      },
+      "Interval": {
+        "title": "Interval",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "start_time": {
+            "type": "string",
+            "format": "time"
+          },
+          "end_time": {
+            "type": "string",
+            "format": "time"
+          },
+          "name": {
+            "type": "string"
           }
         }
       }
@@ -2335,15 +2347,7 @@
                           "type": "object",
                           "properties": {
                             "interval": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "integer"
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              }
+                              "$ref": "#/components/schemas/Interval"
                             },
                             "capacity": {
                               "type": "integer",
@@ -2371,7 +2375,9 @@
                           {
                             "interval": {
                               "id": 2,
-                              "name": "ظهر"
+                              "name": "ظهر",
+                              "start_time": "11:30",
+                              "end_time": "15:30"
                             },
                             "capacity": 2,
                             "reserved": true
@@ -2379,7 +2385,9 @@
                           {
                             "interval": {
                               "id": 3,
-                              "name": "شب"
+                              "name": "شب",
+                              "start_time": "19:30",
+                              "end_time": "23:30"
                             },
                             "capacity": 0,
                             "reserved": false
