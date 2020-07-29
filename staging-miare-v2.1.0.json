@@ -2748,6 +2748,46 @@
           }
         ]
       }
+    },
+    "/reservation/orders/{order_id}/cancel/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "order_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Cancel Order",
+        "tags": [
+          "reservation"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example": {
+                    "value": {}
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "operationId": "post-reservation-orders-order_id-cancel",
+        "description": "Cancel a pending order"
+      }
     }
   },
   "security": [
