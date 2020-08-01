@@ -1080,6 +1080,97 @@
             "type": "string"
           }
         }
+      },
+      "User": {
+        "title": "User",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "is_staff": {
+            "type": "boolean"
+          },
+          "username": {
+            "type": "string"
+          }
+        }
+      },
+      "Issue": {
+        "title": "Issue",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "driver_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "trip_id": {
+            "type": "integer"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "problem": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "title": {
+                "type": "string"
+              }
+            }
+          },
+          "reported_at": {
+            "type": "string"
+          },
+          "resolved_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "picked_by": {
+            "$ref": "#/components/schemas/User"
+          }
+        },
+        "x-examples": {
+          "example": {
+            "description": "پاره‌ای از توضیحات",
+            "driver_id": 5,
+            "id": 123,
+            "problem": null,
+            "reported_at": "2020-07-22T13:37:51+0430",
+            "resolved_at": null,
+            "trip_id": 1769145,
+            "picked_by": {
+              "id": 6067,
+              "username": "partizaans",
+              "is_staff": true,
+              "first_name": "رضا",
+              "last_name": "پورمشکی"
+            }
+          }
+        }
       }
     },
     "requestBodies": {
@@ -2295,29 +2386,7 @@
         "description": "Returns detailed accounting report of a driver per date"
       }
     },
-    "/re": {
-      "get": {
-        "summary": "lj",
-        "tags": [],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Driverzone"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "operationId": "get-re",
-        "description": ""
-      }
-    },
+    "/re": {},
     "/reservation/capacities/": {
       "get": {
         "summary": "Get Capacities",
