@@ -1101,7 +1101,7 @@
           "is_staff": {
             "type": "boolean"
           },
-          "username": {
+          "user_name": {
             "type": "string"
           }
         }
@@ -1121,7 +1121,7 @@
             "trip_id": 1769145,
             "picked_by": {
               "id": 6067,
-              "username": "partizaans",
+              "user_name": "partizaans",
               "is_staff": true,
               "first_name": "رضا",
               "last_name": "پورمشکی"
