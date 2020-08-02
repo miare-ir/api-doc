@@ -46,6 +46,10 @@
     {
       "description": "Go API - staging",
       "url": "https://staging.ws.mia.re"
+    },
+    {
+      "url": "https://staging.ws.mia.re/staff-api",
+      "description": "Go Staff API - staging"
     }
   ],
   "components": {
@@ -2864,6 +2868,49 @@
         },
         "operationId": "post-reservation-orders-order_id-cancel",
         "description": "Cancel a pending order"
+      }
+    },
+    "/issues/{issue_id}/pick/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "issue_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Issue Pick",
+        "tags": [
+          "delivery"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "example": {
+                    "value": {}
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden (The requester is not staff)"
+          },
+          "404": {
+            "description": "Not Found (No issue found with the same id)"
+          }
+        },
+        "operationId": "post-issues-issue_id-pick"
       }
     }
   },
