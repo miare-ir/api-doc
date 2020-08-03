@@ -1104,7 +1104,8 @@
           "user_name": {
             "type": "string"
           }
-        }
+        },
+        "x-examples": {}
       },
       "Issue": {
         "title": "Issue",
@@ -1121,10 +1122,10 @@
             "trip_id": 1769145,
             "picked_by": {
               "id": 6067,
-              "user_name": "partizaans",
+              "user_name": "a1b2c3",
               "is_staff": true,
-              "first_name": "رضا",
-              "last_name": "پورمشکی"
+              "first_name": "John",
+              "last_name": "Smith"
             }
           }
         },
