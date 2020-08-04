@@ -1184,6 +1184,31 @@
             ]
           }
         }
+      },
+      "StaticContent": {
+        "title": "StaticContent",
+        "type": "object",
+        "description": "Represents a model keeping static contents on the file server",
+        "x-examples": {
+          "example": {
+            "id": 1,
+            "name": "v1",
+            "file_url": "http://localhost:8000/media/%D8%B3%D9%BE%D9%87%D8%B1.JPG"
+          }
+        },
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name which the staff has entered while saving the record"
+          },
+          "file_url": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
       }
     },
     "requestBodies": {
@@ -2912,6 +2937,81 @@
           }
         },
         "operationId": "post-issues-issue_id-pick"
+      }
+    },
+    "/notification/static-contents/{category_name}/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string",
+            "enum": [
+              "reservation-tutorial",
+              "..."
+            ]
+          },
+          "name": "category_name",
+          "in": "path",
+          "required": true,
+          "description": "The name of the category which user expects to see its contents"
+        }
+      ],
+      "get": {
+        "summary": "Get static contents",
+        "tags": [
+          "delivery"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/StaticContent"
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/StaticContent"
+                    }
+                  ]
+                },
+                "examples": {
+                  "obj-example": {
+                    "value": {
+                      "id": 1,
+                      "name": "v1",
+                      "file_url": "http://localhost:8000/media/%D8%B3%D9%BE%D9%87%D8%B1.JPG"
+                    }
+                  },
+                  "list-example": {
+                    "value": [
+                      {
+                        "id": 1,
+                        "name": "pic 1",
+                        "file_url": "http://localhost:8000/media/%D8%B3%D9%BE%D9%87%D8%B1.JPG"
+                      },
+                      {
+                        "id": 3,
+                        "name": "pic 2",
+                        "file_url": "http://localhost:8000/media/%D8%B3%D9%BE%D9%87%D8%B2.JPG"
+                      }
+                    ]
+                  },
+                  "empty-list-example": {
+                    "value": []
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found (No content obj is created for the given obj category || category not found)"
+          }
+        },
+        "operationId": "get-notification-static-contents-category_name"
       }
     }
   },
