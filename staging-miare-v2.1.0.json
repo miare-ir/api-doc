@@ -24,6 +24,9 @@
     {
       "name": "reservation",
       "description": "Driver's reservation services"
+    },
+    {
+      "name": "notifications"
     }
   ],
   "servers": [
@@ -2957,9 +2960,6 @@
       ],
       "get": {
         "summary": "Get static contents",
-        "tags": [
-          "delivery"
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -3011,7 +3011,10 @@
             "description": "Not Found (No content obj is created for the given obj category || category not found)"
           }
         },
-        "operationId": "get-notification-static-contents-category_name"
+        "operationId": "get-notification-static-contents-category_name",
+        "tags": [
+          "notifications"
+        ]
       }
     }
   },
