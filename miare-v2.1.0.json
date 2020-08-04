@@ -637,6 +637,9 @@
 		},
 		"/accounting/estimate/price/": {
 			"get": {
+				"servers": [{
+					"url": "https://staging.mia.re/api"
+				}],
 				"tags": [
 					"delivery"
 				],
