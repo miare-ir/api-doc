@@ -635,6 +635,83 @@
 				}
 			}
 		},
+		"/accounting/estimate/price/": {
+			"get": {
+				"tags": [
+					"delivery"
+				],
+				"summary": "Calculate delivery cost",
+				"description": "Calculates delivery cost of a trip being delivered from the given source to the given destination.",
+				"parameters": [{
+						"name": "source",
+						"in": "query",
+						"required": true,
+						"description": "The exact latitude and longitude of the source of the trip in lat,lng format",
+						"schema": {
+							"type": "string",
+							"pattern": "^(-?\\d+(\\.\\d+)?),\\s*(-?\\d+(\\.\\d+)?)$"
+						}
+					},
+					{
+						"name": "destination",
+						"in": "query",
+						"required": true,
+						"description": "The exact latitude and longitude of the destination of the trip in lat,lng format",
+						"schema": {
+							"type": "string",
+							"pattern": "^(-?\\d+(\\.\\d+)?),\\s*(-?\\d+(\\.\\d+)?)$"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successfully calculated the price",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "ok"
+										},
+										"price": {
+											"type": "integer",
+											"description": "The estimated price in Tomans",
+											"example": 9500
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "A validation error indicating failure in price estimation",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "string",
+											"enum": [
+												"parse_error"
+											]
+										},
+										"details": {
+											"type": "string"
+										}
+									}
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "Unexpected error"
+					}
+				}
+			}
+		},
 		"/subscribe/": {
 			"post": {
 				"tags": [
