@@ -213,12 +213,12 @@
 					"latitude": {
 						"type": "number",
 						"format": "double",
-						"example": "35.737004"
+						"example": 35.737004
 					},
 					"longitude": {
 						"type": "number",
 						"format": "double",
-						"example": "51.413569"
+						"example": 51.413569
 					}
 				},
 				"xml": {
