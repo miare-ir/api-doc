@@ -567,6 +567,9 @@
           "reservable": {
             "type": "boolean",
             "description": "Determins if the plan has the same type of Platinum"
+          },
+          "max_allowed_intervals_per_day": {
+            "type": "integer"
           }
         }
       },
