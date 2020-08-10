@@ -40,7 +40,7 @@
 						"type": "string",
 						"format": "uuid",
 						"description": "Unique ID of this trip",
-						"example": "wpeiru0p-qefq-32pf-nvld-hr9er9dfjas2"
+						"example": "40626ed5-9260-4a55-af04-ef9705a41b90"
 					},
 					"area": {
 						"$ref": "#/components/schemas/Area"
@@ -154,7 +154,7 @@
 						"type": "string",
 						"format": "uuid",
 						"description": "The unique identifier of this course",
-						"example": "wpeiru0p-qefq-32pf-nvld-hr9er9dfjas2"
+						"example": "40626ed5-9260-4a55-af04-ef9705a41b90"
 					},
 					"bill_number": {
 						"type": "string",
@@ -213,12 +213,12 @@
 					"latitude": {
 						"type": "number",
 						"format": "double",
-						"example": "35.737004"
+						"example": 35.737004
 					},
 					"longitude": {
 						"type": "number",
 						"format": "double",
-						"example": "51.413569"
+						"example": 51.413569
 					}
 				},
 				"xml": {
