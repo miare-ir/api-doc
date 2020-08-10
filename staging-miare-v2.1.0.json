@@ -1753,6 +1753,32 @@
           },
           "403": {
             "description": "Forbidden (Requesting intervals are full of capacity)"
+          },
+          "409": {
+            "description": "Conflict (Requesting to create more than allowed intervals per day)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "detail": "Given intervals are more than set in driver plan",
+                      "code": "interval_excess"
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "description": "Create an order with its items",
