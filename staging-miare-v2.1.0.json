@@ -1773,7 +1773,7 @@
                   }
                 },
                 "examples": {
-                  "example": {
+                  "example-1": {
                     "value": {
                       "detail": "Given intervals are more than set in driver plan",
                       "code": "interval_excess"
