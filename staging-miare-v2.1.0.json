@@ -1755,7 +1755,28 @@
             "description": "Bad Request (Validation error occures on request body)"
           },
           "403": {
-            "description": "Forbidden (Requesting intervals are full of capacity)"
+            "description": "Forbidden (Requesting intervals are full of capacity)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "unset_zone",
+                        "forbidden_area",
+                        "duplicate_date_interval",
+                        "pending_order"
+                      ]
+                    },
+                    "details": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
           },
           "409": {
             "description": "Conflict (Requesting to create more than allowed intervals per day)",
