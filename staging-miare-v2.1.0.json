@@ -3393,6 +3393,42 @@
           }
         ]
       }
+    },
+    "/accounting/drivers/weekly-summary/": {
+      "get": {
+        "summary": "Weekly Summary",
+        "tags": [
+          "accounting"
+        ],
+        "responses": {},
+        "operationId": "get-accounting-drivers-weekly-summary",
+        "description": "Serialze earned salary of drivers, grouped by Jalali week",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "year": {
+                      "type": "integer"
+                    },
+                    "week": {
+                      "type": "integer",
+                      "description": "Iso number of the week"
+                    },
+                    "salary": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "description": ""
+        }
+      }
     }
   },
   "security": [
