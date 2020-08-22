@@ -1215,6 +1215,130 @@
             "format": "uri"
           }
         }
+      },
+      "Reward": {
+        "title": "BalanceModification",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "amount": {
+            "type": "integer",
+            "description": "Negative for Punishments, Positive for Rewards"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "type": {
+            "$ref": "#/components/schemas/BalanceModificationType"
+          }
+        }
+      },
+      "BalanceModificationType": {
+        "title": "BalanceModificationType",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Referral": {
+        "title": "Referral",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "first_name": {
+            "type": "string",
+            "description": "The first name of the referrer"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name of the referrer"
+          },
+          "driver": {
+            "type": "object",
+            "description": "The driver who is referred",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "avatar": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "is_suspended": {
+                "type": "boolean"
+              },
+              "user": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "payment_amount": {
+            "type": "integer"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "Debt": {
+        "title": "DebtItem",
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number"
+          },
+          "paid": {
+            "type": "number"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "dabt_info": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "total_amount": {
+                "type": "integer"
+              },
+              "total_installments": {
+                "type": "integer"
+              },
+              "payment_start_date": {
+                "type": "string",
+                "format": "date"
+              },
+              "return_at_quit": {
+                "type": "boolean"
+              },
+              "type": {
+                "$ref": "#/components/schemas/BalanceModificationType"
+              }
+            }
+          }
+        }
       }
     },
     "requestBodies": {
@@ -3064,6 +3188,209 @@
         "operationId": "get-notification-static-contents-category_name",
         "tags": [
           "notifications"
+        ]
+      }
+    },
+    "/accounting/drivers/reservers/week-review/": {
+      "get": {
+        "summary": "reservers-week-review",
+        "tags": [
+          "accounting"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "reward_items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Reward"
+                      }
+                    },
+                    "total_reward": {
+                      "type": "integer",
+                      "description": "Signed"
+                    },
+                    "punishments": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Reward"
+                      }
+                    },
+                    "total_punishment": {
+                      "type": "integer",
+                      "description": "Signed"
+                    },
+                    "referral_items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Referral"
+                      }
+                    },
+                    "total_referral": {
+                      "type": "integer"
+                    },
+                    "debt_items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Debt"
+                      }
+                    },
+                    "total_debt": {
+                      "type": "integer",
+                      "maximum": 0,
+                      "description": "Signed"
+                    },
+                    "daily_kpi": {
+                      "type": "array",
+                      "description": "The driver salary amount per each week day if the driver works at the date",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "date": {
+                            "type": "string",
+                            "format": "date"
+                          },
+                          "salary": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    },
+                    "review": {
+                      "type": "object",
+                      "properties": {
+                        "online_duration": {
+                          "type": "string"
+                        },
+                        "trips_count": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "courses_salary": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "on_trip_duration": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "reward_items": [
+                        {
+                          "amount": 850,
+                          "type": {
+                            "id": 5,
+                            "name": "بازگشت سفر"
+                          },
+                          "id": 269036,
+                          "reason": "درآمد مازاد بازگشت سفر فودکورت لوکال‌هاست",
+                          "created_at": "2019-09-20T19:03:50.690277Z"
+                        }
+                      ],
+                      "balance": 11900,
+                      "due_from_last_week": 0,
+                      "punishment_items": [
+                        {
+                          "amount": 20000,
+                          "type": {
+                            "id": 4,
+                            "name": "تیکت"
+                          },
+                          "id": 16464,
+                          "reason": "امتناع از سفر آخر وقت تهیه غذای خیلی خوب",
+                          "created_at": "2019-09-17T19:00:00Z"
+                        }
+                      ],
+                      "review": {
+                        "online_duration": "3 04:56:05.946319",
+                        "trips_count": 72,
+                        "courses_salary": 1095000,
+                        "on_trip_duration": "16:08:38.316577"
+                      },
+                      "total_reward": 35500,
+                      "total_punishment": -20000,
+                      "referral_items": [],
+                      "debt_items": [
+                        {
+                          "amount": 20000,
+                          "debt_info": {
+                            "id": 5589,
+                            "name": "ذخیره صندوق",
+                            "total_amount": "500000",
+                            "total_installments": 25,
+                            "payment_start_date": "2019-07-31",
+                            "return_at_quit": true,
+                            "type": {
+                              "id": 36,
+                              "name": "ذخیره صندوق"
+                            }
+                          },
+                          "paid": 140000,
+                          "date": "2019-09-18"
+                        }
+                      ],
+                      "daily_kpi": [
+                        {
+                          "salary": 6800,
+                          "date": "2019-09-14"
+                        },
+                        {
+                          "salary": 5100,
+                          "date": "2019-09-15"
+                        },
+                        {
+                          "salary": 1700,
+                          "date": "2019-09-16"
+                        },
+                        {
+                          "salary": -18300,
+                          "date": "2019-09-17"
+                        },
+                        {
+                          "salary": 4250,
+                          "date": "2019-09-18"
+                        },
+                        {
+                          "salary": 4250,
+                          "date": "2019-09-19"
+                        },
+                        {
+                          "salary": 1086700,
+                          "date": "2019-09-20"
+                        }
+                      ],
+                      "total_debt": -20000,
+                      "total_referral": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-accounting-drivers-reservers-week-review",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": "2020-08-21"
+            },
+            "in": "query",
+            "name": "date",
+            "description": "The date of weekend which the weekly report is requested for. If requesting current week, the date should be equal to today date. ",
+            "required": true
+          }
         ]
       }
     }
