@@ -3429,6 +3429,142 @@
           "description": ""
         }
       }
+    },
+    "/accounting/drivers/reservers/daily-kpi/": {
+      "get": {
+        "summary": "Reservers Daily KPI",
+        "tags": [
+          "accounting"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "referrals": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Referral"
+                      }
+                    },
+                    "punishments": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Reward"
+                      }
+                    },
+                    "rewards": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Reward"
+                      }
+                    },
+                    "debts": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Debt"
+                      }
+                    },
+                    "salary": {
+                      "type": "integer"
+                    },
+                    "trips": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "request_datetime": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "courses": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "end_datetime": {
+                                  "type": "string",
+                                  "format": "date-time"
+                                },
+                                "radial_end_to_end_distance": {
+                                  "type": "number"
+                                },
+                                "is_long": {
+                                  "type": "boolean"
+                                }
+                              }
+                            }
+                          },
+                          "course_bonuses": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "count": {
+                                  "type": "integer"
+                                },
+                                "date": {
+                                  "type": "string",
+                                  "format": "date"
+                                },
+                                "description": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "source_title": {
+                      "type": "string"
+                    },
+                    "is_round_trip": {
+                      "type": "boolean"
+                    },
+                    "end_datetime": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "raw_salary": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "operationId": "get-accounting-drivers-reservers-daily-kpi",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "in": "query",
+            "name": "date",
+            "required": true
+          }
+        ]
+      }
     }
   },
   "security": [
