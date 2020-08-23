@@ -368,6 +368,9 @@
       },
       "Payment": {
         "type": "object",
+        "xml": {
+          "name": "Payment"
+        },
         "properties": {
           "id": {
             "type": "integer",
@@ -386,11 +389,22 @@
             "format": "date-time",
             "description": "The time at which this payment has been submitted",
             "example": "2019-04-12T13:58:42+0000"
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "debit",
+              "credit"
+            ],
+            "example": "debit"
           }
         },
-        "xml": {
-          "name": "Payment"
-        }
+        "required": [
+          "id",
+          "amount",
+          "datetime",
+          "method"
+        ]
       },
       "Order": {
         "type": "object",
@@ -408,7 +422,8 @@
             "type": "integer",
             "format": "int32",
             "description": "Amount of this order, in IRT",
-            "example": 2000
+            "example": 2000,
+            "deprecated": true
           },
           "created_at": {
             "type": "string",
@@ -444,6 +459,26 @@
               "null"
             ],
             "format": "date-time"
+          },
+          "payment_options": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "debit": {
+                    "type": "integer"
+                  },
+                  "credit": {
+                    "type": "integer"
+                  }
+                }
+              },
+              {
+                "type": "null",
+                "properties": {}
+              }
+            ],
+            "description": "if this order is expired, it wouldn't have any payment_options. otherwise we would offer some ways, each with it's own amount."
           }
         }
       },
@@ -2011,16 +2046,25 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "order_id"
-                ],
                 "properties": {
                   "order_id": {
                     "type": "integer",
                     "description": "ID of the order that we want to pay for it",
                     "example": 2
+                  },
+                  "method": {
+                    "type": "string",
+                    "description": "we won't make it required so that  api stays backward compatible. it's default is debit",
+                    "enum": [
+                      "debit",
+                      "credit"
+                    ],
+                    "example": "debit"
                   }
-                }
+                },
+                "required": [
+                  "order_id"
+                ]
               }
             }
           }
