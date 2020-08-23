@@ -1343,6 +1343,25 @@
             }
           }
         }
+      },
+      "NewIssueRequestBody": {
+        "title": "NewIssueRequestBody",
+        "type": "object",
+        "properties": {
+          "trip_id": {
+            "type": "integer"
+          },
+          "problem_id": {
+            "type": "integer"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "trip_id",
+          "problem_id"
+        ]
       }
     },
     "requestBodies": {
@@ -3648,22 +3667,74 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "trip_id": {
-                    "type": "string"
-                  },
-                  "problem_id": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "trip_id",
-                  "problem_id"
-                ]
+                "$ref": "#/components/schemas/NewIssueRequestBody"
+              }
+            }
+          },
+          "description": ""
+        }
+      }
+    },
+    "/client-api/issues/": {
+      "post": {
+        "summary": "New Issue from Client",
+        "tags": [
+          "delivery"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request (Missing problem_id or description required for given problem_id)"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "operationId": "post-client-api-issues",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewIssueRequestBody"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/staff-api/issues/": {
+      "post": {
+        "summary": "New Issue from Staff",
+        "tags": [
+          "accounting"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (Missing problem_id or description required for given problem_id)\n"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "operationId": "post-staff-api-issues",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewIssueRequestBody"
               }
             }
           }
