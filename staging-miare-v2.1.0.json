@@ -496,6 +496,7 @@
           "example": {
             "id": 1,
             "title": "آدرس را نمی‌شناسم",
+            "description_required": false,
             "category": {
               "id": 1,
               "title": "عدم امکان تکمیل سفر",
@@ -512,6 +513,9 @@
           },
           "category": {
             "$ref": "#/components/schemas/ProblemCategory"
+          },
+          "description_required": {
+            "type": "boolean"
           }
         }
       },
@@ -2108,6 +2112,7 @@
                       {
                         "id": 1,
                         "title": "آدرس را نمی‌شناسم",
+                        "description_required": true,
                         "category": {
                           "id": 1,
                           "title": "عدم امکان تکمیل سفر",
@@ -2117,6 +2122,7 @@
                       {
                         "id": 2,
                         "title": "موتورم خراب شده است یا بنزین ندارم",
+                        "description_required": true,
                         "category": {
                           "id": 1,
                           "title": "عدم امکان تکمیل سفر",
@@ -3564,6 +3570,89 @@
             "required": true
           }
         ]
+      }
+    },
+    "/driver-api/issues/": {
+      "post": {
+        "summary": "New Issue from Driver",
+        "tags": [
+          "delivery"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "example": {
+                    "value": {}
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (Missing problem\\_id or description required for given problem\\_id)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "missing_param"
+                      ]
+                    },
+                    "detail": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "code": "missing_param",
+                      "detail": "Required problem_id"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "operationId": "post-driver-api-issues",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "trip_id": {
+                    "type": "string"
+                  },
+                  "problem_id": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "trip_id",
+                  "problem_id"
+                ]
+              }
+            }
+          }
+        }
       }
     }
   },
