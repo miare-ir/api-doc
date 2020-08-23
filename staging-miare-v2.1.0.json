@@ -2137,7 +2137,22 @@
           }
         },
         "operationId": "get-api-tracking-problems",
-        "description": "Returns unarchived problems exposed to Drivers"
+        "description": "Returns unarchived problems exposed to Drivers",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "default": "driver",
+              "enum": [
+                "driver",
+                "client",
+                "staff"
+              ]
+            },
+            "in": "query",
+            "name": "type"
+          }
+        ]
       },
       "parameters": []
     },
