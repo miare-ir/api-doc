@@ -2153,6 +2153,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request (Invalid `type` given)"
           }
         },
         "operationId": "get-api-tracking-problems",
