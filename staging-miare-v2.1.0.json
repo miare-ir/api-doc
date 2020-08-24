@@ -390,20 +390,21 @@
             "description": "The time at which this payment has been submitted",
             "example": "2019-04-12T13:58:42+0000"
           },
-          "method": {
-            "type": "string",
+          "type": {
+            "type": "integer",
+            "example": 10,
             "enum": [
-              "debit",
-              "credit"
-            ],
-            "example": "debit"
+              10,
+              20,
+              30
+            ]
           }
         },
         "required": [
           "id",
           "amount",
           "datetime",
-          "method"
+          "type"
         ]
       },
       "Order": {
@@ -465,17 +466,16 @@
               {
                 "type": "object",
                 "properties": {
-                  "debit": {
+                  "10": {
                     "type": "integer"
                   },
-                  "credit": {
+                  "30": {
                     "type": "integer"
                   }
                 }
               },
               {
-                "type": "null",
-                "properties": {}
+                "type": "null"
               }
             ],
             "description": "if this order is expired, it wouldn't have any payment_options. otherwise we would offer some ways, each with it's own amount."
@@ -2060,14 +2060,14 @@
                     "description": "ID of the order that we want to pay for it",
                     "example": 2
                   },
-                  "method": {
-                    "type": "string",
+                  "type": {
+                    "type": "integer",
                     "description": "we won't make it required so that  api stays backward compatible. it's default is debit",
+                    "example": 10,
                     "enum": [
-                      "debit",
-                      "credit"
-                    ],
-                    "example": "debit"
+                      10,
+                      30
+                    ]
                   }
                 },
                 "required": [
