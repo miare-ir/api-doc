@@ -2124,7 +2124,8 @@
                       "type": "string",
                       "enum": [
                         "already_paid",
-                        "expired_order"
+                        "expired_order",
+                        "invalid_payment_type"
                       ]
                     },
                     "details": {
