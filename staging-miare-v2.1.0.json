@@ -1188,9 +1188,17 @@
                 "$ref": "#/components/schemas/User"
               },
               {
-                "type": "null",
-                "properties": {}
+                "type": "null"
               }
+            ]
+          },
+          "reporter_type": {
+            "type": "string",
+            "enum": [
+              "client",
+              "driver",
+              "auto",
+              "staff"
             ]
           }
         }
