@@ -1370,6 +1370,151 @@
           "trip_id",
           "problem_id"
         ]
+      },
+      "Customer-Feedback": {
+        "title": "Feedback",
+        "type": "object",
+        "properties": {
+          "comment": {
+            "type": "string"
+          },
+          "course": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "customer": {
+            "type": "integer"
+          },
+          "driver": {
+            "type": "integer"
+          },
+          "problem": {
+            "type": "string"
+          },
+          "rating": {
+            "type": "integer"
+          }
+        }
+      },
+      "Package_info": {
+        "title": "Package_info",
+        "type": "object",
+        "properties": {
+          "bill_number": {
+            "type": "integer"
+          },
+          "confirmed": {
+            "type": "boolean"
+          },
+          "course_id": {
+            "type": "integer"
+          },
+          "customer": {
+            "$ref": "#/components/schemas/Customer"
+          },
+          "destination_text": {
+            "type": "string"
+          },
+          "driver": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "paid_back": {
+            "type": "boolean"
+          },
+          "payment_type": {
+            "type": "integer"
+          },
+          "price": {
+            "type": "integer"
+          }
+        }
+      },
+      "Customer": {
+        "title": "Customer",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "integer"
+          }
+        }
+      },
+      "Ticket": {
+        "title": "Ticket",
+        "type": "object",
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "state": {
+            "type": "integer"
+          }
+        }
+      },
+      "RestaurantFeedback": {
+        "type": "object",
+        "title": "RestaurantFeedback",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "driver": {
+            "type": "integer"
+          },
+          "problems": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "rating": {
+            "type": "integer"
+          },
+          "restaurant": {
+            "type": "integer"
+          },
+          "trip": {
+            "type": "integer"
+          }
+        }
+      },
+      "PriceDetails": {
+        "title": "PriceDetails",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "price_delta": {
+            "type": "integer"
+          },
+          "regulation": {
+            "type": "string"
+          }
+        }
       }
     },
     "requestBodies": {
@@ -3750,6 +3895,358 @@
             }
           }
         }
+      }
+    },
+    "/accounting/client/tariff/": {
+      "get": {
+        "summary": "Client Tariff",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "area_prices": {
+                      "type": "array",
+                      "description": "contains all radial distances prices and there is one price for each radial distance defineded in tariff",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "off_percents": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "radii": {
+                      "type": "array",
+                      "description": "radial distances and its count is equal to area_prices count",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "round_trip_fee": {
+                      "type": "number"
+                    },
+                    "base_trip_fee": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "area_prices": [
+                        {
+                          "1": 2800,
+                          "2": 3300,
+                          "3": 3800
+                        }
+                      ],
+                      "off_percents": [
+                        {}
+                      ],
+                      "radii": [
+                        {
+                          "1": 0.5,
+                          "2": 1,
+                          "3": 1.5
+                        }
+                      ],
+                      "round_trip_fee": 1500,
+                      "base_trip_fee": 5000
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "'no_client_financials',\n'Client does not have client financials'"
+          }
+        },
+        "operationId": "get-accounting-client-tariff",
+        "description": "Client per course cost tariff"
+      }
+    },
+    "/accounting/trip_financials/{trip_id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "trip_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Trip Financials",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Course_financials": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "course": {
+                            "type": "object",
+                            "properties": {
+                              "destination": {
+                                "$ref": "#/components/schemas/Location"
+                              },
+                              "destination_text": {
+                                "type": "string"
+                              },
+                              "end_datetime": {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2020-01-01T22:30:00+03:30"
+                              },
+                              "feedback": {
+                                "$ref": "#/components/schemas/Feedback"
+                              },
+                              "id": {
+                                "type": "integer"
+                              },
+                              "is_long": {
+                                "type": "boolean"
+                              },
+                              "meta": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              },
+                              "package_info": {
+                                "$ref": "#/components/schemas/Package_info"
+                              },
+                              "price_details": {
+                                "type": "array",
+                                "items": {
+                                  "$ref": "#/components/schemas/PriceDetails"
+                                }
+                              },
+                              "requested_destination_address": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "id": {
+                            "type": "integer"
+                          },
+                          "paid_at_destination": {
+                            "type": "boolean"
+                          },
+                          "price": {
+                            "type": "integer"
+                          },
+                          "ticket": {
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "$ref": "#/components/schemas/Ticket"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "final_price": {
+                      "type": "integer"
+                    },
+                    "id": {
+                      "type": "integer"
+                    },
+                    "price_changes": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PriceDetails"
+                      }
+                    },
+                    "trip": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "aborted_for_delay": {
+                            "type": "boolean"
+                          },
+                          "accept_datetime": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "format": "date-time"
+                          },
+                          "arrival_datetime": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "format": "date-time"
+                          },
+                          "assign_datetime": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "format": "date-time"
+                          },
+                          "cancel_datetime": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "format": "date-time"
+                          },
+                          "course_bonuses": {
+                            "type": "array",
+                            "items": {}
+                          },
+                          "departure_datetime": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "format": "date-time"
+                          },
+                          "driver": {
+                            "type": "object",
+                            "properties": {
+                              "available": {
+                                "type": "boolean"
+                              },
+                              "avatar": {
+                                "type": [
+                                  "null",
+                                  "string"
+                                ],
+                                "format": "byte"
+                              },
+                              "busy": {
+                                "type": "boolean"
+                              },
+                              "id": {
+                                "type": "integer"
+                              },
+                              "phone": {
+                                "type": "integer"
+                              },
+                              "user": {
+                                "$ref": "#/components/schemas/User"
+                              }
+                            }
+                          },
+                          "driver_tag": {
+                            "type": "integer"
+                          },
+                          "end_datetime": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "format": "date-time"
+                          },
+                          "feedback": {
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "$ref": "#/components/schemas/RestaurantFeedback"
+                              }
+                            ]
+                          },
+                          "id": {
+                            "type": "integer"
+                          },
+                          "is_round_trip": {
+                            "type": "boolean"
+                          },
+                          "long_courses_count": {
+                            "type": "integer"
+                          },
+                          "price_details": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/components/schemas/PriceDetails"
+                            }
+                          },
+                          "request_datetime": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "requested_arrival_datetime": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "return_datetime": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "format": "date-time"
+                          },
+                          "rewards": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/components/schemas/Reward"
+                            }
+                          },
+                          "seen_datetime": {
+                            "type": [
+                              "null",
+                              "string"
+                            ],
+                            "format": "date-time"
+                          },
+                          "source_address": {
+                            "type": "string"
+                          },
+                          "source_phone": {
+                            "type": "integer"
+                          },
+                          "source_title": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    },
+                    "trip_base_fee": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "permission_denied"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        },
+        "operationId": "get-accounting-trip_financials-trip_id",
+        "parameters": [],
+        "description": "Returns the requested trip details"
       }
     }
   },
