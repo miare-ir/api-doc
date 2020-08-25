@@ -445,10 +445,16 @@
               }
             ],
             "expired_at": null,
-            "payment_options": {
-              "10": 2500,
-              "30": 3000
-            }
+            "payment_options": [
+              {
+                "type": 10,
+                "amount": 3000
+              },
+              {
+                "type": 30,
+                "amount": 4000
+              }
+            ]
           }
         },
         "properties": {
@@ -501,27 +507,43 @@
             "format": "date-time"
           },
           "payment_options": {
+            "description": "if this order is expired, it wouldn't have any payment_options. otherwise we would offer some ways, each with it's own amount.",
             "oneOf": [
               {
-                "type": "object",
-                "properties": {
-                  "10": {
-                    "type": "integer",
-                    "example": 2500
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "integer",
+                      "enum": [
+                        10,
+                        30
+                      ],
+                      "description": "currently it's only type of payment, which is one of 10 (actual) or 30, (credit) ."
+                    },
+                    "amount": {
+                      "type": "integer",
+                      "example": 3000,
+                      "minimum": 0,
+                      "description": "amount in tomans"
+                    }
                   },
-                  "30": {
-                    "type": "integer",
-                    "example": 3000
-                  }
+                  "required": [
+                    "type",
+                    "amount"
+                  ]
                 }
               },
               {
                 "type": "null"
               }
-            ],
-            "description": "if this order is expired, it wouldn't have any payment_options. otherwise we would offer some ways, each with it's own amount."
+            ]
           }
-        }
+        },
+        "required": [
+          "payment_options"
+        ]
       },
       "Event": {
         "type": "object",
