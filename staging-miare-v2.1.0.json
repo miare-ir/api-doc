@@ -4131,24 +4131,15 @@
                             "type": "boolean"
                           },
                           "accept_datetime": {
-                            "type": [
-                              "string",
-                              "null"
-                            ],
+                            "type": "string",
                             "format": "date-time"
                           },
                           "arrival_datetime": {
-                            "type": [
-                              "string",
-                              "null"
-                            ],
+                            "type": "string",
                             "format": "date-time"
                           },
                           "assign_datetime": {
-                            "type": [
-                              "string",
-                              "null"
-                            ],
+                            "type": "string",
                             "format": "date-time"
                           },
                           "cancel_datetime": {
@@ -4200,10 +4191,7 @@
                             "type": "integer"
                           },
                           "end_datetime": {
-                            "type": [
-                              "string",
-                              "null"
-                            ],
+                            "type": "string",
                             "format": "date-time"
                           },
                           "feedback": {
@@ -4253,10 +4241,7 @@
                             }
                           },
                           "seen_datetime": {
-                            "type": [
-                              "null",
-                              "string"
-                            ],
+                            "type": "string",
                             "format": "date-time"
                           },
                           "source_address": {
