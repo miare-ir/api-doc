@@ -4274,7 +4274,7 @@
                         }
                       }
                     },
-                    "trip_base_fee": {
+                    "base_trip_fee": {
                       "type": "integer"
                     }
                   }
