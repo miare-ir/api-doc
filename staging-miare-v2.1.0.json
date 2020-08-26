@@ -4359,6 +4359,111 @@
         "parameters": [],
         "description": "Returns the requested trip details"
       }
+    },
+    "/staff-api/issues/{issue_id}/resolve/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "issue_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Resolve issue by staff",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "example": {
+                    "value": {}
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-staff-api-issues-issue_id-resolve"
+      }
+    },
+    "/driver-api/issues/{issue_id}/resolve/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "issue_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Resolve issue by driver",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "example": {
+                    "value": {}
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-driver-api-issues-issue_id-resolve"
+      }
+    },
+    "/client-api/issues/{issue_id}/resolve/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "issue_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Resolve issue by client",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "example": {
+                    "value": {}
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-client-api-issues-issue_id-resolve"
+      }
     }
   },
   "security": [
