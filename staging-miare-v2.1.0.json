@@ -1128,6 +1128,14 @@
             "id": 123,
             "problem": null,
             "reported_at": "2020-07-22T13:37:51+0430",
+            "reporter_type": "client",
+            "reported_by": {
+              "id": 6067,
+              "user_name": "bbbccc",
+              "is_staff": true,
+              "first_name": "Jack",
+              "last_name": "Jonez"
+            },
             "resolved_at": null,
             "trip_id": 1769145,
             "picked_by": {
@@ -1199,6 +1207,16 @@
               "driver",
               "auto",
               "staff"
+            ]
+          },
+          "reported_by": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/User"
+              }
             ]
           }
         }
