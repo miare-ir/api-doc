@@ -3634,10 +3634,10 @@
                         }
                       ],
                       "review": {
-                        "online_duration": "3 04:56:05.946319",
+                        "online_duration": "P0DT00H00M00.159056S",
+                        "on_trip_duration": "P0DT00H03M04S",
                         "trips_count": 72,
-                        "courses_salary": 1095000,
-                        "on_trip_duration": "16:08:38.316577"
+                        "courses_salary": 1095000
                       },
                       "total_reward": 35500,
                       "total_punishment": -20000,
