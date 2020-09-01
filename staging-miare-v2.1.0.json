@@ -1630,6 +1630,13 @@
           "regulation": {
             "type": "string"
           }
+        },
+        "x-examples": {
+          "example-1": {
+            "id": 0,
+            "price_delta": 5000,
+            "regulation": "base_cost"
+          }
         }
       }
     },
@@ -4296,6 +4303,7 @@
                           },
                           "price_details": {
                             "type": "array",
+                            "description": "base_price goes here",
                             "items": {
                               "$ref": "#/components/schemas/PriceDetails"
                             }
@@ -4339,9 +4347,148 @@
                           }
                         }
                       }
-                    },
-                    "base_trip_fee": {
-                      "type": "integer"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "id": 1600922,
+                      "final_price": 14000,
+                      "course_financials": [
+                        {
+                          "id": 2505846,
+                          "price": 7000,
+                          "course": {
+                            "id": 2698588,
+                            "meta": null,
+                            "destination_text": "",
+                            "end_datetime": "2020-09-01T14:42:36+04:30",
+                            "requested_destination_address": "",
+                            "destination": {
+                              "longitude": 51.328303,
+                              "latitude": 35.724573
+                            },
+                            "feedback": null,
+                            "price_details": [
+                              {
+                                "id": 5519818,
+                                "regulation": "delivery_cost",
+                                "price_delta": 7000
+                              },
+                              {
+                                "id": 5519820,
+                                "regulation": "wage",
+                                "price_delta": 0
+                              }
+                            ],
+                            "package_info": {
+                              "id": 2423536,
+                              "course_id": 2698588,
+                              "driver": "رضا پورمشکی",
+                              "price": 0,
+                              "bill_number": null,
+                              "confirmed": true,
+                              "customer": null,
+                              "payment_type": 1,
+                              "paid_back": false,
+                              "destination_text": ""
+                            },
+                            "is_long": false
+                          },
+                          "ticket": null,
+                          "paid_at_destination": false
+                        },
+                        {
+                          "id": 2505847,
+                          "price": 7000,
+                          "course": {
+                            "id": 2698589,
+                            "meta": null,
+                            "destination_text": "",
+                            "end_datetime": "2020-09-01T14:42:36+04:30",
+                            "requested_destination_address": "",
+                            "destination": {
+                              "longitude": 51.328303,
+                              "latitude": 35.724573
+                            },
+                            "feedback": null,
+                            "price_details": [
+                              {
+                                "id": 5519819,
+                                "regulation": "delivery_cost",
+                                "price_delta": 7000
+                              },
+                              {
+                                "id": 5519821,
+                                "regulation": "wage",
+                                "price_delta": 0
+                              }
+                            ],
+                            "package_info": {
+                              "id": 2423534,
+                              "course_id": 2698589,
+                              "driver": "رضا پورمشکی",
+                              "price": 0,
+                              "bill_number": null,
+                              "confirmed": true,
+                              "customer": null,
+                              "payment_type": 1,
+                              "paid_back": false,
+                              "destination_text": ""
+                            },
+                            "is_long": false
+                          },
+                          "ticket": null,
+                          "paid_at_destination": false
+                        }
+                      ],
+                      "price_changes": [],
+                      "base_trip_fee": 0,
+                      "trip": {
+                        "driver": {
+                          "id": 6776,
+                          "available": false,
+                          "busy": false,
+                          "phone": "09369491968",
+                          "avatar": null,
+                          "user": {
+                            "first_name": "رضا",
+                            "last_name": "پورمشکی",
+                            "user_name": "partizaans",
+                            "is_staff": false
+                          }
+                        },
+                        "request_datetime": "2020-09-01T14:41:41.585528+04:30",
+                        "requested_arrival_datetime": "2020-09-01T14:56:41.585528+04:30",
+                        "assign_datetime": "2020-09-01T14:42:15.048114+04:30",
+                        "arrival_datetime": null,
+                        "seen_datetime": null,
+                        "accept_datetime": "2020-09-01T14:42:36+04:30",
+                        "cancel_datetime": null,
+                        "state": 50,
+                        "id": 1768468,
+                        "aborted_for_delay": false,
+                        "driver_tag": 1,
+                        "course_bonuses": [],
+                        "source_title": "آشپزخانه آذری",
+                        "source_address": "خیابان ستارخان - خیابان شادمان - پلاک ۵",
+                        "source_phone": "02188231102",
+                        "feedback": null,
+                        "departure_datetime": null,
+                        "is_round_trip": false,
+                        "return_datetime": null,
+                        "price_details": [
+                          {
+                            "id": 5519817,
+                            "regulation": "base_cost",
+                            "price_delta": 0
+                          }
+                        ],
+                        "end_datetime": "2020-09-01T14:42:36+04:30",
+                        "long_courses_count": 0,
+                        "rewards": []
+                      }
                     }
                   }
                 }
