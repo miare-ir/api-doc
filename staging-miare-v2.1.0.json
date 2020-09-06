@@ -4667,6 +4667,81 @@
         },
         "operationId": "post-notification-static-contents-static_content_id-seen"
       }
+    },
+    "/locations/staff-api/tripline/{trip_id}/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "trip_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Tripline",
+        "tags": [
+          "location"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "locations": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "location": {
+                            "type": "object",
+                            "properties": {
+                              "latitude": {
+                                "type": "number"
+                              },
+                              "longitude": {
+                                "type": "number"
+                              }
+                            }
+                          },
+                          "datetime": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "locations": [
+                        {
+                          "location": {
+                            "latitude": 35.3,
+                            "longitude": 53.54
+                          },
+                          "datetime": "2019-08-24T14:15:22Z"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found (trip not found)"
+          }
+        },
+        "operationId": "get-locations-staff-api-tripline-trip_id",
+        "description": "Returns location information for given trip id"
+      }
     }
   },
   "security": [
