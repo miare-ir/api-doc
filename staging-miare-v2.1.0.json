@@ -4630,6 +4630,43 @@
         },
         "operationId": "post-client-api-issues-issue_id-resolve"
       }
+    },
+    "/notification/static-contents/{static_content_id}/seen/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "static_content_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Seen static content",
+        "tags": [
+          "notifications"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "example": {
+                    "value": {}
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-notification-static-contents-static_content_id-seen"
+      }
     }
   },
   "security": [
