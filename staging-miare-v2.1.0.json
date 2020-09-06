@@ -1327,7 +1327,9 @@
           "example": {
             "id": 1,
             "name": "v1",
-            "file_url": "http://localhost:8000/media/%D8%B3%D9%BE%D9%87%D8%B1.JPG"
+            "file_url": "http://localhost:8000/media/%D8%B3%D9%BE%D9%87%D8%B1.JPG",
+            "seen": false,
+            "description": "Lorem Ipsum"
           }
         },
         "properties": {
@@ -1341,6 +1343,15 @@
           "file_url": {
             "type": "string",
             "format": "uri"
+          },
+          "seen": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
           }
         }
       },
@@ -3453,7 +3464,8 @@
             "type": "string",
             "enum": [
               "reservation-tutorial",
-              "..."
+              "...",
+              "app-tutorials"
             ]
           },
           "name": "category_name",
@@ -3487,7 +3499,9 @@
                     "value": {
                       "id": 1,
                       "name": "v1",
-                      "file_url": "http://localhost:8000/media/%D8%B3%D9%BE%D9%87%D8%B1.JPG"
+                      "file_url": "http://localhost:8000/media/%D8%B3%D9%BE%D9%87%D8%B1.JPG",
+                      "seen": true,
+                      "description": null
                     }
                   },
                   "list-example": {
@@ -3495,12 +3509,16 @@
                       {
                         "id": 1,
                         "name": "pic 1",
-                        "file_url": "http://localhost:8000/media/%D8%B3%D9%BE%D9%87%D8%B1.JPG"
+                        "file_url": "http://localhost:8000/media/%D8%B3%D9%BE%D9%87%D8%B1.JPG",
+                        "seen": false,
+                        "description": null
                       },
                       {
                         "id": 3,
                         "name": "pic 2",
-                        "file_url": "http://localhost:8000/media/%D8%B3%D9%BE%D9%87%D8%B2.JPG"
+                        "file_url": "http://localhost:8000/media/%D8%B3%D9%BE%D9%87%D8%B2.JPG",
+                        "seen": true,
+                        "description": "Lorem Ipsum"
                       }
                     ]
                   },
