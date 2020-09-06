@@ -1479,12 +1479,12 @@
             "type": "integer"
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "description": "Required if the problem is null orr requires description"
           }
         },
         "required": [
-          "trip_id",
-          "problem_id"
+          "trip_id"
         ]
       },
       "Customer-Feedback": {
