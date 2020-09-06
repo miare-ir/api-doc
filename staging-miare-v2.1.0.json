@@ -1480,7 +1480,8 @@
           },
           "description": {
             "type": "string",
-            "description": "Required if the problem is null orr requires description"
+            "description": "Required if the problem is null orr requires description",
+            "maxLength": 200
           }
         },
         "required": [
