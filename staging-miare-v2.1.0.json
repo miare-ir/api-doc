@@ -1650,6 +1650,60 @@
             "regulation": "base_cost"
           }
         }
+      },
+      "Published-Course": {
+        "title": "PublishedCourse",
+        "type": "object",
+        "x-tags": [
+          "delivery"
+        ],
+        "x-examples": {
+          "example-1": {
+            "course_financials_id": 0,
+            "destination": {
+              "latitude": 35.724573,
+              "longitude": 51.328303
+            },
+            "destination_text": "اباذر، بلوار آیت الله کاشانی",
+            "distance": 0.03017905324450567,
+            "end_datetime": "2020-09-07T14:34:00+0430",
+            "feedback": null,
+            "id": 2699717,
+            "meta": null,
+            "next_course_id": 0,
+            "package_info": null,
+            "paid_at_destination": false,
+            "price": null,
+            "price_details": [],
+            "requested_destination": null,
+            "requested_destination_address": null,
+            "reported_as_long": false,
+            "url": "/courses/2699717/"
+          }
+        },
+        "properties": {
+          "course_financials_id": {},
+          "destination": {
+            "type": "object"
+          },
+          "destination_text": {},
+          "distance": {},
+          "end_datetime": {},
+          "feedback": {},
+          "id": {},
+          "meta": {},
+          "next_course_id": {},
+          "package_info": {},
+          "paid_at_destination": {},
+          "price": {},
+          "price_details": {},
+          "requested_destination": {},
+          "requested_destination_address": {},
+          "reported_as_long": {
+            "type": "boolean"
+          },
+          "url": {}
+        }
       }
     },
     "requestBodies": {
@@ -4742,6 +4796,48 @@
         "operationId": "get-locations-staff-api-tripline-trip_id",
         "description": "Returns location information for given trip id"
       }
+    },
+    "/trip-management/client-api/courses/{course_id}/report-long/": {
+      "post": {
+        "summary": "Report course as long",
+        "tags": [
+          "delivery"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden (not_owner or dispatched_course)"
+          }
+        },
+        "operationId": "post-trip-management-client-api-courses-432-report-long",
+        "description": "Sets repoted\\_as\\_long for a course",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reported_as_long": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "number"
+          },
+          "name": "course_id",
+          "in": "path",
+          "required": true
+        }
+      ]
     }
   },
   "security": [
