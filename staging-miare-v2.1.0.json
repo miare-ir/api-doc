@@ -4722,7 +4722,7 @@
         "operationId": "post-notification-static-contents-static_content_id-seen"
       }
     },
-    "/locations/staff-api/tripline/{trip_id}/": {
+    "/trip-management/staff-api/trips/{trip_id}/driver-trace/": {
       "parameters": [
         {
           "schema": {
@@ -4734,7 +4734,7 @@
         }
       ],
       "get": {
-        "summary": "Tripline",
+        "summary": "Driver Trace",
         "tags": [
           "location"
         ],
