@@ -4797,7 +4797,7 @@
         "description": "Returns location information for given trip id"
       }
     },
-    "/trip-management/client-api/courses/{course_id}/set-long/": {
+    "/trip-management/client-api/courses/{course_id}/report-long/": {
       "post": {
         "summary": "Report course as long",
         "tags": [
