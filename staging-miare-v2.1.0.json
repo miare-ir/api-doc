@@ -3930,22 +3930,22 @@
                                 }
                               }
                             }
+                          },
+                          "source_title": {
+                            "type": "string"
+                          },
+                          "is_round_trip": {
+                            "type": "boolean"
+                          },
+                          "end_datetime": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "raw_salary": {
+                            "type": "integer"
                           }
                         }
                       }
-                    },
-                    "source_title": {
-                      "type": "string"
-                    },
-                    "is_round_trip": {
-                      "type": "boolean"
-                    },
-                    "end_datetime": {
-                      "type": "string",
-                      "format": "date-time"
-                    },
-                    "raw_salary": {
-                      "type": "integer"
                     }
                   }
                 },
