@@ -4752,11 +4752,16 @@
                         "type": "object",
                         "properties": {
                           "location": {
-                            "type": "array",
-                            "minItems": 2,
-                            "maxItems": 2,
                             "description": "The tuple of [lat, long]",
-                            "items": {}
+                            "type": "object",
+                            "properties": {
+                              "latitude": {
+                                "type": "string"
+                              },
+                              "longitude": {
+                                "type": "number"
+                              }
+                            }
                           },
                           "datetime": {
                             "type": "string",
@@ -4772,10 +4777,10 @@
                     "value": {
                       "locations": [
                         {
-                          "location": [
-                            35.3,
-                            53.54
-                          ],
+                          "location": {
+                            "latitude": 35.3,
+                            "longitude": 53.54
+                          },
                           "datetime": "2019-08-24T14:15:22Z"
                         }
                       ]
