@@ -4752,7 +4752,7 @@
                         "type": "object",
                         "properties": {
                           "location": {
-                            "description": "The tuple of [lat, long]",
+                            "description": "",
                             "type": "object",
                             "properties": {
                               "latitude": {
