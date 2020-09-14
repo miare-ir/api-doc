@@ -3906,6 +3906,15 @@
                                 },
                                 "is_long": {
                                   "type": "boolean"
+                                },
+                                "destination_text": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "destination": {
+                                  "$ref": "#/components/schemas/Location"
                                 }
                               }
                             }
@@ -3943,13 +3952,588 @@
                           },
                           "raw_salary": {
                             "type": "integer"
+                          },
+                          "assign_datetime": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "rewards": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/components/schemas/Reward"
+                            }
+                          },
+                          "source_location": {
+                            "$ref": "#/components/schemas/Location"
                           }
                         }
                       }
                     }
                   }
                 },
-                "examples": {}
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "date": "2020-01-10",
+                      "salary": 941700,
+                      "trips": [
+                        {
+                          "request_datetime": "2020-01-10T22:50:08.915193+03:30",
+                          "assign_datetime": "2020-01-10T22:50:19.790748+03:30",
+                          "id": 1711813,
+                          "courses": [
+                            {
+                              "id": 2611648,
+                              "destination_text": "مرزداران - شهرک آزمایش، بلوار آریافر، لاله",
+                              "end_datetime": "2020-01-10T22:58:40+03:30",
+                              "destination": {
+                                "latitude": 35.732822,
+                                "longitude": 51.356545
+                              },
+                              "radial_end_to_end_distance": 0.30045672580271127,
+                              "is_long": false
+                            }
+                          ],
+                          "course_bonuses": [
+                            {
+                              "id": 1198023,
+                              "count": 1,
+                              "date": "2020-01-07",
+                              "description": "اضافه کاری سفر فست فود لنوو"
+                            }
+                          ],
+                          "source_title": "فست‌فودی دیگر در مرزداران",
+                          "is_round_trip": false,
+                          "end_datetime": "2020-01-10T22:58:40+03:30",
+                          "raw_salary": 0,
+                          "rewards": [],
+                          "source_location": {
+                            "latitude": 35.733506,
+                            "longitude": 51.359762
+                          }
+                        },
+                        {
+                          "request_datetime": "2020-01-10T22:26:13.995336+03:30",
+                          "assign_datetime": "2020-01-10T22:26:15.611767+03:30",
+                          "id": 1711708,
+                          "courses": [
+                            {
+                              "id": 2611501,
+                              "destination_text": "مرزداران - شهرک آزمایش، سرسبزجنوبی",
+                              "end_datetime": "2020-01-10T22:37:52+03:30",
+                              "destination": {
+                                "latitude": 35.73338,
+                                "longitude": 51.359707
+                              },
+                              "radial_end_to_end_distance": 0.014907640834019218,
+                              "is_long": false
+                            }
+                          ],
+                          "course_bonuses": [],
+                          "source_title": "فست‌فودی دیگر در مرزداران",
+                          "is_round_trip": false,
+                          "end_datetime": "2020-01-10T22:37:52+03:30",
+                          "raw_salary": 0,
+                          "rewards": [],
+                          "source_location": {
+                            "latitude": 35.733506,
+                            "longitude": 51.359762
+                          }
+                        },
+                        {
+                          "request_datetime": "2020-01-10T21:51:21.295148+03:30",
+                          "assign_datetime": "2020-01-10T21:51:39.576195+03:30",
+                          "id": 1711542,
+                          "courses": [
+                            {
+                              "id": 2611350,
+                              "destination_text": "آلستوم، یاسمن یکم",
+                              "end_datetime": "2020-01-10T22:22:04+03:30",
+                              "destination": {
+                                "latitude": 35.72822,
+                                "longitude": 51.364557
+                              },
+                              "radial_end_to_end_distance": 1.8115891865091371,
+                              "is_long": false
+                            },
+                            {
+                              "id": 2611246,
+                              "destination_text": "چوب تراش، بیدکی",
+                              "end_datetime": "2020-01-10T22:12:09+03:30",
+                              "destination": {
+                                "latitude": 35.716035,
+                                "longitude": 51.35127
+                              },
+                              "radial_end_to_end_distance": 1.1774974598309311,
+                              "is_long": false
+                            }
+                          ],
+                          "course_bonuses": [],
+                          "source_title": "فست‌فودی دیگر در مرزداران",
+                          "is_round_trip": false,
+                          "end_datetime": "2020-01-10T22:22:04+03:30",
+                          "raw_salary": 0,
+                          "rewards": [],
+                          "source_location": {
+                            "latitude": 35.721652,
+                            "longitude": 51.34023
+                          }
+                        },
+                        {
+                          "request_datetime": "2020-01-10T21:26:14.992725+03:30",
+                          "assign_datetime": "2020-01-10T21:26:35.366963+03:30",
+                          "id": 1711380,
+                          "courses": [
+                            {
+                              "id": 2611006,
+                              "destination_text": "خرم رودی",
+                              "end_datetime": "2020-01-10T21:49:48+03:30",
+                              "destination": {
+                                "latitude": 35.726674,
+                                "longitude": 51.341927
+                              },
+                              "radial_end_to_end_distance": 1.7821166383804594,
+                              "is_long": false
+                            }
+                          ],
+                          "course_bonuses": [],
+                          "source_title": "فست‌فودی دیگر در مرزداران",
+                          "is_round_trip": false,
+                          "end_datetime": "2020-01-10T21:49:48+03:30",
+                          "raw_salary": 0,
+                          "rewards": [],
+                          "source_location": {
+                            "latitude": 35.733506,
+                            "longitude": 51.359762
+                          }
+                        },
+                        {
+                          "request_datetime": "2020-01-10T20:50:42.371840+03:30",
+                          "assign_datetime": "2020-01-10T20:50:50.447251+03:30",
+                          "id": 1711177,
+                          "courses": [
+                            {
+                              "id": 2610700,
+                              "destination_text": "مهران، سازمان آب",
+                              "end_datetime": "2020-01-10T21:12:00+03:30",
+                              "destination": {
+                                "latitude": 35.736022,
+                                "longitude": 51.316446
+                              },
+                              "radial_end_to_end_distance": 1.8466388607237396,
+                              "is_long": false
+                            }
+                          ],
+                          "course_bonuses": [],
+                          "source_title": "کترینگ لنوو",
+                          "is_round_trip": true,
+                          "end_datetime": "2020-01-10T21:22:41+03:30",
+                          "raw_salary": 0,
+                          "rewards": [
+                            {
+                              "id": 410478,
+                              "created_at": "2020-01-10T17:52:46.178713Z",
+                              "amount": 850,
+                              "reason": "درآمد مازاد بازگشت سفر کترینگ لنوو",
+                              "type": {
+                                "id": 5,
+                                "name": "بازگشت سفر"
+                              }
+                            }
+                          ],
+                          "source_location": {
+                            "latitude": 35.736005,
+                            "longitude": 51.336883
+                          }
+                        },
+                        {
+                          "request_datetime": "2020-01-10T20:29:50.551033+03:30",
+                          "assign_datetime": "2020-01-10T20:29:56.163430+03:30",
+                          "id": 1711053,
+                          "courses": [
+                            {
+                              "id": 2610514,
+                              "destination_text": "شهرک هما، گلبرگ",
+                              "end_datetime": "2020-01-10T20:50:13+03:30",
+                              "destination": {
+                                "latitude": 35.734965,
+                                "longitude": 51.337437
+                              },
+                              "radial_end_to_end_distance": 2.0238333105243784,
+                              "is_long": false
+                            }
+                          ],
+                          "course_bonuses": [],
+                          "source_title": "فست‌فودی دیگر در مرزداران",
+                          "is_round_trip": false,
+                          "end_datetime": "2020-01-10T20:50:13+03:30",
+                          "raw_salary": 0,
+                          "rewards": [],
+                          "source_location": {
+                            "latitude": 35.733506,
+                            "longitude": 51.359762
+                          }
+                        },
+                        {
+                          "request_datetime": "2020-01-10T20:04:13.225420+03:30",
+                          "assign_datetime": "2020-01-10T20:04:21.918217+03:30",
+                          "id": 1710909,
+                          "courses": [
+                            {
+                              "id": 2610325,
+                              "destination_text": "خرم رودی، بلوار خرم رودی",
+                              "end_datetime": "2020-01-10T20:29:33+03:30",
+                              "destination": {
+                                "latitude": 35.730546,
+                                "longitude": 51.346278
+                              },
+                              "radial_end_to_end_distance": 1.2622015067934678,
+                              "is_long": false
+                            }
+                          ],
+                          "course_bonuses": [],
+                          "source_title": "فست‌فودی دیگر در مرزداران",
+                          "is_round_trip": false,
+                          "end_datetime": "2020-01-10T20:29:33+03:30",
+                          "raw_salary": 0,
+                          "rewards": [],
+                          "source_location": {
+                            "latitude": 35.733506,
+                            "longitude": 51.359762
+                          }
+                        },
+                        {
+                          "request_datetime": "2020-01-10T19:19:39.822217+03:30",
+                          "assign_datetime": "2020-01-10T19:19:44.642391+03:30",
+                          "id": 1710695,
+                          "courses": [
+                            {
+                              "id": 2610027,
+                              "destination_text": "پردیسان، نسیبه",
+                              "end_datetime": "2020-01-10T19:41:08+03:30",
+                              "destination": {
+                                "latitude": 35.739421,
+                                "longitude": 51.349866
+                              },
+                              "radial_end_to_end_distance": 1.1105006465444904,
+                              "is_long": false
+                            }
+                          ],
+                          "course_bonuses": [],
+                          "source_title": "فست‌فودی دیگر در مرزداران",
+                          "is_round_trip": false,
+                          "end_datetime": "2020-01-10T19:41:08+03:30",
+                          "raw_salary": 0,
+                          "rewards": [],
+                          "source_location": {
+                            "latitude": 35.733506,
+                            "longitude": 51.359762
+                          }
+                        },
+                        {
+                          "request_datetime": "2020-01-10T18:50:12.934853+03:30",
+                          "assign_datetime": "2020-01-10T18:50:40.462139+03:30",
+                          "id": 1710610,
+                          "courses": [
+                            {
+                              "id": 2609917,
+                              "destination_text": "پردیسان، البرز، سپهر",
+                              "end_datetime": "2020-01-10T19:14:35+03:30",
+                              "destination": {
+                                "latitude": 35.737567,
+                                "longitude": 51.353961
+                              },
+                              "radial_end_to_end_distance": 0.4833733932028356,
+                              "is_long": false
+                            }
+                          ],
+                          "course_bonuses": [],
+                          "source_title": "فست‌فودی در مرزداران",
+                          "is_round_trip": false,
+                          "end_datetime": "2020-01-10T19:14:35+03:30",
+                          "raw_salary": 0,
+                          "rewards": [],
+                          "source_location": {
+                            "latitude": 35.733507,
+                            "longitude": 51.352065
+                          }
+                        },
+                        {
+                          "request_datetime": "2020-01-10T18:19:47.936209+03:30",
+                          "assign_datetime": "2020-01-10T18:20:06.140172+03:30",
+                          "id": 1710558,
+                          "courses": [
+                            {
+                              "id": 2609863,
+                              "destination_text": "پردیسان، سپهر دهم",
+                              "end_datetime": "2020-01-10T18:34:40+03:30",
+                              "destination": {
+                                "latitude": 35.737903,
+                                "longitude": 51.357231
+                              },
+                              "radial_end_to_end_distance": 0.3357174974459386,
+                              "is_long": false
+                            }
+                          ],
+                          "course_bonuses": [],
+                          "source_title": "تهیه غذای ایران",
+                          "is_round_trip": true,
+                          "end_datetime": "2020-01-10T18:38:44+03:30",
+                          "raw_salary": 0,
+                          "rewards": [
+                            {
+                              "id": 410130,
+                              "created_at": "2020-01-10T15:08:47.939173Z",
+                              "amount": 850,
+                              "reason": "درآمد مازاد بازگشت سفر تهیه غذای ایران",
+                              "type": {
+                                "id": 5,
+                                "name": "بازگشت سفر"
+                              }
+                            }
+                          ],
+                          "source_location": {
+                            "latitude": 35.734901,
+                            "longitude": 51.357582
+                          }
+                        },
+                        {
+                          "request_datetime": "2020-01-10T15:37:07.759463+03:30",
+                          "assign_datetime": "2020-01-10T15:37:09.992133+03:30",
+                          "id": 1710147,
+                          "courses": [
+                            {
+                              "id": 2609340,
+                              "destination_text": "پردیسان، نسیبه، فرشته ۴",
+                              "end_datetime": "2020-01-10T15:51:00+03:30",
+                              "destination": {
+                                "latitude": 35.739357,
+                                "longitude": 51.349941
+                              },
+                              "radial_end_to_end_distance": 1.1007944522732551,
+                              "is_long": false
+                            },
+                            {
+                              "id": 2609320,
+                              "destination_text": "خرم رودی، آرش",
+                              "end_datetime": "2020-01-10T15:57:52+03:30",
+                              "destination": {
+                                "latitude": 35.728981,
+                                "longitude": 51.346392
+                              },
+                              "radial_end_to_end_distance": 1.1987017125490236,
+                              "is_long": false
+                            }
+                          ],
+                          "course_bonuses": [],
+                          "source_title": "فست‌فود ما",
+                          "is_round_trip": false,
+                          "end_datetime": "2020-01-10T15:57:52+03:30",
+                          "raw_salary": 0,
+                          "rewards": [],
+                          "source_location": {
+                            "latitude": 35.733506,
+                            "longitude": 51.359762
+                          }
+                        },
+                        {
+                          "request_datetime": "2020-01-10T14:52:55.453818+03:30",
+                          "assign_datetime": "2020-01-10T14:53:01.464784+03:30",
+                          "id": 1709929,
+                          "courses": [
+                            {
+                              "id": 2609087,
+                              "destination_text": "همایون شهر، عباس دهقان",
+                              "end_datetime": "2020-01-10T15:10:02+03:30",
+                              "destination": {
+                                "latitude": 35.718428,
+                                "longitude": 51.360829
+                              },
+                              "radial_end_to_end_distance": 1.106064765509178,
+                              "is_long": false
+                            },
+                            {
+                              "id": 2609008,
+                              "destination_text": "توحید، کامران",
+                              "end_datetime": "2020-01-10T15:29:13+03:30",
+                              "destination": {
+                                "latitude": 35.702992,
+                                "longitude": 51.373673
+                              },
+                              "radial_end_to_end_distance": 0.33095596352575196,
+                              "is_long": false
+                            },
+                            {
+                              "id": 2609085,
+                              "destination_text": "توحید، نصرت غربی، عباس مجتهدی",
+                              "end_datetime": "2020-01-10T15:23:40+03:30",
+                              "destination": {
+                                "latitude": 35.705965,
+                                "longitude": 51.373693
+                              },
+                              "radial_end_to_end_distance": 1.8101390472621597,
+                              "is_long": false
+                            }
+                          ],
+                          "course_bonuses": [],
+                          "source_title": "فودکورت",
+                          "is_round_trip": false,
+                          "end_datetime": "2020-01-10T15:29:13+03:30",
+                          "raw_salary": 0,
+                          "rewards": [],
+                          "source_location": {
+                            "latitude": 35.721839,
+                            "longitude": 51.349335
+                          }
+                        },
+                        {
+                          "request_datetime": "2020-01-10T13:16:30.493104+03:30",
+                          "assign_datetime": "2020-01-10T13:16:43.233043+03:30",
+                          "id": 1709349,
+                          "courses": [
+                            {
+                              "id": 2608098,
+                              "destination_text": "آلستوم، مهدی",
+                              "end_datetime": "2020-01-10T13:29:18+03:30",
+                              "destination": {
+                                "latitude": 35.724012,
+                                "longitude": 51.362449
+                              },
+                              "radial_end_to_end_distance": 0.45461898021910935,
+                              "is_long": false
+                            },
+                            {
+                              "id": 2608097,
+                              "destination_text": "آلستوم، سوم شرقی",
+                              "end_datetime": "2020-01-10T13:36:48+03:30",
+                              "destination": {
+                                "latitude": 35.722826,
+                                "longitude": 51.357309
+                              },
+                              "radial_end_to_end_distance": 0.48288311602200895,
+                              "is_long": false
+                            },
+                            {
+                              "id": 2608099,
+                              "destination_text": "آلستوم، سوم شرقی",
+                              "end_datetime": "2020-01-10T13:36:49+03:30",
+                              "destination": {
+                                "latitude": 35.722826,
+                                "longitude": 51.357309
+                              },
+                              "radial_end_to_end_distance": 0.000036149726015473884,
+                              "is_long": false
+                            },
+                            {
+                              "id": 2608100,
+                              "destination_text": "آلستوم، بلوار سازمان آب، یاور نژاد",
+                              "end_datetime": "2020-01-10T13:38:03+03:30",
+                              "destination": {
+                                "latitude": 35.725577,
+                                "longitude": 51.357394
+                              },
+                              "radial_end_to_end_distance": 0.3063335669186157,
+                              "is_long": false
+                            }
+                          ],
+                          "course_bonuses": [],
+                          "source_title": "کبابی ۱",
+                          "is_round_trip": false,
+                          "end_datetime": "2020-01-10T13:38:03+03:30",
+                          "raw_salary": 0,
+                          "rewards": [],
+                          "source_location": {
+                            "latitude": 35.725802,
+                            "longitude": 51.357927
+                          }
+                        },
+                        {
+                          "request_datetime": "2020-01-10T13:01:15.673054+03:30",
+                          "assign_datetime": "2020-01-10T13:01:40.613975+03:30",
+                          "id": 1709276,
+                          "courses": [
+                            {
+                              "id": 2607996,
+                              "destination_text": "آلستوم، حاجی پور امیر",
+                              "end_datetime": "2020-01-10T13:14:55+03:30",
+                              "destination": {
+                                "latitude": 35.72708,
+                                "longitude": 51.361942
+                              },
+                              "radial_end_to_end_distance": 0.38971784707790325,
+                              "is_long": false
+                            }
+                          ],
+                          "course_bonuses": [],
+                          "source_title": "کبابی ۱",
+                          "is_round_trip": false,
+                          "end_datetime": "2020-01-10T13:14:55+03:30",
+                          "raw_salary": 0,
+                          "rewards": [],
+                          "source_location": {
+                            "latitude": 35.725802,
+                            "longitude": 51.357927
+                          }
+                        }
+                      ],
+                      "referrals": [],
+                      "punishments": [],
+                      "debts": [],
+                      "rewards": [
+                        {
+                          "id": 410130,
+                          "created_at": "2020-01-10T15:08:47.939173Z",
+                          "amount": 850,
+                          "reason": "درآمد مازاد بازگشت سفر کبابی ۱",
+                          "type": {
+                            "id": 5,
+                            "name": "بازگشت سفر"
+                          }
+                        },
+                        {
+                          "id": 410478,
+                          "created_at": "2020-01-10T17:52:46.178713Z",
+                          "amount": 850,
+                          "reason": "درآمد مازاد بازگشت سفر راوی",
+                          "type": {
+                            "id": 5,
+                            "name": "بازگشت سفر"
+                          }
+                        },
+                        {
+                          "id": 412769,
+                          "created_at": "2020-01-10T08:30:00Z",
+                          "amount": 84000,
+                          "reason": "کمک هزینه بنزین کارکرد ۱۴ الی ۲۰ دی ۹۸",
+                          "type": {
+                            "id": 28,
+                            "name": "کمک هزینه بنزین"
+                          }
+                        },
+                        {
+                          "id": 415004,
+                          "created_at": "2020-01-10T14:36:00Z",
+                          "amount": 1000,
+                          "reason": "مازاد درآمد سفرهای بالای ۲.۵ کیلومتر از تاریخ ۱۴ الی ۱۷ دی ۹۸",
+                          "type": {
+                            "id": 14,
+                            "name": "سفرهای بالای ۲.۵ کیلومتر"
+                          }
+                        },
+                        {
+                          "id": 417693,
+                          "created_at": "2020-01-10T10:06:12Z",
+                          "amount": 58000,
+                          "reason": "اصلاحیه کارکرد هفته اول",
+                          "type": {
+                            "id": 16,
+                            "name": "اصلاح کارکرد"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
               }
             }
           }
