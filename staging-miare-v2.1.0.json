@@ -3519,7 +3519,8 @@
             "enum": [
               "reservation-tutorial",
               "...",
-              "app-tutorials"
+              "app-tutorials",
+              "sheba-reminder"
             ]
           },
           "name": "category_name",
