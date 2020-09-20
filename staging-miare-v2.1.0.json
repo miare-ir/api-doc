@@ -1792,6 +1792,9 @@
           },
           "user": {
             "$ref": "#/components/schemas/User"
+          },
+          "suitable_for_newbies": {
+            "type": "boolean"
           }
         }
       }
