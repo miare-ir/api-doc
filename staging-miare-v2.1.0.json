@@ -1704,6 +1704,96 @@
           },
           "url": {}
         }
+      },
+      "Client": {
+        "title": "Client",
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "area_id": {
+            "type": "integer"
+          },
+          "blocked": {
+            "type": "boolean"
+          },
+          "concurrencies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "start_time": {
+                  "type": "string",
+                  "format": "time"
+                },
+                "end_time": {
+                  "type": "string",
+                  "format": "time"
+                },
+                "area": {
+                  "type": "integer",
+                  "description": "The areaID of the concurrency, zero for multisource clients"
+                },
+                "limit": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "id": {
+            "type": "integer"
+          },
+          "is_fake": {
+            "type": "boolean"
+          },
+          "location": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Location"
+              },
+              {
+                "type": "null",
+                "properties": {}
+              }
+            ]
+          },
+          "logo": {
+            "type": "string",
+            "description": "Empty string returned instead of null"
+          },
+          "multi_source": {
+            "type": "boolean"
+          },
+          "payment_registration": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "phone": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "integer"
+          },
+          "start_working_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          },
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          }
+        }
       }
     },
     "requestBodies": {
