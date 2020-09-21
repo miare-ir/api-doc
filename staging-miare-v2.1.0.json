@@ -1850,6 +1850,66 @@
             "payload": "{\"driver_id\": 5,\"last_location_datetime\": \"2019-08-24T14:15:22Z\", \"location\": {\"latitude\": 35.737004, \"longitude\": 51.413569}, \"out_of_area\": true}"
           }
         }
+      },
+      "UpdateDriverMessage": {
+        "title": "UpdateDriverMessage",
+        "type": "object",
+        "description": "Note that the payload is converted to string as in example",
+        "properties": {
+          "msg_type": {
+            "type": "string",
+            "enum": [
+              "driver"
+            ]
+          },
+          "payload": {
+            "$ref": "#/components/schemas/DriverOnWebsocket"
+          }
+        },
+        "x-examples": {
+          "example": {
+            "msg_type": "driver",
+            "payload": "{\"available\": true,\"avatar\": \"https://*thumbor_domain/unsafe/200x200/smart/https://miare-staging.files.miare.ir/media/IMG_20160531_210617.jpg\",\"busy\": true,\"id\": 5,\"is_suspended\": false,\"phone\": \"09991234567\",\"rest\": null,\"url\": \"/drivers/5/\",\"user\": {\"first_name\": \"آقای\",\"id\": 4,\"is_staff\": true,\"last_name\": \"راننده\",\"user_name\": \"driver23213\"}}"
+          }
+        }
+      },
+      "DriverOnWebsocket": {
+        "title": "DriverOnWebsocket",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "available": {
+            "type": "boolean"
+          },
+          "busy": {
+            "type": "boolean"
+          },
+          "avatar": {
+            "type": "string"
+          },
+          "is_suspended": {
+            "type": "boolean"
+          },
+          "rest": {
+            "oneOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null",
+                "properties": {}
+              }
+            ]
+          },
+          "url": {
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          }
+        }
       }
     },
     "requestBodies": {
