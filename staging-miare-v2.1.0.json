@@ -3726,7 +3726,10 @@
               "reservation-tutorial",
               "...",
               "app-tutorials",
-              "sheba-reminder"
+              "sheba-reminder",
+              "assign-overview/courses-count",
+              "assign-overview/rating",
+              "assign-overview/shift-start"
             ]
           },
           "name": "category_name",
