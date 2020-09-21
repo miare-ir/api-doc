@@ -1847,7 +1847,7 @@
         "x-examples": {
           "example": {
             "msg_type": "update_location",
-            "payload": "{\"driver_id\": 0,\"last_location_datetime\": \"2019-08-24T14:15:22Z\", \"location\": {\"latitude\": 35.737004, \"longitude\": 51.413569}, \"out_of_area\": true}"
+            "payload": "{\"driver_id\": 5,\"last_location_datetime\": \"2019-08-24T14:15:22Z\", \"location\": {\"latitude\": 35.737004, \"longitude\": 51.413569}, \"out_of_area\": true}"
           }
         }
       }
