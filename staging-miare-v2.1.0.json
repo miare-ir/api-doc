@@ -5773,7 +5773,7 @@
     },
     "/accounting/client/transactions": {
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "ClientTransactions",
         "tags": [],
         "responses": {
           "200": {
