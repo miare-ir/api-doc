@@ -5630,6 +5630,41 @@
           "required": true
         }
       ]
+    },
+    "/api/assign/drivers/overview/": {
+      "get": {
+        "summary": "Driver Assign Overview",
+        "tags": [
+          "delivery"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "limited_courses_count": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "present_at_shift_start": {
+                      "type": "boolean"
+                    },
+                    "rating": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-assign-drivers-overview",
+        "description": "Returns an overview of parameters that affect drivers assign score"
+      }
     }
   },
   "security": [
