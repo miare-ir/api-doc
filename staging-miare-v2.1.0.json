@@ -5969,7 +5969,7 @@
             }
           },
           "400": {
-            "description": "invalid_date"
+            "description": "invalid_period"
           }
         },
         "operationId": "get-accounting-client-transactions"
