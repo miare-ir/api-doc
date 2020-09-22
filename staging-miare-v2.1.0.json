@@ -1910,6 +1910,108 @@
             "$ref": "#/components/schemas/User"
           }
         }
+      },
+      "ClientPayment": {
+        "title": "ClientPayment",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "amount": {
+            "type": "integer",
+            "exclusiveMaximum": true,
+            "maximum": 0
+          },
+          "datetime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TripPriceChanges": {
+        "title": "TripPriceChanges",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "price_delta": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "driver_tag": {
+            "type": "integer"
+          },
+          "trip_financials_id": {
+            "type": "integer"
+          },
+          "trip_datetime": {
+            "type": "integer"
+          }
+        }
+      },
+      "Withdrawals": {
+        "title": "Withdrawal",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "amount": {
+            "type": "integer"
+          }
+        }
+      },
+      "ConcurrencyCost": {
+        "title": "ConcurrencyCost",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "amount": {
+            "type": "integer"
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "ClientMiscExpense": {
+        "title": "ClientMiscExpense",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "amount": {
+            "type": "integer"
+          }
+        }
       }
     },
     "requestBodies": {
@@ -5667,6 +5769,210 @@
         },
         "operationId": "get-api-assign-drivers-overview",
         "description": "Returns an overview of parameters that affect drivers assign score"
+      }
+    },
+    "/accounting/client/transactions": {
+      "get": {
+        "summary": "ClientTransactions",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "concurrency_costs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ConcurrencyCost"
+                      }
+                    },
+                    "misc_expenses": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ClientMiscExpense"
+                      }
+                    },
+                    "payments": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ClientPayment"
+                      }
+                    },
+                    "trip_financials": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "driver": {
+                            "type": "string"
+                          },
+                          "driver_tag": {
+                            "type": "integer"
+                          },
+                          "final_price": {
+                            "type": "integer"
+                          },
+                          "has_price_change": {
+                            "type": "boolean"
+                          },
+                          "id": {
+                            "type": "integer"
+                          },
+                          "request_datetime": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "source_title": {
+                            "type": "string"
+                          },
+                          "trip_id": {
+                            "type": "integer"
+                          },
+                          "courses": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "bill_number": {
+                                  "type": [
+                                    "null",
+                                    "integer"
+                                  ]
+                                },
+                                "confirmed": {
+                                  "type": "boolean"
+                                },
+                                "course_id": {
+                                  "type": "integer"
+                                },
+                                "customer": {
+                                  "$ref": "#/components/schemas/Customer"
+                                },
+                                "destination_text": {
+                                  "type": "string"
+                                },
+                                "driver": {
+                                  "type": "string"
+                                },
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "paid_back": {
+                                  "type": "boolean"
+                                },
+                                "payment_type": {
+                                  "type": "integer"
+                                },
+                                "price": {
+                                  "type": "integer"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "trip_price_changes": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TripPriceChanges"
+                      }
+                    },
+                    "withdrawals": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Withdrawals"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "concurrency_costs": [
+                        {
+                          "id": 0,
+                          "created_at": "2019-08-24T14:15:22Z",
+                          "amount": 0,
+                          "start_date": "2019-08-24",
+                          "end_date": "2019-08-24"
+                        }
+                      ],
+                      "misc_expenses": [
+                        {
+                          "id": 0,
+                          "title": "string",
+                          "created_at": "2019-08-24T14:15:22Z",
+                          "amount": 0
+                        }
+                      ],
+                      "payments": [
+                        {
+                          "id": 0,
+                          "amount": 0,
+                          "datetime": "2019-08-24T14:15:22Z"
+                        }
+                      ],
+                      "trip_financials": [
+                        {
+                          "driver": "string",
+                          "driver_tag": 0,
+                          "final_price": 0,
+                          "has_price_change": true,
+                          "id": 0,
+                          "request_datetime": "2019-08-24T14:15:22Z",
+                          "source_title": "string",
+                          "trip_id": 0,
+                          "courses": [
+                            {
+                              "bill_number": null,
+                              "confirmed": true,
+                              "course_id": 0,
+                              "customer": {
+                                "name": "string",
+                                "phone": 0
+                              },
+                              "destination_text": "string",
+                              "driver": "string",
+                              "id": 0,
+                              "paid_back": true,
+                              "payment_type": 0,
+                              "price": 0
+                            }
+                          ]
+                        }
+                      ],
+                      "trip_price_changes": [
+                        {
+                          "id": 0,
+                          "price_delta": 0,
+                          "created_at": "2019-08-24T14:15:22Z",
+                          "driver_tag": 0,
+                          "trip_financials_id": 0,
+                          "trip_datetime": 0
+                        }
+                      ],
+                      "withdrawals": [
+                        {
+                          "id": 0,
+                          "created_at": "2019-08-24T14:15:22Z",
+                          "amount": 0
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_period"
+          }
+        },
+        "operationId": "get-accounting-client-transactions"
       }
     }
   },
