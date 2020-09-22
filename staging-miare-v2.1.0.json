@@ -1802,11 +1802,22 @@
         "title": "UpdateLocationPayload",
         "type": "object",
         "description": "",
+        "x-examples": {
+          "example": {
+            "driver_id": 5,
+            "datetime": "2020-09-01T10:32:49+0430",
+            "location": {
+              "latitude": 29.637324,
+              "longitude": 52.45684
+            },
+            "out_of_area": true
+          }
+        },
         "properties": {
           "driver_id": {
             "type": "integer"
           },
-          "last_location_datetime": {
+          "datetime": {
             "type": "string",
             "format": "date-time"
           },
@@ -1815,17 +1826,6 @@
           },
           "out_of_area": {
             "type": "boolean"
-          }
-        },
-        "x-examples": {
-          "example": {
-            "driver_id": 5,
-            "last_location_datetime": "2020-09-01T10:32:49+0430",
-            "location": {
-              "latitude": 29.637324,
-              "longitude": 52.45684
-            },
-            "out_of_area": true
           }
         }
       },
@@ -1847,7 +1847,7 @@
         "x-examples": {
           "example": {
             "msg_type": "update_location",
-            "payload": "{\"driver_id\": 5,\"last_location_datetime\": \"2019-08-24T14:15:22Z\", \"location\": {\"latitude\": 35.737004, \"longitude\": 51.413569}, \"out_of_area\": true}"
+            "payload": "{\"driver_id\": 5,\"datetime\": \"2019-08-24T14:15:22Z\", \"location\": {\"latitude\": 35.737004, \"longitude\": 51.413569}, \"out_of_area\": true}"
           }
         }
       },
