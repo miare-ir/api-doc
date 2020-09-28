@@ -27,6 +27,9 @@
     },
     {
       "name": "notifications"
+    },
+    {
+      "name": "Registration"
     }
   ],
   "servers": [
@@ -5978,7 +5981,9 @@
     "/registration/driver-create": {
       "post": {
         "summary": "PotentialDriverRegistration",
-        "tags": [],
+        "tags": [
+          "Registration"
+        ],
         "responses": {
           "201": {
             "description": "Created"
