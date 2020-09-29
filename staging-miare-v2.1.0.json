@@ -5760,6 +5760,12 @@
                     },
                     "rating": {
                       "type": "integer"
+                    },
+                    "feedbacked_clients_count": {
+                      "type": "integer"
+                    },
+                    "feedbacked_customers_count": {
+                      "type": "integer"
                     }
                   }
                 }
