@@ -27,6 +27,9 @@
     },
     {
       "name": "notifications"
+    },
+    {
+      "name": "Registration"
     }
   ],
   "servers": [
@@ -5979,6 +5982,68 @@
           }
         },
         "operationId": "get-accounting-client-transactions"
+      }
+    },
+    "/registration/driver-create": {
+      "post": {
+        "summary": "PotentialDriverRegistration",
+        "tags": [
+          "Registration"
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        },
+        "operationId": "post-registration-driver-create",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  },
+                  "phone_number": {
+                    "type": "integer"
+                  },
+                  "interview_date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "set today as default value"
+                  },
+                  "refrence_type": {
+                    "type": "string",
+                    "enum": [
+                      "restaurant",
+                      "divar",
+                      "sheypoor",
+                      "newspaper",
+                      "telegram",
+                      "in_person",
+                      "other"
+                    ],
+                    "description": "in recruitment panel it is set by recruiter but in restaurant panel should be set to restaurant"
+                  }
+                },
+                "required": [
+                  "first_name",
+                  "last_name",
+                  "phone_number",
+                  "interview_date",
+                  "refrence_type"
+                ]
+              }
+            }
+          }
+        }
       }
     }
   },
