@@ -3832,9 +3832,9 @@
               "...",
               "app-tutorials",
               "sheba-reminder",
-              "assign-overview/courses-count",
-              "assign-overview/rating",
-              "assign-overview/shift-start"
+              "assign-overview-rating",
+              "assign-overview-shift-start",
+              "assign-overview-courses-count"
             ]
           },
           "name": "category_name",
