@@ -5769,6 +5769,10 @@
                     },
                     "feedbacked_customers_count": {
                       "type": "integer"
+                    },
+                    "newbies_courses_count_threshold": {
+                      "type": "integer",
+                      "minimum": 0
                     }
                   }
                 }
