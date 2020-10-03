@@ -5988,7 +5988,7 @@
         "operationId": "get-accounting-client-transactions"
       }
     },
-    "/registration/driver-create": {
+    "/registration/driver": {
       "post": {
         "summary": "PotentialDriverRegistration",
         "tags": [
@@ -6048,7 +6048,8 @@
             }
           }
         }
-      }
+      },
+      "parameters": []
     }
   },
   "security": [
