@@ -1332,7 +1332,8 @@
             "name": "v1",
             "file_url": "http://localhost:8000/media/%D8%B3%D9%BE%D9%87%D8%B1.JPG",
             "seen": false,
-            "description": "Lorem Ipsum"
+            "description": "Lorem Ipsum",
+            "thumbnail_url": "https://img.com/sample.JPG"
           }
         },
         "properties": {
@@ -1351,6 +1352,12 @@
             "type": "boolean"
           },
           "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "thumbnail_url": {
             "type": [
               "string",
               "null"
@@ -3877,7 +3884,8 @@
                       "name": "v1",
                       "file_url": "http://localhost:8000/media/%D8%B3%D9%BE%D9%87%D8%B1.JPG",
                       "seen": true,
-                      "description": null
+                      "description": null,
+                      "thumbnail_url": null
                     }
                   },
                   "list-example": {
@@ -3885,16 +3893,18 @@
                       {
                         "id": 1,
                         "name": "pic 1",
-                        "file_url": "http://localhost:8000/media/%D8%B3%D9%BE%D9%87%D8%B1.JPG",
+                        "file_url": "http://localhost:8000/media/%D8%B3%D9%BE%D9%87%D8%B1.MP4",
                         "seen": false,
-                        "description": null
+                        "description": null,
+                        "thumbnail_url": "http://localhost:8000/media/%D8%B3%D9%BE%D9%87%D8%B1.JPG"
                       },
                       {
                         "id": 3,
                         "name": "pic 2",
                         "file_url": "http://localhost:8000/media/%D8%B3%D9%BE%D9%87%D8%B2.JPG",
                         "seen": true,
-                        "description": "Lorem Ipsum"
+                        "description": "Lorem Ipsum",
+                        "thumbnail_url": null
                       }
                     ]
                   },
