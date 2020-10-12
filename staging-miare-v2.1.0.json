@@ -6076,6 +6076,38 @@
         }
       },
       "parameters": []
+    },
+    "/trip-management/staff-api/trips/{tripID}/reassign-driver/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "tripID",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Reassign Driver",
+        "tags": [
+          "delivery"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-trip-management-staff-api-trips-tripID-reassign-driver"
+      }
     }
   },
   "security": [
