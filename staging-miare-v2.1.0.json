@@ -6108,6 +6108,53 @@
         },
         "operationId": "post-trip-management-staff-api-trips-tripID-reassign-driver"
       }
+    },
+    "/api/otp/driver/request/": {
+      "post": {
+        "summary": "driver-request-otp",
+        "tags": [
+          "Registration"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-api-otp-driver-request",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "phone_number": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "phone_number"
+                ]
+              }
+            }
+          }
+        }
+      }
     }
   },
   "security": [
