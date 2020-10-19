@@ -6359,6 +6359,84 @@
         },
         "operationId": "get-api-registration-drivers-contact-info"
       }
+    },
+    "/api/registration/drivers/identity-docs/": {
+      "get": {
+        "summary": "get-identity-docs",
+        "tags": [
+          "Registration"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "driving_license_url": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-registration-drivers-identity-docs"
+      },
+      "post": {
+        "summary": "update-or-create-identity-docs",
+        "tags": [
+          "Registration"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "driving_license_url": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-api-registration-drivers-identity-docs",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "driving_license": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "security": [
