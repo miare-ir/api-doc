@@ -2028,6 +2028,50 @@
             "type": "integer"
           }
         }
+      },
+      "RegistrationPersonalInfo": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "last_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "fathers_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "has_citizenship": {
+            "type": "boolean"
+          },
+          "serial_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "citizen_number": {
+            "type": "string",
+            "minLength": 1
+          },
+          "passport_number": {
+            "type": "string",
+            "minLength": 1
+          },
+          "birth_date": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "first_name",
+          "last_name",
+          "fathers_name",
+          "has_citizenship",
+          "birth_date"
+        ]
       }
     },
     "requestBodies": {
@@ -6201,6 +6245,52 @@
                 "required": [
                   "key"
                 ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/registration/drivers/personal-info/": {
+      "post": {
+        "summary": "update-or-create-personal-info",
+        "tags": [
+          "Registration"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationPersonalInfo"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-api-registration-drivers-personal-info",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationPersonalInfo"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "get-personal-info",
+        "operationId": "get-api-registration-drivers-personal-info",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationPersonalInfo"
+                }
               }
             }
           }
