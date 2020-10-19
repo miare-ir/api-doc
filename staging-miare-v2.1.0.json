@@ -2072,6 +2072,19 @@
           "has_citizenship",
           "birth_date"
         ]
+      },
+      "RegistrationContactInfo": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "address"
+        ]
       }
     },
     "requestBodies": {
@@ -6295,6 +6308,56 @@
             }
           }
         }
+      }
+    },
+    "/api/registration/drivers/contact-info/": {
+      "post": {
+        "summary": "update-or-create-contact-info",
+        "tags": [
+          "Registration"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationContactInfo"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-api-registration-drivers-contact-info",
+        "description": "Used to update contact info of drivers during self-declared registration",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationContactInfo"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "get-create-contact-info",
+        "tags": [
+          "Registration"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationContactInfo"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-registration-drivers-contact-info"
       }
     }
   },
