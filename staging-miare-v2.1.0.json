@@ -2103,6 +2103,24 @@
           "plate_number",
           "bike_model"
         ]
+      },
+      "RegistrationExperienceInfo": {
+        "title": "RegistrationExperienceInfo",
+        "type": "object",
+        "properties": {
+          "reference_type": {
+            "type": "string"
+          },
+          "has_experience_as_courier": {
+            "type": "boolean"
+          },
+          "has_experience_in_snapp": {
+            "type": "boolean"
+          },
+          "has_experience_in_alopeik": {
+            "type": "boolean"
+          }
+        }
       }
     },
     "requestBodies": {
@@ -6493,6 +6511,55 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/RegistrationBikeInfo"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/registration/drivers/experience-info/": {
+      "get": {
+        "summary": "get-experience-info",
+        "tags": [
+          "Registration"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationExperienceInfo"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-registration-drivers-experience-info"
+      },
+      "post": {
+        "summary": "update-or-create-experience-info",
+        "tags": [
+          "Registration"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationExperienceInfo"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-api-registration-drivers-experience-info",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationExperienceInfo"
               }
             }
           }
