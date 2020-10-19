@@ -2085,6 +2085,24 @@
         "required": [
           "address"
         ]
+      },
+      "RegistrationBikeInfo": {
+        "title": "RegistrationBikeInfo",
+        "type": "object",
+        "properties": {
+          "plate_number": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 8
+          },
+          "bike_model": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "plate_number",
+          "bike_model"
+        ]
       }
     },
     "requestBodies": {
@@ -6427,6 +6445,55 @@
                 }
               },
               "examples": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/registration/drivers/bike-info/": {
+      "get": {
+        "summary": "get-bike-info",
+        "tags": [
+          "Registration"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationBikeInfo"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-registration-drivers-bike-info"
+      },
+      "post": {
+        "summary": "update-or-create-bike-info",
+        "tags": [
+          "Registration"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationBikeInfo"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-api-registration-drivers-bike-info",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationBikeInfo"
+              }
             }
           }
         }
