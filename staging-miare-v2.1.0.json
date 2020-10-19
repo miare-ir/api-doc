@@ -6155,6 +6155,57 @@
           }
         }
       }
+    },
+    "/api/otp/driver/submit/": {
+      "post": {
+        "summary": "driver-submit-otp",
+        "tags": [
+          "Registration"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "registration_completed": {
+                      "type": "boolean",
+                      "description": "Shows whether the self-declarated data by the driver is accepted"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-api-otp-driver-submit",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "key"
+                ]
+              }
+            }
+          }
+        }
+      }
     }
   },
   "security": [
