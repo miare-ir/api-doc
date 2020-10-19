@@ -2121,6 +2121,21 @@
             "type": "boolean"
           }
         }
+      },
+      "RegistrationReview": {
+        "title": "RegistrationReview",
+        "type": "object",
+        "properties": {
+          "is_accepted": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
       }
     },
     "requestBodies": {
@@ -6564,6 +6579,45 @@
             }
           }
         }
+      }
+    },
+    "/api/registration/drivers/overview/": {
+      "get": {
+        "summary": "registration-overview",
+        "tags": [
+          "Registration"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "personal_info_verified": {
+                      "type": "boolean"
+                    },
+                    "contact_info_verified": {
+                      "type": "boolean"
+                    },
+                    "identity_docs_verified": {
+                      "type": "boolean"
+                    },
+                    "bike_info_verified": {
+                      "type": "boolean"
+                    },
+                    "experience_info_verified": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-registration-drivers-overview",
+        "description": "Shows whether the self-declared data from driver are verified by the firm or not"
       }
     }
   },
