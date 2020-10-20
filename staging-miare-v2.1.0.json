@@ -6898,6 +6898,87 @@
         "operationId": "post-api-registration-field-staff-verify-driver_id-info_section",
         "description": ""
       }
+    },
+    "/api/registration/field-staff/{driver_id}/{form-name}/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "driver_id",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string",
+            "enum": [
+              "bike-info",
+              "personal-info",
+              "experience-info",
+              "identity-docs",
+              "contact-info"
+            ]
+          },
+          "name": "form-name",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "get-info-from-field-staff",
+        "tags": [
+          "Registration"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/RegistrationPersonalInfo"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RegistrationBikeInfo"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RegistrationExperienceInfo"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RegistrationContactInfo"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "driver_license_url": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "review": {
+                          "oneOf": [
+                            {
+                              "type": "null",
+                              "properties": {}
+                            },
+                            {
+                              "$ref": "#/components/schemas/RegistrationReview"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-registration-field-staff-driver_id-form-name"
+      }
     }
   },
   "security": [
