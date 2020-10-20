@@ -2067,13 +2067,15 @@
           "review": {
             "oneOf": [
               {
-                "properties": {},
                 "type": "null"
               },
               {
                 "$ref": "#/components/schemas/RegistrationReview"
               }
             ]
+          },
+          "approved_by_field_staff": {
+            "type": "boolean"
           }
         },
         "required": [
@@ -2098,10 +2100,12 @@
                 "$ref": "#/components/schemas/RegistrationReview"
               },
               {
-                "type": "null",
-                "properties": {}
+                "type": "null"
               }
             ]
+          },
+          "approved_by_field_staff": {
+            "type": "boolean"
           }
         },
         "required": [
@@ -2123,13 +2127,15 @@
           "review": {
             "oneOf": [
               {
-                "type": "null",
-                "properties": {}
+                "type": "null"
               },
               {
                 "$ref": "#/components/schemas/RegistrationReview"
               }
             ]
+          },
+          "approved_by_field_staff": {
+            "type": "boolean"
           }
         },
         "required": [
@@ -2156,13 +2162,15 @@
           "review": {
             "oneOf": [
               {
-                "type": "null",
-                "properties": {}
+                "type": "null"
               },
               {
                 "$ref": "#/components/schemas/RegistrationReview"
               }
             ]
+          },
+          "approved_by_field_staff": {
+            "type": "boolean"
           }
         }
       },
@@ -2170,7 +2178,7 @@
         "title": "RegistrationReview",
         "type": "object",
         "properties": {
-          "is_accepted": {
+          "is_approved": {
             "type": "boolean"
           },
           "description": {
@@ -6478,13 +6486,15 @@
                     "review": {
                       "oneOf": [
                         {
-                          "type": "null",
-                          "properties": {}
+                          "type": "null"
                         },
                         {
                           "$ref": "#/components/schemas/RegistrationReview"
                         }
                       ]
+                    },
+                    "approved_by_field_staff": {
+                      "type": "boolean"
                     }
                   }
                 }
@@ -6845,7 +6855,7 @@
         "operationId": "get-api-registration-field-staff-complementary-info-driver_id"
       }
     },
-    "/api/registration/field-staff/verify/{driver_id}/{info_section}/": {
+    "/api/registration/field-staff/approve/{driver_id}/{info_section}/": {
       "parameters": [
         {
           "schema": {
@@ -6872,7 +6882,7 @@
         }
       ],
       "post": {
-        "summary": "verify-info-from-field-staff",
+        "summary": "approve-info-from-field-staff",
         "tags": [
           "Registration"
         ],
