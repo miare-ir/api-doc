@@ -6474,6 +6474,17 @@
                         "string",
                         "null"
                       ]
+                    },
+                    "review": {
+                      "oneOf": [
+                        {
+                          "type": "null",
+                          "properties": {}
+                        },
+                        {
+                          "$ref": "#/components/schemas/RegistrationReview"
+                        }
+                      ]
                     }
                   }
                 }
