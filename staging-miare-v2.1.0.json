@@ -2063,6 +2063,17 @@
           "birth_date": {
             "type": "string",
             "minLength": 1
+          },
+          "review": {
+            "oneOf": [
+              {
+                "properties": {},
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/RegistrationReview"
+              }
+            ]
           }
         },
         "required": [
@@ -2080,6 +2091,17 @@
           "address": {
             "type": "string",
             "minLength": 1
+          },
+          "review": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/RegistrationReview"
+              },
+              {
+                "type": "null",
+                "properties": {}
+              }
+            ]
           }
         },
         "required": [
@@ -2097,6 +2119,17 @@
           },
           "bike_model": {
             "type": "string"
+          },
+          "review": {
+            "oneOf": [
+              {
+                "type": "null",
+                "properties": {}
+              },
+              {
+                "$ref": "#/components/schemas/RegistrationReview"
+              }
+            ]
           }
         },
         "required": [
@@ -2119,6 +2152,17 @@
           },
           "has_experience_in_alopeik": {
             "type": "boolean"
+          },
+          "review": {
+            "oneOf": [
+              {
+                "type": "null",
+                "properties": {}
+              },
+              {
+                "$ref": "#/components/schemas/RegistrationReview"
+              }
+            ]
           }
         }
       },
