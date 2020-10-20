@@ -6674,6 +6674,176 @@
         "operationId": "get-api-registration-drivers-overview",
         "description": "Shows whether the self-declared data from driver are verified by the firm or not"
       }
+    },
+    "/api/registration/field-staff/complementary-info/{driver_id}/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "driver_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "update-or-create-complementary-info",
+        "tags": [
+          "Registration"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "national_card_url": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "avatar_url": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "promissory_serial": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "minLength": 6,
+                      "maxLength": 6
+                    },
+                    "box_payment_type": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "minLength": 1,
+                      "enum": [
+                        "shetab",
+                        "cash"
+                      ]
+                    }
+                  }
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "operationId": "post-api-registration-field-staff-complementary-info-driver_id",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "required": [
+                      "promissory_serial",
+                      "box_payment_type"
+                    ],
+                    "properties": {
+                      "promissory_serial": {
+                        "type": "string",
+                        "minLength": 6,
+                        "maxLength": 6
+                      },
+                      "box_payment_type": {
+                        "type": "string",
+                        "minLength": 1,
+                        "enum": [
+                          "shetab",
+                          "cash"
+                        ]
+                      }
+                    }
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "national_card": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "data",
+                  "avatar",
+                  "national_card"
+                ]
+              }
+            }
+          },
+          "description": ""
+        },
+        "parameters": []
+      },
+      "get": {
+        "summary": "get-complementary-info",
+        "tags": [
+          "Registration"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "national_card_url": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "avatar_url": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "promissory_serial": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "minLength": 6,
+                      "maxLength": 6
+                    },
+                    "box_payment_type": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "enum": [
+                        "cash",
+                        "shetab"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "box_payment_type"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-registration-field-staff-complementary-info-driver_id"
+      }
     }
   },
   "security": [
