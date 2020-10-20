@@ -2188,6 +2188,33 @@
             ]
           }
         }
+      },
+      "IdentityDoc": {
+        "description": "",
+        "type": "object",
+        "title": "IdentityDocs",
+        "properties": {
+          "driving_license_url": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "review": {
+            "oneOf": [
+              {
+                "type": "null",
+                "properties": {}
+              },
+              {
+                "$ref": "#/components/schemas/RegistrationReview"
+              }
+            ]
+          },
+          "approved_by_field_staff": {
+            "type": "boolean"
+          }
+        }
       }
     },
     "requestBodies": {
@@ -6475,29 +6502,9 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "driving_license_url": {
-                      "type": [
-                        "string",
-                        "null"
-                      ]
-                    },
-                    "review": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "$ref": "#/components/schemas/RegistrationReview"
-                        }
-                      ]
-                    },
-                    "approved_by_field_staff": {
-                      "type": "boolean"
-                    }
-                  }
-                }
+                  "$ref": "#/components/schemas/IdentityDoc"
+                },
+                "examples": {}
               }
             }
           }
@@ -6515,15 +6522,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "driving_license_url": {
-                      "type": [
-                        "string",
-                        "null"
-                      ]
-                    }
-                  }
+                  "$ref": "#/components/schemas/IdentityDoc"
                 }
               }
             }
@@ -6909,7 +6908,7 @@
         "description": ""
       }
     },
-    "/api/registration/field-staff/{driver_id}/{form-name}/": {
+    "/api/registration/field-staff/{driver_id}/{info_section}": {
       "parameters": [
         {
           "schema": {
@@ -6930,7 +6929,7 @@
               "contact-info"
             ]
           },
-          "name": "form-name",
+          "name": "info_section",
           "in": "path",
           "required": true
         }
@@ -6960,26 +6959,7 @@
                       "$ref": "#/components/schemas/RegistrationContactInfo"
                     },
                     {
-                      "type": "object",
-                      "properties": {
-                        "driver_license_url": {
-                          "type": [
-                            "string",
-                            "null"
-                          ]
-                        },
-                        "review": {
-                          "oneOf": [
-                            {
-                              "type": "null",
-                              "properties": {}
-                            },
-                            {
-                              "$ref": "#/components/schemas/RegistrationReview"
-                            }
-                          ]
-                        }
-                      }
+                      "$ref": "#/components/schemas/IdentityDoc"
                     }
                   ]
                 }
@@ -6988,6 +6968,54 @@
           }
         },
         "operationId": "get-api-registration-field-staff-driver_id-form-name"
+      }
+    },
+    "/api/registration/staff/{driver_id}/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "driver_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "get-information-data",
+        "tags": [
+          "Registration"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "bike_info": {
+                      "$ref": "#/components/schemas/RegistrationBikeInfo"
+                    },
+                    "personal_info": {
+                      "$ref": "#/components/schemas/RegistrationPersonalInfo"
+                    },
+                    "contact_info": {
+                      "$ref": "#/components/schemas/RegistrationContactInfo"
+                    },
+                    "experience_info": {
+                      "$ref": "#/components/schemas/RegistrationExperienceInfo"
+                    },
+                    "identity_docs": {
+                      "$ref": "#/components/schemas/IdentityDoc"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-registration-staff-driver_id"
       }
     }
   },
