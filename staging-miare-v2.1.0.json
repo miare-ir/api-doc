@@ -2083,6 +2083,7 @@
           "last_name",
           "fathers_name",
           "has_citizenship",
+          "serial_id",
           "birth_date"
         ]
       },
