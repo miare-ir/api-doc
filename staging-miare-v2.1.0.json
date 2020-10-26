@@ -6660,20 +6660,60 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "personal_info_verified": {
-                      "type": "boolean"
+                    "personal_info_review": {
+                      "oneOf": [
+                        {
+                          "type": "null",
+                          "properties": {}
+                        },
+                        {
+                          "$ref": "#/components/schemas/RegistrationReview"
+                        }
+                      ]
                     },
-                    "contact_info_verified": {
-                      "type": "boolean"
+                    "contact_info_review": {
+                      "oneOf": [
+                        {
+                          "type": "null",
+                          "properties": {}
+                        },
+                        {
+                          "$ref": "#/components/schemas/RegistrationReview"
+                        }
+                      ]
                     },
-                    "identity_docs_verified": {
-                      "type": "boolean"
+                    "identity_docs_review": {
+                      "oneOf": [
+                        {
+                          "type": "null",
+                          "properties": {}
+                        },
+                        {
+                          "$ref": "#/components/schemas/RegistrationReview"
+                        }
+                      ]
                     },
-                    "bike_info_verified": {
-                      "type": "boolean"
+                    "bike_info_review": {
+                      "oneOf": [
+                        {
+                          "properties": {},
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/RegistrationReview"
+                        }
+                      ]
                     },
-                    "experience_info_verified": {
-                      "type": "boolean"
+                    "experience_info_review": {
+                      "oneOf": [
+                        {
+                          "type": "null",
+                          "properties": {}
+                        },
+                        {
+                          "$ref": "#/components/schemas/RegistrationReview"
+                        }
+                      ]
                     }
                   }
                 }
