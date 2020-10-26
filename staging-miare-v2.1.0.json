@@ -2150,7 +2150,7 @@
           "reference_type": {
             "type": "string"
           },
-          "has_experience_as_courier": {
+          "has_experience_as_driver": {
             "type": "boolean"
           },
           "has_experience_in_snapp": {
