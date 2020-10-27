@@ -6939,7 +6939,7 @@
         "description": ""
       }
     },
-    "/api/registration/recruiters/{driver_id}/{info_section}": {
+    "/api/registration/recruiters/{info_section}/{driver_id}/": {
       "parameters": [
         {
           "schema": {
