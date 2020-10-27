@@ -7095,6 +7095,35 @@
         },
         "operationId": "post-api-registration-staff-approve-driver_id-info_section"
       }
+    },
+    "/api/accounting/recruiters/info/": {
+      "get": {
+        "summary": "recruiters-info",
+        "tags": [
+          "accounting"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "has_approval_permission": {
+                      "type": "boolean"
+                    },
+                    "user": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-accounting-recruiters-info"
+      }
     }
   },
   "security": [
