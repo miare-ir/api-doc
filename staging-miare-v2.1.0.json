@@ -6939,7 +6939,7 @@
         "description": ""
       }
     },
-    "/api/registration/field-staff/{driver_id}/{info_section}": {
+    "/api/registration/recruiters/{driver_id}/{info_section}": {
       "parameters": [
         {
           "schema": {
@@ -6966,7 +6966,7 @@
         }
       ],
       "get": {
-        "summary": "get-info-from-field-staff",
+        "summary": "get-info-from-recruiters",
         "tags": [
           "Registration"
         ],
