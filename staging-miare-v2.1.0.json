@@ -6885,7 +6885,7 @@
         "operationId": "get-api-registration-field-staff-complementary-info-driver_id"
       }
     },
-    "/api/registration/recruiters/approve/{driver_id}/{info_section}/": {
+    "/api/registration/recruiters/{driver_id}/{info_section}/approve/": {
       "parameters": [
         {
           "schema": {
