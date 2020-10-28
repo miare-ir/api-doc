@@ -2075,7 +2075,10 @@
             ]
           },
           "approved_by_field_staff": {
-            "type": "boolean"
+            "type": [
+              "boolean",
+              "null"
+            ]
           }
         },
         "required": [
@@ -2106,7 +2109,10 @@
             ]
           },
           "approved_by_field_staff": {
-            "type": "boolean"
+            "type": [
+              "boolean",
+              "null"
+            ]
           }
         },
         "required": [
@@ -2136,7 +2142,10 @@
             ]
           },
           "approved_by_field_staff": {
-            "type": "boolean"
+            "type": [
+              "boolean",
+              "null"
+            ]
           }
         },
         "required": [
@@ -2171,7 +2180,10 @@
             ]
           },
           "approved_by_field_staff": {
-            "type": "boolean"
+            "type": [
+              "boolean",
+              "null"
+            ]
           }
         }
       },
@@ -2204,8 +2216,7 @@
           "review": {
             "oneOf": [
               {
-                "type": "null",
-                "properties": {}
+                "type": "null"
               },
               {
                 "$ref": "#/components/schemas/RegistrationReview"
@@ -2213,7 +2224,10 @@
             ]
           },
           "approved_by_field_staff": {
-            "type": "boolean"
+            "type": [
+              "boolean",
+              "null"
+            ]
           }
         }
       }
