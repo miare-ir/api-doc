@@ -2230,6 +2230,73 @@
             ]
           }
         }
+      },
+      "RegistrationOverview": {
+        "title": "RegistrationOverview",
+        "type": "object",
+        "properties": {
+          "driver_id": {
+            "type": "integer"
+          },
+          "personal_info_status": {
+            "type": "string",
+            "enum": [
+              "no_data",
+              "submitted",
+              "approved",
+              "rejected"
+            ]
+          },
+          "bike_info_status": {
+            "type": "string",
+            "enum": [
+              "no_data",
+              "submitted",
+              "approved",
+              "rejected"
+            ]
+          },
+          "contact_info_status": {
+            "type": "string",
+            "enum": [
+              "no_data",
+              "submitted",
+              "approved",
+              "rejected"
+            ]
+          },
+          "identity_docs_status": {
+            "type": "string",
+            "enum": [
+              "no_data",
+              "submitted",
+              "approved",
+              "rejected"
+            ]
+          },
+          "experience_info_status": {
+            "type": "string",
+            "enum": [
+              "no_data",
+              "submitted",
+              "approved",
+              "rejected"
+            ]
+          },
+          "complementary_info_status": {
+            "type": "string",
+            "enum": [
+              "no_date",
+              "submitted",
+              "approved",
+              "rejected"
+            ]
+          },
+          "phone": {
+            "type": "string"
+          }
+        },
+        "description": ""
       }
     },
     "requestBodies": {
@@ -6718,6 +6785,15 @@
                         "submitted",
                         "rejected"
                       ]
+                    },
+                    "complementary_info_status": {
+                      "type": "string",
+                      "enum": [
+                        "no_data",
+                        "submitted",
+                        "approved",
+                        "rejected"
+                      ]
                     }
                   }
                 }
@@ -7137,6 +7213,61 @@
           }
         },
         "operationId": "get-api-accounting-recruiters-info"
+      }
+    },
+    "/api/registrations/driver/": {
+      "get": {
+        "summary": "registring-drivers-list",
+        "tags": [
+          "Registration"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    },
+                    "next": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "previous": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/RegistrationOverview"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-registrations-driver",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "phone",
+            "description": "Filters the `results` if the driver's phone contains queried phone"
+          }
+        ],
+        "description": ""
       }
     }
   },
