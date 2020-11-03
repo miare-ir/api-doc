@@ -7215,7 +7215,7 @@
         "operationId": "get-api-accounting-recruiters-info"
       }
     },
-    "/api/registrations/driver/": {
+    "/api/registrations/drivers/": {
       "get": {
         "summary": "registring-drivers-list",
         "tags": [
@@ -7268,7 +7268,8 @@
           }
         ],
         "description": ""
-      }
+      },
+      "parameters": []
     }
   },
   "security": [
