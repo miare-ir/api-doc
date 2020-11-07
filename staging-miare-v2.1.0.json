@@ -6975,7 +6975,7 @@
         "operationId": "get-api-registration-field-staff-complementary-info-driver_id"
       }
     },
-    "/api/registration/recruiters/{driver_id}/{info_section}/approve/": {
+    "/api/registration/recruiters/{driver_id}/{info_section}/review/": {
       "parameters": [
         {
           "schema": {
@@ -7002,7 +7002,7 @@
         }
       ],
       "post": {
-        "summary": "approve-info-from-recruiters",
+        "summary": "review-info-from-recruiters",
         "tags": [
           "Registration"
         ],
@@ -7026,7 +7026,25 @@
           }
         },
         "operationId": "post-api-registration-field-staff-verify-driver_id-info_section",
-        "description": ""
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "approved_by_recruiter": {
+                    "type": "boolean",
+                    "description": "`false` if rejected"
+                  }
+                },
+                "required": [
+                  "approved_by_recruiter"
+                ]
+              }
+            }
+          }
+        }
       }
     },
     "/api/registration/recruiters/{info_section}/{driver_id}/": {
