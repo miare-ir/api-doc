@@ -7201,7 +7201,28 @@
             }
           }
         },
-        "operationId": "post-api-registration-staff-approve-driver_id-info_section"
+        "operationId": "post-api-registration-staff-approve-driver_id-info_section",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "is_approved": {
+                    "type": "boolean"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Required only if `is_approved` is `False`"
+                  }
+                },
+                "required": [
+                  "is_approved"
+                ]
+              }
+            }
+          }
+        }
       }
     },
     "/api/accounting/recruiters/info/": {
