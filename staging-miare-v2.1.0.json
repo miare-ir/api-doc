@@ -2074,7 +2074,7 @@
               }
             ]
           },
-          "approved_by_field_staff": {
+          "approved_by_recruiter": {
             "type": [
               "boolean",
               "null"
@@ -2108,7 +2108,7 @@
               }
             ]
           },
-          "approved_by_field_staff": {
+          "approved_by_recruiter": {
             "type": [
               "boolean",
               "null"
@@ -2141,7 +2141,7 @@
               }
             ]
           },
-          "approved_by_field_staff": {
+          "approved_by_recruiter": {
             "type": [
               "boolean",
               "null"
@@ -2179,7 +2179,7 @@
               }
             ]
           },
-          "approved_by_field_staff": {
+          "approved_by_recruiter": {
             "type": [
               "boolean",
               "null"
@@ -2223,7 +2223,7 @@
               }
             ]
           },
-          "approved_by_field_staff": {
+          "approved_by_recruiter": {
             "type": [
               "boolean",
               "null"
