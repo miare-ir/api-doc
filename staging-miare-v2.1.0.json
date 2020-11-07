@@ -2297,6 +2297,40 @@
           }
         },
         "description": ""
+      },
+      "DriverComplementaryInfoForRead": {
+        "title": "DriverComplementaryInfoForRead",
+        "type": "object",
+        "properties": {
+          "national_card_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "avatar_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "promissory_serial": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "box_payment_type": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "cash",
+              "shetab"
+            ]
+          }
+        }
       }
     },
     "requestBodies": {
@@ -6930,43 +6964,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "description": "",
-                  "type": "object",
-                  "properties": {
-                    "national_card_url": {
-                      "type": [
-                        "null",
-                        "string"
-                      ]
-                    },
-                    "avatar_url": {
-                      "type": [
-                        "string",
-                        "null"
-                      ]
-                    },
-                    "promissory_serial": {
-                      "type": [
-                        "string",
-                        "null"
-                      ],
-                      "minLength": 6,
-                      "maxLength": 6
-                    },
-                    "box_payment_type": {
-                      "type": [
-                        "string",
-                        "null"
-                      ],
-                      "enum": [
-                        "cash",
-                        "shetab"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "box_payment_type"
-                  ]
+                  "$ref": "#/components/schemas/DriverComplementaryInfoForRead"
                 }
               }
             }
@@ -7147,6 +7145,9 @@
                     },
                     "identity_docs": {
                       "$ref": "#/components/schemas/IdentityDoc"
+                    },
+                    "complementary_info": {
+                      "$ref": "#/components/schemas/DriverComplementaryInfoForRead"
                     }
                   }
                 }
