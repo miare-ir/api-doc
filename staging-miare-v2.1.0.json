@@ -7157,7 +7157,7 @@
         "operationId": "get-api-registration-staff-driver_id"
       }
     },
-    "/api/registration/staff/approve/{driver_id}/{info_section}": {
+    "/api/registration/staff/{driver_id}/{info_section}/review/": {
       "parameters": [
         {
           "schema": {
@@ -7184,7 +7184,7 @@
         }
       ],
       "post": {
-        "summary": "approve-info-from-staff",
+        "summary": "review-info-from-staff",
         "tags": [
           "Registration"
         ],
