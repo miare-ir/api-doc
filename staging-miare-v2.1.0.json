@@ -4602,6 +4602,13 @@
                           },
                           "source_location": {
                             "$ref": "#/components/schemas/Location"
+                          },
+                          "return_distance": {
+                            "type": [
+                              "number",
+                              "null"
+                            ],
+                            "description": "Return distance in KM"
                           }
                         }
                       }
@@ -4641,6 +4648,7 @@
                           ],
                           "source_title": "فست‌فودی دیگر در مرزداران",
                           "is_round_trip": false,
+                          "return_distance": null,
                           "end_datetime": "2020-01-10T22:58:40+03:30",
                           "raw_salary": 0,
                           "rewards": [],
@@ -4669,6 +4677,7 @@
                           "course_bonuses": [],
                           "source_title": "فست‌فودی دیگر در مرزداران",
                           "is_round_trip": false,
+                          "return_distance": null,
                           "end_datetime": "2020-01-10T22:37:52+03:30",
                           "raw_salary": 0,
                           "rewards": [],
@@ -4708,6 +4717,7 @@
                           "course_bonuses": [],
                           "source_title": "فست‌فودی دیگر در مرزداران",
                           "is_round_trip": false,
+                          "return_distance": null,
                           "end_datetime": "2020-01-10T22:22:04+03:30",
                           "raw_salary": 0,
                           "rewards": [],
@@ -4736,6 +4746,7 @@
                           "course_bonuses": [],
                           "source_title": "فست‌فودی دیگر در مرزداران",
                           "is_round_trip": false,
+                          "return_distance": null,
                           "end_datetime": "2020-01-10T21:49:48+03:30",
                           "raw_salary": 0,
                           "rewards": [],
@@ -4764,6 +4775,7 @@
                           "course_bonuses": [],
                           "source_title": "کترینگ لنوو",
                           "is_round_trip": true,
+                          "return_distance": 1.453213,
                           "end_datetime": "2020-01-10T21:22:41+03:30",
                           "raw_salary": 0,
                           "rewards": [
@@ -4804,6 +4816,7 @@
                           "course_bonuses": [],
                           "source_title": "فست‌فودی دیگر در مرزداران",
                           "is_round_trip": false,
+                          "return_distance": null,
                           "end_datetime": "2020-01-10T20:50:13+03:30",
                           "raw_salary": 0,
                           "rewards": [],
@@ -4832,6 +4845,7 @@
                           "course_bonuses": [],
                           "source_title": "فست‌فودی دیگر در مرزداران",
                           "is_round_trip": false,
+                          "return_distance": null,
                           "end_datetime": "2020-01-10T20:29:33+03:30",
                           "raw_salary": 0,
                           "rewards": [],
@@ -4860,6 +4874,7 @@
                           "course_bonuses": [],
                           "source_title": "فست‌فودی دیگر در مرزداران",
                           "is_round_trip": false,
+                          "return_distance": null,
                           "end_datetime": "2020-01-10T19:41:08+03:30",
                           "raw_salary": 0,
                           "rewards": [],
@@ -4888,6 +4903,7 @@
                           "course_bonuses": [],
                           "source_title": "فست‌فودی در مرزداران",
                           "is_round_trip": false,
+                          "return_distance": null,
                           "end_datetime": "2020-01-10T19:14:35+03:30",
                           "raw_salary": 0,
                           "rewards": [],
@@ -4916,6 +4932,7 @@
                           "course_bonuses": [],
                           "source_title": "تهیه غذای ایران",
                           "is_round_trip": true,
+                          "return_distance": 0.2323124,
                           "end_datetime": "2020-01-10T18:38:44+03:30",
                           "raw_salary": 0,
                           "rewards": [
@@ -4967,6 +4984,7 @@
                           "course_bonuses": [],
                           "source_title": "فست‌فود ما",
                           "is_round_trip": false,
+                          "return_distance": null,
                           "end_datetime": "2020-01-10T15:57:52+03:30",
                           "raw_salary": 0,
                           "rewards": [],
@@ -5017,6 +5035,7 @@
                           "course_bonuses": [],
                           "source_title": "فودکورت",
                           "is_round_trip": false,
+                          "return_distance": null,
                           "end_datetime": "2020-01-10T15:29:13+03:30",
                           "raw_salary": 0,
                           "rewards": [],
@@ -5078,6 +5097,7 @@
                           "course_bonuses": [],
                           "source_title": "کبابی ۱",
                           "is_round_trip": false,
+                          "return_distance": null,
                           "end_datetime": "2020-01-10T13:38:03+03:30",
                           "raw_salary": 0,
                           "rewards": [],
@@ -5106,6 +5126,7 @@
                           "course_bonuses": [],
                           "source_title": "کبابی ۱",
                           "is_round_trip": false,
+                          "return_distance": null,
                           "end_datetime": "2020-01-10T13:14:55+03:30",
                           "raw_salary": 0,
                           "rewards": [],
