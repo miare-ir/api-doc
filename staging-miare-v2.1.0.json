@@ -7107,7 +7107,7 @@
         "operationId": "get-api-registration-field-staff-driver_id-form-name"
       }
     },
-    "/api/registration/staff/{driver_id}/": {
+    "/api/registration/drivers/{driver_id}/": {
       "parameters": [
         {
           "schema": {
