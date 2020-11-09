@@ -6849,6 +6849,12 @@
                         "approved",
                         "rejected"
                       ]
+                    },
+                    "driver_id": {
+                      "type": "integer"
+                    },
+                    "phone": {
+                      "type": "string"
                     }
                   }
                 }
