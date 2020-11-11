@@ -2079,6 +2079,9 @@
               "boolean",
               "null"
             ]
+          },
+          "status": {
+            "type": "string"
           }
         },
         "required": [
@@ -2113,6 +2116,9 @@
               "boolean",
               "null"
             ]
+          },
+          "status": {
+            "type": "string"
           }
         },
         "required": [
@@ -2146,6 +2152,9 @@
               "boolean",
               "null"
             ]
+          },
+          "status": {
+            "type": "string"
           }
         },
         "required": [
@@ -2184,6 +2193,9 @@
               "boolean",
               "null"
             ]
+          },
+          "status": {
+            "type": "string"
           }
         }
       },
@@ -2228,6 +2240,9 @@
               "boolean",
               "null"
             ]
+          },
+          "status": {
+            "type": "string"
           }
         }
       },
@@ -2329,6 +2344,9 @@
               "cash",
               "shetab"
             ]
+          },
+          "status": {
+            "type": "string"
           }
         }
       }
