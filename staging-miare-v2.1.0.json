@@ -7000,7 +7000,7 @@
         "operationId": "get-api-registration-field-staff-complementary-info-driver_id"
       }
     },
-    "/api/registration/recruiters/{driver_id}/{info_section}/review/": {
+    "/api/registration/recruiters/{info_section}/{driver_id}/review/": {
       "parameters": [
         {
           "schema": {
@@ -7185,7 +7185,7 @@
         "operationId": "get-api-registration-staff-driver_id"
       }
     },
-    "/api/registration/staff/{driver_id}/{info_section}/review/": {
+    "/api/registration/staff/{info_section}/{driver_id}/review/": {
       "parameters": [
         {
           "schema": {
