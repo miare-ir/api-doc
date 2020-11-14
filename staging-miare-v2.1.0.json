@@ -6884,7 +6884,7 @@
         "description": "Shows whether the self-declared data from driver are verified by the firm or not"
       }
     },
-    "/api/registration/recruiters/complementary-info/{driver_id}/": {
+    "/api/registration/recruiters/complementary-info/{driver_id}/submit/": {
       "parameters": [
         {
           "schema": {
