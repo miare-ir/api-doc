@@ -6417,7 +6417,98 @@
           }
         }
       },
-      "parameters": []
+      "parameters": [],
+      "get": {
+        "summary": "",
+        "operationId": "get-registration-driver",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "courses_count": {
+                        "type": "integer"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "first_name": {
+                        "type": "string"
+                      },
+                      "last_name": {
+                        "type": "string"
+                      },
+                      "followup_date": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "format": "date"
+                      },
+                      "interview_date": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "max_visible_courses_count": {
+                        "type": "integer",
+                        "default": 0
+                      },
+                      "phone_number": {
+                        "type": "integer"
+                      },
+                      "recruiter": {
+                        "$ref": "#/components/schemas/User"
+                      },
+                      "reference_type": {
+                        "type": "string",
+                        "enum": [
+                          "in_person",
+                          "telegram",
+                          "divar",
+                          "sheypoor",
+                          "restaurant",
+                          "newspaper",
+                          "other"
+                        ]
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "new",
+                          "hired",
+                          "expired",
+                          "calling",
+                          "unemployable",
+                          "declined_by_applicant",
+                          "rejected_in_interview",
+                          "wrong_information",
+                          "form_completion",
+                          "waiting_for_presence",
+                          "fired",
+                          "working",
+                          "lack_of_tools",
+                          "line_blocked",
+                          "presence_as_soon_as_possible",
+                          "thinking",
+                          "call_from_applicant",
+                          "call_from_miare"
+                        ],
+                        "description": "if driver is hired status is hired, if driver is not hired after 8 days the status will be expired"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "/trip-management/staff-api/trips/{tripID}/reassign-driver/": {
       "parameters": [
