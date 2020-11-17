@@ -6909,9 +6909,9 @@
                       "type": "string",
                       "enum": [
                         "no_data",
-                        "submitted",
                         "approved",
-                        "rejected"
+                        "rejected",
+                        "pending_for_review"
                       ]
                     },
                     "contact_info_status": {
@@ -6919,8 +6919,8 @@
                       "enum": [
                         "no_data",
                         "aproved",
-                        "submitted",
-                        "rejected"
+                        "rejected",
+                        "pending_for_review"
                       ]
                     },
                     "identity_docs_status": {
@@ -6928,8 +6928,8 @@
                       "enum": [
                         "no_data",
                         "approved",
-                        "submitted",
-                        "rejected"
+                        "rejected",
+                        "pending_for_review"
                       ]
                     },
                     "bike_info_status": {
@@ -6937,8 +6937,8 @@
                       "enum": [
                         "no_data",
                         "approved",
-                        "submitted",
-                        "rejected"
+                        "rejected",
+                        "pending_for_review"
                       ]
                     },
                     "experience_info_status": {
@@ -6946,17 +6946,17 @@
                       "enum": [
                         "no_data",
                         "approved",
-                        "submitted",
-                        "rejected"
+                        "rejected",
+                        "pending_for_review"
                       ]
                     },
                     "complementary_info_status": {
                       "type": "string",
                       "enum": [
                         "no_data",
-                        "submitted",
                         "approved",
-                        "rejected"
+                        "rejected",
+                        "pending_for_review"
                       ]
                     },
                     "driver_id": {
