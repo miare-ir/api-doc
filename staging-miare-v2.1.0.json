@@ -7391,7 +7391,7 @@
         "operationId": "get-api-accounting-recruiters-info"
       }
     },
-    "/api/registrations/drivers/": {
+    "/api/registration/drivers/": {
       "get": {
         "summary": "registring-drivers-list",
         "tags": [
