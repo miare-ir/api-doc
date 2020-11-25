@@ -2349,6 +2349,53 @@
             "type": "string"
           }
         }
+      },
+      "ConditionalReward": {
+        "title": "ConditionalReward",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "areas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Area"
+            }
+          },
+          "ledger": {
+            "$ref": "#/components/schemas/TransactionLedger"
+          },
+          "reward": {
+            "type": "integer"
+          },
+          "description": {
+            "type": "string"
+          },
+          "interval": {
+            "$ref": "#/components/schemas/Interval"
+          },
+          "threshold": {
+            "type": "integer",
+            "description": "in CourseConditionalReward is min_acceptable_courses and in PresenceConditionalReward and GuaranteedIncomeReward is min_acceptable_presence"
+          }
+        }
+      },
+      "TransactionLedger": {
+        "title": "TransactionLedger",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
       }
     },
     "requestBodies": {
@@ -3681,6 +3728,24 @@
                               "type": "boolean"
                             }
                           }
+                        }
+                      },
+                      "presence_rewards": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ConditionalReward"
+                        }
+                      },
+                      "course_rewards": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ConditionalReward"
+                        }
+                      },
+                      "guaranteed_reward": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ConditionalReward"
                         }
                       }
                     }
