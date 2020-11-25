@@ -18,6 +18,9 @@
     {
       "name": "events",
       "description": "Realtime webhook events"
+    },
+    {
+      "name": "accounting"
     }
   ],
   "servers": [
@@ -688,7 +691,9 @@
     "/accounting/estimate/price": {
       "get": {
         "summary": "Price Estimation",
-        "tags": [],
+        "tags": [
+          "accounting"
+        ],
         "responses": {
           "200": {
             "description": "Returns price of such a trip.",
