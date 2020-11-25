@@ -5,7 +5,9 @@
     "version": "2.1.0",
     "title": "Miare API",
     "contact": {
-      "email": "sazary@miare.ir"
+      "email": "tech@miare.ir",
+      "name": "Soroosh Azary Marhabi",
+      "url": "https://mia.re"
     }
   },
   "tags": [
@@ -20,17 +22,27 @@
   ],
   "servers": [
     {
-      "url": "https://ws.mia.re/trip-management/third-party-api/v2"
+      "url": "https://ws.mia.re/trip-management/third-party-api/v2",
+      "description": "Production server of trip management."
     },
     {
-      "url": "https://staging.ws.mia.re/trip-management/third-party-api/v2"
+      "url": "https://staging.ws.mia.re/trip-management/third-party-api/v2",
+      "description": "Staging server of trip management."
+    },
+    {
+      "url": "https://www.mia.re/accounting/",
+      "description": "Production server of accounting"
+    },
+    {
+      "url": "https://staging.mia.re/accounting/",
+      "description": "Staging server of accounting"
     }
   ],
   "components": {
     "securitySchemes": {
       "auth": {
-        "type": "apiKey",
         "name": "Authorization",
+        "type": "apiKey",
         "in": "header"
       }
     },
@@ -672,6 +684,129 @@
           }
         }
       }
+    },
+    "/accounting/estimate/price": {
+      "get": {
+        "summary": "Price Estimation",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Returns price of such a trip.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "price": {
+                      "type": "number",
+                      "example": 20000,
+                      "description": "Price a trip with this source & destination, in IRT"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "ok",
+                      "description": "status"
+                    }
+                  },
+                  "required": [
+                    "price",
+                    "status"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error on when a required parameter isn't provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "enum": [
+                        "invalid"
+                      ],
+                      "description": "Error code"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Detail of this error"
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "required": [
+                        "field_name",
+                        "required_data_type"
+                      ],
+                      "properties": {
+                        "field_name": {
+                          "type": "string",
+                          "minLength": 1,
+                          "description": "Name of the field that is required & isn't provided",
+                          "enum": [
+                            "source",
+                            "destination"
+                          ]
+                        },
+                        "required_data_type": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "metadata"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-accounting-estimate-price",
+        "description": "This endpoint would return price of a particular trip, based on source & destination that you provide it with.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "example": "35.7325,55.6453"
+            },
+            "in": "query",
+            "name": "source",
+            "description": "Coordinates of source of trip",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "example": "35.7325,55.6453"
+            },
+            "in": "query",
+            "name": "destination",
+            "description": "Coordinates of destination of trip",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "auth": []
+          }
+        ]
+      },
+      "parameters": []
     }
-  }
+  },
+  "security": [
+    {
+      "auth": []
+    }
+  ]
 }
