@@ -2357,10 +2357,6 @@
           "id": {
             "type": "integer"
           },
-          "date": {
-            "type": "string",
-            "format": "date"
-          },
           "ledger": {
             "$ref": "#/components/schemas/TransactionLedger"
           },
@@ -2369,9 +2365,6 @@
           },
           "description": {
             "type": "string"
-          },
-          "interval": {
-            "$ref": "#/components/schemas/Interval"
           },
           "threshold": {
             "type": "integer",
