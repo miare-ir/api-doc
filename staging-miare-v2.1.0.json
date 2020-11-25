@@ -2361,12 +2361,6 @@
             "type": "string",
             "format": "date"
           },
-          "areas": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Area"
-            }
-          },
           "ledger": {
             "$ref": "#/components/schemas/TransactionLedger"
           },
