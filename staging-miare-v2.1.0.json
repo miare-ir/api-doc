@@ -7308,11 +7308,11 @@
           "schema": {
             "type": "string",
             "enum": [
-              "bike_info",
-              "personal_info",
-              "experience_info",
-              "contact_info",
-              "identity_docs"
+              "bike-info",
+              "personal-info",
+              "identity-docs",
+              "experience-info",
+              "contact-info"
             ]
           },
           "name": "info_section",
