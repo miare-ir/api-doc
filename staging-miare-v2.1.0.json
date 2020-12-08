@@ -3713,26 +3713,26 @@
                             },
                             "reserved": {
                               "type": "boolean"
+                            },
+                            "presence_rewards": {
+                              "type": "array",
+                              "items": {
+                                "$ref": "#/components/schemas/ConditionalReward"
+                              }
+                            },
+                            "course_rewards": {
+                              "type": "array",
+                              "items": {
+                                "$ref": "#/components/schemas/ConditionalReward"
+                              }
+                            },
+                            "guaranteed_reward": {
+                              "type": "array",
+                              "items": {
+                                "$ref": "#/components/schemas/ConditionalReward"
+                              }
                             }
                           }
-                        }
-                      },
-                      "presence_rewards": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/ConditionalReward"
-                        }
-                      },
-                      "course_rewards": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/ConditionalReward"
-                        }
-                      },
-                      "guaranteed_reward": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/ConditionalReward"
                         }
                       }
                     }
