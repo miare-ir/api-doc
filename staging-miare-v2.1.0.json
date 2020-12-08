@@ -7388,6 +7388,27 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Forbidden (When the info has not been approved by the recruiter staff yet)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "recruiter_not_approved"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found (When the there is no info submitted)"
           }
         },
         "operationId": "post-api-registration-staff-approve-driver_id-info_section",
