@@ -7409,6 +7409,24 @@
           },
           "404": {
             "description": "Not Found (When the there is no info submitted)"
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "duplicate_national_id"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "operationId": "post-api-registration-staff-approve-driver_id-info_section",
