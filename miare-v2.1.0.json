@@ -527,7 +527,182 @@
           }
         }
       },
-      "parameters": []
+      "parameters": [],
+      "get": {
+        "summary": "",
+        "operationId": "gettrip-management-third-party-api-v2-trips",
+        "responses": {
+          "200": {
+            "description": "Returns list of trips, put in a pagination format.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Trip"
+                      }
+                    },
+                    "next": {
+                      "type": "string",
+                      "description": "URL to fetch next page of this data. Could be an empty string if there's no more pages available.",
+                      "example": " https://staging.ws.mia.re/trip-management/third-party-api/v2/trips/?offset=100",
+                      "minLength": 0
+                    },
+                    "previous": {
+                      "type": "string",
+                      "description": "URL to fetch previous page of this data. Could be an empty string if this is the first page.",
+                      "minLength": 0,
+                      "example": " https://staging.ws.mia.re/trip-management/third-party-api/v2/trips/?offset=100"
+                    },
+                    "total_count": {
+                      "type": "integer",
+                      "description": "Count of all trips that match the filtering you've applied. Please Note that if `total_count` is more than `limit`, not all of these trips would be returned in this response.",
+                      "minimum": 0,
+                      "example": 742
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "next",
+                    "previous",
+                    "total_count"
+                  ]
+                },
+                "examples": {
+                  "Example": {
+                    "value": {
+                      "data": [
+                        {
+                          "id": "40626ed5-9260-4a55-af04-ef9705a41b90",
+                          "area": {
+                            "id": "59",
+                            "name": "فردوس شرق"
+                          },
+                          "state": "pickup",
+                          "pickup": {
+                            "name": "رستوران بزرگمهر",
+                            "phone_number": "0212345678",
+                            "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
+                            "image": "https://example.com/restaurants/bm_logo.png",
+                            "location": {
+                              "latitude": 35.737004,
+                              "longitude": 51.413569
+                            },
+                            "deadline": "2019-04-12T14:12:00+0000"
+                          },
+                          "courses": [
+                            {
+                              "id": "40626ed5-9260-4a55-af04-ef9705a41b90",
+                              "bill_number": "DEL-119",
+                              "name": "علی علوی",
+                              "phone_number": "09123456789",
+                              "address": "هران، خیابان استاد معین، پلاک ۱۲",
+                              "location": {
+                                "latitude": 35.737004,
+                                "longitude": 51.413569
+                              },
+                              "manifest_items": [
+                                {
+                                  "name": "پیتزا پپرونی خانواده",
+                                  "quantity": 2
+                                }
+                              ],
+                              "tracking_url": "https://mia.re/t/73c939d1/",
+                              "dropped_off_at": "2019-04-12T14:06:42+0000"
+                            }
+                          ],
+                          "created_at": "2019-04-12T13:58:42+0000",
+                          "assigned_at": "2019-04-12T13:59:59+0000",
+                          "picked_up_at": "2019-04-12T14:10:42+0000",
+                          "courier": {
+                            "name": "علی لطفی",
+                            "image": "https://files.miare.ir/avatars/gheuIej.jpg"
+                          },
+                          "test_mode": false
+                        }
+                      ],
+                      "next": " https://staging.ws.mia.re/trip-management/third-party-api/v2/trips/?offset=100",
+                      "previous": " https://staging.ws.mia.re/trip-management/third-party-api/v2/trips/?offset=100",
+                      "total_count": 742
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Returns list of all your trips, using an Offset-Limit schema for pagination.\n",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "area_id",
+            "description": "Filter trips only for this specific area. List of all areas could be fetched using [this endpoint](miare-v2.1.0.json/paths/~1area~1third-party-api~1v2~1areas~1)"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "assign_queue",
+                "pickup",
+                "dropoff",
+                "delivered",
+                "canceled_by_client",
+                "canceled_by_miare"
+              ]
+            },
+            "in": "query",
+            "name": "state",
+            "description": "Returns trips that currently have this state."
+          },
+          {
+            "schema": {
+              "type": "string",
+              "example": "2020-01-01T01:02:03%2B0330",
+              "format": "date-time"
+            },
+            "in": "query",
+            "name": "from_datetime",
+            "description": "Returns trips requested after this datetime"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "example": "2020-01-01T01:02:03%2B0330",
+              "format": "date-time"
+            },
+            "in": "query",
+            "name": "to_datetime",
+            "description": "Returns trips requested before this datetime"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "in": "query",
+            "name": "offset",
+            "description": "Filters trips to start at the offset specified (used for pagination)"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "default": "100",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "in": "query",
+            "name": "limit",
+            "description": "Limits count of trips returned in this response (used for pagination)"
+          }
+        ]
+      }
     },
     "trip-management/third-party-api/v2/trips/{trip_id}/cancel": {
       "post": {
@@ -593,7 +768,7 @@
       "parameters": []
     },
     "trip-management/third-party-api/v2/trips/{trip_id}/courses": {
-      "post": {
+      "patch": {
         "tags": [
           "delivery"
         ],
@@ -956,6 +1131,89 @@
         },
         "operationId": "get-area-third-party-api-v2-areas",
         "description": "Using this endpoint you can get a list of all areas defined in Miare, plus information about you trips in these areas."
+      }
+    },
+    "/trip-management/third-party-api/v2/trips/{trip_id}/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "trip_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Returns the trip data, which uses schema of [Trip](miare-v2.1.0.json/components/schemas/Trip) object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Trip"
+                },
+                "examples": {
+                  "Example": {
+                    "value": {
+                      "id": "40626ed5-9260-4a55-af04-ef9705a41b90",
+                      "area": {
+                        "id": "59",
+                        "name": "فردوس شرق"
+                      },
+                      "state": "pickup",
+                      "pickup": {
+                        "name": "رستوران بزرگمهر",
+                        "phone_number": "0212345678",
+                        "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
+                        "image": "https://example.com/restaurants/bm_logo.png",
+                        "location": {
+                          "latitude": 35.737004,
+                          "longitude": 51.413569
+                        },
+                        "deadline": "2019-04-12T14:12:00+0000"
+                      },
+                      "courses": [
+                        {
+                          "id": "40626ed5-9260-4a55-af04-ef9705a41b90",
+                          "bill_number": "DEL-119",
+                          "name": "علی علوی",
+                          "phone_number": "09123456789",
+                          "address": "هران، خیابان استاد معین، پلاک ۱۲",
+                          "location": {
+                            "latitude": 35.737004,
+                            "longitude": 51.413569
+                          },
+                          "manifest_items": [
+                            {
+                              "name": "پیتزا پپرونی خانواده",
+                              "quantity": 2
+                            }
+                          ],
+                          "tracking_url": "https://mia.re/t/73c939d1/",
+                          "dropped_off_at": "2019-04-12T14:06:42+0000"
+                        }
+                      ],
+                      "created_at": "2019-04-12T13:58:42+0000",
+                      "assigned_at": "2019-04-12T13:59:59+0000",
+                      "picked_up_at": "2019-04-12T14:10:42+0000",
+                      "courier": {
+                        "name": "علی لطفی",
+                        "image": "https://files.miare.ir/avatars/gheuIej.jpg"
+                      },
+                      "test_mode": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-trip-management-third-party-api-v2-trips-trip_id",
+        "description": "Get info of a particular trip.",
+        "parameters": []
       }
     }
   },
