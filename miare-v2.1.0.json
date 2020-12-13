@@ -25,11 +25,11 @@
   ],
   "servers": [
     {
-      "url": "https://ws.mia.re/trip-management/third-party-api/v2",
+      "url": "https://ws.mia.re/",
       "description": "Production server of trip management."
     },
     {
-      "url": "https://staging.ws.mia.re/trip-management/third-party-api/v2",
+      "url": "https://staging.ws.mia.re/",
       "description": "Staging server of trip management."
     },
     {
@@ -340,6 +340,105 @@
             "example": "Could not find trip with id \"wrong_id\""
           }
         }
+      },
+      "AreaInfo": {
+        "description": "This model returns data about each area defined in Miare, and data about your ongoing trips in them.\n\nThese data include:\n\n - `id`: The id of this area\n - `name`: The human readable name of this area\n - `polygon`: The coordinates of this area, in GeoJSON format\n - `max_ongoing_trips`: The maximum number of concurrent trips you can have in this area right now, based on your subscription.\n - `ongoing_trips`: Number of your ongonig trips in this area at the moment.",
+        "type": "object",
+        "x-examples": {
+          "Example": {
+            "id": 5,
+            "max_ongoing_trips": 7,
+            "name": "قلهک",
+            "ongoing_trips": 3,
+            "polygon": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    51.4549231005859,
+                    35.6696883542151
+                  ],
+                  [
+                    51.4571858393479,
+                    35.6945690813052
+                  ],
+                  [
+                    51.4497587368011,
+                    35.6834941116055
+                  ],
+                  [
+                    51.4549231005859,
+                    35.6696883542151
+                  ]
+                ]
+              ]
+            }
+          }
+        },
+        "properties": {
+          "id": {
+            "type": "number",
+            "minimum": 1,
+            "example": 5
+          },
+          "max_ongoing_trips": {
+            "type": "number",
+            "description": "The maximum number of concurrent trips that you can have in this area at the moment, based on your subscription.",
+            "minimum": 0,
+            "example": 7
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "example": "قلهک"
+          },
+          "ongoing_trips": {
+            "type": "number",
+            "minimum": 0,
+            "example": 3,
+            "description": "Count of your trips that are ongoing concurrently right now."
+          },
+          "polygon": {
+            "type": "object",
+            "description": "Polygon of area coordinates, in GeoJSON format.",
+            "required": [
+              "type",
+              "coordinates"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "minLength": 1,
+                "enum": [
+                  "Polygon"
+                ],
+                "example": "Polygon"
+              },
+              "coordinates": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {
+                      "type": "number",
+                      "example": 35.532345
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "max_ongoing_trips",
+          "name",
+          "ongoing_trips",
+          "polygon"
+        ]
       }
     },
     "requestBodies": {
@@ -357,7 +456,7 @@
     }
   },
   "paths": {
-    "/trips": {
+    "trip-management/third-party-api/v2/trips": {
       "post": {
         "tags": [
           "delivery"
@@ -427,9 +526,10 @@
             "description": "Unexpected error"
           }
         }
-      }
+      },
+      "parameters": []
     },
-    "/trips/{trip_id}/cancel": {
+    "trip-management/third-party-api/v2/trips/{trip_id}/cancel": {
       "post": {
         "tags": [
           "delivery"
@@ -489,9 +589,10 @@
             "description": "Unexpected error"
           }
         }
-      }
+      },
+      "parameters": []
     },
-    "/trips/{trip_id}/courses": {
+    "trip-management/third-party-api/v2/trips/{trip_id}/courses": {
       "post": {
         "tags": [
           "delivery"
@@ -599,9 +700,10 @@
             "description": "Unexpected error"
           }
         }
-      }
+      },
+      "parameters": []
     },
-    "/courses/{course_id}": {
+    "trip-management/third-party-api/v2/courses/{course_id}": {
       "delete": {
         "tags": [
           "delivery"
@@ -657,7 +759,8 @@
             "description": "Unexpected error"
           }
         }
-      }
+      },
+      "parameters": []
     },
     "/subscribe": {
       "post": {
@@ -808,6 +911,52 @@
         ]
       },
       "parameters": []
+    },
+    "/area/third-party-api/v2/areas/": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Returns data of all areas, which is an array of [`AreaInfo`](miare-v2.1.0.json/components/schemas/AreaInfo) objects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AreaInfo"
+                  }
+                },
+                "examples": {
+                  "Example": {
+                    "value": [
+                      {
+                        "id": 5,
+                        "max_ongoing_trips": 7,
+                        "name": "قلهک",
+                        "ongoing_trips": 3,
+                        "polygon": {
+                          "type": "Polygon",
+                          "coordinates": [
+                            [
+                              [
+                                35.532345,
+                                35.532345
+                              ]
+                            ]
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-area-third-party-api-v2-areas",
+        "description": "Using this endpoint you can get a list of all areas defined in Miare, plus information about you trips in these areas."
+      }
     }
   },
   "security": [
