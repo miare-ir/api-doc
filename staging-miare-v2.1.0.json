@@ -7537,6 +7537,75 @@
         "description": ""
       },
       "parameters": []
+    },
+    "/api/monitoring/staff-driver-request-report/{driver_id}": {
+      "post": {
+        "summary": "Staff Request Driver Report",
+        "tags": [
+          "notifications"
+        ],
+        "responses": {
+          "201": {
+            "description": "Created Notification object, stored it, and sent it."
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "reason": "driver_id was not found in database table."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-api-monitoring-staff-driver-request-report",
+        "description": "This endpoint is for Staff(IsAdmin) members only. It is used to find the desired driver and therefore mobile devices of that driver, and then send notification to those devices stating that they should send the report file. The notification is sent using GCM and is in the following format.\n\nformat: { 'data': {\n    'message_type': 'staff-report',\n    'payload': {\n      'id': `integer`,\n      'title': `string`,\n      'message': `string`,\n      'image': `null`\n    }\n  }\n}\n\nNote that `message` is not an empty string only when the Staff has included their additional report in the body of the request.",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "staff-report": {
+                    "type": "string",
+                    "description": "The additional report that Staff might include."
+                  }
+                }
+              }
+            }
+          },
+          "description": "If there is an additional report that the Staff might want to include, it is in the body of the POST request."
+        }
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "number"
+          },
+          "name": "driver_id",
+          "in": "path",
+          "required": true,
+          "description": "The primary-key of the driver in Driver db-table."
+        }
+      ]
     }
   },
   "security": [
