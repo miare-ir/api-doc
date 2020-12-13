@@ -529,7 +529,7 @@
       },
       "parameters": [],
       "get": {
-        "summary": "",
+        "summary": "Trips Actions",
         "operationId": "gettrip-management-third-party-api-v2-trips",
         "responses": {
           "200": {
@@ -1089,7 +1089,7 @@
     },
     "/area/third-party-api/v2/areas/": {
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "Areas List & Status",
         "tags": [],
         "responses": {
           "200": {
@@ -1145,7 +1145,7 @@
         }
       ],
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "A Particular Trip",
         "tags": [],
         "responses": {
           "200": {
