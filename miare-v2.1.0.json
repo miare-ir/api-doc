@@ -6,7 +6,7 @@
     "title": "Miare API",
     "contact": {
       "email": "tech@miare.ir",
-      "name": "Soroosh Azary Marhabi",
+      "name": "Miare's Tech Team",
       "url": "https://mia.re"
     }
   },
@@ -28,11 +28,11 @@
   ],
   "servers": [
     {
-      "url": "https://ws.mia.re/",
+      "url": "https://ws.mia.re",
       "description": "Production server of trip management."
     },
     {
-      "url": "https://staging.ws.mia.re/",
+      "url": "https://staging.ws.mia.re",
       "description": "Staging server of trip management."
     },
     {
@@ -459,7 +459,7 @@
     }
   },
   "paths": {
-    "trip-management/third-party-api/v2/trips": {
+    "/trip-management/third-party-api/v2/trips": {
       "post": {
         "tags": [
           "delivery"
@@ -528,7 +528,8 @@
           "default": {
             "description": "Unexpected error"
           }
-        }
+        },
+        "operationId": "posttrip-management-third-party-api-v2-trips"
       },
       "parameters": [],
       "get": {
@@ -667,7 +668,7 @@
           {
             "schema": {
               "type": "string",
-              "example": "2020-01-01T01:02:03%2B0330",
+              "example": "2020-01-01T01:02:03+0330",
               "format": "date-time"
             },
             "in": "query",
@@ -677,7 +678,7 @@
           {
             "schema": {
               "type": "string",
-              "example": "2020-01-01T01:02:03%2B0330",
+              "example": "2020-01-01T01:02:03+0330",
               "format": "date-time"
             },
             "in": "query",
@@ -710,7 +711,7 @@
         ]
       }
     },
-    "trip-management/third-party-api/v2/trips/{trip_id}/cancel": {
+    "/trip-management/third-party-api/v2/trips/{trip_id}/cancel": {
       "post": {
         "tags": [
           "delivery"
@@ -769,11 +770,21 @@
           "default": {
             "description": "Unexpected error"
           }
-        }
+        },
+        "operationId": "cancel-trip-management-third-party-api-v2-trips-trip_id-cancel"
       },
-      "parameters": []
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "trip_id",
+          "in": "path",
+          "required": true
+        }
+      ]
     },
-    "trip-management/third-party-api/v2/trips/{trip_id}/courses": {
+    "/trip-management/third-party-api/v2/trips/{trip_id}/courses": {
       "patch": {
         "tags": [
           "delivery"
@@ -880,11 +891,21 @@
           "default": {
             "description": "Unexpected error"
           }
-        }
+        },
+        "operationId": "patch-trip-management-third-party-api-v2-trips-trip_id-courses"
       },
-      "parameters": []
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "trip_id",
+          "in": "path",
+          "required": true
+        }
+      ]
     },
-    "trip-management/third-party-api/v2/courses/{course_id}": {
+    "/trip-management/third-party-api/v2/courses/{course_id}": {
       "delete": {
         "tags": [
           "delivery"
@@ -939,9 +960,19 @@
           "default": {
             "description": "Unexpected error"
           }
-        }
+        },
+        "operationId": "delete-trip-management-third-party-api-v2-courses-course_id"
       },
-      "parameters": []
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "course_id",
+          "in": "path",
+          "required": true
+        }
+      ]
     },
     "/subscribe": {
       "post": {
@@ -951,7 +982,7 @@
         "summary": "Callbacks made by our server",
         "description": "There are different callbacks which will be made in different lifetime stages of a trip. All of them will be sent to the webhook address you’ve provided to the technical team. All of them will contain credential token as a HTTP header as described in the Authentication section and a `X-Miare-API-Version` header indicating the version of API in which the Event’s format will be.",
         "responses": {
-          "default": {
+          "200": {
             "description": "This is just a placeholder for events"
           }
         },
@@ -970,7 +1001,8 @@
               }
             }
           }
-        }
+        },
+        "operationId": "subscribe"
       }
     },
     "/accounting/estimate/price": {
@@ -1093,7 +1125,7 @@
       },
       "parameters": []
     },
-    "/area/third-party-api/v2/areas/": {
+    "/area/third-party-api/v2/areas": {
       "get": {
         "summary": "Returns list of all areas & count of your trips in them",
         "tags": [
@@ -1141,7 +1173,7 @@
         "description": "Using this endpoint you can get a list of all areas defined in Miare, plus information about you trips in these areas."
       }
     },
-    "/trip-management/third-party-api/v2/trips/{trip_id}/": {
+    "/trip-management/third-party-api/v2/trips/{trip_id}": {
       "parameters": [
         {
           "schema": {
