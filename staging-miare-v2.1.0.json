@@ -7606,6 +7606,110 @@
           "description": "The primary-key of the driver in Driver db-table."
         }
       ]
+    },
+    "/api/monitoring/upload-driver-report/": {
+      "post": {
+        "summary": "upload-driver-report",
+        "tags": [
+          "notifications"
+        ],
+        "responses": {
+          "201": {
+            "description": "Created DriverDeviceReport record."
+          },
+          "400": {
+            "description": "Bad Request. Invalid file.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "report_file": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "code": {
+                      "type": "object",
+                      "properties": {
+                        "report_file": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "detail": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "django-rest-framework invalid-file-error response-details": {
+                    "value": {
+                      "report_file": [
+                        "ErrorDetail(string='The submitted data was not a file. Check the encoding type on the form.', code='invalid')"
+                      ],
+                      "code": {
+                        "report_file": [
+                          "invalid"
+                        ]
+                      },
+                      "detail": "{'report_file': [ErrorDetail(string='The submitted data was not a file. Check the encoding type on the form.', code='invalid')], 'code': {'report_file': ['invalid']}}"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "417": {
+            "description": "Expectation Failed. Key report_file not included in body.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "reason": "Key report_file was not found in request body."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-api-monitoring-upload-driver-report",
+        "description": "This endpoint is for Couriers(IsDriver) only. It should be used to upload the report file from a driver's device client. Because the form data contains a file and it might be large, HTTP POST request should be submitted in a multipart manner.\n\nNote that there is `no` file-type limitation, but there is file validation.\nAlso Note that the endpoint has been tested only with an image file.",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "report_file": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Body must contain 'report_file' which must be a file."
+        }
+      }
     }
   },
   "security": [
