@@ -699,6 +699,15 @@
               "message": "شما یک پیام خوانده نشده دارید، لطفا در اولین فرصت بخش تیکت‌ها در برنامه «میاره» را مشاهده نمائید.",
               "image": null
             }
+          },
+          "bug-report-example": {
+            "message_type": "bug_report",
+            "payload": {
+              "id": 3,
+              "title": "درخاست ارسال گزارش از پشتیبانی",
+              "message": "نمونه گزارش احتمالی اضافه شده توسط پشتیبانی",
+              "image": null
+            }
           }
         },
         "description": "Represents the data format of serialized message over GCM",
@@ -7538,9 +7547,9 @@
       },
       "parameters": []
     },
-    "/api/monitoring/staff-driver-request-report/{driver_id}": {
+    "/api/monitoring/staff-request-driver-devices-bug-report/{driver_id}/": {
       "post": {
-        "summary": "Staff Request Driver Report",
+        "summary": "Staff Request Driver Devices Bug Report",
         "tags": [
           "notifications"
         ],
@@ -7549,30 +7558,11 @@
             "description": "Created Notification object, stored it, and sent it."
           },
           "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "example": {
-                    "value": {
-                      "reason": "driver_id was not found in database table."
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Not Found (driver_id)"
           }
         },
         "operationId": "post-api-monitoring-staff-driver-request-report",
-        "description": "This endpoint is for Staff(IsAdmin) members only. It is used to find the desired driver and therefore mobile devices of that driver, and then send notification to those devices stating that they should send the report file. The notification is sent using GCM and is in the following format.\n\nformat: { 'data': {\n    'message_type': 'staff-report',\n    'payload': {\n      'id': `integer`,\n      'title': `string`,\n      'message': `string`,\n      'image': `null`\n    }\n  }\n}\n\nNote that `message` is not an empty string only when the Staff has included their additional report in the body of the request.",
+        "description": "This endpoint is for Staff(IsAdmin) members only. It is used to find the desired driver and therefore mobile devices of that driver, and then send notification to those devices stating that they should send the bug report file. The notification is sent using GCM; For notification data format refer to `staging-miare-v2.1.0.json/components/schemas/Notification`'s `bug-report-example`.\n\nNote that `message` is not an empty string only when the Staff has included their additional report in the body of the request.",
         "security": [
           {
             "auth": []
@@ -7584,9 +7574,16 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "staff-report": {
+                  "bug_report": {
                     "type": "string",
                     "description": "The additional report that Staff might include."
+                  }
+                }
+              },
+              "examples": {
+                "example": {
+                  "value": {
+                    "bug_report": "گزارش احتمالی اضافه شده توسط پشتیبانی"
                   }
                 }
               }
@@ -7598,7 +7595,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "number"
+            "type": "integer"
           },
           "name": "driver_id",
           "in": "path",
@@ -7607,9 +7604,9 @@
         }
       ]
     },
-    "/api/monitoring/upload-driver-report/": {
+    "/api/monitoring/upload-driver-device-bug-report/": {
       "post": {
-        "summary": "Upload Driver Report",
+        "summary": "Upload Driver Device Bug Report",
         "tags": [
           "notifications"
         ],
@@ -7688,7 +7685,7 @@
           }
         },
         "operationId": "post-api-monitoring-upload-driver-report",
-        "description": "This endpoint is for Couriers(IsDriver) only. It should be used to upload the report file from a driver's device client. Because the form data contains a file and it might be large, HTTP POST request should be submitted in a multipart manner.\n\nNote that there is `no` file-type limitation, but there is file validation.\nAlso Note that the endpoint has been tested only with an image file.",
+        "description": "This endpoint is for Couriers(IsDriver) only. It should be used to upload the bug report file from a driver's device client. Because the form data contains a file and it might be large, HTTP POST request should be submitted in a multipart manner.\n\nNote that there is `no` file-type limitation, but there is file validation.\nAlso Note that the endpoint has been tested only with an image file.",
         "security": [
           {
             "auth": []
@@ -7704,12 +7701,14 @@
                     "type": "string"
                   }
                 }
-              }
+              },
+              "examples": {}
             }
           },
           "description": "Body must contain 'report_file' which must be a file."
         }
-      }
+      },
+      "parameters": []
     }
   },
   "security": [
