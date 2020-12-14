@@ -7609,7 +7609,7 @@
     },
     "/api/monitoring/upload-driver-report/": {
       "post": {
-        "summary": "upload-driver-report",
+        "summary": "Upload Driver Report",
         "tags": [
           "notifications"
         ],
