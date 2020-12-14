@@ -6223,6 +6223,11 @@
                     "newbies_courses_count_threshold": {
                       "type": "integer",
                       "minimum": 0
+                    },
+                    "presence_rating": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 100
                     }
                   }
                 }
