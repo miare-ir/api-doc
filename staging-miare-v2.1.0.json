@@ -699,6 +699,15 @@
               "message": "شما یک پیام خوانده نشده دارید، لطفا در اولین فرصت بخش تیکت‌ها در برنامه «میاره» را مشاهده نمائید.",
               "image": null
             }
+          },
+          "bug-report-example": {
+            "message_type": "bug_report",
+            "payload": {
+              "id": 3,
+              "title": "درخواست ارسال گزارش از پشتیبانی",
+              "message": "نمونه گزارش احتمالی اضافه شده توسط پشتیبانی",
+              "image": null
+            }
           }
         },
         "description": "Represents the data format of serialized message over GCM",
@@ -707,7 +716,8 @@
             "type": "string",
             "enum": [
               "message",
-              "ticket"
+              "ticket",
+              "bug_report"
             ]
           },
           "payload": {
@@ -2383,6 +2393,26 @@
             "type": "string"
           }
         }
+      },
+      "DriverDeviceReport": {
+        "title": "DriverDeviceReport",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "driver_id": {
+            "type": "integer"
+          },
+          "report_file": {
+            "type": "string",
+            "description": "Address of the stored report file"
+          },
+          "datetime_added": {
+            "type": "string"
+          }
+        },
+        "description": "This is for storing/monitoring courier's devices bug report."
       }
     },
     "requestBodies": {
@@ -7535,6 +7565,169 @@
           }
         ],
         "description": ""
+      },
+      "parameters": []
+    },
+    "/api/monitoring/staff-request-driver-devices-bug-report/{driver_id}/": {
+      "post": {
+        "summary": "Staff Request Driver Devices Bug Report",
+        "tags": [
+          "notifications"
+        ],
+        "responses": {
+          "201": {
+            "description": "Created Notification object, stored it, and sent it."
+          },
+          "404": {
+            "description": "Not Found (driver_id)"
+          }
+        },
+        "operationId": "post-api-monitoring-staff-driver-request-report",
+        "description": "This endpoint is for Staff(IsAdmin) members only. It is used to find the desired driver and therefore mobile devices of that driver, and then send notification to those devices stating that they should send the bug report file. The notification is sent using GCM; For notification data format refer to `staging-miare-v2.1.0.json/components/schemas/Notification`'s `bug-report-example`.\n\nNote that `message` is not an empty string only when the Staff has included their report description in the body of the request.",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "request_description": {
+                    "type": "string",
+                    "description": "The additional report that Staff might include."
+                  }
+                }
+              },
+              "examples": {
+                "example": {
+                  "value": {
+                    "request_description": "گزارش احتمالی اضافه شده توسط پشتیبانی"
+                  }
+                }
+              }
+            }
+          },
+          "description": "If there is a probable description that the Staff might want to include, it is in the body of the POST request."
+        }
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "driver_id",
+          "in": "path",
+          "required": true,
+          "description": "The primary-key of the driver in Driver db-table."
+        }
+      ]
+    },
+    "/api/monitoring/upload-driver-device-bug-report/": {
+      "post": {
+        "summary": "Upload Driver Device Bug Report",
+        "tags": [
+          "notifications"
+        ],
+        "responses": {
+          "201": {
+            "description": "Created DriverDeviceReport record."
+          },
+          "400": {
+            "description": "Bad Request. Invalid file.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "report_file": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "code": {
+                      "type": "object",
+                      "properties": {
+                        "report_file": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "detail": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "django-rest-framework invalid-file-error response-details": {
+                    "value": {
+                      "report_file": [
+                        "ErrorDetail(string='The submitted data was not a file. Check the encoding type on the form.', code='invalid')"
+                      ],
+                      "code": {
+                        "report_file": [
+                          "invalid"
+                        ]
+                      },
+                      "detail": "{'report_file': [ErrorDetail(string='The submitted data was not a file. Check the encoding type on the form.', code='invalid')], 'code': {'report_file': ['invalid']}}"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "417": {
+            "description": "Expectation Failed. Key report_file not included in body.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "reason": "Key report_file was not found in request body."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-api-monitoring-upload-driver-report",
+        "description": "This endpoint is for Couriers(IsDriver) only. It should be used to upload the bug report file from a driver's device client. Because the form data contains a file and it might be large, HTTP POST request should be submitted in a multipart manner.\n\nNote that there is `no` file-type limitation, but there is file validation.\nAlso Note that the endpoint has been tested only with an image file.",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "report_file": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {}
+            }
+          },
+          "description": "Body must contain 'report_file' which must be a file."
+        }
       },
       "parameters": []
     }
