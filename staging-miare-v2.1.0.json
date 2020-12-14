@@ -704,7 +704,7 @@
             "message_type": "bug_report",
             "payload": {
               "id": 3,
-              "title": "درخاست ارسال گزارش از پشتیبانی",
+              "title": "درخواست ارسال گزارش از پشتیبانی",
               "message": "نمونه گزارش احتمالی اضافه شده توسط پشتیبانی",
               "image": null
             }
@@ -716,7 +716,8 @@
             "type": "string",
             "enum": [
               "message",
-              "ticket"
+              "ticket",
+              "bug_report"
             ]
           },
           "payload": {
@@ -7582,7 +7583,7 @@
           }
         },
         "operationId": "post-api-monitoring-staff-driver-request-report",
-        "description": "This endpoint is for Staff(IsAdmin) members only. It is used to find the desired driver and therefore mobile devices of that driver, and then send notification to those devices stating that they should send the bug report file. The notification is sent using GCM; For notification data format refer to `staging-miare-v2.1.0.json/components/schemas/Notification`'s `bug-report-example`.\n\nNote that `message` is not an empty string only when the Staff has included their additional report in the body of the request.",
+        "description": "This endpoint is for Staff(IsAdmin) members only. It is used to find the desired driver and therefore mobile devices of that driver, and then send notification to those devices stating that they should send the bug report file. The notification is sent using GCM; For notification data format refer to `staging-miare-v2.1.0.json/components/schemas/Notification`'s `bug-report-example`.\n\nNote that `message` is not an empty string only when the Staff has included their report description in the body of the request.",
         "security": [
           {
             "auth": []
@@ -7594,7 +7595,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "bug_report": {
+                  "request_description": {
                     "type": "string",
                     "description": "The additional report that Staff might include."
                   }
@@ -7603,13 +7604,13 @@
               "examples": {
                 "example": {
                   "value": {
-                    "bug_report": "گزارش احتمالی اضافه شده توسط پشتیبانی"
+                    "request_description": "گزارش احتمالی اضافه شده توسط پشتیبانی"
                   }
                 }
               }
             }
           },
-          "description": "If there is an additional report that the Staff might want to include, it is in the body of the POST request."
+          "description": "If there is a probable description that the Staff might want to include, it is in the body of the POST request."
         }
       },
       "parameters": [
