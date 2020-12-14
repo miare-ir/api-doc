@@ -532,7 +532,7 @@
       },
       "parameters": [],
       "get": {
-        "summary": "Trips Actions",
+        "summary": "Returns list of your trips",
         "operationId": "gettrip-management-third-party-api-v2-trips",
         "responses": {
           "200": {
@@ -1095,7 +1095,7 @@
     },
     "/area/third-party-api/v2/areas/": {
       "get": {
-        "summary": "Areas List & Status",
+        "summary": "Returns list of all areas & count of your trips in them",
         "tags": [
           "area"
         ],
@@ -1149,11 +1149,12 @@
           },
           "name": "trip_id",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "id of the trip you want"
         }
       ],
       "get": {
-        "summary": "A Particular Trip",
+        "summary": "Returns a particular trip",
         "tags": [
           "delivery"
         ],
