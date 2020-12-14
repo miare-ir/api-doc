@@ -2413,6 +2413,31 @@
           }
         },
         "description": "This is for storing/monitoring courier's devices bug report."
+      },
+      "PresenceIntervalItem": {
+        "title": "PresenceIntervalItem",
+        "type": "object",
+        "x-examples": {},
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "start_time": {
+            "type": "string",
+            "format": "time"
+          },
+          "end_time": {
+            "type": "string",
+            "format": "time"
+          },
+          "present": {
+            "type": "boolean"
+          },
+          "absence_duration": {
+            "type": "string"
+          }
+        }
       }
     },
     "requestBodies": {
@@ -7735,6 +7760,58 @@
         }
       },
       "parameters": []
+    },
+    "/api/assign/drivers/presence-intervals/": {
+      "get": {
+        "summary": "Driver Presence Intervals",
+        "tags": [
+          "delivery"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PresenceIntervalItem"
+                  }
+                },
+                "examples": {
+                  "example (limited to 2 days)": {
+                    "value": [
+                      {
+                        "date": "2020-01-01",
+                        "start_time": "11:30",
+                        "end_time": "11:45",
+                        "present": true,
+                        "absence_duration": "P0DT00H09M00.159056S"
+                      },
+                      {
+                        "date": "2020-01-01",
+                        "start_time": "15:30",
+                        "end_time": "15:45",
+                        "present": false,
+                        "absence_duration": "P0DT00H10M00.159056S"
+                      },
+                      {
+                        "date": "2020-01-02",
+                        "start_time": "15:30",
+                        "end_time": "15:45",
+                        "present": true,
+                        "absence_duration": "P0DT00H09M00.159056S"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-assign-drivers-presence-intervals",
+        "description": "Serializes a list of presence intervals within past 10 days with the state of being present or not"
+      }
     }
   },
   "security": [
