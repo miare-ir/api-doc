@@ -4276,7 +4276,8 @@
               "sheba-reminder",
               "assign-overview-rating",
               "assign-overview-shift-start",
-              "assign-overview-courses-count"
+              "assign-overview-courses-count",
+              "assign-overview-presence-rating"
             ]
           },
           "name": "category_name",
