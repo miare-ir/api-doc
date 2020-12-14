@@ -2392,6 +2392,26 @@
             "type": "string"
           }
         }
+      },
+      "DriverDeviceReport": {
+        "title": "DriverDeviceReport",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "driver_id": {
+            "type": "integer"
+          },
+          "report_file": {
+            "type": "string",
+            "description": "Address of the stored report file"
+          },
+          "datetime_added": {
+            "type": "string"
+          }
+        },
+        "description": "This is for storing/monitoring courier's devices bug report."
       }
     },
     "requestBodies": {
