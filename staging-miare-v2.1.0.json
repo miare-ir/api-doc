@@ -2434,7 +2434,7 @@
           "present": {
             "type": "boolean"
           },
-          "absence_duration": {
+          "presence_duration": {
             "type": "string"
           }
         }
@@ -7787,21 +7787,28 @@
                         "start_time": "11:30",
                         "end_time": "11:45",
                         "present": true,
-                        "absence_duration": "P0DT00H09M00.159056S"
+                        "presence_duration": "P0DT00H09M00.159056S"
                       },
                       {
                         "date": "2020-01-01",
                         "start_time": "15:30",
                         "end_time": "15:45",
                         "present": false,
-                        "absence_duration": "P0DT00H10M00.159056S"
+                        "presence_duration": "P0DT00H10M00.159056S"
+                      },
+                      {
+                        "date": "2020-01-02",
+                        "start_time": "11:30",
+                        "end_time": "11:45",
+                        "present": true,
+                        "presence_duration": "P0DT00H09M00.159056S"
                       },
                       {
                         "date": "2020-01-02",
                         "start_time": "15:30",
                         "end_time": "15:45",
                         "present": true,
-                        "absence_duration": "P0DT00H09M00.159056S"
+                        "presence_duration": "P0DT00H09M00.159056S"
                       }
                     ]
                   }
