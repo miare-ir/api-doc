@@ -7830,7 +7830,11 @@
         "tags": [
           "notifications"
         ],
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
         "operationId": "post-notification-pk-delivered"
       }
     },
@@ -7850,7 +7854,11 @@
         "tags": [
           "notifications"
         ],
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
         "operationId": "post-notification-pk-dismissed"
       }
     }
