@@ -7583,7 +7583,7 @@
           }
         },
         "operationId": "post-api-monitoring-staff-driver-request-report",
-        "description": "This endpoint is for Staff(IsAdmin) members only. It is used to find the desired driver and therefore mobile devices of that driver, and then send notification to those devices stating that they should send the bug report file. The notification is sent using GCM; For notification data format refer to `staging-miare-v2.1.0.json/components/schemas/Notification`'s `bug-report-example`.\n\nNote that `message` is not an empty string only when the Staff has included their report description in the body of the request.",
+        "description": "This endpoint is for Staff(IsAdmin) members only. It is used to find the desired driver and therefore mobile devices of that driver, and then send notification to those devices stating that they should send the bug report file. The notification is sent using GCM; For notification data format refer to `staging-miare-v2.1.0.json/components/schemas/Notification`'s `bug-report-example`.\n\nNote that `message` can be null.\nIn the case of auto-generated frontend and html forms (e.g. django-admin, note that `message` is not an empty string only when the Staff has included their report description in the body of the request.",
         "security": [
           {
             "auth": []
