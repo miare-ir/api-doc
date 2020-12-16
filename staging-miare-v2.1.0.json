@@ -2436,6 +2436,9 @@
           },
           "presence_duration": {
             "type": "string"
+          },
+          "name": {
+            "type": "string"
           }
         }
       }
@@ -7783,6 +7786,7 @@
                   "example (limited to 2 days)": {
                     "value": [
                       {
+                        "name": "ظهر",
                         "date": "2020-01-01",
                         "start_time": "11:30",
                         "end_time": "11:45",
@@ -7790,6 +7794,7 @@
                         "presence_duration": "P0DT00H09M00.159056S"
                       },
                       {
+                        "name": "عصر",
                         "date": "2020-01-01",
                         "start_time": "15:30",
                         "end_time": "15:45",
@@ -7797,6 +7802,7 @@
                         "presence_duration": "P0DT00H10M00.159056S"
                       },
                       {
+                        "name": "ظهر",
                         "date": "2020-01-02",
                         "start_time": "11:30",
                         "end_time": "11:45",
@@ -7804,6 +7810,7 @@
                         "presence_duration": "P0DT00H09M00.159056S"
                       },
                       {
+                        "name": "عصر",
                         "date": "2020-01-02",
                         "start_time": "15:30",
                         "end_time": "15:45",
