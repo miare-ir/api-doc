@@ -334,6 +334,9 @@
       },
       "Area": {
         "type": "object",
+        "xml": {
+          "name": "Area"
+        },
         "properties": {
           "id": {
             "type": "string",
@@ -344,10 +347,10 @@
             "type": "string",
             "description": "Textual name of the area",
             "example": "فردوس شرق"
+          },
+          "coefficient": {
+            "type": "number"
           }
-        },
-        "xml": {
-          "name": "Area"
         }
       },
       "Courier": {
@@ -3803,7 +3806,8 @@
                         "date": "2020-01-01",
                         "area": {
                           "id": 1,
-                          "name": "شیخ بهایی"
+                          "name": "شیخ بهایی",
+                          "coefficient": 1.2
                         },
                         "interval_capacities": [
                           {
