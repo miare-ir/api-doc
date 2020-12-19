@@ -4742,6 +4742,15 @@
                               "null"
                             ],
                             "description": "Return distance in KM"
+                          },
+                          "client_type_coefficient": {
+                            "type": "number"
+                          },
+                          "interval_coefficient": {
+                            "type": "number"
+                          },
+                          "area_coefficient": {
+                            "type": "number"
                           }
                         }
                       }
