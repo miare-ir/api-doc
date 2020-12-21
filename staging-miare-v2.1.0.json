@@ -6786,22 +6786,18 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "409": {
+            "description": "Conflict",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": {}
-                },
-                "examples": {
-                  "multi-filed-error example": {
-                    "value": {
-                      "code": {
-                        "citizen_number": [
-                          "unique"
-                        ]
-                      }
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "duplicate_citizen_number"
+                      ]
                     }
                   }
                 }
