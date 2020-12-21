@@ -6694,6 +6694,24 @@
                 }
               }
             }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "non_primary_phone"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "operationId": "post-api-otp-driver-request",
