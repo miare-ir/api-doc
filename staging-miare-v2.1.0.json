@@ -6795,7 +6795,7 @@
                   "properties": {}
                 },
                 "examples": {
-                  "multi-filed error example": {
+                  "multi-filed-error example": {
                     "value": {
                       "code": {
                         "citizen_number": [
