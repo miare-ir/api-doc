@@ -6772,6 +6772,28 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "multi-filed error example": {
+                    "value": {
+                      "code": {
+                        "citizen_number": [
+                          "unique"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "operationId": "post-api-registration-drivers-personal-info",
@@ -7152,6 +7174,9 @@
                 "examples": {}
               }
             }
+          },
+          "413": {
+            "description": "Request Entity Too Large"
           }
         },
         "operationId": "post-api-registration-field-staff-complementary-info-driver_id",
