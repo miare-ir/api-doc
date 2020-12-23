@@ -7654,9 +7654,9 @@
       },
       "parameters": []
     },
-    "/api/monitoring/staff-request-driver-devices-bug-report/{driver_id}/": {
+    "/api/monitoring/staff/bug-report/{driver_id}/request/": {
       "post": {
-        "summary": "Staff Request Driver Devices Bug Report",
+        "summary": "Staff Request Driver Devices Report",
         "tags": [
           "notifications"
         ],
@@ -7669,7 +7669,7 @@
           }
         },
         "operationId": "post-api-monitoring-staff-driver-request-report",
-        "description": "This endpoint is for Staff(IsAdmin) members only. It is used to find the desired driver and therefore mobile devices of that driver, and then send notification to those devices stating that they should send the bug report file. The notification is sent using GCM; For notification data format refer to `staging-miare-v2.1.0.json/components/schemas/Notification`'s `bug-report-example`.\n\nNote that `message` is not an empty string only when the Staff has included their report description in the body of the request.",
+        "description": "This endpoint is for Staff(IsAdmin) members only. It is used to find the desired driver and therefore mobile devices of that driver, and then send notification to those devices stating that they should send the bug report file. The notification is sent using GCM; For notification data format refer to `staging-miare-v2.1.0.json/components/schemas/Notification`'s `bug-report-example`.\n\nNote that `message` can be null.\nIn the case of auto-generated frontend and html forms (e.g. django-admin, note that `message` is not an empty string only when the Staff has included their report description in the body of the request.",
         "security": [
           {
             "auth": []
@@ -7711,7 +7711,7 @@
         }
       ]
     },
-    "/api/monitoring/upload-driver-device-bug-report/": {
+    "/api/monitoring/drivers/device-report/": {
       "post": {
         "summary": "Upload Driver Device Bug Report",
         "tags": [
@@ -7722,69 +7722,39 @@
             "description": "Created DriverDeviceReport record."
           },
           "400": {
-            "description": "Bad Request. Invalid file.",
+            "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "report_file": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "code": {
-                      "type": "object",
-                      "properties": {
-                        "report_file": {
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
-                        }
-                      }
-                    },
-                    "detail": {
-                      "type": "string"
-                    }
-                  }
+                  "type": "object"
                 },
                 "examples": {
-                  "django-rest-framework invalid-file-error response-details": {
+                  "no-data-provided": {
                     "value": {
-                      "report_file": [
-                        "ErrorDetail(string='The submitted data was not a file. Check the encoding type on the form.', code='invalid')"
+                      "code": [
+                        "invalid"
                       ],
-                      "code": {
-                        "report_file": [
-                          "invalid"
-                        ]
-                      },
-                      "detail": "{'report_file': [ErrorDetail(string='The submitted data was not a file. Check the encoding type on the form.', code='invalid')], 'code': {'report_file': ['invalid']}}"
+                      "detail": "[ErrorDetail(string='Key staff_report not included.', code='invalid')]"
                     }
-                  }
-                }
-              }
-            }
-          },
-          "417": {
-            "description": "Expectation Failed. Key report_file not included in body.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "example": {
+                  },
+                  "no-bug-report-file-provided": {
                     "value": {
-                      "reason": "Key report_file was not found in request body."
+                      "code": [
+                        "invalid"
+                      ],
+                      "detail": "[ErrorDetail(string='Key bug_report_file not included.', code='invalid')]"
                     }
+                  },
+                  "no-staff-report-provided": {
+                    "value": {
+                      "code": [
+                        "invalid"
+                      ],
+                      "detail": "[ErrorDetail(string='Key staff_report not included.', code='invalid')]"
+                    }
+                  },
+                  "wrong-data-provided-as-file": {
+                    "value": {}
                   }
                 }
               }
@@ -7792,7 +7762,7 @@
           }
         },
         "operationId": "post-api-monitoring-upload-driver-report",
-        "description": "This endpoint is for Couriers(IsDriver) only. It should be used to upload the bug report file from a driver's device client. Because the form data contains a file and it might be large, HTTP POST request should be submitted in a multipart manner.\n\nNote that there is `no` file-type limitation, but there is file validation.\nAlso Note that the endpoint has been tested only with an image file.",
+        "description": "This endpoint is for Couriers(IsDriver) only. It should be used to upload the bug report file from a driver's device client. Because the device must send staff_report and bug_report_file, HTTP POST request should be submitted in a multipart manner, using part names `staff_report` with a string value and `bug_report_file` with a file parsed to bytes.\n\nNote that there is `no` file-type limitation, but there is file validation.\nAlso Note that the endpoint has been tested only with an image file.",
         "security": [
           {
             "auth": []
@@ -7802,17 +7772,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "report_file": {
-                    "type": "string"
-                  }
-                }
+                "type": "string"
               },
               "examples": {}
             }
           },
-          "description": "Body must contain 'report_file' which must be a file."
+          "description": "Body must contain two parts. `bug_report_file` with a file and `staff_report` with a string."
         }
       },
       "parameters": []
