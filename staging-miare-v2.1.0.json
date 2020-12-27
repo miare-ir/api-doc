@@ -2446,8 +2446,9 @@
         }
       },
       "DriverInhospitality": {
-        "title": "DriverInhospitality",
+        "title": "DriverHarshCondition",
         "type": "object",
+        "description": "Represents the period for the harsh conditions which affect drivers salaries for trips performed during this duration",
         "properties": {
           "date": {
             "type": "string",
@@ -2465,10 +2466,12 @@
             "format": "time"
           },
           "coefficient": {
-            "type": "number"
+            "type": "number",
+            "minimum": 1,
+            "maximum": 2,
+            "description": ""
           }
-        },
-        "description": ""
+        }
       }
     },
     "requestBodies": {
