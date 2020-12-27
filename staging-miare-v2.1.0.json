@@ -30,6 +30,9 @@
     },
     {
       "name": "Registration"
+    },
+    {
+      "name": "monitoring"
     }
   ],
   "servers": [
@@ -2415,7 +2418,10 @@
             "type": "string"
           }
         },
-        "description": "This is for storing/monitoring courier's devices bug report."
+        "description": "This is for storing/monitoring courier's devices bug report.",
+        "x-tags": [
+          "monitoring"
+        ]
       },
       "PresenceIntervalItem": {
         "title": "PresenceIntervalItem",
@@ -7682,9 +7688,6 @@
     "/api/monitoring/staff/bug-report/{driver_id}/request/": {
       "post": {
         "summary": "Staff Request Driver Devices Report",
-        "tags": [
-          "notifications"
-        ],
         "responses": {
           "201": {
             "description": "Created Notification object, stored it, and sent it."
@@ -7722,7 +7725,10 @@
             }
           },
           "description": "If there is a probable description that the Staff might want to include, it is in the body of the POST request."
-        }
+        },
+        "tags": [
+          "monitoring"
+        ]
       },
       "parameters": [
         {
@@ -7739,9 +7745,6 @@
     "/api/monitoring/drivers/device-report/": {
       "post": {
         "summary": "Upload Driver Device Bug Report",
-        "tags": [
-          "notifications"
-        ],
         "responses": {
           "201": {
             "description": "Created DriverDeviceReport record."
@@ -7803,7 +7806,10 @@
             }
           },
           "description": "Body must contain two parts. `bug_report_file` with a file and `staff_report` with a string."
-        }
+        },
+        "tags": [
+          "monitoring"
+        ]
       },
       "parameters": []
     },
