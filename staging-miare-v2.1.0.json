@@ -7921,7 +7921,9 @@
     "/accounting/driver/conditional-rewards/": {
       "get": {
         "summary": "Conditional Rewards",
-        "tags": [],
+        "tags": [
+          "accounting"
+        ],
         "responses": {
           "200": {
             "description": "OK",
