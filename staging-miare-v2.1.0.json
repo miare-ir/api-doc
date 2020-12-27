@@ -2487,7 +2487,41 @@
             ]
           },
           "payload": {
-            "$ref": "#/components/schemas/SuccessfulAssignMessage"
+            "$ref": "#/components/schemas/SuccessfulAssignOnWebsocket"
+          }
+        },
+        "x-examples": {
+          "example": {
+            "msg_type": "successful_assign",
+            "payload": "{\"datetime\": \"2020-11-08T17:16:21.160672+03:30\", \"trip_id\": 1768439, \"driver_id\": 6763, \"revoke_reason\": null}"
+          }
+        }
+      },
+      "SuccessfulAssignOnWebsocket": {
+        "title": "SuccessfulAssignOnWebsocket",
+        "type": "object",
+        "properties": {
+          "trip_id": {
+            "type": "integer"
+          },
+          "driver_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "datetime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "revoke_reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "id": {
+            "type": "integer"
           }
         }
       }
