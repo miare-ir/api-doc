@@ -2475,40 +2475,21 @@
           }
         }
       },
-      "SuccessfulAssignOnWebsocket": {
-        "title": "SuccessfulAssignOnWebsocket",
+      "SuccessfulAssignMessage": {
+        "title": "SuccessfulAssignMessage",
         "type": "object",
+        "description": "Note that the payload is converted to string as in example",
         "properties": {
-          "trip_id": {
-            "type": "integer"
-          },
-          "driver_id": {
-            "type": "integer"
-          },
-          "revoke_reason": {
-            "type": [
-              "string",
-              "null"
-            ],
+          "msg_type": {
+            "type": "string",
             "enum": [
-              "driver_refusing",
-              "crash",
-              "bad_assign",
-              "client_request",
-              "ongoing_trip",
-              "courses_count",
-              "out_of_area",
-              "driver_kpi",
-              "technical_issues",
-              "other"
+              "successful_assign"
             ]
           },
-          "datetime": {
-            "type": "string",
-            "format": "date-time"
+          "payload": {
+            "$ref": "#/components/schemas/SuccessfulAssignMessage"
           }
-        },
-        "description": ""
+        }
       }
     },
     "requestBodies": {
