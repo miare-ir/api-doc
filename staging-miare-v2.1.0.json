@@ -2456,10 +2456,6 @@
         "type": "object",
         "description": "Represents the period for the harsh conditions which affect drivers salaries for trips performed during this duration",
         "properties": {
-          "date": {
-            "type": "string",
-            "format": "time"
-          },
           "start_time": {
             "type": "string",
             "format": "time"
@@ -3826,6 +3822,12 @@
                               "items": {
                                 "$ref": "#/components/schemas/ConditionalReward"
                               }
+                            },
+                            "harsh_conditions": {
+                              "type": "array",
+                              "items": {
+                                "$ref": "#/components/schemas/DriverInhospitality"
+                              }
                             }
                           }
                         }
@@ -3852,7 +3854,11 @@
                               "end_time": "15:30:00"
                             },
                             "capacity": 2,
-                            "reserved": true
+                            "reserved": true,
+                            "presence_rewards": [],
+                            "course_rewards": [],
+                            "guaranteed_reward": [],
+                            "harsh_conditions": []
                           },
                           {
                             "interval": {
@@ -3862,7 +3868,11 @@
                               "end_time": "23:30:00"
                             },
                             "capacity": 0,
-                            "reserved": false
+                            "reserved": false,
+                            "presence_rewards": [],
+                            "course_rewards": [],
+                            "guaranteed_reward": [],
+                            "harsh_conditions": []
                           }
                         ]
                       }
