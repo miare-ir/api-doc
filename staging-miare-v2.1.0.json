@@ -2444,6 +2444,31 @@
             "type": "string"
           }
         }
+      },
+      "DriverInhospitality": {
+        "title": "DriverInhospitality",
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "time"
+          },
+          "start_time": {
+            "type": "string",
+            "format": "time"
+          },
+          "end_time": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "time"
+          },
+          "coefficient": {
+            "type": "number"
+          }
+        },
+        "description": ""
       }
     },
     "requestBodies": {
