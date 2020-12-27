@@ -30,6 +30,9 @@
     },
     {
       "name": "Registration"
+    },
+    {
+      "name": "monitoring"
     }
   ],
   "servers": [
@@ -2415,7 +2418,10 @@
             "type": "string"
           }
         },
-        "description": "This is for storing/monitoring courier's devices bug report."
+        "description": "This is for storing/monitoring courier's devices bug report.",
+        "x-tags": [
+          "monitoring"
+        ]
       },
       "PresenceIntervalItem": {
         "title": "PresenceIntervalItem",
@@ -7685,9 +7691,6 @@
     "/api/monitoring/staff/bug-report/{driver_id}/request/": {
       "post": {
         "summary": "Staff Request Driver Devices Report",
-        "tags": [
-          "notifications"
-        ],
         "responses": {
           "201": {
             "description": "Created Notification object, stored it, and sent it."
@@ -7725,7 +7728,10 @@
             }
           },
           "description": "If there is a probable description that the Staff might want to include, it is in the body of the POST request."
-        }
+        },
+        "tags": [
+          "monitoring"
+        ]
       },
       "parameters": [
         {
@@ -7742,9 +7748,6 @@
     "/api/monitoring/drivers/device-report/": {
       "post": {
         "summary": "Upload Driver Device Bug Report",
-        "tags": [
-          "notifications"
-        ],
         "responses": {
           "201": {
             "description": "Created DriverDeviceReport record."
@@ -7806,7 +7809,10 @@
             }
           },
           "description": "Body must contain two parts. `bug_report_file` with a file and `staff_report` with a string."
-        }
+        },
+        "tags": [
+          "monitoring"
+        ]
       },
       "parameters": []
     },
@@ -7919,6 +7925,122 @@
           }
         },
         "operationId": "post-notification-pk-dismissed"
+      }
+    },
+    "/accounting/driver/conditional-rewards/": {
+      "get": {
+        "summary": "Conditional Rewards",
+        "tags": [
+          "accounting"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "presence_reward": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ConditionalReward"
+                      }
+                    },
+                    "course_reward": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ConditionalReward"
+                      }
+                    },
+                    "guarantee_reward": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ConditionalReward"
+                      }
+                    },
+                    "area": {
+                      "$ref": "#/components/schemas/Area"
+                    },
+                    "interval": {
+                      "$ref": "#/components/schemas/Interval"
+                    },
+                    "harsh_condition_coefficient": {
+                      "type": "number",
+                      "description": "it returns 1 unless there is a coefficient for rainy day"
+                    },
+                    "courses_count": {
+                      "type": "integer"
+                    },
+                    "total_presence": {
+                      "type": "string",
+                      "format": "time",
+                      "example": "timedelta(hours=02, minutes=05, seconds=0)"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "presence_rewards": [
+                        {
+                          "id": 1,
+                          "ledger": {
+                            "id": 1,
+                            "name": "مازاد درآمد مشروط"
+                          },
+                          "reward": 10000,
+                          "description": "مازاد درآمد مشروط حضور بیشتر از ۵ ساعت در منطقه",
+                          "threshold": 300
+                        }
+                      ],
+                      "course_rewards": [
+                        {
+                          "id": 1,
+                          "ledger": {
+                            "id": 1,
+                            "name": "مازاد درآمد مشروط"
+                          },
+                          "reward": 500,
+                          "description": "مازاد درآمد مشروط انجام بیشتر از ۱۰ سفر در شیفت ظهر",
+                          "threshold": 10
+                        }
+                      ],
+                      "guarantee_rewards": [
+                        {
+                          "id": 1,
+                          "ledger": {
+                            "id": 2,
+                            "name": "تضمین درآمد"
+                          },
+                          "reward": 20000,
+                          "description": "تضمین درآمد حضور بیشتر از ۵ ساعت در شیفت ظهر",
+                          "threshold": 300
+                        }
+                      ],
+                      "area": {
+                        "id": "59",
+                        "name": "فردوس شرق",
+                        "coefficient": 0
+                      },
+                      "interval": {
+                        "id": 1,
+                        "start_time": "11:30",
+                        "end_time": "17:30",
+                        "name": "رزرو ظهر"
+                      },
+                      "harsh_condition_coefficient": 0,
+                      "courses_count": 8,
+                      "total_presence": "timedelta(hours=02, minutes=05, seconds=0)"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-accounting-driver-conditional-rewards",
+        "description": "Returns all applicable conditional rewards for requested driver in working shift and area"
       }
     }
   },
