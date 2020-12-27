@@ -2474,6 +2474,41 @@
             "description": ""
           }
         }
+      },
+      "SuccessfulAssignOnWebsocket": {
+        "title": "SuccessfulAssignOnWebsocket",
+        "type": "object",
+        "properties": {
+          "trip_id": {
+            "type": "integer"
+          },
+          "driver_id": {
+            "type": "integer"
+          },
+          "revoke_reason": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "driver_refusing",
+              "crash",
+              "bad_assign",
+              "client_request",
+              "ongoing_trip",
+              "courses_count",
+              "out_of_area",
+              "driver_kpi",
+              "technical_issues",
+              "other"
+            ]
+          },
+          "datetime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "description": ""
       }
     },
     "requestBodies": {
