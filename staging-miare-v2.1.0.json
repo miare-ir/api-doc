@@ -2493,7 +2493,7 @@
         "x-examples": {
           "example": {
             "msg_type": "successful_assign",
-            "payload": "{\"datetime\": \"2020-11-08T17:16:21.160672+03:30\", \"trip_id\": 1768439, \"driver_id\": 6763, \"revoke_reason\": null}"
+            "payload": "{\"datetime\": \"2020-11-08T17:16:21.160672+03:30\", \"trip_id\": 1768439, \"driver_id\": 6763, \"revoke_reason\": null, \"trip_source_title\": \"فودکورت لوکال‌هاست\"}"
           }
         }
       },
@@ -2522,6 +2522,9 @@
           },
           "id": {
             "type": "integer"
+          },
+          "trip_source_title": {
+            "type": "string"
           }
         }
       }
