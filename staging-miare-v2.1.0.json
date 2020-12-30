@@ -2527,6 +2527,74 @@
             "type": "string"
           }
         }
+      },
+      "DriverProfileStatus": {
+        "title": "DriverProfileStatus",
+        "type": "object",
+        "properties": {
+          "staff_review": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "enum": [
+              "phone",
+              "document",
+              "learning",
+              "promissory",
+              "contract",
+              "box",
+              "addiction",
+              "bike",
+              "area",
+              "age",
+              "income",
+              "bad_presentation",
+              "home",
+              "insurance",
+              "hired_other_departments",
+              "buy_tools",
+              "other"
+            ]
+          },
+          "staff_description": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "recruiter_review": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "enum": [
+              "phone",
+              "document",
+              "learning",
+              "promissory",
+              "contract",
+              "box",
+              "addiction",
+              "bike",
+              "area",
+              "age",
+              "income",
+              "bad_presentation",
+              "home",
+              "insurance",
+              "hired_other_departments",
+              "buy_tools",
+              "other"
+            ]
+          },
+          "recruiter_description": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
       }
     },
     "requestBodies": {
@@ -8104,6 +8172,77 @@
         },
         "operationId": "get-accounting-driver-conditional-rewards",
         "description": "Returns all applicable conditional rewards for requested driver in working shift and area"
+      }
+    },
+    "/registration/drivers/profile-status/{driver_id}/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "driver_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Driver Profile Status",
+        "tags": [
+          "Registration"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DriverProfileStatus"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found (when the driver or driver profile status is not found)"
+          }
+        },
+        "operationId": "get-registration-staff-profile-status-driver_id",
+        "description": "returns staff and recruiter review on a driver profile"
+      },
+      "post": {
+        "summary": "",
+        "operationId": "post-registration-staff-profile-status-driver_id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DriverProfileStatus"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "description": "used to update profile status of a driver",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "": {
+                    "$ref": "#/components/schemas/DriverProfileStatus"
+                  }
+                },
+                "required": [
+                  null
+                ]
+              },
+              "examples": {}
+            }
+          }
+        }
       }
     }
   },
