@@ -8186,7 +8186,7 @@
         }
       ],
       "get": {
-        "summary": "Driver Profile Status",
+        "summary": "get-driver-profile-status",
         "tags": [
           "Registration"
         ],
@@ -8209,7 +8209,7 @@
         "description": "returns staff and recruiter review on a driver profile"
       },
       "post": {
-        "summary": "",
+        "summary": "update-driver-profile-status",
         "operationId": "post-registration-staff-profile-status-driver_id",
         "responses": {
           "200": {
