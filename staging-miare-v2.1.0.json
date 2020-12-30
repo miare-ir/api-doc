@@ -8229,15 +8229,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "": {
-                    "$ref": "#/components/schemas/DriverProfileStatus"
-                  }
-                },
-                "required": [
-                  null
-                ]
+                "$ref": "#/components/schemas/DriverProfileStatus"
               },
               "examples": {}
             }
