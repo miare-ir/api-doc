@@ -2532,7 +2532,7 @@
         "title": "DriverProfileStatus",
         "type": "object",
         "properties": {
-          "staff_review": {
+          "status_by_staff": {
             "type": [
               "null",
               "string"
@@ -2557,13 +2557,13 @@
               "other"
             ]
           },
-          "staff_description": {
+          "description_by_staff": {
             "type": [
               "null",
               "string"
             ]
           },
-          "recruiter_review": {
+          "status_by_recruiter": {
             "type": [
               "null",
               "string"
@@ -2588,7 +2588,7 @@
               "other"
             ]
           },
-          "recruiter_description": {
+          "description_by_recruiter": {
             "type": [
               "null",
               "string"
@@ -8174,6 +8174,76 @@
         "description": "Returns all applicable conditional rewards for requested driver in working shift and area"
       }
     },
+    "/registration/staff/profile-status/{driver_id}/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "driver_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "update-driver-profile-status-by-staff",
+        "operationId": "post-registration-staff-profile-status-driver_id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DriverProfileStatus"
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "description": "used to update profile status of a driver by staff",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "phone",
+                      "document",
+                      "learning",
+                      "promissory",
+                      "contract",
+                      "box",
+                      "addiction",
+                      "bike",
+                      "area",
+                      "age",
+                      "income",
+                      "bad_presentation",
+                      "home",
+                      "insurance",
+                      "hired_other_departments",
+                      "buy_tools",
+                      "other"
+                    ]
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {}
+            }
+          }
+        },
+        "tags": [
+          "Registration"
+        ]
+      }
+    },
     "/registration/drivers/profile-status/{driver_id}/": {
       "parameters": [
         {
@@ -8200,17 +8270,25 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found (when the driver or driver profile status is not found)"
           }
         },
-        "operationId": "get-registration-staff-profile-status-driver_id",
-        "description": "returns staff and recruiter review on a driver profile"
-      },
+        "operationId": "get-registration-drivers-profile-status-driver_id"
+      }
+    },
+    "/registration/recruiters/profile-status/{driver_id}/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "driver_id",
+          "in": "path",
+          "required": true
+        }
+      ],
       "post": {
-        "summary": "update-driver-profile-status",
-        "operationId": "post-registration-staff-profile-status-driver_id",
+        "summary": "update-profile-status-by-recruiter",
+        "operationId": "post-registration-recruiters-profile-status-driver_id",
         "responses": {
           "200": {
             "description": "OK",
@@ -8218,20 +8296,45 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/DriverProfileStatus"
-                },
-                "examples": {}
+                }
               }
             }
           }
         },
-        "description": "used to update profile status of a driver",
+        "description": "update profile status of a driver by recruiter",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DriverProfileStatus"
-              },
-              "examples": {}
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "phone",
+                      "document",
+                      "learning",
+                      "promissory",
+                      "contract",
+                      "box",
+                      "addiction",
+                      "bike",
+                      "area",
+                      "age",
+                      "income",
+                      "bad_presentation",
+                      "home",
+                      "insurance",
+                      "hired_other_departments",
+                      "buy_tools",
+                      "other"
+                    ]
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                }
+              }
             }
           }
         },
