@@ -2595,6 +2595,37 @@
             ]
           }
         }
+      },
+      "ClientHarshConditionExpense": {
+        "title": "ClientHarshConditionExpense",
+        "type": "object",
+        "description": "This db table is used to store data on whether there should any additional calculations for client's price. The lookup data for a client should be using it's area.",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "areas": {
+            "type": "array",
+            "description": "ManyToManyField('area.DriverArea')",
+            "items": {}
+          },
+          "coefficient": {
+            "type": "number",
+            "description": "1.0 <= n <= 2.0"
+          },
+          "date": {
+            "type": "string"
+          },
+          "start_time": {
+            "type": "string"
+          },
+          "end_time": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
       }
     },
     "requestBodies": {
