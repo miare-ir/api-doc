@@ -1664,22 +1664,34 @@
       "PriceDetails": {
         "title": "PriceDetails",
         "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
-          },
-          "price_delta": {
-            "type": "integer"
-          },
-          "regulation": {
-            "type": "string"
-          }
-        },
         "x-examples": {
           "example-1": {
             "id": 0,
             "price_delta": 5000,
             "regulation": "base_cost"
+          }
+        },
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "price_delta": {
+            "type": "integer",
+            "enum": [
+              "legacy_records",
+              "delivery_cost",
+              "client_delay",
+              "driver_delay",
+              "multi_course",
+              "shift_extra_percent",
+              "return",
+              "wage",
+              "base_cost",
+              "client_harsh_condition_expense"
+            ]
+          },
+          "regulation": {
+            "type": "string"
           }
         }
       },
