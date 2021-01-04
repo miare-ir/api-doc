@@ -8318,7 +8318,7 @@
         "operationId": "get-registration-drivers-profile-status-driver_id"
       }
     },
-    "/registration/recruiters/profile-status/{driver_id}/": {
+    "/registration/recruiter/profile-status/{driver_id}/": {
       "parameters": [
         {
           "schema": {
