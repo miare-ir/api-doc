@@ -2595,6 +2595,37 @@
             ]
           }
         }
+      },
+      "ClientHarshConditionExpense": {
+        "title": "ClientHarshConditionExpense",
+        "type": "object",
+        "description": "This db table is used to store data on whether there should any additional calculations for client's price. The lookup data for a client should be using it's area.",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "areas": {
+            "type": "array",
+            "description": "ManyToManyField('area.DriverArea')",
+            "items": {}
+          },
+          "coefficient": {
+            "type": "number",
+            "description": "1.0 <= n <= 2.0"
+          },
+          "date": {
+            "type": "string"
+          },
+          "start_time": {
+            "type": "string"
+          },
+          "end_time": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
       }
     },
     "requestBodies": {
@@ -8340,6 +8371,90 @@
         },
         "tags": [
           "Registration"
+        ]
+      }
+    },
+    "/api/accounting/client/check-harsh-condition-expense/": {
+      "get": {
+        "summary": "Check Client Harsh Condition Expense",
+        "tags": [
+          "accounting"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK. Note that Response will be an object containing a list which might be empty. It is usually that the list will contain one or zero results and it is designed this way for backward compatibility relating to future features.\nAlso note that if the result was not empty, each result's end_time key `might` have an empty value.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "coefficient": {
+                            "type": "number"
+                          },
+                          "date": {
+                            "type": "string"
+                          },
+                          "start_time": {
+                            "type": "string"
+                          },
+                          "end_time": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "results": [
+                        {
+                          "coefficient": 0,
+                          "date": "string",
+                          "start_time": "string",
+                          "end_time": "string"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Authorization is allowed only for clients.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable. This is will occur for third-party `multi_source` clients."
+          }
+        },
+        "operationId": "get-api-accounting-client-check-harsh-condition-expense",
+        "description": "This is endpoint is for client's panel(IsClient) only and should be used to get Harsh-Condition-Expense status.",
+        "security": [
+          {
+            "auth": []
+          }
         ]
       }
     }
