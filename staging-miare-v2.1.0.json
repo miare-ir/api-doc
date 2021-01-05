@@ -2479,21 +2479,21 @@
         "title": "SuccessfulAssignMessage",
         "type": "object",
         "description": "Note that the payload is converted to string as in example",
-        "properties": {
-          "msg_type": {
-            "type": "string",
-            "enum": [
-              "successful_assign"
-            ]
-          },
-          "payload": {
-            "$ref": "#/components/schemas/SuccessfulAssignOnWebsocket"
-          }
-        },
         "x-examples": {
           "example": {
             "msg_type": "successful_assign",
             "payload": "{\"datetime\": \"2020-11-08T17:16:21.160672+03:30\", \"trip_id\": 1768439, \"driver_id\": 6763, \"revoke_reason\": null, \"trip_source_title\": \"فودکورت لوکال‌هاست\"}"
+          }
+        },
+        "properties": {
+          "msg_type": {
+            "type": "string",
+            "enum": [
+              "assign"
+            ]
+          },
+          "payload": {
+            "$ref": "#/components/schemas/SuccessfulAssignOnWebsocket"
           }
         }
       },
