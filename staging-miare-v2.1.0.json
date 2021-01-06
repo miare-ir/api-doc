@@ -1361,7 +1361,10 @@
             "description": "The name which the staff has entered while saving the record"
           },
           "file_url": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "uri"
           },
           "seen": {
@@ -2636,6 +2639,20 @@
               "string",
               "null"
             ]
+          }
+        }
+      },
+      "AsyncCsvResponse": {
+        "title": "AsyncCsvResponse",
+        "type": "object",
+        "x-examples": {
+          "example": {
+            "path": "/api/notification/static-contents/2/"
+          }
+        },
+        "properties": {
+          "path": {
+            "type": "string"
           }
         }
       }
@@ -8468,6 +8485,96 @@
             "auth": []
           }
         ]
+      }
+    },
+    "/api/accounting/drivers/payments/": {
+      "get": {
+        "summary": "accounting-driver-working-payments",
+        "tags": [
+          "accounting"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncCsvResponse"
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "path": "/api/notification/static-contents/2/"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-accounting-drivers-payments",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "in": "query",
+            "name": "date",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/api/notifications/static-contents/{content_id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "content_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "get-static-content",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StaticContent"
+                },
+                "examples": {
+                  "filled-static-content-example (file_url is not null)": {
+                    "value": {
+                      "id": 1,
+                      "name": "the first content",
+                      "file_url": "https://example.com/test.csv/",
+                      "seen": true,
+                      "description": null,
+                      "thumbnail_url": null
+                    }
+                  },
+                  "empty-static-content-example (file_url is null)": {
+                    "value": {
+                      "id": 1,
+                      "name": "the first content",
+                      "file_url": null,
+                      "seen": true,
+                      "description": null,
+                      "thumbnail_url": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-notifications-static-contents-int:content_id"
       }
     }
   },
