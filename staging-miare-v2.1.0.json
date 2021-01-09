@@ -8403,7 +8403,7 @@
         ]
       }
     },
-    "/api/accounting/client/check-harsh-condition-expense/": {
+    "/api/accounting/client/harsh-conditions/": {
       "get": {
         "summary": "Check Client Harsh Condition Expense",
         "tags": [
@@ -8444,10 +8444,10 @@
                     "value": {
                       "results": [
                         {
-                          "coefficient": 0,
-                          "date": "string",
-                          "start_time": "string",
-                          "end_time": "string"
+                          "coefficient": 1.5,
+                          "date": "2020-2-27",
+                          "start_time": "19:21",
+                          "end_time": "19:50"
                         }
                       ]
                     }
@@ -8479,13 +8479,14 @@
           }
         },
         "operationId": "get-api-accounting-client-check-harsh-condition-expense",
-        "description": "This is endpoint is for client's panel(IsClient) only and should be used to get Harsh-Condition-Expense status.",
+        "description": "This endpoint is for client's panel(IsClient) only and should be used to get Harsh-Condition-Expense status.",
         "security": [
           {
             "auth": []
           }
         ]
-      }
+      },
+      "parameters": []
     },
     "/api/accounting/drivers/payments/": {
       "get": {
