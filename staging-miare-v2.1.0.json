@@ -8457,8 +8457,8 @@
               }
             }
           },
-          "503": {
-            "description": "Service Unavailable. This is will occur for third-party `multi_source` clients."
+          "403": {
+            "description": "Forbidden. This is will occur for third-party `multi_source` clients."
           }
         },
         "operationId": "get-api-accounting-client-check-harsh-condition-expense",
