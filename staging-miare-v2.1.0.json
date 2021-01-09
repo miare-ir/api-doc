@@ -1693,7 +1693,7 @@
               "return",
               "wage",
               "base_cost",
-              "client_harsh_condition_expense"
+              "harsh_condition"
             ]
           }
         }
