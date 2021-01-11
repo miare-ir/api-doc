@@ -8584,34 +8584,6 @@
         },
         "operationId": "get-api-notifications-static-contents-int:content_id"
       }
-    },
-    "/api/registration/drivers/profile-status": {
-      "get": {
-        "summary": "ProfileStatus",
-        "tags": [
-          "Registration"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "is_rejected": {
-                      "type": "boolean"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "operationId": "get-registration-drivers-profile-status",
-        "description": "returns if a driver is rejected"
-      },
-      "parameters": []
     }
   },
   "security": [
