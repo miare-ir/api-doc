@@ -8156,10 +8156,6 @@
                     "interval": {
                       "$ref": "#/components/schemas/Interval"
                     },
-                    "harsh_condition_coefficient": {
-                      "type": "number",
-                      "description": "it returns 1 unless there is a coefficient for rainy day"
-                    },
                     "courses_count": {
                       "type": "integer"
                     },
@@ -8220,7 +8216,6 @@
                         "end_time": "17:30",
                         "name": "رزرو ظهر"
                       },
-                      "harsh_condition_coefficient": 0,
                       "courses_count": 8,
                       "total_presence": "timedelta(hours=02, minutes=05, seconds=0)"
                     }
