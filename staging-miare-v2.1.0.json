@@ -8586,7 +8586,7 @@
     },
     "/reservation/reminder/": {
       "post": {
-        "summary": "",
+        "summary": "Remind reservation capacity",
         "operationId": "post-reservation-reminder",
         "responses": {
           "200": {
@@ -8669,12 +8669,15 @@
             }
           }
         },
-        "description": "This will subscribe driver to an date-area-interval which is currently full. Later on if the free capacity became more than 0, a cloud notification will be sent to app."
+        "description": "This will subscribe driver to an date-area-interval which is currently full. Later on if the free capacity became more than 0, a cloud notification will be sent to app.",
+        "tags": [
+          "reservation"
+        ]
       }
     },
     "/reserve/items/cancel/": {
       "post": {
-        "summary": "",
+        "summary": "Cancel reservation item",
         "operationId": "post-reserve-items-cancel",
         "responses": {
           "200": {
@@ -8778,7 +8781,10 @@
               }
             }
           }
-        }
+        },
+        "tags": [
+          "reservation"
+        ]
       }
     }
   },
