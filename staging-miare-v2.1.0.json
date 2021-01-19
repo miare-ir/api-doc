@@ -3959,7 +3959,6 @@
         "description": "Returns detailed accounting report of a driver per date"
       }
     },
-    "/re": {},
     "/reservation/capacities/": {
       "get": {
         "summary": "Get Capacities",
@@ -8583,6 +8582,203 @@
           }
         },
         "operationId": "get-api-notifications-static-contents-int:content_id"
+      }
+    },
+    "/reservation/reminder/": {
+      "post": {
+        "summary": "",
+        "operationId": "post-reservation-reminder",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {}
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Area is not full. This happens when the area currently has free capacity and user needs to refresh its reservation page.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "code"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "code": "already-free"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "date"
+                  },
+                  "area": {
+                    "type": "number"
+                  },
+                  "interval": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "date",
+                  "area",
+                  "interval"
+                ]
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "date": "2020-01-01",
+                    "area": 5,
+                    "interval": 6
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "This will subscribe driver to an date-area-interval which is currently full. Later on if the free capacity became more than 0, a cloud notification will be sent to app."
+      }
+    },
+    "/reserve/items/cancel/": {
+      "post": {
+        "summary": "",
+        "operationId": "post-reserve-items-cancel",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "original_price": {
+                      "type": "number",
+                      "description": "The price which driver paid for this reservation he's about to cancel (in Tomans)"
+                    },
+                    "deduction": {
+                      "type": "number",
+                      "description": "The amount which is reduced from the price as cancellation fee (in Tomans). Use this to calculate deduction percentage if neccessary"
+                    }
+                  },
+                  "required": [
+                    "original_price",
+                    "deduction"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "original_price": 20000,
+                      "deduction": 10000
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The given date-area-interval is not reserved by this courier or date is in past",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "Not reserved": {
+                    "value": {
+                      "code": "not-reserved"
+                    }
+                  },
+                  "Date is in past": {
+                    "value": {
+                      "code": "invalid-date"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "This will cancel an individual date-area-interval which is reserved by the driver and return the price back to him.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "date"
+                  },
+                  "area": {
+                    "type": "number",
+                    "description": "Area ID"
+                  },
+                  "interval": {
+                    "type": "number",
+                    "description": "Interval ID"
+                  }
+                },
+                "required": [
+                  "date",
+                  "area",
+                  "interval"
+                ]
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "date": "2020-01-01",
+                    "area": 5,
+                    "interval": 2
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
