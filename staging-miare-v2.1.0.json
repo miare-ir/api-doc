@@ -4020,6 +4020,12 @@
                               "items": {
                                 "$ref": "#/components/schemas/DriverInhospitality"
                               }
+                            },
+                            "capacity_id": {
+                              "type": "integer"
+                            },
+                            "subscribed": {
+                              "type": "boolean"
                             }
                           }
                         }
@@ -4046,7 +4052,9 @@
                               "end_time": "15:30:00"
                             },
                             "capacity": 2,
+                            "capacity_id": 10,
                             "reserved": true,
+                            "subscribed": true,
                             "presence_rewards": [],
                             "course_rewards": [],
                             "guaranteed_reward": [],
@@ -4060,7 +4068,9 @@
                               "end_time": "23:30:00"
                             },
                             "capacity": 0,
+                            "capacity_id": 11,
                             "reserved": false,
+                            "subscribed": false,
                             "presence_rewards": [],
                             "course_rewards": [],
                             "guaranteed_reward": [],
@@ -8584,7 +8594,7 @@
         "operationId": "get-api-notifications-static-contents-int:content_id"
       }
     },
-    "/reservation/reminder/": {
+    "/reservation/capacities/{capacity_id}/subscribe/": {
       "post": {
         "summary": "Remind reservation capacity",
         "operationId": "post-reservation-reminder",
@@ -8603,6 +8613,9 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Happens when the given capacity ID could not be found among capacities"
           },
           "409": {
             "description": "Area is not full. This happens when the area currently has free capacity and user needs to refresh its reservation page.",
@@ -8637,25 +8650,7 @@
             "application/json": {
               "schema": {
                 "description": "",
-                "type": "object",
-                "properties": {
-                  "date": {
-                    "type": "string",
-                    "minLength": 1,
-                    "format": "date"
-                  },
-                  "area": {
-                    "type": "number"
-                  },
-                  "interval": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "date",
-                  "area",
-                  "interval"
-                ]
+                "type": "object"
               },
               "examples": {
                 "example-1": {
@@ -8673,7 +8668,18 @@
         "tags": [
           "reservation"
         ]
-      }
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "capacity_id",
+          "in": "path",
+          "required": true,
+          "description": "The ID of the capacity"
+        }
+      ]
     },
     "/reserve/items/cancel/": {
       "post": {
