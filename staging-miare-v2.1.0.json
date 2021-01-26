@@ -8683,7 +8683,7 @@
     },
     "/reserve/items/{reservation_id}/cancel/confirm/": {
       "post": {
-        "summary": "Cancel reservation item",
+        "summary": "Cancel reservation item (confirm)",
         "operationId": "post-reserve-items-cancel",
         "responses": {
           "200": {
@@ -8797,7 +8797,7 @@
         }
       ],
       "post": {
-        "summary": "",
+        "summary": "Cancel reservation item",
         "operationId": "post-reserve-items-reservation_id-cancel",
         "responses": {
           "200": {
