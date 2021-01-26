@@ -8681,7 +8681,7 @@
         }
       ]
     },
-    "/reserve/items/cancel/": {
+    "/reserve/items/{reservation_id}/cancel/confirm/": {
       "post": {
         "summary": "Cancel reservation item",
         "operationId": "post-reserve-items-cancel",
@@ -8754,27 +8754,7 @@
             "application/json": {
               "schema": {
                 "description": "",
-                "type": "object",
-                "properties": {
-                  "date": {
-                    "type": "string",
-                    "minLength": 1,
-                    "format": "date"
-                  },
-                  "area": {
-                    "type": "number",
-                    "description": "Area ID"
-                  },
-                  "interval": {
-                    "type": "number",
-                    "description": "Interval ID"
-                  }
-                },
-                "required": [
-                  "date",
-                  "area",
-                  "interval"
-                ]
+                "type": "object"
               },
               "examples": {
                 "example-1": {
@@ -8788,6 +8768,71 @@
             }
           }
         },
+        "tags": [
+          "reservation"
+        ]
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "reservation_id",
+          "in": "path",
+          "required": true,
+          "description": "The ID of the reservation item"
+        }
+      ]
+    },
+    "/reserve/items/{reservation_id}/cancel/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "reservation_id",
+          "in": "path",
+          "required": true,
+          "description": "The ID of the reservation item"
+        }
+      ],
+      "post": {
+        "summary": "",
+        "operationId": "post-reserve-items-reservation_id-cancel",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "original_price": {
+                      "type": "integer"
+                    },
+                    "deduction": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "original_price",
+                    "deduction"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "original_price": 20000,
+                      "deduction": 10000
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "This will return details of cancelling an individual date-area-interval which is reserved by the driver.",
         "tags": [
           "reservation"
         ]
