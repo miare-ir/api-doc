@@ -8681,7 +8681,7 @@
         }
       ]
     },
-    "/reserve/items/{reservation_id}/cancel/confirm/": {
+    "/reserve/items/cancel/confirm/": {
       "post": {
         "summary": "Cancel reservation item (confirm)",
         "operationId": "post-reserve-items-cancel",
@@ -8754,7 +8754,27 @@
             "application/json": {
               "schema": {
                 "description": "",
-                "type": "object"
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "date"
+                  },
+                  "interval": {
+                    "type": "number",
+                    "description": "Interval ID"
+                  },
+                  "area": {
+                    "type": "number",
+                    "description": "Area ID"
+                  }
+                },
+                "required": [
+                  "date",
+                  "interval",
+                  "area"
+                ]
               },
               "examples": {
                 "example-1": {
@@ -8772,30 +8792,10 @@
           "reservation"
         ]
       },
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "reservation_id",
-          "in": "path",
-          "required": true,
-          "description": "The ID of the reservation item"
-        }
-      ]
+      "parameters": []
     },
-    "/reserve/items/{reservation_id}/cancel/": {
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "reservation_id",
-          "in": "path",
-          "required": true,
-          "description": "The ID of the reservation item"
-        }
-      ],
+    "/reserve/items/cancel/": {
+      "parameters": [],
       "post": {
         "summary": "Cancel reservation item",
         "operationId": "post-reserve-items-reservation_id-cancel",
@@ -8830,12 +8830,55 @@
                 }
               }
             }
+          },
+          "": {
+            "description": ""
           }
         },
-        "description": "This will return details of cancelling an individual date-area-interval which is reserved by the driver.",
+        "description": "This will return details of cancelling an individual date-area-interval which is reserved by the driver WITHOUT actually cancelling it.",
         "tags": [
           "reservation"
-        ]
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "date",
+                    "description": ""
+                  },
+                  "interval": {
+                    "type": "number",
+                    "description": "Interval ID"
+                  },
+                  "area": {
+                    "type": "number",
+                    "description": "Area ID"
+                  }
+                },
+                "required": [
+                  "date",
+                  "interval",
+                  "area"
+                ]
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "date": "2019-08-24",
+                    "interval": 1,
+                    "area": 3
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
