@@ -8681,7 +8681,7 @@
         }
       ]
     },
-    "/reserve/items/cancel/confirm/": {
+    "/reservation/items/cancel/confirm/": {
       "post": {
         "summary": "Cancel reservation item (confirm)",
         "operationId": "post-reserve-items-cancel",
@@ -8794,7 +8794,7 @@
       },
       "parameters": []
     },
-    "/reserve/items/cancel/": {
+    "/reservation/items/cancel/": {
       "parameters": [],
       "post": {
         "summary": "Cancel reservation item",
