@@ -2655,6 +2655,51 @@
             "type": "string"
           }
         }
+      },
+      "StopOnWebsocket": {
+        "title": "StopOnWebsocket",
+        "type": "object",
+        "x-tags": [
+          "delivery"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "center": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "start_datetime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end_datetime": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "driver_id": {
+            "type": "integer"
+          }
+        }
+      },
+      "StopMessage": {
+        "title": "StopMessage",
+        "type": "object",
+        "description": "Note that the payload is converted to string",
+        "properties": {
+          "msg_type": {
+            "type": "string",
+            "enum": [
+              "stop"
+            ]
+          },
+          "payload": {
+            "$ref": ""
+          }
+        }
       }
     },
     "requestBodies": {
@@ -6368,20 +6413,33 @@
                         "type": "object",
                         "properties": {
                           "location": {
-                            "description": "",
-                            "type": "object",
-                            "properties": {
-                              "latitude": {
-                                "type": "string"
-                              },
-                              "longitude": {
-                                "type": "number"
-                              }
-                            }
+                            "$ref": "#/components/schemas/Location"
                           },
                           "datetime": {
                             "type": "string",
                             "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "stops": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "start_datetime": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "end_datetime": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "format": "date-time"
+                          },
+                          "center": {
+                            "$ref": "#/components/schemas/Location"
                           }
                         }
                       }
@@ -6411,7 +6469,7 @@
           }
         },
         "operationId": "get-locations-staff-api-tripline-trip_id",
-        "description": "Returns location information for given trip id"
+        "description": "Returns location information for given trip id containing "
       }
     },
     "/trip-management/client-api/courses/{course_id}/report-long/": {
