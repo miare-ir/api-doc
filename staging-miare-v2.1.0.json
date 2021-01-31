@@ -2693,7 +2693,7 @@
           "msg_type": {
             "type": "string",
             "enum": [
-              "stops"
+              "stop"
             ]
           },
           "payload": {
