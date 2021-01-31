@@ -8950,7 +8950,8 @@
           },
           "name": "trip_id",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "The id of driver's current trip"
         }
       ],
       "get": {
