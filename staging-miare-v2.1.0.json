@@ -8942,7 +8942,7 @@
         }
       }
     },
-    "/trip-management/driver-api/check-refusings/{trip_id}/": {
+    "/trip-management/driver-api/check-rejection/{trip_id}/": {
       "parameters": [
         {
           "schema": {
@@ -8955,7 +8955,7 @@
         }
       ],
       "get": {
-        "summary": "Check Refusings",
+        "summary": "Check Rejection",
         "tags": [
           "delivery"
         ],
