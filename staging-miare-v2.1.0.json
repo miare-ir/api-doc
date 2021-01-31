@@ -2709,7 +2709,7 @@
             ]
           },
           "payload": {
-            "$ref": ""
+            "$ref": "#/components/schemas/StopOnWebsocket"
           }
         }
       }
