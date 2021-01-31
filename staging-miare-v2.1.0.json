@@ -8938,6 +8938,49 @@
           }
         }
       }
+    },
+    "/trip-management/driver-api/check-refusings/{trip_id}/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "trip_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Check Refusings",
+        "tags": [
+          "delivery"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "applicable_for_current_trip": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found (Trip for request driver)"
+          }
+        },
+        "operationId": "get-trip-management-driver-api-check-refusings-trip_id"
+      }
     }
   },
   "security": [
