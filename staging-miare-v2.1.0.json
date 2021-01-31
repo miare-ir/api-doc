@@ -8946,7 +8946,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "integer"
           },
           "name": "trip_id",
           "in": "path",
