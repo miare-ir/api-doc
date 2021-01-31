@@ -2613,6 +2613,9 @@
             "type": [
               "null",
               "string"
+            ],
+            "enum": [
+              "blacklist"
             ]
           },
           "description_by_system": {
