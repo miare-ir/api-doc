@@ -2715,6 +2715,34 @@
             "$ref": "#/components/schemas/StopOnWebsocket"
           }
         }
+      },
+      "WrongDestinationReport": {
+        "title": "WrongDestinationReport",
+        "type": "object",
+        "x-tags": [
+          "accounting"
+        ],
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "course": {
+            "type": "number",
+            "description": "ForeignKey relation to tracking.Course"
+          },
+          "previous_destination": {
+            "type": "object",
+            "description": "GeopositionField"
+          },
+          "new_destination": {
+            "type": "object",
+            "description": "GeopositionField"
+          },
+          "submit_datetime": {
+            "type": "string"
+          }
+        },
+        "description": "This model is used to store data on new-destination data for ended-courses."
       }
     },
     "requestBodies": {
@@ -8984,6 +9012,92 @@
           }
         },
         "operationId": "get-trip-management-driver-api-check-refusings-trip_id"
+      }
+    },
+    "/api/accounting/client/report-wrong-destination/": {
+      "post": {
+        "summary": "Submit new destination for a course",
+        "tags": [
+          "accounting"
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "operationId": "post-api-accounting-client-report-wrong-destination",
+        "description": "This endpoint is for clients only (IsClient) and it is used for submitting changes to the final destination of ended trips(courses).",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "previous_destination": {
+                    "type": "object",
+                    "required": [
+                      "latitude",
+                      "longitude"
+                    ],
+                    "properties": {
+                      "latitude": {
+                        "type": "string"
+                      },
+                      "longitude": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "new_destination": {
+                    "type": "object",
+                    "required": [
+                      "latitude",
+                      "longitude"
+                    ],
+                    "properties": {
+                      "latitude": {
+                        "type": "string"
+                      },
+                      "longitude": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "course": {
+                    "type": "integer",
+                    "description": "The id of the course that the change was submitted to."
+                  }
+                },
+                "required": [
+                  "previous_destination",
+                  "new_destination",
+                  "course"
+                ]
+              },
+              "examples": {
+                "example": {
+                  "value": {
+                    "previous_destination": {
+                      "latitude": "35.746422",
+                      "longitude": "51.399615"
+                    },
+                    "new_destination": {
+                      "latitude": "35.766428",
+                      "longitude": "51.395183"
+                    },
+                    "course": 1
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
