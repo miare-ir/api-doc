@@ -8971,7 +8971,7 @@
                       "type": "integer",
                       "minimum": 0
                     },
-                    "applicable_for_current_trip": {
+                    "penalized": {
                       "type": "boolean"
                     }
                   }
