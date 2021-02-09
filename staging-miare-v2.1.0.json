@@ -8277,20 +8277,7 @@
                     "harsh_conditions": {
                       "type": "array",
                       "items": {
-                        "type": "object",
-                        "properties": {
-                          "start_time": {
-                            "type": "string",
-                            "format": "time"
-                          },
-                          "end_time": {
-                            "type": "string",
-                            "format": "time"
-                          },
-                          "coefficient": {
-                            "type": "number"
-                          }
-                        }
+                        "$ref": "#/components/schemas/DriverInhospitality"
                       }
                     }
                   }
