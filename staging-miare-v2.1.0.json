@@ -8273,6 +8273,25 @@
                       "type": "string",
                       "format": "time",
                       "example": "timedelta(hours=02, minutes=05, seconds=0)"
+                    },
+                    "harsh_conditions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "start_time": {
+                            "type": "string",
+                            "format": "time"
+                          },
+                          "end_time": {
+                            "type": "string",
+                            "format": "time"
+                          },
+                          "coefficient": {
+                            "type": "number"
+                          }
+                        }
+                      }
                     }
                   }
                 },
@@ -8327,7 +8346,14 @@
                         "name": "رزرو ظهر"
                       },
                       "courses_count": 8,
-                      "total_presence": "timedelta(hours=02, minutes=05, seconds=0)"
+                      "total_presence": "P0DT01H00M00S",
+                      "harsh_conditions": [
+                        {
+                          "start_time": "11:30",
+                          "end_time": "17:30",
+                          "coefficient": 1.1
+                        }
+                      ]
                     }
                   }
                 }
