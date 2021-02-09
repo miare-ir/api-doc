@@ -9039,21 +9039,6 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "previous_destination": {
-                    "type": "object",
-                    "required": [
-                      "latitude",
-                      "longitude"
-                    ],
-                    "properties": {
-                      "latitude": {
-                        "type": "string"
-                      },
-                      "longitude": {
-                        "type": "string"
-                      }
-                    }
-                  },
                   "new_destination": {
                     "type": "object",
                     "required": [
@@ -9075,7 +9060,6 @@
                   }
                 },
                 "required": [
-                  "previous_destination",
                   "new_destination",
                   "course"
                 ]
@@ -9083,10 +9067,6 @@
               "examples": {
                 "example": {
                   "value": {
-                    "previous_destination": {
-                      "latitude": "35.746422",
-                      "longitude": "51.399615"
-                    },
                     "new_destination": {
                       "latitude": "35.766428",
                       "longitude": "51.395183"
