@@ -9092,6 +9092,212 @@
           }
         }
       }
+    },
+    "/api/area/driver-areas/polygon/": {
+      "get": {
+        "summary": "Driver Area Polygon",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "geometry": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "coordinates": {
+                          "type": "array",
+                          "items": {
+                            "required": [],
+                            "properties": {
+                              "0": {
+                                "type": "array",
+                                "uniqueItems": true,
+                                "items": {
+                                  "required": [],
+                                  "properties": {
+                                    "0": {
+                                      "type": "array",
+                                      "uniqueItems": true,
+                                      "items": {
+                                        "required": [],
+                                        "properties": {}
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "coordinates"
+                      ]
+                    },
+                    "properties": {
+                      "type": "object",
+                      "properties": {},
+                      "required": []
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "geometry",
+                    "properties"
+                  ]
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "type": "Feature",
+                      "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [
+                          [
+                            [
+                              51.343617960000074,
+                              35.78411777
+                            ],
+                            [
+                              51.342234804304894,
+                              35.77323936626901
+                            ],
+                            [
+                              51.34439216450937,
+                              35.762707709086094
+                            ],
+                            [
+                              51.342977686462405,
+                              35.75167137830828
+                            ],
+                            [
+                              51.35419781857536,
+                              35.75097411994498
+                            ],
+                            [
+                              51.36533211999995,
+                              35.74978925
+                            ],
+                            [
+                              51.38524037963862,
+                              35.751598973230216
+                            ],
+                            [
+                              51.38696774945811,
+                              35.75826001182363
+                            ],
+                            [
+                              51.38775098170413,
+                              35.76053274357662
+                            ],
+                            [
+                              51.38713946319717,
+                              35.77061417328914
+                            ],
+                            [
+                              51.38916723836064,
+                              35.77538477810673
+                            ],
+                            [
+                              51.389741249901135,
+                              35.776164026128875
+                            ],
+                            [
+                              51.3901435938684,
+                              35.77678659346754
+                            ],
+                            [
+                              51.390840990000015,
+                              35.77731797
+                            ],
+                            [
+                              51.39220358,
+                              35.78423796
+                            ],
+                            [
+                              51.391688627459075,
+                              35.79034800074559
+                            ],
+                            [
+                              51.390209364016755,
+                              35.79199094399689
+                            ],
+                            [
+                              51.387238787147226,
+                              35.79272009757375
+                            ],
+                            [
+                              51.349597975967754,
+                              35.78707006766603
+                            ],
+                            [
+                              51.343617960000074,
+                              35.78411777
+                            ]
+                          ]
+                        ]
+                      },
+                      "properties": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string",
+                      "minLength": 1,
+                      "default": "\"No upcoming allocation found\""
+                    },
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "default": "\"no_allocation\"",
+                      "readOnly": true
+                    }
+                  },
+                  "required": [
+                    "detail",
+                    "code"
+                  ]
+                },
+                "examples": {
+                  "not found": {
+                    "value": {
+                      "detail": "No upcoming allocation found",
+                      "code": "no_allocation"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-area-driver-areas-polygon",
+        "description": "return polygon of active area for requested driver"
+      }
     }
   },
   "security": [
