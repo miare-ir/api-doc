@@ -2866,7 +2866,10 @@
             "type": "boolean"
           },
           "subject_id": {
-            "type": "integer"
+            "type": [
+              "integer",
+              "null"
+            ]
           }
         }
       },
