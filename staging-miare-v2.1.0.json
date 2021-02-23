@@ -2888,6 +2888,33 @@
             "$ref": "#/components/schemas/CallOnWebsocket"
           }
         }
+      },
+      "CallCategory": {
+        "title": "CallCategory",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          }
+        }
+      },
+      "CallSubject": {
+        "title": "CallSubject",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "description_required": {
+            "type": "boolean"
+          },
+          "category_id": {
+            "type": "integer"
+          }
+        }
       }
     },
     "requestBodies": {
@@ -9555,6 +9582,46 @@
         },
         "operationId": "get-locations-driver-api-drivers-heatmap",
         "description": "This endpoint serializes some polygons within the city that represnt crowded areas"
+      }
+    },
+    "/calls/categories/": {
+      "get": {
+        "summary": "Get CallCategories",
+        "tags": [
+          "callcenter"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "CallCategoty with related CallSubjects injected",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "subjects": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/CallSubject"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "operationId": "get-calls-categories"
       }
     }
   },
