@@ -9294,7 +9294,8 @@
             }
           }
         },
-        "operationId": "get-locations-driver-api-drivers-heatmap"
+        "operationId": "get-locations-driver-api-drivers-heatmap",
+        "description": "This endpoint serializes some polygons within the city that represnt crowded areas"
       }
     }
   },
