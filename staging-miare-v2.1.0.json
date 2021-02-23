@@ -9623,6 +9623,59 @@
         },
         "operationId": "get-calls-categories"
       }
+    },
+    "/calls/{call_id}/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "call_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "patch": {
+        "summary": "Set call subject",
+        "tags": [
+          "callcenter"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "operationId": "patch-calls-call_id",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subject_id": {
+                    "type": "integer"
+                  },
+                  "description": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Optional, depending on the subject"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "security": [
