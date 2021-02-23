@@ -2743,6 +2743,91 @@
           }
         },
         "description": "This model is used to store data on new-destination data for ended-courses."
+      },
+      "Polygon": {
+        "description": "",
+        "type": "object",
+        "x-examples": {
+          "example-1": {
+            "properties": {
+              "fill": "#00ff00"
+            },
+            "type": "Feature",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    51.3225488123165,
+                    35.7558635993012
+                  ],
+                  [
+                    51.3279387040212,
+                    35.7583888740525
+                  ],
+                  [
+                    51.3279387040212,
+                    35.7634391831129
+                  ],
+                  [
+                    51.3225488123165,
+                    35.7659642174173
+                  ],
+                  [
+                    51.3171589206118,
+                    35.7634391831129
+                  ],
+                  [
+                    51.3171589206118,
+                    35.7583888740525
+                  ],
+                  [
+                    51.3225488123165,
+                    35.7558635993012
+                  ]
+                ]
+              ]
+            }
+          }
+        },
+        "properties": {
+          "properties": {
+            "type": "object",
+            "properties": {
+              "fill": {
+                "type": "string",
+                "description": "The fill-color of the polygon"
+              }
+            }
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "Feature"
+            ]
+          },
+          "geometry": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "Polygon"
+                ]
+              },
+              "coordinates": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {}
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "requestBodies": {
@@ -9297,6 +9382,119 @@
         },
         "operationId": "get-api-area-driver-areas-polygon",
         "description": "return polygon of active area for requested driver"
+      }
+    },
+    "/locations/driver-api/drivers/heatmap/": {
+      "get": {
+        "summary": "Heatmap",
+        "tags": [
+          "delivery"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Polygon"
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": [
+                      {
+                        "properties": {
+                          "fill": "#ff00ff"
+                        },
+                        "type": "Feature",
+                        "geometry": {
+                          "type": "Polygon",
+                          "coordinates": [
+                            [
+                              [
+                                51.3063791372023,
+                                35.7179748620424
+                              ],
+                              [
+                                51.3117690289071,
+                                35.7205013387095
+                              ],
+                              [
+                                51.3117690289071,
+                                35.7255540517079
+                              ],
+                              [
+                                51.3063791372023,
+                                35.7280802880344
+                              ],
+                              [
+                                51.3009892454976,
+                                35.7255540517079
+                              ],
+                              [
+                                51.3009892454976,
+                                35.7205013387095
+                              ],
+                              [
+                                51.3063791372023,
+                                35.7179748620424
+                              ]
+                            ]
+                          ]
+                        }
+                      },
+                      {
+                        "properties": {
+                          "fill": "#00ff00"
+                        },
+                        "type": "Feature",
+                        "geometry": {
+                          "type": "Polygon",
+                          "coordinates": [
+                            [
+                              [
+                                51.3063791372023,
+                                35.748287294191
+                              ],
+                              [
+                                51.3117690289071,
+                                35.7508128093681
+                              ],
+                              [
+                                51.3117690289071,
+                                35.7558635993012
+                              ],
+                              [
+                                51.3063791372023,
+                                35.7583888740525
+                              ],
+                              [
+                                51.3009892454976,
+                                35.7558635993012
+                              ],
+                              [
+                                51.3009892454976,
+                                35.7508128093681
+                              ],
+                              [
+                                51.3063791372023,
+                                35.748287294191
+                              ]
+                            ]
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-locations-driver-api-drivers-heatmap",
+        "description": "This endpoint serializes some polygons within the city that represnt crowded areas"
       }
     }
   },
