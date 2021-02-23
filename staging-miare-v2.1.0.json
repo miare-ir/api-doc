@@ -2791,15 +2791,6 @@
           }
         },
         "properties": {
-          "properties": {
-            "type": "object",
-            "properties": {
-              "fill": {
-                "type": "string",
-                "description": "The fill-color of the polygon"
-              }
-            }
-          },
           "type": {
             "type": "string",
             "enum": [
@@ -2826,6 +2817,14 @@
                 }
               }
             }
+          },
+          "heat_level": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3
+            ]
           }
         }
       },
