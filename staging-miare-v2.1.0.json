@@ -2828,6 +2828,64 @@
             }
           }
         }
+      },
+      "CallOnWebsocket": {
+        "title": "CallOnWebsocket",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "start_datetime": {
+            "type": "string"
+          },
+          "end_datetime": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "contact_id": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "The user_id of the contact"
+          },
+          "contact_type": {
+            "type": [
+              "string",
+              "integer"
+            ],
+            "enum": [
+              10,
+              20,
+              30
+            ]
+          },
+          "is_outbound": {
+            "type": "boolean"
+          },
+          "subject_id": {
+            "type": "integer"
+          }
+        }
+      },
+      "CallMessage": {
+        "title": "CallMessage",
+        "type": "object",
+        "description": "Note that the payload type is converted to string",
+        "properties": {
+          "msg_type": {
+            "type": "string",
+            "enum": [
+              "call"
+            ]
+          },
+          "payload": {
+            "$ref": "#/components/schemas/CallOnWebsocket"
+          }
+        }
       }
     },
     "requestBodies": {
