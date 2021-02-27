@@ -9469,7 +9469,7 @@
         "description": "return polygon of active area for requested driver"
       }
     },
-    "/locations/driver-api/drivers/heatmap/": {
+    "/area/driver-api/heatmap/": {
       "get": {
         "summary": "Heatmap",
         "tags": [
@@ -9593,7 +9593,8 @@
         },
         "operationId": "get-locations-driver-api-drivers-heatmap",
         "description": "This endpoint serializes some polygons within the city that represnt crowded areas"
-      }
+      },
+      "parameters": []
     },
     "/calls/categories/": {
       "get": {
