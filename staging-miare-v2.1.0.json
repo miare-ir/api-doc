@@ -2463,6 +2463,12 @@
           },
           "name": {
             "type": "string"
+          },
+          "has_shift": {
+            "type": "boolean"
+          },
+          "rainy_shift": {
+            "type": "boolean"
           }
         }
       },
