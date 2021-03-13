@@ -9636,7 +9636,7 @@
         "operationId": "get-calls-categories"
       }
     },
-    "/calls/{call_id}/": {
+    "/calls/staff-api/{call_id}/": {
       "parameters": [
         {
           "schema": {
