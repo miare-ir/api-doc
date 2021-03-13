@@ -9602,7 +9602,7 @@
       },
       "parameters": []
     },
-    "/calls/categories/": {
+    "/calls/staff-api/categories/": {
       "get": {
         "summary": "Get CallCategories",
         "tags": [
@@ -9639,8 +9639,10 @@
             }
           }
         },
-        "operationId": "get-calls-categories"
-      }
+        "operationId": "get-calls-categories",
+        "description": ""
+      },
+      "parameters": []
     },
     "/calls/staff-api/{call_id}/": {
       "parameters": [
