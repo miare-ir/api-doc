@@ -9656,7 +9656,7 @@
         }
       ],
       "patch": {
-        "summary": "Set call subject",
+        "summary": "update call",
         "tags": [
           "callcenter"
         ],
@@ -9689,12 +9689,17 @@
                       "null"
                     ],
                     "description": "Optional, depending on the subject"
+                  },
+                  "end_datetime": {
+                    "type": "string",
+                    "format": "date-time"
                   }
                 }
               }
             }
           }
-        }
+        },
+        "description": "Used to set (subject_id, description) or the end\\_datetime of a call"
       }
     }
   },
