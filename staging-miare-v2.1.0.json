@@ -4782,7 +4782,8 @@
               "assign-overview-rating",
               "assign-overview-shift-start",
               "assign-overview-courses-count",
-              "assign-overview-presence-rating"
+              "assign-overview-presence-rating",
+              "demo-client-logo"
             ]
           },
           "name": "category_name",
