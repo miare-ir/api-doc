@@ -2850,15 +2850,13 @@
             "description": "The user_id of the contact"
           },
           "contact_type": {
-            "type": [
-              "string",
-              "integer"
-            ],
+            "type": "integer",
             "enum": [
               10,
               20,
               30
-            ]
+            ],
+            "description": "CLIENT = 10\nDRIVER = 20\nUNKNOWN = 30"
           },
           "is_outbound": {
             "type": "boolean"
