@@ -2850,15 +2850,13 @@
             "description": "The user_id of the contact"
           },
           "contact_type": {
-            "type": [
-              "string",
-              "integer"
-            ],
+            "type": "integer",
             "enum": [
               10,
               20,
               30
-            ]
+            ],
+            "description": "CLIENT = 10\nDRIVER = 20\nUNKNOWN = 30"
           },
           "is_outbound": {
             "type": "boolean"
@@ -2917,6 +2915,9 @@
           },
           "category_id": {
             "type": "integer"
+          },
+          "title": {
+            "type": "string"
           }
         }
       }
@@ -4782,7 +4783,8 @@
               "assign-overview-rating",
               "assign-overview-shift-start",
               "assign-overview-courses-count",
-              "assign-overview-presence-rating"
+              "assign-overview-presence-rating",
+              "demo-client-logo"
             ]
           },
           "name": "category_name",
@@ -9602,7 +9604,7 @@
       },
       "parameters": []
     },
-    "/calls/categories/": {
+    "/calls/staff-api/categories/": {
       "get": {
         "summary": "Get CallCategories",
         "tags": [
@@ -9639,10 +9641,12 @@
             }
           }
         },
-        "operationId": "get-calls-categories"
-      }
+        "operationId": "get-calls-categories",
+        "description": ""
+      },
+      "parameters": []
     },
-    "/calls/{call_id}/": {
+    "/calls/staff-api/{call_id}/": {
       "parameters": [
         {
           "schema": {
@@ -9654,7 +9658,7 @@
         }
       ],
       "patch": {
-        "summary": "Set call subject",
+        "summary": "update call",
         "tags": [
           "callcenter"
         ],
@@ -9687,12 +9691,17 @@
                       "null"
                     ],
                     "description": "Optional, depending on the subject"
+                  },
+                  "end_datetime": {
+                    "type": "string",
+                    "format": "date-time"
                   }
                 }
               }
             }
           }
-        }
+        },
+        "description": "Used to set (subject_id, description) or the end\\_datetime of a call"
       }
     },
     "/api/tracking/clients/me/info/": {
