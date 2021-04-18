@@ -9694,6 +9694,183 @@
           }
         }
       }
+    },
+    "/api/tracking/clients/me/info/": {
+      "get": {
+        "summary": "ClientInfo",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "user": {
+                      "type": "object",
+                      "required": [
+                        "first_name",
+                        "last_name",
+                        "user_name",
+                        "is_staff"
+                      ],
+                      "properties": {
+                        "first_name": {
+                          "type": "string"
+                        },
+                        "last_name": {
+                          "type": "string"
+                        },
+                        "user_name": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "is_staff": {
+                          "type": "boolean"
+                        }
+                      }
+                    },
+                    "phone": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "title": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "logo": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "location": {
+                      "type": "object",
+                      "required": [
+                        "latitude",
+                        "longitude"
+                      ],
+                      "properties": {
+                        "latitude": {
+                          "type": "number"
+                        },
+                        "longitude": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "financials": {
+                      "type": "object",
+                      "required": [
+                        "balance",
+                        "block_threshold",
+                        "warning_threshold"
+                      ],
+                      "properties": {
+                        "balance": {
+                          "type": "number"
+                        },
+                        "block_threshold": {
+                          "type": "number"
+                        },
+                        "warning_threshold": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "address": {
+                      "type": "string"
+                    },
+                    "multi_source": {
+                      "type": "boolean"
+                    },
+                    "is_in_test_phase": {
+                      "type": "boolean"
+                    },
+                    "is_exclusive": {
+                      "type": "boolean"
+                    },
+                    "blocked": {
+                      "type": "boolean"
+                    },
+                    "delay_penalty_applicable": {
+                      "type": "boolean"
+                    },
+                    "free_trip_applicable": {
+                      "type": "boolean"
+                    },
+                    "priority": {
+                      "type": "number",
+                      "enum": [
+                        0,
+                        10,
+                        20
+                      ]
+                    },
+                    "concurrent_trips_limit": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "branch_title": {
+                      "type": "string"
+                    },
+                    "latest_concurrency_end_date": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "area": {
+                      "type": "object",
+                      "required": [
+                        "id",
+                        "name"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      }
+                    },
+                    "chat_enabled": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "user",
+                    "phone",
+                    "title",
+                    "logo",
+                    "location",
+                    "financials",
+                    "multi_source",
+                    "is_in_test_phase",
+                    "is_exclusive",
+                    "blocked",
+                    "delay_penalty_applicable",
+                    "free_trip_applicable",
+                    "priority",
+                    "concurrent_trips_limit",
+                    "latest_concurrency_end_date",
+                    "area",
+                    "chat_enabled"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-tracking-clients-me-info",
+        "description": "returns client info"
+      }
     }
   },
   "security": [
