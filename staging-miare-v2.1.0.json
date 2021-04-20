@@ -2854,12 +2854,6 @@
           "is_outbound": {
             "type": "boolean"
           },
-          "subject_id": {
-            "type": [
-              "integer",
-              "null"
-            ]
-          },
           "description": {
             "type": [
               "string",
