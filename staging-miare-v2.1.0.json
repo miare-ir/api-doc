@@ -9696,6 +9696,53 @@
         },
         "description": "Used to set (subject_id, description) or the end\\_datetime of a call"
       }
+    },
+    "/api/area/driver-areas/control/": {
+      "parameters": [],
+      "post": {
+        "summary": "",
+        "operationId": "post-api-area-driver-areas-control",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "is_in_area": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "This end point is just permitted for drivers to check if they are in their own area",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "location": {
+                    "type": "object",
+                    "properties": {
+                      "latitude": {
+                        "type": "string"
+                      },
+                      "longitude": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "security": [
