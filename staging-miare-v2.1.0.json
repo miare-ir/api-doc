@@ -9728,6 +9728,34 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "default": "no_active_area"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "default": "منطقه‌ی فعالی برای راننده پیدا نشد"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "detail": "منطقه‌ی فعالی برای راننده پیدا نشد",
+                      "code": "no_active_area"
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "description": "This end point is just permitted for drivers to check if they are in their own area",
