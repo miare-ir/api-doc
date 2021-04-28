@@ -5180,12 +5180,37 @@
                                 },
                                 "destination_text": {
                                   "type": [
-                                    "string",
-                                    "null"
-                                  ]
+                                    "string"
+                                  ],
+                                  "nullable": true
                                 },
                                 "destination": {
                                   "$ref": "#/components/schemas/Location"
+                                },
+                                "salary_details": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "integer"
+                                      },
+                                      "salary_delta": {
+                                        "type": "integer"
+                                      },
+                                      "ledger": {
+                                        "type": "object",
+                                        "properties": {
+                                          "id": {
+                                            "type": "integer"
+                                          },
+                                          "name": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
                                 }
                               }
                             }
@@ -5239,10 +5264,10 @@
                           },
                           "return_distance": {
                             "type": [
-                              "number",
-                              "null"
+                              "number"
                             ],
-                            "description": "Return distance in KM"
+                            "description": "Return distance in KM",
+                            "nullable": true
                           },
                           "client_type_coefficient": {
                             "type": "number"
@@ -5252,6 +5277,31 @@
                           },
                           "area_coefficient": {
                             "type": "number"
+                          },
+                          "salary_details": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "salary_delta": {
+                                  "type": "integer"
+                                },
+                                "ledger": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "integer"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            }
                           }
                         }
                       }
