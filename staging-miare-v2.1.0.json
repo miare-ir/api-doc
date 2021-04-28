@@ -2921,6 +2921,26 @@
             "type": "string"
           }
         }
+      },
+      "SalaryDetails": {
+        "title": "SalaryDetails",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "ledger": {
+            "$ref": "#/components/schemas/TransactionLedger"
+          },
+          "salary_delta": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "ledger"
+        ]
       }
     },
     "requestBodies": {
@@ -5190,26 +5210,7 @@
                                 "salary_details": {
                                   "type": "array",
                                   "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "id": {
-                                        "type": "integer"
-                                      },
-                                      "salary_delta": {
-                                        "type": "integer"
-                                      },
-                                      "ledger": {
-                                        "type": "object",
-                                        "properties": {
-                                          "id": {
-                                            "type": "integer"
-                                          },
-                                          "name": {
-                                            "type": "string"
-                                          }
-                                        }
-                                      }
-                                    }
+                                    "$ref": "#/components/schemas/SalaryDetails"
                                   }
                                 }
                               }
@@ -5281,26 +5282,7 @@
                           "salary_details": {
                             "type": "array",
                             "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "integer"
-                                },
-                                "salary_delta": {
-                                  "type": "integer"
-                                },
-                                "ledger": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "integer"
-                                    },
-                                    "name": {
-                                      "type": "string"
-                                    }
-                                  }
-                                }
-                              }
+                              "$ref": "#/components/schemas/SalaryDetails"
                             }
                           }
                         }
@@ -6173,9 +6155,9 @@
                               },
                               "meta": {
                                 "type": [
-                                  "string",
-                                  "null"
-                                ]
+                                  "string"
+                                ],
+                                "nullable": true
                               },
                               "package_info": {
                                 "$ref": "#/components/schemas/Package_info"
@@ -6188,6 +6170,12 @@
                               },
                               "requested_destination_address": {
                                 "type": "string"
+                              },
+                              "salary_details": {
+                                "type": "array",
+                                "items": {
+                                  "$ref": "#/components/schemas/SalaryDetails"
+                                }
                               }
                             }
                           },
@@ -6203,7 +6191,7 @@
                           "ticket": {
                             "oneOf": [
                               {
-                                "type": "null"
+                                "nullable": true
                               },
                               {
                                 "$ref": "#/components/schemas/Ticket"
@@ -6247,10 +6235,10 @@
                           },
                           "cancel_datetime": {
                             "type": [
-                              "string",
-                              "null"
+                              "string"
                             ],
-                            "format": "date-time"
+                            "format": "date-time",
+                            "nullable": true
                           },
                           "course_bonuses": {
                             "type": "array",
@@ -6258,10 +6246,10 @@
                           },
                           "departure_datetime": {
                             "type": [
-                              "string",
-                              "null"
+                              "string"
                             ],
-                            "format": "date-time"
+                            "format": "date-time",
+                            "nullable": true
                           },
                           "driver": {
                             "type": "object",
@@ -6271,10 +6259,10 @@
                               },
                               "avatar": {
                                 "type": [
-                                  "null",
                                   "string"
                                 ],
-                                "format": "byte"
+                                "format": "byte",
+                                "nullable": true
                               },
                               "busy": {
                                 "type": "boolean"
@@ -6300,7 +6288,7 @@
                           "feedback": {
                             "oneOf": [
                               {
-                                "type": "null"
+                                "nullable": true
                               },
                               {
                                 "$ref": "#/components/schemas/RestaurantFeedback"
@@ -6333,10 +6321,10 @@
                           },
                           "return_datetime": {
                             "type": [
-                              "string",
-                              "null"
+                              "string"
                             ],
-                            "format": "date-time"
+                            "format": "date-time",
+                            "nullable": true
                           },
                           "rewards": {
                             "type": "array",
@@ -6359,6 +6347,9 @@
                           },
                           "state": {
                             "type": "integer"
+                          },
+                          "salary_details": {
+                            "$ref": "#/components/schemas/SalaryDetails"
                           }
                         }
                       }
