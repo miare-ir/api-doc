@@ -2935,6 +2935,10 @@
           },
           "salary_delta": {
             "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
