@@ -5199,9 +5199,7 @@
                                   "type": "boolean"
                                 },
                                 "destination_text": {
-                                  "type": [
-                                    "string"
-                                  ],
+                                  "type": "string",
                                   "nullable": true
                                 },
                                 "destination": {
@@ -5264,9 +5262,7 @@
                             "$ref": "#/components/schemas/Location"
                           },
                           "return_distance": {
-                            "type": [
-                              "number"
-                            ],
+                            "type": "number",
                             "description": "Return distance in KM",
                             "nullable": true
                           },
@@ -5287,6 +5283,14 @@
                           }
                         }
                       }
+                    },
+                    "online_duration": {
+                      "type": "string",
+                      "description": "This string follows `duration iso format`."
+                    },
+                    "on_trip_duration": {
+                      "type": "string",
+                      "description": "This string follows `duration iso format`."
                     }
                   }
                 },
@@ -5295,6 +5299,8 @@
                     "value": {
                       "date": "2020-01-10",
                       "salary": 941700,
+                      "online_duration": "P3Y6M4DT12H30M5S",
+                      "on_trip_duration": "P2DT00H00M00S",
                       "trips": [
                         {
                           "request_datetime": "2020-01-10T22:50:08.915193+03:30",
