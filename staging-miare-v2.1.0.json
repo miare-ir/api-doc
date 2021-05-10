@@ -2926,6 +2926,7 @@
         "title": "SalaryDetails",
         "type": "object",
         "description": "",
+        "x-examples": {},
         "properties": {
           "id": {
             "type": "integer"
@@ -2939,6 +2940,9 @@
           "created_at": {
             "type": "string",
             "format": "date-time"
+          },
+          "reason": {
+            "type": "string"
           }
         },
         "required": [
@@ -5256,12 +5260,6 @@
                             "type": "string",
                             "format": "date-time"
                           },
-                          "rewards": {
-                            "type": "array",
-                            "items": {
-                              "$ref": "#/components/schemas/Reward"
-                            }
-                          },
                           "source_location": {
                             "$ref": "#/components/schemas/Location"
                           },
@@ -5899,7 +5897,8 @@
             "name": "date",
             "required": true
           }
-        ]
+        ],
+        "description": ""
       }
     },
     "/driver-api/issues/": {
