@@ -9782,6 +9782,39 @@
           }
         }
       }
+    },
+    "/assign/drivers/ban-check/": {
+      "get": {
+        "summary": "Drivers Ban Check",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "is_banned": {
+                      "type": "boolean"
+                    },
+                    "end_datetime": {
+                      "type": "string",
+                      "format": "date-time",
+                      "nullable": true,
+                      "readOnly": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-assign-drivers-ban-check",
+        "description": "this endpoint checks if driver is banned from turning on. the start-up item to check is `rejection_ban`",
+        "tags": [
+          "start up item"
+        ]
+      }
     }
   },
   "security": [
