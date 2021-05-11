@@ -9586,10 +9586,7 @@
           }
         },
         "operationId": "get-assign-drivers-ban-check",
-        "description": "this endpoint checks if driver is banned from turning on. the start-up item to check is `rejection_ban`",
-        "tags": [
-          "start up item"
-        ]
+        "description": "this endpoint checks if driver is banned from turning on. the start-up item to check is `rejection_ban`"
       }
     }
   },
