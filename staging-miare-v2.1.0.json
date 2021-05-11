@@ -2928,9 +2928,6 @@
         "description": "",
         "x-examples": {},
         "properties": {
-          "id": {
-            "type": "integer"
-          },
           "ledger": {
             "$ref": "#/components/schemas/TransactionLedger"
           },
@@ -2944,11 +2941,7 @@
           "reason": {
             "type": "string"
           }
-        },
-        "required": [
-          "id",
-          "ledger"
-        ]
+        }
       }
     },
     "requestBodies": {
@@ -5212,33 +5205,6 @@
                                 },
                                 "destination": {
                                   "$ref": "#/components/schemas/Location"
-                                },
-                                "salary_details": {
-                                  "type": "array",
-                                  "items": {
-                                    "$ref": "#/components/schemas/SalaryDetails"
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "course_bonuses": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "integer"
-                                },
-                                "count": {
-                                  "type": "integer"
-                                },
-                                "date": {
-                                  "type": "string",
-                                  "format": "date"
-                                },
-                                "description": {
-                                  "type": "string"
                                 }
                               }
                             }
@@ -5252,9 +5218,6 @@
                           "end_datetime": {
                             "type": "string",
                             "format": "date-time"
-                          },
-                          "raw_salary": {
-                            "type": "integer"
                           },
                           "assign_datetime": {
                             "type": "string",
