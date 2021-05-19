@@ -9589,7 +9589,7 @@
         "description": "this endpoint checks if driver is banned from turning on. the start-up item to check is `rejection_ban`"
       }
     },
-    "/tracking/driver/busy-check/": {
+    "/tracking/drivers/busy-check/": {
       "get": {
         "summary": "DriverBusyCheckView",
         "tags": [],
@@ -9612,7 +9612,8 @@
         },
         "operationId": "get-tracking-driver-busy-check",
         "description": "checks if driver is busy with a trip"
-      }
+      },
+      "parameters": []
     }
   },
   "security": [
