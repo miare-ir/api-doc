@@ -10,20 +10,19 @@
   },
   "tags": [
     {
-      "name": "delivery",
-      "description": "Delivery related services"
+      "name": "accounting"
     },
     {
-      "name": "events",
-      "description": "Realtime webhook events"
+      "name": "concurrency"
     },
     {
-      "name": "accounting",
-      "description": "Accounting related services"
+      "name": "delivery"
     },
     {
-      "name": "reservation",
-      "description": "Driver's reservation services"
+      "name": "events"
+    },
+    {
+      "name": "monitoring"
     },
     {
       "name": "notifications"
@@ -32,7 +31,7 @@
       "name": "Registration"
     },
     {
-      "name": "monitoring"
+      "name": "reservation"
     }
   ],
   "servers": [
@@ -9614,6 +9613,242 @@
         "description": "checks if driver is busy with a trip"
       },
       "parameters": []
+    },
+    "/concurrency/purchase-invoice/": {
+      "get": {
+        "summary": "Purchase Invoice",
+        "tags": [
+          "concurrency"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "string",
+                            "format": "time"
+                          },
+                          "end": {
+                            "type": "string",
+                            "format": "time"
+                          },
+                          "maximum": {
+                            "type": "integer"
+                          },
+                          "fee": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    },
+                    "start_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "end_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "min_number_of_days": {
+                      "type": "integer"
+                    },
+                    "max_number_of_days": {
+                      "type": "integer"
+                    },
+                    "current_concurrency_end_date": {
+                      "type": "string",
+                      "format": "date",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-concurrency-purchase-invoice",
+        "description": "This endpoint is used to get TimeSlot items based on the clinet's tariff, and also the client's current status as of concurrencies. This endpoint only authenticates clients.",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "parameters": []
+      }
+    },
+    "/concurrency/time_slot_tariff/": {
+      "get": {
+        "summary": "Time Slot Tariff",
+        "tags": [
+          "concurrency"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "time_slot_names": {
+                        "type": "string"
+                      },
+                      "price": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-concurrency-time_slot_tariff",
+        "description": "The endpoint for clients to receive their current tariff's prices.",
+        "security": [
+          {
+            "auth": []
+          }
+        ]
+      }
+    },
+    "/concurrency/purchase/": {
+      "post": {
+        "summary": "Purchase",
+        "operationId": "post-concurrency-purchase",
+        "responses": {
+          "200": {
+            "description": "OK. If the given payment_amount was 0, the process will be done.\n  But if it's not, the endpoint will return a amount and a payment_page to redirect the client to.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "amount": {
+                      "type": "integer"
+                    },
+                    "payment_page": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "The endpoint for clients to finalize their concurrency purchase.",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "payment_amount": {
+                    "type": "integer"
+                  },
+                  "starting_week": {
+                    "type": "integer"
+                  },
+                  "number_of_weeks": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          },
+          "description": ""
+        }
+      }
+    },
+    "/concurrency/history/": {
+      "get": {
+        "summary": "todo",
+        "tags": [],
+        "responses": {},
+        "operationId": "get-concurrency-history"
+      }
+    },
+    "/concurrency/capacities/": {
+      "post": {
+        "summary": "",
+        "operationId": "post-concurrency-capacities",
+        "responses": {
+          "200": {
+            "description": "OK.\nThe field state_code can have 4 values:\n  0: There is available concurrency capacity based on the given data.\n  1: There is no available concurrency capacity on the given day \\\n    but it might be availabel in the future; In this case, the field \\\n    `date` will have a value suggesting the first probable day in the future \\\n    to have available concurrency capacities.\n  2: There is no available concurrency capacity on the given day and there \\\n    are no other ones in the probable future.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "state_code": {
+                      "type": "integer"
+                    },
+                    "date": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "The endpoint to lookup to see if there are any Capacity to buy concurrencies according to the client's selected start_date.",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "time_slot_name": {
+                          "type": "string"
+                        },
+                        "count": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  },
+                  "start_date": {
+                    "type": "string",
+                    "format": "date"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "security": [
