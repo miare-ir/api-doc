@@ -9845,14 +9845,14 @@
         "operationId": "post-concurrency-capacities",
         "responses": {
           "200": {
-            "description": "OK.\nThe field state_code can have 4 values:\n  0: There is available concurrency capacity based on the given data.\n  1: There is no available concurrency capacity on the given day \\\n    but it might be availabel in the future; In this case, the field \\\n    `date` will have a value suggesting the first probable day in the future \\\n    to have available concurrency capacities.\n  2: There is no available concurrency capacity on the given day and there \\\n    are no other ones in the probable future.",
+            "description": "OK.\nThe field state_code can have 4 values:\n  \"Succesfull\": There is available concurrency capacity based on the given data.\n  \"future-concurrency\": There is no available concurrency capacity on the given day \\\n    but it might be availabel in the future; In this case, the field \\\n    `date` will have a value suggesting the first probable day in the future \\\n    to have available concurrency capacities.\n  \"failed\": There is no available concurrency capacity on the given day and there \\\n    are no other ones in the probable future.",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
                     "state_code": {
-                      "type": "integer"
+                      "type": "string"
                     },
                     "date": {
                       "type": "string",
