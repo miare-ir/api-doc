@@ -9777,13 +9777,18 @@
             }
           },
           "description": ""
-        }
+        },
+        "tags": [
+          "concurrency"
+        ]
       }
     },
     "/concurrency/history/": {
       "get": {
         "summary": "todo",
-        "tags": [],
+        "tags": [
+          "concurrency"
+        ],
         "responses": {},
         "operationId": "get-concurrency-history"
       }
@@ -9847,7 +9852,10 @@
               }
             }
           }
-        }
+        },
+        "tags": [
+          "concurrency"
+        ]
       }
     }
   },
