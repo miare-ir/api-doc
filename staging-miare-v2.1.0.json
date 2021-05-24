@@ -9709,6 +9709,14 @@
                       },
                       "price": {
                         "type": "integer"
+                      },
+                      "start": {
+                        "type": "string",
+                        "format": "time"
+                      },
+                      "end": {
+                        "type": "string",
+                        "format": "time"
                       }
                     }
                   }
