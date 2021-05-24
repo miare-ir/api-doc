@@ -9785,11 +9785,57 @@
     },
     "/concurrency/history/": {
       "get": {
-        "summary": "todo",
+        "summary": "Concurrency History",
         "tags": [
           "concurrency"
         ],
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "string",
+                            "format": "time"
+                          },
+                          "end": {
+                            "type": "string",
+                            "format": "time"
+                          },
+                          "fee": {
+                            "type": "integer"
+                          },
+                          "count": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    },
+                    "start_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "end_date": {
+                      "type": "string",
+                      "format": "date"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
         "operationId": "get-concurrency-history"
       }
     },
