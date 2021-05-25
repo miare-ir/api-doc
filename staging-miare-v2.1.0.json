@@ -9844,12 +9844,13 @@
             }
           }
         },
-        "operationId": "get-concurrency-history"
+        "operationId": "get-concurrency-history",
+        "description": "The endpoint to get the history data of client... `Needs` further exploration and explanation from the backend team."
       }
     },
-    "/concurrency/capacities/": {
+    "/concurrency/check-capacities/": {
       "post": {
-        "summary": "",
+        "summary": "Check Capacities",
         "operationId": "post-concurrency-capacities",
         "responses": {
           "200": {
@@ -9910,7 +9911,8 @@
         "tags": [
           "concurrency"
         ]
-      }
+      },
+      "parameters": []
     }
   },
   "security": [
