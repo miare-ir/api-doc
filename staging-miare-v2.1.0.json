@@ -9964,7 +9964,10 @@
             }
           },
           "description": "Backend presumes that if receive_reminders=False, then the other fields are null."
-        }
+        },
+        "tags": [
+          "reservation"
+        ]
       }
     }
   },
