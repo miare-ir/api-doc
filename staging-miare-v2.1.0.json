@@ -9941,9 +9941,11 @@
                     "description": "Shows whether the courier has activated settings"
                   },
                   "trigger_duration": {
-                    "type": "string",
-                    "format": "duration",
-                    "description": "The amount of time before the start of shift to trigger the reminder.",
+                    "type": "integer",
+                    "description": "The amount of time in `minutes` before the start of shift to trigger the reminder.",
+                    "default": 0,
+                    "minimum": 0,
+                    "maximum": 120,
                     "nullable": true
                   },
                   "shift": {
