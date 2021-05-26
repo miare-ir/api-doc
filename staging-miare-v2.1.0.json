@@ -9913,6 +9913,59 @@
         ]
       },
       "parameters": []
+    },
+    "/reservation/drivers/shift-reminder-settings/": {
+      "post": {
+        "summary": "Shift Reminder Settings",
+        "operationId": "post-reservation-drivers-shift-reminder-settings",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "The endpoint to post the settings of courier's shift reminders.",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "",
+                "properties": {
+                  "receive_reminders": {
+                    "type": "boolean",
+                    "description": "Shows whether the courier has activated settings"
+                  },
+                  "trigger_duration": {
+                    "type": "string",
+                    "format": "duration",
+                    "description": "The amount of time before the start of shift to trigger the reminder.",
+                    "nullable": true
+                  },
+                  "shift": {
+                    "type": "string",
+                    "enum": [
+                      "first_shift",
+                      "all_shifts"
+                    ],
+                    "description": "",
+                    "nullable": true
+                  },
+                  "phone_call": {
+                    "type": "boolean",
+                    "nullable": true
+                  }
+                }
+              }
+            }
+          },
+          "description": "Backend presumes that if receive_reminders=False, then the other fields are null."
+        }
+      }
     }
   },
   "security": [
