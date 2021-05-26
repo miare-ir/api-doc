@@ -9704,7 +9704,7 @@
                   "items": {
                     "type": "object",
                     "properties": {
-                      "time_slot_names": {
+                      "time_slot_name": {
                         "type": "string"
                       },
                       "price": {
