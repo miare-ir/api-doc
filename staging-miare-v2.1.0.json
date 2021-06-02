@@ -9971,6 +9971,63 @@
           "reservation"
         ]
       }
+    },
+    "/notification/action-type/": {
+      "post": {
+        "summary": "Notification Action Type",
+        "operationId": "post-notification-action-type",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "sets the action that driver has done with the notification",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "x-examples": {
+                  "example-1": {
+                    "notification_id": 129376,
+                    "action_type": "accept"
+                  }
+                },
+                "properties": {
+                  "notification_id": {
+                    "type": "number"
+                  },
+                  "action_type": {
+                    "type": "string",
+                    "minLength": 1,
+                    "enum": [
+                      "accept",
+                      "dismiss"
+                    ],
+                    "writeOnly": true
+                  }
+                },
+                "required": [
+                  "notification_id",
+                  "action_type"
+                ]
+              },
+              "examples": {
+                "example": {
+                  "value": {
+                    "notification_id": 129376,
+                    "action_type": "accept"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "notifications"
+        ]
+      }
     }
   },
   "security": [
