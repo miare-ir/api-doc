@@ -10,20 +10,19 @@
   },
   "tags": [
     {
-      "name": "delivery",
-      "description": "Delivery related services"
+      "name": "accounting"
     },
     {
-      "name": "events",
-      "description": "Realtime webhook events"
+      "name": "concurrency"
     },
     {
-      "name": "accounting",
-      "description": "Accounting related services"
+      "name": "delivery"
     },
     {
-      "name": "reservation",
-      "description": "Driver's reservation services"
+      "name": "events"
+    },
+    {
+      "name": "monitoring"
     },
     {
       "name": "notifications"
@@ -32,7 +31,7 @@
       "name": "Registration"
     },
     {
-      "name": "monitoring"
+      "name": "reservation"
     }
   ],
   "servers": [
@@ -2921,6 +2920,27 @@
             "type": "string"
           }
         }
+      },
+      "SalaryDetails": {
+        "title": "SalaryDetails",
+        "type": "object",
+        "description": "",
+        "x-examples": {},
+        "properties": {
+          "ledger": {
+            "$ref": "#/components/schemas/TransactionLedger"
+          },
+          "salary_delta": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
       }
     },
     "requestBodies": {
@@ -3967,250 +3987,13 @@
           "accounting"
         ],
         "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "bonus_courses_count": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "long_courses_count": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "courses_count": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "round_trips_count": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "absences": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Absence"
-                      }
-                    },
-                    "date": {
-                      "type": "string",
-                      "format": "date",
-                      "example": "2020-01-15"
-                    },
-                    "absence_seconds": {
-                      "type": "number",
-                      "example": 5291.734134,
-                      "minimum": 0
-                    },
-                    "trips": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/TripInDailyKPI"
-                      }
-                    },
-                    "course_bonuses": {
-                      "type": "array",
-                      "items": {}
-                    },
-                    "trips_count": {
-                      "type": "integer",
-                      "minimum": 0
-                    }
-                  }
-                },
-                "examples": {
-                  "example": {
-                    "value": {
-                      "bonus_courses_count": 0,
-                      "long_courses_count": 1,
-                      "courses_count": 10,
-                      "round_trips_count": 6,
-                      "absences": [
-                        {
-                          "id": 12838542,
-                          "start_datetime": "2020-01-15T16:01:48.265866+03:30",
-                          "end_datetime": "2020-01-15T17:30:00+03:30",
-                          "status": false,
-                          "tag": 20,
-                          "comment": ""
-                        }
-                      ],
-                      "date": "2020-01-15",
-                      "absence_seconds": 5291.734134,
-                      "trips": [
-                        {
-                          "request_datetime": "2020-01-15T15:02:53.507091+03:30",
-                          "assign_datetime": "2020-01-15T15:03:05.289311+03:30",
-                          "id": 1726120,
-                          "courses": [
-                            {
-                              "id": 2633380,
-                              "end_datetime": "2020-01-15T15:28:27+03:30",
-                              "radial_end_to_end_distance": 3.1678023226569194,
-                              "is_long": true
-                            }
-                          ],
-                          "course_bonuses": [],
-                          "source_title": "تهیه غذا گل یاس",
-                          "is_round_trip": false,
-                          "end_datetime": "2020-01-15T15:28:27+03:30"
-                        },
-                        {
-                          "request_datetime": "2020-01-15T14:39:25.449147+03:30",
-                          "assign_datetime": "2020-01-15T14:39:29.256853+03:30",
-                          "id": 1725971,
-                          "courses": [
-                            {
-                              "id": 2633140,
-                              "end_datetime": "2020-01-15T14:55:12+03:30",
-                              "radial_end_to_end_distance": 0.554773538189989,
-                              "is_long": false
-                            }
-                          ],
-                          "course_bonuses": [],
-                          "source_title": "اهورا",
-                          "is_round_trip": true,
-                          "end_datetime": "2020-01-15T15:02:23+03:30"
-                        },
-                        {
-                          "request_datetime": "2020-01-15T14:25:17.004720+03:30",
-                          "assign_datetime": "2020-01-15T14:25:25.658206+03:30",
-                          "id": 1725866,
-                          "courses": [
-                            {
-                              "id": 2632978,
-                              "end_datetime": "2020-01-15T14:36:04+03:30",
-                              "radial_end_to_end_distance": 0.2553254029662656,
-                              "is_long": false
-                            },
-                            {
-                              "id": 2632979,
-                              "end_datetime": "2020-01-15T14:32:19+03:30",
-                              "radial_end_to_end_distance": 0.18872457058450023,
-                              "is_long": false
-                            }
-                          ],
-                          "course_bonuses": [],
-                          "source_title": "اهورا",
-                          "is_round_trip": true,
-                          "end_datetime": "2020-01-15T14:37:52+03:30"
-                        },
-                        {
-                          "request_datetime": "2020-01-15T13:46:07.714467+03:30",
-                          "assign_datetime": "2020-01-15T13:46:17.157006+03:30",
-                          "id": 1725562,
-                          "courses": [
-                            {
-                              "id": 2632496,
-                              "end_datetime": "2020-01-15T14:19:28+03:30",
-                              "radial_end_to_end_distance": 0.011249108275583031,
-                              "is_long": false
-                            },
-                            {
-                              "id": 2632494,
-                              "end_datetime": "2020-01-15T14:19:14+03:30",
-                              "radial_end_to_end_distance": 0.012657498618597367,
-                              "is_long": false
-                            },
-                            {
-                              "id": 2632455,
-                              "end_datetime": "2020-01-15T14:19:06+03:30",
-                              "radial_end_to_end_distance": 0.4748264050348156,
-                              "is_long": false
-                            }
-                          ],
-                          "course_bonuses": [],
-                          "source_title": "اهورا",
-                          "is_round_trip": true,
-                          "end_datetime": "2020-01-15T14:22:53+03:30"
-                        },
-                        {
-                          "request_datetime": "2020-01-15T12:53:16.024924+03:30",
-                          "assign_datetime": "2020-01-15T12:53:36.253022+03:30",
-                          "id": 1725094,
-                          "courses": [
-                            {
-                              "id": 2631605,
-                              "end_datetime": "2020-01-15T13:12:26+03:30",
-                              "radial_end_to_end_distance": 0.9553523969044245,
-                              "is_long": false
-                            }
-                          ],
-                          "course_bonuses": [],
-                          "source_title": "شادی اندرزگو",
-                          "is_round_trip": true,
-                          "end_datetime": "2020-01-15T13:20:00+03:30"
-                        },
-                        {
-                          "request_datetime": "2020-01-15T12:03:03.267951+03:30",
-                          "assign_datetime": "2020-01-15T12:03:26.474656+03:30",
-                          "id": 1724727,
-                          "courses": [
-                            {
-                              "id": 2631028,
-                              "end_datetime": "2020-01-15T12:07:43+03:30",
-                              "radial_end_to_end_distance": 0.01429344236475458,
-                              "is_long": false
-                            }
-                          ],
-                          "course_bonuses": [],
-                          "source_title": "کترینگ پلو",
-                          "is_round_trip": true,
-                          "end_datetime": "2020-01-15T12:23:17.427800+03:30"
-                        },
-                        {
-                          "request_datetime": "2020-01-15T11:45:23.484003+03:30",
-                          "assign_datetime": "2020-01-15T11:45:53.264385+03:30",
-                          "id": 1724657,
-                          "courses": [
-                            {
-                              "id": 2630921,
-                              "end_datetime": "2020-01-15T12:03:11+03:30",
-                              "radial_end_to_end_distance": 0.009783316341434355,
-                              "is_long": false
-                            }
-                          ],
-                          "course_bonuses": [],
-                          "source_title": "ساندویچ ایرونی",
-                          "is_round_trip": true,
-                          "end_datetime": "2020-01-15T12:03:21+03:30"
-                        }
-                      ],
-                      "course_bonuses": []
-                    }
-                  }
-                }
-              }
-            }
+          "410": {
+            "description": "Gone; This enpoint is deprecated."
           }
         },
         "operationId": "get-accounting-drivers-daily-kpi",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "format": "date",
-              "example": "2020-01-15"
-            },
-            "in": "query",
-            "name": "date",
-            "required": true,
-            "description": ""
-          },
-          {
-            "schema": {
-              "type": "integer"
-            },
-            "in": "header",
-            "name": "ENTITY-ID",
-            "description": "The ID of the driver in case that the request is from operation agent"
-          }
-        ],
-        "description": "Returns detailed accounting report of a driver per date"
+        "parameters": [],
+        "description": "Returns detailed accounting report of a driver per date; Deprecated."
       }
     },
     "/reservation/capacities/": {
@@ -5179,34 +4962,11 @@
                                   "type": "boolean"
                                 },
                                 "destination_text": {
-                                  "type": [
-                                    "string",
-                                    "null"
-                                  ]
+                                  "type": "string",
+                                  "nullable": true
                                 },
                                 "destination": {
                                   "$ref": "#/components/schemas/Location"
-                                }
-                              }
-                            }
-                          },
-                          "course_bonuses": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "integer"
-                                },
-                                "count": {
-                                  "type": "integer"
-                                },
-                                "date": {
-                                  "type": "string",
-                                  "format": "date"
-                                },
-                                "description": {
-                                  "type": "string"
                                 }
                               }
                             }
@@ -5221,28 +4981,17 @@
                             "type": "string",
                             "format": "date-time"
                           },
-                          "raw_salary": {
-                            "type": "integer"
-                          },
                           "assign_datetime": {
                             "type": "string",
                             "format": "date-time"
-                          },
-                          "rewards": {
-                            "type": "array",
-                            "items": {
-                              "$ref": "#/components/schemas/Reward"
-                            }
                           },
                           "source_location": {
                             "$ref": "#/components/schemas/Location"
                           },
                           "return_distance": {
-                            "type": [
-                              "number",
-                              "null"
-                            ],
-                            "description": "Return distance in KM"
+                            "type": "number",
+                            "description": "Return distance in KM",
+                            "nullable": true
                           },
                           "client_type_coefficient": {
                             "type": "number"
@@ -5252,9 +5001,23 @@
                           },
                           "area_coefficient": {
                             "type": "number"
+                          },
+                          "salary_details": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/components/schemas/SalaryDetails"
+                            }
                           }
                         }
                       }
+                    },
+                    "online_duration": {
+                      "type": "string",
+                      "description": "This string follows `duration iso format`."
+                    },
+                    "on_trip_duration": {
+                      "type": "string",
+                      "description": "This string follows `duration iso format`."
                     }
                   }
                 },
@@ -5263,6 +5026,8 @@
                     "value": {
                       "date": "2020-01-10",
                       "salary": 941700,
+                      "online_duration": "P3Y6M4DT12H30M5S",
+                      "on_trip_duration": "P2DT00H00M00S",
                       "trips": [
                         {
                           "request_datetime": "2020-01-10T22:50:08.915193+03:30",
@@ -5857,7 +5622,8 @@
             "name": "date",
             "required": true
           }
-        ]
+        ],
+        "description": ""
       }
     },
     "/driver-api/issues/": {
@@ -6123,9 +5889,9 @@
                               },
                               "meta": {
                                 "type": [
-                                  "string",
-                                  "null"
-                                ]
+                                  "string"
+                                ],
+                                "nullable": true
                               },
                               "package_info": {
                                 "$ref": "#/components/schemas/Package_info"
@@ -6138,6 +5904,12 @@
                               },
                               "requested_destination_address": {
                                 "type": "string"
+                              },
+                              "salary_details": {
+                                "type": "array",
+                                "items": {
+                                  "$ref": "#/components/schemas/SalaryDetails"
+                                }
                               }
                             }
                           },
@@ -6153,7 +5925,7 @@
                           "ticket": {
                             "oneOf": [
                               {
-                                "type": "null"
+                                "nullable": true
                               },
                               {
                                 "$ref": "#/components/schemas/Ticket"
@@ -6197,10 +5969,10 @@
                           },
                           "cancel_datetime": {
                             "type": [
-                              "string",
-                              "null"
+                              "string"
                             ],
-                            "format": "date-time"
+                            "format": "date-time",
+                            "nullable": true
                           },
                           "course_bonuses": {
                             "type": "array",
@@ -6208,10 +5980,10 @@
                           },
                           "departure_datetime": {
                             "type": [
-                              "string",
-                              "null"
+                              "string"
                             ],
-                            "format": "date-time"
+                            "format": "date-time",
+                            "nullable": true
                           },
                           "driver": {
                             "type": "object",
@@ -6221,10 +5993,10 @@
                               },
                               "avatar": {
                                 "type": [
-                                  "null",
                                   "string"
                                 ],
-                                "format": "byte"
+                                "format": "byte",
+                                "nullable": true
                               },
                               "busy": {
                                 "type": "boolean"
@@ -6250,7 +6022,7 @@
                           "feedback": {
                             "oneOf": [
                               {
-                                "type": "null"
+                                "nullable": true
                               },
                               {
                                 "$ref": "#/components/schemas/RestaurantFeedback"
@@ -6283,10 +6055,10 @@
                           },
                           "return_datetime": {
                             "type": [
-                              "string",
-                              "null"
+                              "string"
                             ],
-                            "format": "date-time"
+                            "format": "date-time",
+                            "nullable": true
                           },
                           "rewards": {
                             "type": "array",
@@ -6309,6 +6081,9 @@
                           },
                           "state": {
                             "type": "integer"
+                          },
+                          "salary_details": {
+                            "$ref": "#/components/schemas/SalaryDetails"
                           }
                         }
                       }
@@ -9781,6 +9556,477 @@
             }
           }
         }
+      }
+    },
+    "/assign/drivers/ban-check/": {
+      "get": {
+        "summary": "Drivers Ban Check",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "is_banned": {
+                      "type": "boolean"
+                    },
+                    "end_datetime": {
+                      "type": "string",
+                      "format": "date-time",
+                      "nullable": true,
+                      "readOnly": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-assign-drivers-ban-check",
+        "description": "this endpoint checks if driver is banned from turning on. the start-up item to check is `rejection_ban`"
+      }
+    },
+    "/tracking/drivers/busy-check/": {
+      "get": {
+        "summary": "DriverBusyCheckView",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "busy": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-tracking-driver-busy-check",
+        "description": "checks if driver is busy with a trip"
+      },
+      "parameters": []
+    },
+    "/concurrency/purchase-invoice/": {
+      "get": {
+        "summary": "Purchase Invoice",
+        "tags": [
+          "concurrency"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "string",
+                            "format": "time"
+                          },
+                          "end": {
+                            "type": "string",
+                            "format": "time"
+                          },
+                          "maximum": {
+                            "type": "integer"
+                          },
+                          "fee": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    },
+                    "start_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "end_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "min_number_of_days": {
+                      "type": "integer"
+                    },
+                    "max_number_of_days": {
+                      "type": "integer"
+                    },
+                    "current_concurrency_end_date": {
+                      "type": "string",
+                      "format": "date",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-concurrency-purchase-invoice",
+        "description": "This endpoint is used to get TimeSlot items based on the clinet's tariff, and also the client's current status as of concurrencies. This endpoint only authenticates clients.",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "parameters": []
+      }
+    },
+    "/concurrency/time_slot_tariff/": {
+      "get": {
+        "summary": "Time Slot Tariff",
+        "tags": [
+          "concurrency"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "time_slot_name": {
+                        "type": "string"
+                      },
+                      "price": {
+                        "type": "integer"
+                      },
+                      "start": {
+                        "type": "string",
+                        "format": "time"
+                      },
+                      "end": {
+                        "type": "string",
+                        "format": "time"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-concurrency-time_slot_tariff",
+        "description": "The endpoint for clients to receive their current tariff's prices.",
+        "security": [
+          {
+            "auth": []
+          }
+        ]
+      }
+    },
+    "/concurrency/purchase/": {
+      "post": {
+        "summary": "Purchase",
+        "operationId": "post-concurrency-purchase",
+        "responses": {
+          "200": {
+            "description": "OK. If the given payment_amount was 0, the process will be done.\n  But if it's not, the endpoint will return a amount and a payment_page to redirect the client to.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "amount": {
+                      "type": "integer"
+                    },
+                    "payment_page": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "The endpoint for clients to finalize their concurrency purchase.",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "payment_amount": {
+                    "type": "integer"
+                  },
+                  "starting_week": {
+                    "type": "integer"
+                  },
+                  "number_of_weeks": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          },
+          "description": ""
+        },
+        "tags": [
+          "concurrency"
+        ]
+      }
+    },
+    "/concurrency/history/": {
+      "get": {
+        "summary": "Concurrency History",
+        "tags": [
+          "concurrency"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "string",
+                            "format": "time"
+                          },
+                          "end": {
+                            "type": "string",
+                            "format": "time"
+                          },
+                          "fee": {
+                            "type": "integer"
+                          },
+                          "count": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    },
+                    "start_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "end_date": {
+                      "type": "string",
+                      "format": "date"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-concurrency-history",
+        "description": "The endpoint to get the history data of client... `Needs` further exploration and explanation from the backend team."
+      }
+    },
+    "/concurrency/check-capacities/": {
+      "post": {
+        "summary": "Check Capacities",
+        "operationId": "post-concurrency-capacities",
+        "responses": {
+          "200": {
+            "description": "OK.\nThe field state_code can have 4 values:\n  \"Succesfull\": There is available concurrency capacity based on the given data.\n  \"future-concurrency\": There is no available concurrency capacity on the given day \\\n    but it might be availabel in the future; In this case, the field \\\n    `date` will have a value suggesting the first probable day in the future \\\n    to have available concurrency capacities.\n  \"failed\": There is no available concurrency capacity on the given day and there \\\n    are no other ones in the probable future.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "state_code": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "The endpoint to lookup to see if there are any Capacity to buy concurrencies according to the client's selected start_date.",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "time_slot_name": {
+                          "type": "string"
+                        },
+                        "count": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  },
+                  "start_date": {
+                    "type": "string",
+                    "format": "date"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "concurrency"
+        ]
+      },
+      "parameters": []
+    },
+    "/reservation/drivers/shift-reminder-settings/": {
+      "post": {
+        "summary": "Shift Reminder Settings",
+        "operationId": "post-reservation-drivers-shift-reminder-settings",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "The endpoint to post the settings of courier's shift reminders.",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "",
+                "properties": {
+                  "receive_reminders": {
+                    "type": "boolean",
+                    "description": "Shows whether the courier has activated settings"
+                  },
+                  "trigger_duration": {
+                    "type": "integer",
+                    "description": "The amount of time in `minutes` before the start of shift to trigger the reminder.",
+                    "default": 0,
+                    "minimum": 0,
+                    "maximum": 120,
+                    "nullable": true
+                  },
+                  "shift": {
+                    "type": "string",
+                    "enum": [
+                      "first_shift",
+                      "all_shifts"
+                    ],
+                    "description": "",
+                    "nullable": true
+                  },
+                  "phone_call": {
+                    "type": "boolean",
+                    "nullable": true
+                  }
+                }
+              }
+            }
+          },
+          "description": "Backend presumes that if receive_reminders=False, then the other fields are null."
+        },
+        "tags": [
+          "reservation"
+        ]
+      }
+    },
+    "/notification/action-type/": {
+      "post": {
+        "summary": "Notification Action Type",
+        "operationId": "post-notification-action-type",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "sets the action that driver has done with the notification",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "x-examples": {
+                  "example-1": {
+                    "notification_id": 129376,
+                    "action_type": "accept"
+                  }
+                },
+                "properties": {
+                  "notification_id": {
+                    "type": "number"
+                  },
+                  "action_type": {
+                    "type": "string",
+                    "minLength": 1,
+                    "enum": [
+                      "accept",
+                      "dismiss"
+                    ],
+                    "writeOnly": true
+                  }
+                },
+                "required": [
+                  "notification_id",
+                  "action_type"
+                ]
+              },
+              "examples": {
+                "example": {
+                  "value": {
+                    "notification_id": 129376,
+                    "action_type": "accept"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "notifications"
+        ]
       }
     }
   },
