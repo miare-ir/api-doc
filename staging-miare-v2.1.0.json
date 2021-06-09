@@ -3996,7 +3996,7 @@
         "description": "Returns detailed accounting report of a driver per date; Deprecated."
       }
     },
-    "/reservation/capacities/": {
+    "/reservation/capacities/v2/": {
       "get": {
         "summary": "Get Capacities",
         "tags": [
@@ -4008,114 +4008,134 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "area": {
-                        "$ref": "#/components/schemas/Area"
-                      },
-                      "date": {
-                        "type": "string",
-                        "format": "date"
-                      },
-                      "interval_capacities": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "interval": {
-                              "$ref": "#/components/schemas/Interval"
-                            },
-                            "capacity": {
-                              "type": "integer",
-                              "minimum": 0
-                            },
-                            "reserved": {
-                              "type": "boolean"
-                            },
-                            "presence_rewards": {
-                              "type": "array",
-                              "items": {
-                                "$ref": "#/components/schemas/ConditionalReward"
+                  "type": "object",
+                  "properties": {
+                    "capacities": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "area": {
+                            "$ref": "#/components/schemas/Area"
+                          },
+                          "date": {
+                            "type": "string",
+                            "format": "date"
+                          },
+                          "interval_capacities": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "interval": {
+                                  "$ref": "#/components/schemas/Interval"
+                                },
+                                "capacity": {
+                                  "type": "integer",
+                                  "minimum": 0
+                                },
+                                "reserved": {
+                                  "type": "boolean"
+                                },
+                                "presence_rewards": {
+                                  "type": "array",
+                                  "items": {
+                                    "$ref": "#/components/schemas/ConditionalReward"
+                                  }
+                                },
+                                "course_rewards": {
+                                  "type": "array",
+                                  "items": {
+                                    "$ref": "#/components/schemas/ConditionalReward"
+                                  }
+                                },
+                                "guaranteed_reward": {
+                                  "type": "array",
+                                  "items": {
+                                    "$ref": "#/components/schemas/ConditionalReward"
+                                  }
+                                },
+                                "harsh_conditions": {
+                                  "type": "array",
+                                  "items": {
+                                    "$ref": "#/components/schemas/DriverInhospitality"
+                                  }
+                                },
+                                "capacity_id": {
+                                  "type": "integer"
+                                },
+                                "subscribed": {
+                                  "type": "boolean"
+                                }
                               }
-                            },
-                            "course_rewards": {
-                              "type": "array",
-                              "items": {
-                                "$ref": "#/components/schemas/ConditionalReward"
-                              }
-                            },
-                            "guaranteed_reward": {
-                              "type": "array",
-                              "items": {
-                                "$ref": "#/components/schemas/ConditionalReward"
-                              }
-                            },
-                            "harsh_conditions": {
-                              "type": "array",
-                              "items": {
-                                "$ref": "#/components/schemas/DriverInhospitality"
-                              }
-                            },
-                            "capacity_id": {
-                              "type": "integer"
-                            },
-                            "subscribed": {
-                              "type": "boolean"
                             }
                           }
                         }
                       }
+                    },
+                    "zone": {
+                      "oneOf": [
+                        {
+                          "nullable": true
+                        },
+                        {
+                          "$ref": "#/components/schemas/DriverZone"
+                        }
+                      ]
                     }
                   }
                 },
                 "examples": {
                   "example": {
-                    "value": [
-                      {
-                        "date": "2020-01-01",
-                        "area": {
-                          "id": 1,
-                          "name": "شیخ بهایی",
-                          "coefficient": 1.2
-                        },
-                        "interval_capacities": [
-                          {
-                            "interval": {
-                              "id": 2,
-                              "name": "ظهر",
-                              "start_time": "11:30:00",
-                              "end_time": "15:30:00"
-                            },
-                            "capacity": 2,
-                            "capacity_id": 10,
-                            "reserved": true,
-                            "subscribed": true,
-                            "presence_rewards": [],
-                            "course_rewards": [],
-                            "guaranteed_reward": [],
-                            "harsh_conditions": []
+                    "value": {
+                      "zone": {
+                        "name": "غرب"
+                      },
+                      "capacities": [
+                        {
+                          "date": "2020-01-01",
+                          "area": {
+                            "id": 1,
+                            "name": "شیخ بهایی",
+                            "coefficient": 1.2
                           },
-                          {
-                            "interval": {
-                              "id": 3,
-                              "name": "شب",
-                              "start_time": "19:30:00",
-                              "end_time": "23:30:00"
+                          "interval_capacities": [
+                            {
+                              "interval": {
+                                "id": 2,
+                                "name": "ظهر",
+                                "start_time": "11:30:00",
+                                "end_time": "15:30:00"
+                              },
+                              "capacity": 2,
+                              "capacity_id": 10,
+                              "reserved": true,
+                              "subscribed": true,
+                              "presence_rewards": [],
+                              "course_rewards": [],
+                              "guaranteed_reward": [],
+                              "harsh_conditions": []
                             },
-                            "capacity": 0,
-                            "capacity_id": 11,
-                            "reserved": false,
-                            "subscribed": false,
-                            "presence_rewards": [],
-                            "course_rewards": [],
-                            "guaranteed_reward": [],
-                            "harsh_conditions": []
-                          }
-                        ]
-                      }
-                    ]
+                            {
+                              "interval": {
+                                "id": 3,
+                                "name": "شب",
+                                "start_time": "19:30:00",
+                                "end_time": "23:30:00"
+                              },
+                              "capacity": 0,
+                              "capacity_id": 11,
+                              "reserved": false,
+                              "subscribed": false,
+                              "presence_rewards": [],
+                              "course_rewards": [],
+                              "guaranteed_reward": [],
+                              "harsh_conditions": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
                   }
                 }
               }
@@ -4124,7 +4144,8 @@
         },
         "operationId": "get-reservation-capacities",
         "description": "Returns capacity report for area-date-interval"
-      }
+      },
+      "parameters": []
     },
     "area/driver-areas/zones/": {
       "get": {
