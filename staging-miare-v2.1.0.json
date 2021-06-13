@@ -9979,10 +9979,47 @@
         "operationId": "post-reservation-drivers-shift-reminder-settings",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "x-examples": {
+                    "example-1": {
+                      "enabled": true,
+                      "trigger_duration": 60,
+                      "allocation": "first_shift",
+                      "phone_call": true
+                    }
+                  },
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "trigger_duration": {
+                      "type": "string"
+                    },
+                    "allocation": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "phone_call": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "enabled",
+                    "trigger_duration",
+                    "allocation",
+                    "phone_call"
+                  ]
+                }
+              }
+            }
           }
         },
-        "description": "The endpoint to post the settings of courier's shift reminders.",
+        "description": "The endpoint to post the regulations of courier's allocation reminders.",
         "security": [
           {
             "auth": []
@@ -9995,30 +10032,39 @@
                 "type": "object",
                 "description": "",
                 "properties": {
-                  "receive_reminders": {
+                  "enabled": {
                     "type": "boolean",
                     "description": "Shows whether the courier has activated settings"
                   },
                   "trigger_duration": {
-                    "type": "integer",
+                    "type": "string",
                     "description": "The amount of time in `minutes` before the start of shift to trigger the reminder.",
                     "default": 0,
-                    "minimum": 0,
-                    "maximum": 120,
+                    "format": "duration",
                     "nullable": true
                   },
-                  "shift": {
+                  "allocation": {
                     "type": "string",
-                    "enum": [
-                      "first_shift",
-                      "all_shifts"
-                    ],
                     "description": "",
+                    "enum": [
+                      "first_allocation",
+                      "all_allocations"
+                    ],
                     "nullable": true
                   },
                   "phone_call": {
                     "type": "boolean",
                     "nullable": true
+                  }
+                }
+              },
+              "examples": {
+                "example": {
+                  "value": {
+                    "enabled": true,
+                    "trigger_duration": 60,
+                    "allocation": "first_shift",
+                    "phone_call": true
                   }
                 }
               }
@@ -10029,15 +10075,71 @@
         "tags": [
           "reservation"
         ]
+      },
+      "get": {
+        "summary": "",
+        "operationId": "get-reservation-drivers-shift-reminder-settings",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "x-examples": {
+                    "example-1": {
+                      "enabled": true,
+                      "trigger_duration": 60,
+                      "allocation": "first_shift",
+                      "phone_call": true
+                    }
+                  },
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "trigger_duration": {
+                      "type": "number",
+                      "default": 0
+                    },
+                    "allocation": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "phone_call": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "enabled",
+                    "trigger_duration",
+                    "allocation",
+                    "phone_call"
+                  ]
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "/notification/action-type/": {
+    "/notification/{pk}/action-type/": {
       "post": {
         "summary": "Notification Action Type",
         "operationId": "post-notification-action-type",
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
           }
         },
         "description": "sets the action that driver has done with the notification",
@@ -10054,9 +10156,6 @@
                   }
                 },
                 "properties": {
-                  "notification_id": {
-                    "type": "number"
-                  },
                   "action_type": {
                     "type": "string",
                     "minLength": 1,
@@ -10068,14 +10167,12 @@
                   }
                 },
                 "required": [
-                  "notification_id",
                   "action_type"
                 ]
               },
               "examples": {
                 "example": {
                   "value": {
-                    "notification_id": 129376,
                     "action_type": "accept"
                   }
                 }
@@ -10086,7 +10183,17 @@
         "tags": [
           "notifications"
         ]
-      }
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "pk",
+          "in": "path",
+          "required": true
+        }
+      ]
     }
   },
   "security": [
