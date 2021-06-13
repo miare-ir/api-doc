@@ -9947,12 +9947,20 @@
                 "schema": {
                   "description": "",
                   "type": "object",
+                  "x-examples": {
+                    "example-1": {
+                      "enabled": true,
+                      "trigger_duration": 60,
+                      "allocation": "first_shift",
+                      "phone_call": true
+                    }
+                  },
                   "properties": {
                     "enabled": {
                       "type": "boolean"
                     },
                     "trigger_duration": {
-                      "type": "number"
+                      "type": "string"
                     },
                     "allocation": {
                       "type": "string",
@@ -9967,15 +9975,7 @@
                     "trigger_duration",
                     "allocation",
                     "phone_call"
-                  ],
-                  "x-examples": {
-                    "example-1": {
-                      "enabled": true,
-                      "trigger_duration": 60,
-                      "allocation": "first_shift",
-                      "phone_call": true
-                    }
-                  }
+                  ]
                 }
               }
             }
@@ -9999,11 +9999,10 @@
                     "description": "Shows whether the courier has activated settings"
                   },
                   "trigger_duration": {
-                    "type": "integer",
+                    "type": "string",
                     "description": "The amount of time in `minutes` before the start of shift to trigger the reminder.",
                     "default": 0,
-                    "minimum": 0,
-                    "maximum": 120,
+                    "format": "duration",
                     "nullable": true
                   },
                   "allocation": {
