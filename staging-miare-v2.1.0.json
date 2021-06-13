@@ -9944,7 +9944,7 @@
             "description": "OK"
           }
         },
-        "description": "The endpoint to post the settings of courier's shift reminders.",
+        "description": "The endpoint to post the regulations of courier's allocation reminders.",
         "security": [
           {
             "auth": []
@@ -9971,11 +9971,11 @@
                   },
                   "allocation": {
                     "type": "string",
-                    "enum": [
-                      "first_shift",
-                      "all_shifts"
-                    ],
                     "description": "",
+                    "enum": [
+                      "first_allocation",
+                      "all_allocations"
+                    ],
                     "nullable": true
                   },
                   "phone_call": {
