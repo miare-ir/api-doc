@@ -9941,7 +9941,44 @@
         "operationId": "post-reservation-drivers-shift-reminder-settings",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "trigger_duration": {
+                      "type": "number"
+                    },
+                    "allocation": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "phone_call": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "enabled",
+                    "trigger_duration",
+                    "allocation",
+                    "phone_call"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "enabled": true,
+                      "trigger_duration": 60,
+                      "allocation": "first_shift",
+                      "phone_call": true
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "description": "The endpoint to post the regulations of courier's allocation reminders.",
