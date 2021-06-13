@@ -9936,7 +9936,7 @@
                 "type": "object",
                 "description": "",
                 "properties": {
-                  "receive_reminders": {
+                  "enabled": {
                     "type": "boolean",
                     "description": "Shows whether the courier has activated settings"
                   },
@@ -9948,7 +9948,7 @@
                     "maximum": 120,
                     "nullable": true
                   },
-                  "shift": {
+                  "allocation": {
                     "type": "string",
                     "enum": [
                       "first_shift",
@@ -9962,6 +9962,16 @@
                     "nullable": true
                   }
                 }
+              },
+              "examples": {
+                "example": {
+                  "value": {
+                    "enabled": true,
+                    "trigger_duration": 60,
+                    "allocation": "first_shift",
+                    "phone_call": true
+                  }
+                }
               }
             }
           },
@@ -9970,6 +9980,53 @@
         "tags": [
           "reservation"
         ]
+      },
+      "get": {
+        "summary": "",
+        "operationId": "get-reservation-drivers-shift-reminder-settings",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "x-examples": {
+                    "example-1": {
+                      "enabled": true,
+                      "trigger_duration": 60,
+                      "allocation": "first_shift",
+                      "phone_call": true
+                    }
+                  },
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "trigger_duration": {
+                      "type": "number",
+                      "default": 0
+                    },
+                    "allocation": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "phone_call": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "enabled",
+                    "trigger_duration",
+                    "allocation",
+                    "phone_call"
+                  ]
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/notification/action-type/": {
