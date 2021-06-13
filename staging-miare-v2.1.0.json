@@ -2941,6 +2941,27 @@
             "type": "string"
           }
         }
+      },
+      "TimeSlot": {
+        "title": "TimeSlot",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "start": {
+            "type": "string",
+            "format": "time"
+          },
+          "end": {
+            "type": "string",
+            "format": "time"
+          }
+        },
+        "description": "Represents the TimeSlot used in client concurrency domain"
       }
     },
     "requestBodies": {
@@ -9709,7 +9730,7 @@
         "parameters": []
       }
     },
-    "/concurrency/time_slot_tariff/": {
+    "/concurrency/time-slot-tariff/": {
       "get": {
         "summary": "Time Slot Tariff",
         "tags": [
@@ -9725,21 +9746,37 @@
                   "items": {
                     "type": "object",
                     "properties": {
-                      "time_slot_name": {
-                        "type": "string"
-                      },
                       "price": {
                         "type": "integer"
                       },
-                      "start": {
-                        "type": "string",
-                        "format": "time"
-                      },
-                      "end": {
-                        "type": "string",
-                        "format": "time"
+                      "time_slot": {
+                        "$ref": "#/components/schemas/TimeSlot"
                       }
                     }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": [
+                      {
+                        "price": 5000,
+                        "time_slot": {
+                          "id": 2,
+                          "name": "ظهر",
+                          "start": "11:30:00",
+                          "end": "15:30:00"
+                        }
+                      },
+                      {
+                        "price": 5000,
+                        "time_slot": {
+                          "id": 3,
+                          "name": "عصر",
+                          "start": "15:30:00",
+                          "end": "17:45:00"
+                        }
+                      }
+                    ]
                   }
                 }
               }
@@ -9753,7 +9790,8 @@
             "auth": []
           }
         ]
-      }
+      },
+      "parameters": []
     },
     "/concurrency/purchase/": {
       "post": {
