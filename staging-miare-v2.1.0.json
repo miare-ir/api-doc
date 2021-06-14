@@ -1031,6 +1031,9 @@
           },
           "explanation": {
             "type": "string"
+          },
+          "is_active": {
+            "type": "boolean"
           }
         }
       },
