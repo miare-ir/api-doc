@@ -9962,7 +9962,7 @@
                     "trigger_duration": {
                       "type": "string"
                     },
-                    "allocation": {
+                    "reminder_type": {
                       "type": "string",
                       "minLength": 1
                     },
@@ -9973,7 +9973,7 @@
                   "required": [
                     "enabled",
                     "trigger_duration",
-                    "allocation",
+                    "reminder_type",
                     "phone_call"
                   ]
                 }
@@ -10005,7 +10005,7 @@
                     "format": "duration",
                     "nullable": true
                   },
-                  "allocation": {
+                  "reminder_type": {
                     "type": "string",
                     "description": "",
                     "enum": [
@@ -10025,7 +10025,7 @@
                   "value": {
                     "enabled": true,
                     "trigger_duration": 60,
-                    "allocation": "first_shift",
+                    "reminder_type": "first_shift",
                     "phone_call": true
                   }
                 }
@@ -10065,9 +10065,13 @@
                       "type": "number",
                       "default": 0
                     },
-                    "allocation": {
+                    "reminder_type": {
                       "type": "string",
-                      "minLength": 1
+                      "minLength": 1,
+                      "enum": [
+                        "first_allocation",
+                        "all_allocations"
+                      ]
                     },
                     "phone_call": {
                       "type": "boolean"
@@ -10076,9 +10080,19 @@
                   "required": [
                     "enabled",
                     "trigger_duration",
-                    "allocation",
+                    "reminder_type",
                     "phone_call"
                   ]
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "enabled": true,
+                      "trigger_duration": 50,
+                      "reminder_type": "all_allocations",
+                      "phone_call": false
+                    }
+                  }
                 }
               }
             }
