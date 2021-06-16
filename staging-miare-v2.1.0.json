@@ -10197,6 +10197,85 @@
           "required": true
         }
       ]
+    },
+    "/trip-management/driver-api/trips/{trip_id}/ack/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "trip_id",
+          "in": "path",
+          "required": true,
+          "description": "The ID of the trip which is requested to set ack_datetime for. "
+        }
+      ],
+      "post": {
+        "summary": "Set ack datetime",
+        "tags": [
+          "delivery"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "example": {
+                    "value": {}
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "code": "already_acked",
+                      "detail": ""
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-trip-management-driver-api-trips-trip_id-ack",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "datetime": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "security": [
