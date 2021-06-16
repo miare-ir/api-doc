@@ -1031,6 +1031,9 @@
           },
           "explanation": {
             "type": "string"
+          },
+          "is_active": {
+            "type": "boolean"
           }
         }
       },
@@ -2941,6 +2944,27 @@
             "type": "string"
           }
         }
+      },
+      "TimeSlot": {
+        "title": "TimeSlot",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "start": {
+            "type": "string",
+            "format": "time"
+          },
+          "end": {
+            "type": "string",
+            "format": "time"
+          }
+        },
+        "description": "Represents the TimeSlot used in client concurrency domain"
       }
     },
     "requestBodies": {
@@ -9709,7 +9733,7 @@
         "parameters": []
       }
     },
-    "/concurrency/time_slot_tariff/": {
+    "/concurrency/time-slot-tariff/": {
       "get": {
         "summary": "Time Slot Tariff",
         "tags": [
@@ -9725,21 +9749,37 @@
                   "items": {
                     "type": "object",
                     "properties": {
-                      "time_slot_name": {
-                        "type": "string"
-                      },
                       "price": {
                         "type": "integer"
                       },
-                      "start": {
-                        "type": "string",
-                        "format": "time"
-                      },
-                      "end": {
-                        "type": "string",
-                        "format": "time"
+                      "time_slot": {
+                        "$ref": "#/components/schemas/TimeSlot"
                       }
                     }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": [
+                      {
+                        "price": 5000,
+                        "time_slot": {
+                          "id": 2,
+                          "name": "ظهر",
+                          "start": "11:30:00",
+                          "end": "15:30:00"
+                        }
+                      },
+                      {
+                        "price": 5000,
+                        "time_slot": {
+                          "id": 3,
+                          "name": "عصر",
+                          "start": "15:30:00",
+                          "end": "17:45:00"
+                        }
+                      }
+                    ]
                   }
                 }
               }
@@ -9753,7 +9793,8 @@
             "auth": []
           }
         ]
-      }
+      },
+      "parameters": []
     },
     "/concurrency/purchase/": {
       "post": {
@@ -10170,6 +10211,85 @@
           "required": true
         }
       ]
+    },
+    "/trip-management/driver-api/trips/{trip_id}/ack/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "trip_id",
+          "in": "path",
+          "required": true,
+          "description": "The ID of the trip which is requested to set ack_datetime for. "
+        }
+      ],
+      "post": {
+        "summary": "Set ack datetime",
+        "tags": [
+          "delivery"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "example": {
+                    "value": {}
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "code": "already_acked",
+                      "detail": ""
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-trip-management-driver-api-trips-trip_id-ack",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "datetime": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "security": [
