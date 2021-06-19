@@ -10065,7 +10065,7 @@
                 "example": {
                   "value": {
                     "enabled": true,
-                    "trigger_duration": 60,
+                    "trigger_duration": "PT01H00M00S",
                     "reminder_type": "first_shift",
                     "phone_call": true
                   }
@@ -10103,8 +10103,9 @@
                       "type": "boolean"
                     },
                     "trigger_duration": {
-                      "type": "number",
-                      "default": 0
+                      "type": "string",
+                      "default": 0,
+                      "format": "duration"
                     },
                     "reminder_type": {
                       "type": "string",
@@ -10129,7 +10130,7 @@
                   "example": {
                     "value": {
                       "enabled": true,
-                      "trigger_duration": 50,
+                      "trigger_duration": "PT01H00M00S",
                       "reminder_type": "all_allocations",
                       "phone_call": false
                     }
