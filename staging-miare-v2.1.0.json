@@ -2163,7 +2163,7 @@
           "review": {
             "oneOf": [
               {
-                "type": "null"
+                "nullable": true
               },
               {
                 "$ref": "#/components/schemas/RegistrationReview"
@@ -2171,13 +2171,16 @@
             ]
           },
           "approved_by_recruiter": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": "boolean",
+            "nullable": true
           },
           "status": {
             "type": "string"
+          },
+          "plate_image": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
           }
         },
         "required": [
@@ -7255,7 +7258,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "OK. Please use \"plate_image_url\" instead of \"plate_image\" only in Response Body.",
             "content": {
               "application/json": {
                 "schema": {
@@ -7274,7 +7277,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "OK. Note: Please use \"plate_image_url\" instead of \"plate_image\" only in Response Body.",
             "content": {
               "application/json": {
                 "schema": {
@@ -7292,7 +7295,8 @@
                 "$ref": "#/components/schemas/RegistrationBikeInfo"
               }
             }
-          }
+          },
+          "description": ""
         }
       }
     },
@@ -7671,7 +7675,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "OK. If you're using \"bike-info\", please use \"plate_image_url\" instead of \"plate_image\".",
             "content": {
               "application/json": {
                 "schema": {
