@@ -286,6 +286,9 @@
       },
       "Courier": {
         "type": "object",
+        "xml": {
+          "name": "Courier"
+        },
         "properties": {
           "name": {
             "type": "string",
@@ -297,10 +300,15 @@
             "format": "uri",
             "description": "A photo of the courier",
             "example": "https://files.miare.ir/avatars/gheuIej.jpg"
+          },
+          "location_datetime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The datetime that the last location of the courier is stored"
+          },
+          "location": {
+            "$ref": "#/components/schemas/Location"
           }
-        },
-        "xml": {
-          "name": "Courier"
         }
       },
       "Event": {
