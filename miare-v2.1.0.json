@@ -632,7 +632,12 @@
                           "picked_up_at": "2019-04-12T14:10:42+0000",
                           "courier": {
                             "name": "علی لطفی",
-                            "image": "https://files.miare.ir/avatars/gheuIej.jpg"
+                            "image": "https://files.miare.ir/avatars/gheuIej.jpg",
+                            "location_datetime": "2019-04-12T14:10:42+0000",
+                            "location": {
+                              "latitude": 35.737004,
+                              "longitude": 51.413569
+                            }
                           },
                           "test_mode": false
                         }
