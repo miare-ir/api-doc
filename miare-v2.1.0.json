@@ -286,6 +286,9 @@
       },
       "Courier": {
         "type": "object",
+        "xml": {
+          "name": "Courier"
+        },
         "properties": {
           "name": {
             "type": "string",
@@ -297,10 +300,15 @@
             "format": "uri",
             "description": "A photo of the courier",
             "example": "https://files.miare.ir/avatars/gheuIej.jpg"
+          },
+          "location_updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The datetime that the latest location of the courier is stored"
+          },
+          "location": {
+            "$ref": "#/components/schemas/Location"
           }
-        },
-        "xml": {
-          "name": "Courier"
         }
       },
       "Event": {
@@ -624,7 +632,12 @@
                           "picked_up_at": "2019-04-12T14:10:42+0000",
                           "courier": {
                             "name": "علی لطفی",
-                            "image": "https://files.miare.ir/avatars/gheuIej.jpg"
+                            "image": "https://files.miare.ir/avatars/gheuIej.jpg",
+                            "location_updated_at": "2019-04-12T14:10:42+0000",
+                            "location": {
+                              "latitude": 35.737004,
+                              "longitude": 51.413569
+                            }
                           },
                           "test_mode": false
                         }
