@@ -1267,7 +1267,7 @@
                   "$ref": "#/components/schemas/Trip"
                 },
                 "examples": {
-                  "Example": {
+                  "Example 1": {
                     "id": "40626ed5-9260-4a55-af04-ef9705a41b90",
                     "area": {
                       "id": "59",
@@ -1327,7 +1327,8 @@
         },
         "operationId": "get-trip-management-third-party-api-v2-trips-trip_id",
         "description": "Get info of a particular trip.",
-        "parameters": []
+        "parameters": [],
+        "x-internal": false
       }
     }
   },
