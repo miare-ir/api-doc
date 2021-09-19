@@ -1258,6 +1258,10 @@
         "tags": [
           "delivery"
         ],
+        "operationId": "get-trip-management-third-party-api-v2-trips-trip_id",
+        "description": "Get info of a particular trip.",
+        "parameters": [],
+        "x-internal": false,
         "responses": {
           "200": {
             "description": "Returns the trip data, which uses schema of [Trip](miare-v2.1.0.json/components/schemas/Trip) object.",
@@ -1267,60 +1271,7 @@
                   "$ref": "#/components/schemas/Trip"
                 },
                 "examples": {
-                  "Example 1": {
-                    "id": "40626ed5-9260-4a55-af04-ef9705a41b90",
-                    "area": {
-                      "id": "59",
-                      "name": "فردوس شرق"
-                    },
-                    "state": "pickup",
-                    "pickup": {
-                      "name": "رستوران بزرگمهر",
-                      "phone_number": "0212345678",
-                      "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
-                      "image": "https://example.com/restaurants/bm_logo.png",
-                      "location": {
-                        "latitude": 35.737004,
-                        "longitude": 51.413569
-                      },
-                      "deadline": "2019-04-12T14:12:00+0000"
-                    },
-                    "courses": [
-                      {
-                        "id": "40626ed5-9260-4a55-af04-ef9705a41b90",
-                        "bill_number": "DEL-119",
-                        "name": "علی علوی",
-                        "phone_number": "09123456789",
-                        "address": "هران، خیابان استاد معین، پلاک ۱۲",
-                        "location": {
-                          "latitude": 35.737004,
-                          "longitude": 51.413569
-                        },
-                        "manifest_items": [
-                          {
-                            "name": "پیتزا پپرونی خانواده",
-                            "quantity": 2
-                          }
-                        ],
-                        "tracking_url": "https://mia.re/t/73c939d1/",
-                        "dropped_off_at": "2019-04-12T14:06:42+0000"
-                      }
-                    ],
-                    "created_at": "2019-04-12T13:58:42+0000",
-                    "assigned_at": "2019-04-12T13:59:59+0000",
-                    "picked_up_at": "2019-04-12T14:10:42+0000",
-                    "courier": {
-                      "name": "علی لطفی",
-                      "image": "https://files.miare.ir/avatars/gheuIej.jpg",
-                      "location_updated_at": "2019-08-24T14:15:22Z",
-                      "location": {
-                        "latitude": 35.737004,
-                        "longitude": 51.413569
-                      }
-                    },
-                    "test_mode": false
-                  },
-                  "example-2": {
+                  "Example": {
                     "id": "40626ed5-9260-4a55-af04-ef9705a41b90",
                     "area": {
                       "id": "59",
@@ -1377,11 +1328,7 @@
               }
             }
           }
-        },
-        "operationId": "get-trip-management-third-party-api-v2-trips-trip_id",
-        "description": "Get info of a particular trip.",
-        "parameters": [],
-        "x-internal": false
+        }
       }
     }
   },
