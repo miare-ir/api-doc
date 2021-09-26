@@ -381,6 +381,10 @@
           },
           "location": {
             "$ref": "#/components/schemas/Location"
+          },
+          "phone": {
+            "type": "string",
+            "example": "09123456789"
           }
         }
       },
@@ -595,7 +599,8 @@
                       "enum": [
                         "parse_error",
                         "invalid_request_body",
-                        "concurrency_limit"
+                        "concurrency_limit",
+                        "service_level_order"
                       ]
                     },
                     "details": {
@@ -879,7 +884,6 @@
                       },
                       "test_mode": false
                     }
-                    
                   }
                 }
               }
@@ -1401,7 +1405,6 @@
                       },
                       "test_mode": false
                     }
-
                   }
                 }
               }
