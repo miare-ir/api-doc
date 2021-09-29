@@ -382,7 +382,7 @@
           "location": {
             "$ref": "#/components/schemas/Location"
           },
-          "phone": {
+          "phone_number": {
             "type": "string",
             "example": "09123456789"
           }
