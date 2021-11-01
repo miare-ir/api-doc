@@ -232,6 +232,12 @@
             "description": "The unique identifier of this course",
             "example": "40626ed5-9260-4a55-af04-ef9705a41b90"
           },
+          "trip_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The unique identifier of the trip that the course belongs to",
+            "example": "40626ed5-9260-4a55-af04-ef9705a41b90"
+          },
           "bill_number": {
             "type": "string",
             "description": "An string field left for you to store sort of a human readable bill number in it which will be used as a reference point among our support team, you and the pickup staffs",
