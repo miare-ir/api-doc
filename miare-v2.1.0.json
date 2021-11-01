@@ -389,30 +389,48 @@
         }
       },
       "Event": {
-        "type": "object",
-        "properties": {
-          "event": {
-            "type": "string",
-            "description": "The event being reported",
-            "enum": [
-              "added",
-              "assigned",
-              "course_added",
-              "course_deleted",
-              "picked_up",
-              "course_dropped_off",
-              "delivered",
-              "canceled_by_client",
-              "canceled_by_miare"
-            ]
-          },
-          "trip": {
-            "$ref": "#/components/schemas/Trip"
-          }
-        },
         "xml": {
           "name": "Event"
-        }
+        },
+        "oneOf": [
+          {
+            "properties": {
+              "event": {
+                "type": "string",
+                "description": "The event being reported",
+                "enum": [
+                  "added",
+                  "assigned",
+                  "course_added",
+                  "course_deleted",
+                  "picked_up",
+                  "course_dropped_off",
+                  "delivered",
+                  "canceled_by_client",
+                  "canceled_by_miare"
+                ]
+              },
+              "trip": {
+                "$ref": "#/components/schemas/Trip"
+              }
+            }
+          },
+          {
+            "properties": {
+              "event": {
+                "type": "string",
+                "description": "The event being reported",
+                "enum": [
+                  "course_added__course"
+                ]
+              },
+              "course": {
+                "$ref": "#/components/schemas/Course"
+              }
+            }
+          }
+        ],
+        "type": "object"
       },
       "Error": {
         "type": "object",
