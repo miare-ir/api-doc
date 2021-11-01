@@ -364,7 +364,16 @@ courses.manifest_items.**quantity** | string | The quanitiy of the item
     "id": "3",
     "name": "یوسف آباد"
   },
-  "courier": null,
+  "courier": {
+      "image": "https://image.miare.ir/avatars/123456.jpeg",
+      "location": {
+          "latitude": 35.753691,
+          "longitude": 51.332284
+      },
+      "location_updated_at": "2021-11-01T19:10:13+0330",
+      "name": "علی لطفی",
+      "phone_number": "09379187928"
+  },
   "courses": [
     {
       "id": "7484f530-5e3e-491d-8a4a-9432f6db01d6",
@@ -411,16 +420,35 @@ pickup.location.**latitude** | number [double] | The latitude of the pickup loca
 pickup.location.**longitude** | number [double] | The longitude of the pickup location
 pickup.**deadline** | string [date-time] | The time that you expect the courier to arrive at the pickup, so optimally it should be the time package content is ready and packaged. **Can't be in the past**
 **courses** | array | List of destinations of the trips
+courses.**id** | string | Universally unique identifier of this course
+course.**trip_id** | string | Universally unique identifier of the trip that this course belongs to it
 courses.**bill_number** | string | An string field left for you to store sort of a human readable bill number in it which will be used as a reference point among our support team, you and the pickup staffs
 courses.**name** | string | Name of the dropp-off
 courses.**phone_number** | string | The phone number associated with the drop-off which will be used by courier and support staffs in order to contact to them if necessary
 coureses.**address** | string | The human readable drop-off address, preferably down to every necessary detail for a human to find it quickly
-courses.location | object **(Optional)** | The exact location of the pickup. If there is no provided drop-off location, the courier will find the location based on the address and accounting calculations will be based on that location
+courses.location | object **(nullable)** | The exact location of the pickup. If there is no provided drop-off location, the courier will find the location based on the address and accounting calculations will be based on that location
 courses.location.**latitude** | number [double] | The latitude of the drop-off location
 courses.location.**longitude** | number [double] | The longitude of the drop-off location
-courses.manifest_items | array **(Optional)** | The contents of the package to be delivered to the drop-off
+courses.manifest_items | array **(nullable)** | The contents of the package to be delivered to the drop-off
 courses.manifest_items.**name** | string | Human readable name of the content which will be verified by courier
 courses.manifest_items.**quantity** | string | The quanitiy of the item
+course.**tracking_url** | string [uri] | The URL of a webpage in which the end customer can track the exact state and location of his/her package while it's being delivered
+course.**dropped_off_at** | string [date-time] **(nullable)** | The exact time this course we delivered to the customer. It will be **null** if the course is not delivered yet
+course.**payment** | object | The payment information of the course
+course.payment.**payment_type** | string | They selected method for this course's payment. At this moment the only available method for API users is `cash`
+course.payment.**price** | string | The price of the package content (**not** to be confused with delivery cost). At this moment the only available value for API users is 0
+**area** | object | The detected area of the trip (based on pickup.location)
+area.**id** | string | The identifier of this trip's area
+area.**name** | string | Human readable name of this trip's area
+courier | object **(nullable)** | Courier of this trip. Will be **null** if trip is not assigned to a courier yet
+courier.**name** | string | Name of the courier
+courier.**phone_number** | string | Phone number of the courier
+courier.**image** | string [uri] | The URL of courier's profile picture
+courier.**location** | object | Last known location of the courier
+courier.location.**latitude** | number [double] | Latitude of the last known location of the courier
+courier.location.**longitude** | number [double] | Longitude of the last known location of the courier
+courier.**location_updated_at** | string [date-time] | Datetime of the last location of the courier
+
 
 ### Errors
 
@@ -457,7 +485,7 @@ import requests
 trip_id = '<Trip ID>'
 
 requests.post(
-  base_url + f"/trips/${trip_id}/cancel/",
+  f"{base_url}/trips/{trip_id}/cancel/",
   headers={"Authorization": "Token <Your Token>"},
 )
 ```
@@ -555,4 +583,168 @@ canceling_after_deadline | The trip has been in assigned state for more than 30 
 canceling_arrived_trip   | The trip's courier is already at the source location
 canceling_ended_trip     | The trip is already ended (delivered)
 invalid_state_change     | Changing the trip's state from its current state to canceled is not possible
+
+
+## Add Course
+
+Adds a new course to the courses of a trip.
+
+<aside class="warning">
+You can only add a course to a trip in the <code>assign_queue</code> or <code>pickup</code> states.
+</aside>
+
+> Request example:
+
+```python
+import requests
+
+trip_id = '<Trip ID>'
+
+requests.post(
+  f"{base_url}/trips/{trip_id}/cancel/",
+  headers={"Authorization": "Token <Your Token>"},
+)
+```
+
+
+```shell
+TRIP_ID="<Trip ID>"
+
+curl --location --request PATCH "$BASE_URL/trips/$TRIP_ID/courses" \
+--header 'Authorization: Token <Your Token>' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "bill_number": "DEL-120",
+  "name": "علی علوی",
+  "phone_number": "09123456789",
+  "address": "تهران، خیابان استاد معین، پلاک ۱۲",
+  "location": {
+    "latitude": 35.737004,
+    "longitude": 51.413569
+  },
+  "manifest_items": [
+    {
+      "name": "پیتزا پپرونی خانواده",
+      "quantity": 2
+    }
+  ]
+}'
+```
+
+```python
+import requests
+
+data = {
+  "bill_number": "DEL-120",
+  "name": "علی علوی",
+  "phone_number": "09123456789",
+  "address": "تهران، خیابان استاد معین، پلاک ۱۲",
+  "location": {
+    "latitude": 35.737004,
+    "longitude": 51.413569
+  },
+  "manifest_items": [
+    {
+      "name": "پیتزا پپرونی خانواده",
+      "quantity": 2
+    }
+  ]
+}
+
+requests.patch(
+  f"{base_url}/trips/{trip_id}/courses",
+  headers={"Authorization": "Token <Your Token>"},
+  data = data,
+)
+```
+
+### HTTP Request
+
+`PATCH /trips/{trip_id}/courses/`
+
+
+### Body
+
+
+Value | Type | Description
+----- | ---- | -----------
+**bill_number** | string | An string field left for you to store sort of a human readable bill number in it which will be used as a reference point among our support team, you and the pickup staffs
+**name** | string | Name of the dropp-off
+**phone_number** | string | The phone number associated with the drop-off which will be used by courier and support staffs in order to contact to them if necessary
+**address** | string | The human readable drop-off address, preferably down to every necessary detail for a human to find it quickly
+location | object **(Optional)** | The exact location of the pickup. If there is no provided drop-off location, the courier will find the location based on the address and accounting calculations will be based on that location
+location.**latitude** | number [double] | The latitude of the drop-off location
+location.**longitude** | number [double] | The longitude of the drop-off location
+manifest_items | array **(Optional)** | The contents of the package to be delivered to the drop-off
+manifest_items.**name** | string | Human readable name of the content which will be verified by courier
+manifest_items.**quantity** | string | The quanitiy of the item
+
+
+### Response
+
+> Response example:
+
+```json
+{
+    "id": "8e209688-19c9-4982-a755-517408b6a29f",
+    "created_at": "2021-11-01T18:44:19+0330",
+    "picked_up_at": null,
+    "state": "assign_queue",
+    "assigned_at": null,
+    "courier": null,
+    "pickup": {
+        "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
+        "deadline": "2021-11-01T20:42:00+0330",
+        "image": "https://example.com/restaurants/bm_logo.png",
+        "location": {
+            "latitude": 35.737004,
+            "longitude": 51.413569
+        },
+        "name": "رستوران بزرگمهر",
+        "phone_number": "09123456789"
+    },
+    "area": {
+        "id": "3",
+        "name": "یوسف آباد"
+    },
+    "courses": [
+        {
+            "address": "تهران، خیابان استاد معین، پلاک ۱۲",
+            "bill_number": "DEL-120",
+            "dropped_off_at": null,
+            "id": "c57cb6bc-e1c2-404a-a0d2-a54881fe96ec",
+            "location": {
+                "latitude": 35.737004,
+                "longitude": 51.413569
+            },
+            "manifest_items": [
+                {
+                    "name": "پیتزا پپرونی خانواده",
+                    "quantity": 2
+                }
+            ],
+            "name": "علی علوی",
+            "payment": {
+                "payment_type": "cash",
+                "price": 0
+            },
+            "phone_number": "09123456789",
+            "tracking_url": "https://www.staging.mia.re/p/trip_watching/#!/c57cb6bce1",
+            "trip_id": "8e209688-19c9-4982-a755-517408b6a29f"
+        }
+    ]
+}
+```
+
+Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](/#create-a-trip) request.
+
+### Errors
+
+Code | Description
+---- | -----------
+not_authenticated    | Token is missing or invalid
+parse_error          | The request body is not a valid JSON string (has syntax error)
+invalid_request_body | Request body does not follow the valid format
+too_late             | Trip's state is later than `pickup`
+
 
