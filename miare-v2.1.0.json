@@ -399,6 +399,20 @@
                 "type": "string",
                 "description": "The event being reported",
                 "enum": [
+                  "course_added__course"
+                ]
+              },
+              "course": {
+                "$ref": "#/components/schemas/Course"
+              }
+            }
+          },
+          {
+            "properties": {
+              "event": {
+                "type": "string",
+                "description": "The event being reported",
+                "enum": [
                   "added",
                   "assigned",
                   "course_added",
@@ -412,20 +426,6 @@
               },
               "trip": {
                 "$ref": "#/components/schemas/Trip"
-              }
-            }
-          },
-          {
-            "properties": {
-              "event": {
-                "type": "string",
-                "description": "The event being reported",
-                "enum": [
-                  "course_added__course"
-                ]
-              },
-              "course": {
-                "$ref": "#/components/schemas/Course"
               }
             }
           }
