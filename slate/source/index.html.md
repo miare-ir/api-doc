@@ -475,8 +475,7 @@ Note that a trip **cannot** be canceled when it has passed 30 seconds since we�
 TRIP_ID="<Trip ID>"
 
 curl --location --request POST "$BASE_URL/trips/$TRIP_ID/cancel/" \
---header 'Authorization: Token <Your Token>' \
---header 'Content-Type: application/json' \
+--header 'Authorization: Token <Your Token>'
 ```
 
 ```python
@@ -579,6 +578,7 @@ Code | Description
 not_authenticated        | Token is missing or invalid
 parse_error              | The request body is not a valid JSON string (has syntax error)
 invalid_request_body     | Request body does not follow the valid format
+record_not_found         | A trip with the given ID does not belong to your client or doesn't exist at all
 canceling_after_deadline | The trip has been in assigned state for more than 30 seconds
 canceling_arrived_trip   | The trip's courier is already at the source location
 canceling_ended_trip     | The trip is already ended (delivered)
@@ -662,6 +662,16 @@ requests.patch(
 
 `PATCH /trips/{trip_id}/courses/`
 
+### Path parameters
+
+
+Name | Type | Description
+----- | ---- | -----------
+trip_id | string | The ID of the trip to add a course to
+
+<aside class="success">
+You can find ID of your trip in the response body of [Create Trip](/#create-a-trip) request
+</aside>
 
 ### Body
 
@@ -745,6 +755,125 @@ Code | Description
 not_authenticated    | Token is missing or invalid
 parse_error          | The request body is not a valid JSON string (has syntax error)
 invalid_request_body | Request body does not follow the valid format
+record_not_found     | A trip with the given ID does not belong to your client or doesn't exist at all
 too_late             | Trip's state is later than `pickup`
+
+
+
+## Remove Course
+
+Removes the course indicated by the given ID from the courses of its trip.
+
+<aside class="warning">
+You can only remove courses from a trip in the <code>assign_queue</code> or <code>pickup</code> states which has at least <b>two</b> courses.
+</aside>
+
+> Request example:
+
+```shell
+COURSE_ID="<Course ID>"
+
+curl --location --request DELETE "$BASE_URL/courses/$COURSE_ID/" \
+--header 'Authorization: Token <Your Token>'
+```
+
+```python
+import requests
+
+trip_id = '<Trip ID>'
+
+requests.post(
+  f"{base_url}/trips/{trip_id}/cancel/",
+  headers={"Authorization": "Token <Your Token>"},
+)
+```
+
+### HTTP Request
+
+`DELETE /courses/{course_id}/`
+
+
+### Path parameters
+
+
+Name | Type | Description
+----- | ---- | -----------
+course_id | string | The ID of the course to delete
+
+<aside class="success">
+You can find ID of your course in the response body of [Create Trip](/#create-a-trip) or [Add Course](/#add-course) requests.
+</aside>
+
+<aside class="warning">
+The given course ID most belong to your client.
+</aside>
+
+### Response
+
+> Response example:
+
+```json
+{
+  "created_at": "2021-11-01T16:59:00+0330",
+  "id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
+  "state": "canceled_by_client",
+  "picked_up_at": null,
+  "assigned_at": null,
+  "area": {
+    "id": "3",
+    "name": "یوسف آباد"
+  },
+  "courier": null,
+    "pickup": {
+    "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
+    "deadline": "2021-11-01T20:42:00+0330",
+    "image": "https://example.com/restaurants/bm_logo.png",
+    "location": {
+      "latitude": 35.737004,
+      "longitude": 51.413569
+    },
+    "name": "رستوران بزرگمهر",
+    "phone_number": "09123456789"
+  },
+  "courses": [
+    {
+      "address": "تهران، خیابان استاد معین، پلاک ۱۲",
+      "bill_number": "DEL-119",
+      "dropped_off_at": null,
+      "id": "7484f530-5e3e-491d-8a4a-9432f6db01d6",
+      "location": {
+        "latitude": 35.737004,
+        "longitude": 51.413569
+      },
+      "manifest_items": [
+        {
+          "name": "پیتزا پپرونی خانواده",
+          "quantity": 2
+        }
+      ],
+      "name": "test name",
+      "payment": {
+        "payment_type": "cash",
+        "price": 0
+      },
+      "phone_number": "09123456789",
+      "tracking_url": "https://www.staging.mia.re/p/trip_watching/#!/7484f5305e",
+      "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7"
+    }
+  ]
+}
+```
+
+Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](/#create-a-trip) request.
+
+### Errors
+
+Code | Description
+---- | -----------
+not_authenticated    | Token is missing or invalid
+parse_error          | The request body is not a valid JSON string (has syntax error)
+invalid_request_body | Request body does not follow the valid format
+record_not_found     | A course with the given ID does not belong to your client or doesn't exist at all
+single_course        | The course belongs to a trip that has only one course
 
 
