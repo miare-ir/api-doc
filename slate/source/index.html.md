@@ -6,7 +6,8 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - python
 
 toc_footers:
-  - <a href='fa/'>نسخه فارسی</a>
+  - <a href='/fa/'>نسخه فارسی</a>
+  - <a href='/Miare - Third Party API.postman_collection.json' download>Postman Collection</a>
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
 search: true
@@ -190,6 +191,15 @@ You should <b>not</b> rely on the value of the <code>detail</code> for automatic
 
 <aside class="success">
 You can find possible error codes of each endpoints in this document at the end of each endpoint's related section.
+</aside>
+
+
+# Postman Collection
+
+All of the services included in this document can be downloaded as a [Postman Collection](https://www.postman.com/collection/) from <a href="/Miare - Third Party API.postman_collection.json" download>here</a>.
+
+<aside class="notice">
+Webhook requests are not part of this collection since they are requests <b>made</b> by our server.
 </aside>
 
 
