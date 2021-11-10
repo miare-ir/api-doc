@@ -111,35 +111,17 @@ Miare has two sets of servers.
 Sandbox servers -usually referred to as **Staging**- are the playground for development teams to test integration of their application with ours.
 In the staging servers, your account will be given 10 concurrencies in each of our areas and all trips are free of charge.
 
-> Base URL of staging server:
-
-```shell
-BASE_URL="https://staging.ws.mia.re/"
-```
-
-```python
-base_url = "https://staging.ws.mia.re/"
-```
-
 <aside class="notice">
 There is no active courier on the staging so your trips will never be assigned to a courier, delivered, or ended so you have to cancel your trips to avoid reaching the concurrency limit.
 </aside>
 
+<aside class="success">
+Staging server addresses are same as production servers with a <code>staging.</code> prefix.
+</aside>
 
 ## Production
 Main servers -usually referred to as **Production**- are the main product's servers for real-world use.
 In production servers, your concurrency should be purchased through the sales team and trips have normal rates applied to them.
-
-> Base URL of production server:
-
-```shell
-BASE_URL="https://ws.mia.re/"
-```
-
-```python
-base_url = "https://ws.mia.re/"
-```
-
 
 <aside class="notice">
 You should only start using our production server after all technical and non-technical major integration issues are resolved.
@@ -159,7 +141,7 @@ At this moment, there is no automatic process for resetting your token, but you 
 Note that staging and production tokens are in no way related to each other and their accounts are two separate accounts on two sets of servers.
 </aside>
 
-> To authorize, pass the authorization token among headers:
+> To authorize, pass the authorization token among headers and prefix it with `Token `:
 
 
 ```shell
@@ -212,6 +194,28 @@ You can find possible error codes of each endpoints in this document at the end 
 
 
 # Delivery
+
+> Base URL of staging servers for delivery services:
+
+```shell
+BASE_URL="https://staging.ws.mia.re/trip-management/third-party-api/v2"
+```
+
+```python
+base_url = "https://staging.ws.mia.re/trip-management/third-party-api/v2"
+```
+
+> Base URL of production servers for delivery services:
+
+```shell
+BASE_URL="https://ws.mia.re/trip-management/third-party-api/v2"
+```
+
+```python
+base_url = "https://ws.mia.re/trip-management/third-party-api/v2"
+```
+
+
 Services related to creation and management of trips and courses.
 
 ## Create Trip
@@ -297,7 +301,7 @@ data = {
 }
 
 requests.post(
-  base_url + "/trip-management/third-party-api/v2/trips/",
+  base_url + "/trips/",
   headers={"Authorization": "Token <Your Token>"},
   data = data,
 )
@@ -308,7 +312,7 @@ requests.post(
 
 ### HTTP Request
 
-`POST /trip-management/third-party-api/v2/trips/`
+`POST /trips/`
 
 
 ### Body
@@ -474,7 +478,7 @@ Note that a trip **cannot** be canceled when it has passed 30 seconds since we�
 ```shell
 TRIP_ID="<Trip ID>"
 
-curl --location --request POST "$BASE_URL/trip-management/third-party-api/v2/trips/$TRIP_ID/cancel/" \
+curl --location --request POST "$BASE_URL/trips/$TRIP_ID/cancel/" \
 --header 'Authorization: Token <Your Token>'
 ```
 
@@ -484,14 +488,14 @@ import requests
 trip_id = '<Trip ID>'
 
 requests.post(
-  f"{base_url}/trip-management/third-party-api/v2/trips/{trip_id}/cancel/",
+  f"{base_url}/trips/{trip_id}/cancel/",
   headers={"Authorization": "Token <Your Token>"},
 )
 ```
 
 ### HTTP Request
 
-`POST /trip-management/third-party-api/v2/trips/{trip_id}/cancel/`
+`POST /trips/{trip_id}/cancel/`
 
 
 ### Path parameters
@@ -601,7 +605,7 @@ import requests
 trip_id = '<Trip ID>'
 
 requests.post(
-  f"{base_url}/trip-management/third-party-api/v2/trips/{trip_id}/cancel/",
+  f"{base_url}/trips/{trip_id}/cancel/",
   headers={"Authorization": "Token <Your Token>"},
 )
 ```
@@ -610,7 +614,7 @@ requests.post(
 ```shell
 TRIP_ID="<Trip ID>"
 
-curl --location --request PATCH "$BASE_URL/trip-management/third-party-api/v2/trips/$TRIP_ID/courses" \
+curl --location --request PATCH "$BASE_URL/trips/$TRIP_ID/courses" \
 --header 'Authorization: Token <Your Token>' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -652,7 +656,7 @@ data = {
 }
 
 requests.patch(
-  f"{base_url}/trip-management/third-party-api/v2/trips/{trip_id}/courses/",
+  f"{base_url}/trips/{trip_id}/courses/",
   headers={"Authorization": "Token <Your Token>"},
   data = data,
 )
@@ -660,7 +664,7 @@ requests.patch(
 
 ### HTTP Request
 
-`PATCH /trip-management/third-party-api/v2/trips/{trip_id}/courses/`
+`PATCH /trips/{trip_id}/courses/`
 
 ### Path parameters
 
@@ -773,7 +777,7 @@ You can only remove courses from a trip in the <code>assign_queue</code> or <cod
 ```shell
 COURSE_ID="<Course ID>"
 
-curl --location --request DELETE "$BASE_URL/trip-management/third-party-api/v2/courses/$COURSE_ID/" \
+curl --location --request DELETE "$BASE_URL/courses/$COURSE_ID/" \
 --header 'Authorization: Token <Your Token>'
 ```
 
@@ -783,14 +787,14 @@ import requests
 course_id = '<Course ID>'
 
 requests.delete(
-  f"{base_url}/trip-management/third-party-api/v2/courses/{course_id}/",
+  f"{base_url}/courses/{course_id}/",
   headers={"Authorization": "Token <Your Token>"},
 )
 ```
 
 ### HTTP Request
 
-`DELETE /trip-management/third-party-api/v2/courses/{course_id}/`
+`DELETE /courses/{course_id}/`
 
 
 ### Path parameters
@@ -887,7 +891,7 @@ Returns information about one of your trips indicated by its ID.
 ```shell
 TRIP_ID="<Trip ID>"
 
-curl --location --request GET "$BASE_URL/trip-management/third-party-api/v2/trips/$TRIP_ID/" \
+curl --location --request GET "$BASE_URL/trips/$TRIP_ID/" \
 --header 'Authorization: Token <Your Token>'
 ```
 
@@ -897,14 +901,14 @@ import requests
 trip_id = '<Trip ID>'
 
 requests.get(
-  f"{base_url}/trip-management/third-party-api/v2/trips/{trip_id}/",
+  f"{base_url}/trips/{trip_id}/",
   headers={"Authorization": "Token <Your Token>"},
 )
 ```
 
 ### HTTP Request
 
-`GET /trip-management/third-party-api/v2/trips/{trip_id}/`
+`GET /trips/{trip_id}/`
 
 
 ### Path parameters
@@ -997,7 +1001,7 @@ Returns list of your trips matching the given conditions.
 > Request example:
 
 ```shell
-curl --location --request GET "$BASE_URL/trip-management/third-party-api/v2/trips/?area_id=2&state=pickup&from_datetime=2021-11-02T14:48:18+0330&to_datetime=2021-11-02T14:48:18+0330&offset=0&limit=10" \
+curl --location --request GET "$BASE_URL/trips/?area_id=2&state=pickup&from_datetime=2021-11-02T14:48:18+0330&to_datetime=2021-11-02T14:48:18+0330&offset=0&limit=10" \
 --header "Authorization: Token <Your Token>"
 ```
 
@@ -1015,14 +1019,14 @@ params = {
 query = '&'.join([f'{k}={v}' for k, v in params.items()])
 
 requests.get(
-  f"{base_url}/trip-management/third-party-api/v2/trips/?{query}",
+  f"{base_url}/trips/?{query}",
   headers={"Authorization": "Token <Your Token>"},
 )
 ```
 
 ### HTTP Request
 
-`GET /trip-management/third-party-api/v2/trips/`
+`GET /trips/`
 
 
 ### Path parameters
@@ -1116,8 +1120,27 @@ not_authenticated | Token is missing or invalid
 
 # Areas
 
-Services related to getting information about working areas.
+> Base URL of staging servers for area services:
 
+```shell
+BASE_URL="https://staging.ws.mia.re/area/third-party-api/v2"
+```
+
+```python
+base_url = "https://staging.ws.mia.re/area/third-party-api/v2"
+```
+
+> Base URL of production servers for delivery services:
+
+```shell
+BASE_URL="https://ws.mia.re/area/third-party-api/v2"
+```
+
+```python
+base_url = "https://ws.mia.re/area/third-party-api/v2"
+```
+
+Services related to getting information about working areas.
 
 ## List Areas
 
@@ -1126,7 +1149,7 @@ Returns list of Miare areas and your usage of concurrency in each area.
 > Request example:
 
 ```shell
-curl --location --request GET "$BASE_URL/area/third-party-api/v2/areas" \
+curl --location --request GET "$BASE_URL/areas" \
 --header "Authorization: Token <Your Token>"
 ```
 
@@ -1134,14 +1157,21 @@ curl --location --request GET "$BASE_URL/area/third-party-api/v2/areas" \
 import requests
 
 requests.get(
-  f"{base_url}/area/third-party-api/v2/areas/",
+  f"{base_url}/areas/",
   headers={"Authorization": "Token <Your Token>"},
 )
 ```
 
 ### HTTP Request
 
-`GET /area/third-party-api/v2/areas/`
+`GET /areas/`
+
+### Path parameters
+
+Name | Type | Description
+---- | ---- | -----------
+source      | string | Latitude and Longitude of the source of the course. The **order** matters
+destination | string | Latitude and Longitude of the destination of the course. The **order** matters
 
 ### Response
 
@@ -1191,7 +1221,7 @@ polygon.**type** | string | GeoJson feature type. Its value is always "Polygon"
 polygon.**coordinates** | array | Coordinates of the points forming the exterior ring of the polygon.
 
 <aside class="notice">
-Based on [GeoJson.org](https://geojson.org/geojson-spec.html#positions)'s convention, the order of coordinates in the coordinates inner arrays is <b>longitude</b>, <b>latitude</b>.
+Based on <a href="https://geojson.org/geojson-spec.html#positions">GeoJson.org</a>'s convention, the order of coordinates in the coordinates inner arrays is <b>longitude</b>, <b>latitude</b>.
 </aside>
 
 ### Errors
@@ -1200,3 +1230,258 @@ Code | Description
 ---- | -----------
 not_authenticated | Token is missing or invalid
 
+
+
+# Accounting
+
+> Base URL of staging servers for accounting services:
+
+```shell
+BASE_URL="https://www.staging.mia.re/api/accounting"
+```
+
+```python
+base_url = "https://www.staging.mia.re/api/accounting"
+```
+
+> Base URL of production servers for accounting services:
+
+```shell
+BASE_URL="https://www.mia.re/api/accounting"
+```
+
+```python
+base_url = "https://www.mia.re/api/accounting"
+```
+
+Accounting related services.
+
+
+## Estimate Price
+
+> Request example:
+
+```shell
+curl --location --request GET "$BASE_URL/estimate/price/?source=35.764090,51.331956&destination=35.767832,51.335135" \
+--header "Authorization: Token <Your Token>"
+```
+
+```python
+import requests
+
+params = {
+  'source': '35.764090,51.331956',
+  'destination': '35.767832,51.335135',
+}
+query = '&'.join([f'{k}={v}' for k, v in params.items()])
+
+requests.get(
+  f"{base_url}/estimate/price/?{query}",
+  headers={"Authorization": "Token <Your Token>"},
+)
+```
+
+
+Estimates the delivery cost of the course based on the distance between the given source and destination.
+
+<aside class="notice">
+The output price is not accurate; it might be affected by the applied conditions at the request time.
+</aside>
+
+<aside class="warning">
+The output price is only the <b>course</b>'s cost. The final cost includes a <b>trip</b> cost as well. For more information contant the sales team.
+</aside>
+
+### HTTP Request
+
+`GET /estimate/price/`
+
+### Response
+
+> Response example:
+
+```json
+{
+    "price": 5000,
+    "status": "ok"
+}
+```
+
+Value | Type | Description
+----- | ---- | -----------
+**price**  | number [integer] | The estimated cost of the course's delivery
+**status** | string           | The human readable status of the request
+
+### Errors
+
+Code | Description
+---- | -----------
+not_authenticated | Token is missing or invalid
+invalid           | The given query params are not valid
+
+
+
+# Webhook
+
+Other than services above which are exposed endpoints by Miare servers, we support a callback system to push events to your severs as they occur.
+
+In order to use this service, you need to provide us with a valid URL, pointing to your servers, waiting for HTTP requests.
+
+## Authentication
+
+> Authentication header:
+
+```
+authorization: Token 8357c002a28512f778cab11a425ff91a7d3483d1
+```
+
+All requests made from our servers to yours, carry the `authorization` header. The value of this header is [your token](/#authentication) prefixed with a `Token ` string. 
+
+<aside class="warning">
+You should discard any requests made to your webhook servers without a valid <code>authorization</code> header.
+</aside>
+
+## Versioning
+
+> Version header:
+
+```
+x-miare-api-version: 2
+```
+
+At this moment, we only support the latest version of API (v2). But there is a version included in all of requests made by our servers with the key `x-miare-api-version` and value of `2`.
+
+## Retry
+
+We ignore the response body of the request made to your servers but expect a `2XX` response code. In case of a `5XX` error from your servers we'll retry the request up to 5 times. There will be a 5 seconds cooldown between each pair of retries.
+
+<aside class="notice">
+You should not rely solely on our webhook requests. In case of a network failures or a long service outage you should be able to recover to the latest state using a <a href="/#list-trips">List Trips</a> request.
+</aside>
+
+
+## Trip events
+
+### Request Body
+
+> Request example:
+
+```json
+{
+	"event": "added",
+	"trip": {
+		"area": {
+			"id": "3",
+			"name": "یوسف آباد"
+		},
+		"assigned_at": null,
+		"courier": null,
+		"courses": [{
+			"address": "تهران، خیابان استاد معین، پلاک ۱۲",
+			"bill_number": "DEL-119",
+			"dropped_off_at": null,
+			"id": "0f662083-284e-4729-b34d-2479bd7b558a",
+			"location": {
+				"latitude": 35.737004,
+				"longitude": 51.413569
+			},
+			"manifest_items": [{
+				"name": "پیتزا پپرونی خانواده",
+				"quantity": 2
+			}],
+			"name": "علی علوی",
+			"payment": {
+				"payment_type": "cash",
+				"price": 0
+			},
+			"phone_number": "09123456789",
+			"tracking_url": "https://www.staging.mia.re/p/trip_watching/#!/0f66208328",
+			"trip_id": "4f3d252a-ebbc-4147-b6e8-aba9b64200f3"
+		}],
+		"created_at": "2021-11-10T17:35:14+0330",
+		"id": "4f3d252a-ebbc-4147-b6e8-aba9b64200f3",
+		"picked_up_at": null,
+		"pickup": {
+			"address": "تهران، صادقیه، بلوار آیت الله کاشانی",
+			"deadline": "2021-11-10T21:06:00+0330",
+			"image": "https://example.com/restaurants/bm_logo.png",
+			"location": {
+				"latitude": 35.737004,
+				"longitude": 51.413569
+			},
+			"name": "رستوران بزرگمهر",
+			"phone_number": "09123456789"
+		},
+		"state": "assign_queue"
+	}
+}
+```
+
+Value | Type | Description
+----- | ---- | -----------
+**event** | string | The constant identifier of the event
+**trip**  | object | The affected trip. This is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](/#create-trip) request.
+
+
+### Events
+
+There are 9 trip events each of which make a request to your server with one the following strings as the event and a serialized trip.
+
+Event | Description
+----- | -----------
+**added**               | Trip has been successfully created
+**assigned**            | Trip has been assigned to a driver
+**course_added**        | A new course has been added to the trip
+**course_deleted**      | A course has been deleted from the trip
+**picked_up**           | Courier picked up the packages from the source of the trip
+**course_dropped_off**  | Courier dropped off a package at one of the destinations of one of courses of the trip
+**delivered**           | Trip has been ended successfully
+**canceled_by_client**  | Trip has been cancelled by client (you)
+**canceled_by_miare**   | Trip has been cancelled by Miare (our support team)
+
+## Course events
+
+### Request Body
+
+> Request example:
+
+```json
+{
+	"event": "course_added__course",
+	"course": {
+		"address": "تهران، خیابان استاد معین، پلاک ۱۲",
+		"bill_number": "DEL-119",
+		"dropped_off_at": null,
+		"id": "0f662083-284e-4729-b34d-2479bd7b558a",
+		"location": {
+			"latitude": 35.737004,
+			"longitude": 51.413569
+		},
+		"manifest_items": [{
+			"name": "پیتزا پپرونی خانواده",
+			"quantity": 2
+		}],
+		"name": "علی علوی",
+		"payment": {
+			"payment_type": "cash",
+			"price": 0
+		},
+		"phone_number": "09123456789",
+		"tracking_url": "https://www.staging.mia.re/p/trip_watching/#!/0f66208328",
+		"trip_id": "4f3d252a-ebbc-4147-b6e8-aba9b64200f3"
+	}
+}
+```
+
+Value | Type | Description
+----- | ---- | -----------
+**event**  | string | The constant identifier of the event
+**course** | object | The affected course. This is a serialized course. For a detailed version of it take a look at the response body of [Create Trip](/#create-trip) request.
+
+### Events
+
+There is one course event that makes a request to your server with one the following string as the event and a serialized course.
+
+Event | Description
+----- | -----------
+**course_added__course**  | Course has been added to a trip
