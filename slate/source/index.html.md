@@ -114,11 +114,11 @@ In the staging servers, your account will be given 10 concurrencies in each of o
 > Base URL of staging server:
 
 ```shell
-BASE_URL="https://staging.ws.mia.re/trip-management/third-party-api/v2/"
+BASE_URL="https://staging.ws.mia.re/"
 ```
 
 ```python
-base_url = "https://staging.ws.mia.re/trip-management/third-party-api/v2/"
+base_url = "https://staging.ws.mia.re/"
 ```
 
 <aside class="notice">
@@ -133,11 +133,11 @@ In production servers, your concurrency should be purchased through the sales te
 > Base URL of production server:
 
 ```shell
-BASE_URL="https://ws.mia.re/trip-management/third-party-api/v2/"
+BASE_URL="https://ws.mia.re/"
 ```
 
 ```python
-base_url = "https://ws.mia.re/trip-management/third-party-api/v2/"
+base_url = "https://ws.mia.re/"
 ```
 
 
@@ -297,7 +297,7 @@ data = {
 }
 
 requests.post(
-  base_url + "/trips/",
+  base_url + "/trip-management/third-party-api/v2/trips/",
   headers={"Authorization": "Token <Your Token>"},
   data = data,
 )
@@ -308,7 +308,7 @@ requests.post(
 
 ### HTTP Request
 
-`POST /trips/`
+`POST /trip-management/third-party-api/v2/trips/`
 
 
 ### Body
@@ -474,7 +474,7 @@ Note that a trip **cannot** be canceled when it has passed 30 seconds since we�
 ```shell
 TRIP_ID="<Trip ID>"
 
-curl --location --request POST "$BASE_URL/trips/$TRIP_ID/cancel/" \
+curl --location --request POST "$BASE_URL/trip-management/third-party-api/v2/trips/$TRIP_ID/cancel/" \
 --header 'Authorization: Token <Your Token>'
 ```
 
@@ -484,14 +484,14 @@ import requests
 trip_id = '<Trip ID>'
 
 requests.post(
-  f"{base_url}/trips/{trip_id}/cancel/",
+  f"{base_url}/trip-management/third-party-api/v2/trips/{trip_id}/cancel/",
   headers={"Authorization": "Token <Your Token>"},
 )
 ```
 
 ### HTTP Request
 
-`POST /trips/{trip_id}/cancel/`
+`POST /trip-management/third-party-api/v2/trips/{trip_id}/cancel/`
 
 
 ### Path parameters
@@ -502,7 +502,7 @@ Name | Type | Description
 trip_id | string | The ID of the trip to cancel
 
 <aside class="success">
-You can find ID of your trip in the response body of [Create Trip](/#create-a-trip) request
+You can find ID of your trip in the response body of <a href="/#create-trip">Create Trip</a> request
 </aside>
 
 <aside class="warning">
@@ -565,7 +565,7 @@ The given trip ID most belong to your client.
 }
 ```
 
-Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](/#create-a-trip) request.
+Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](/#create-trip) request.
 
 <aside class="notice">
 Succesful calls to this endpoint will update the state of the trip to <code>canceled_by_client</code>.
@@ -601,7 +601,7 @@ import requests
 trip_id = '<Trip ID>'
 
 requests.post(
-  f"{base_url}/trips/{trip_id}/cancel/",
+  f"{base_url}/trip-management/third-party-api/v2/trips/{trip_id}/cancel/",
   headers={"Authorization": "Token <Your Token>"},
 )
 ```
@@ -610,7 +610,7 @@ requests.post(
 ```shell
 TRIP_ID="<Trip ID>"
 
-curl --location --request PATCH "$BASE_URL/trips/$TRIP_ID/courses" \
+curl --location --request PATCH "$BASE_URL/trip-management/third-party-api/v2/trips/$TRIP_ID/courses" \
 --header 'Authorization: Token <Your Token>' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -652,7 +652,7 @@ data = {
 }
 
 requests.patch(
-  f"{base_url}/trips/{trip_id}/courses",
+  f"{base_url}/trip-management/third-party-api/v2/trips/{trip_id}/courses/",
   headers={"Authorization": "Token <Your Token>"},
   data = data,
 )
@@ -660,7 +660,7 @@ requests.patch(
 
 ### HTTP Request
 
-`PATCH /trips/{trip_id}/courses/`
+`PATCH /trip-management/third-party-api/v2/trips/{trip_id}/courses/`
 
 ### Path parameters
 
@@ -670,7 +670,7 @@ Name | Type | Description
 trip_id | string | The ID of the trip to add a course to
 
 <aside class="success">
-You can find ID of your trip in the response body of [Create Trip](/#create-a-trip) request
+You can find ID of your trip in the response body of <a href="/#create-trip">Create Trip</a> request
 </aside>
 
 ### Body
@@ -746,7 +746,7 @@ manifest_items.**quantity** | string | The quanitiy of the item
 }
 ```
 
-Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](/#create-a-trip) request.
+Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](/#create-trip) request.
 
 ### Errors
 
@@ -773,24 +773,24 @@ You can only remove courses from a trip in the <code>assign_queue</code> or <cod
 ```shell
 COURSE_ID="<Course ID>"
 
-curl --location --request DELETE "$BASE_URL/courses/$COURSE_ID/" \
+curl --location --request DELETE "$BASE_URL/trip-management/third-party-api/v2/courses/$COURSE_ID/" \
 --header 'Authorization: Token <Your Token>'
 ```
 
 ```python
 import requests
 
-trip_id = '<Trip ID>'
+course_id = '<Course ID>'
 
-requests.post(
-  f"{base_url}/trips/{trip_id}/cancel/",
+requests.delete(
+  f"{base_url}/trip-management/third-party-api/v2/courses/{course_id}/",
   headers={"Authorization": "Token <Your Token>"},
 )
 ```
 
 ### HTTP Request
 
-`DELETE /courses/{course_id}/`
+`DELETE /trip-management/third-party-api/v2/courses/{course_id}/`
 
 
 ### Path parameters
@@ -801,7 +801,7 @@ Name | Type | Description
 course_id | string | The ID of the course to delete
 
 <aside class="success">
-You can find ID of your course in the response body of [Create Trip](/#create-a-trip) or [Add Course](/#add-course) requests.
+You can find ID of your course in the response body of <a href="/#create-trip">Create Trip</a> or <a href="/#add-course">Add Course</a> requests.
 </aside>
 
 <aside class="warning">
@@ -864,7 +864,7 @@ The given course ID most belong to your client.
 }
 ```
 
-Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](/#create-a-trip) request.
+Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](/#create-trip) request.
 
 ### Errors
 
@@ -876,4 +876,327 @@ invalid_request_body | Request body does not follow the valid format
 record_not_found     | A course with the given ID does not belong to your client or doesn't exist at all
 single_course        | The course belongs to a trip that has only one course
 
+
+
+## Get Trip
+
+Returns information about one of your trips indicated by its ID.
+
+> Request example:
+
+```shell
+TRIP_ID="<Trip ID>"
+
+curl --location --request GET "$BASE_URL/trip-management/third-party-api/v2/trips/$TRIP_ID/" \
+--header 'Authorization: Token <Your Token>'
+```
+
+```python
+import requests
+
+trip_id = '<Trip ID>'
+
+requests.get(
+  f"{base_url}/trip-management/third-party-api/v2/trips/{trip_id}/",
+  headers={"Authorization": "Token <Your Token>"},
+)
+```
+
+### HTTP Request
+
+`GET /trip-management/third-party-api/v2/trips/{trip_id}/`
+
+
+### Path parameters
+
+
+Name | Type | Description
+----- | ---- | -----------
+trip_id | string | The ID of the trip
+
+<aside class="success">
+You can find ID of your trip in the response body of <a href="/#create-trip">Create Trip</a> request
+</aside>
+
+<aside class="warning">
+The given trip ID most belong to your client.
+</aside>
+
+### Response
+
+> Response example:
+
+```json
+{
+  "created_at": "2021-11-01T16:59:00+0330",
+  "id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
+  "state": "canceled_by_client",
+  "picked_up_at": null,
+  "assigned_at": null,
+  "area": {
+    "id": "3",
+    "name": "یوسف آباد"
+  },
+  "courier": null,
+    "pickup": {
+    "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
+    "deadline": "2021-11-01T20:42:00+0330",
+    "image": "https://example.com/restaurants/bm_logo.png",
+    "location": {
+      "latitude": 35.737004,
+      "longitude": 51.413569
+    },
+    "name": "رستوران بزرگمهر",
+    "phone_number": "09123456789"
+  },
+  "courses": [
+    {
+      "address": "تهران، خیابان استاد معین، پلاک ۱۲",
+      "bill_number": "DEL-119",
+      "dropped_off_at": null,
+      "id": "7484f530-5e3e-491d-8a4a-9432f6db01d6",
+      "location": {
+        "latitude": 35.737004,
+        "longitude": 51.413569
+      },
+      "manifest_items": [
+        {
+          "name": "پیتزا پپرونی خانواده",
+          "quantity": 2
+        }
+      ],
+      "name": "test name",
+      "payment": {
+        "payment_type": "cash",
+        "price": 0
+      },
+      "phone_number": "09123456789",
+      "tracking_url": "https://www.staging.mia.re/p/trip_watching/#!/7484f5305e",
+      "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7"
+    }
+  ]
+}
+```
+
+Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](/#create-trip) request.
+
+### Errors
+
+Code | Description
+---- | -----------
+not_authenticated        | Token is missing or invalid
+parse_error              | The request body is not a valid JSON string (has syntax error)
+invalid_request_body     | Request body does not follow the valid format
+record_not_found         | A trip with the given ID does not belong to your client or doesn't exist at all
+
+
+## List Trips
+
+Returns list of your trips matching the given conditions.
+
+> Request example:
+
+```shell
+curl --location --request GET "$BASE_URL/trip-management/third-party-api/v2/trips/?area_id=2&state=pickup&from_datetime=2021-11-02T14:48:18+0330&to_datetime=2021-11-02T14:48:18+0330&offset=0&limit=10" \
+--header "Authorization: Token <Your Token>"
+```
+
+```python
+import requests
+
+params = {
+  'area_id': 2,
+  'state': 'pickup',
+  'from_datetime': '2021-11-02T14:48:18+0330',
+  'to_datetime': '2021-11-02T14:48:18+0330',
+  'offset': 0,
+  'limit': 10,
+}
+query = '&'.join([f'{k}={v}' for k, v in params.items()])
+
+requests.get(
+  f"{base_url}/trip-management/third-party-api/v2/trips/?{query}",
+  headers={"Authorization": "Token <Your Token>"},
+)
+```
+
+### HTTP Request
+
+`GET /trip-management/third-party-api/v2/trips/`
+
+
+### Path parameters
+
+Name | Type | Description
+---- | ---- | -----------
+area_id       | number [integer] | **Filter:** The ID of the area of the pickup location. You can find list of available areas in the [List Areas](/#list-areas) endpoint
+state         | string  | **Filter:** The state of the trip. Should be one of the states specified in [Trip](/#trip) definition
+from_datetime | string [date-time] | **Filter:** Minimum acceptable value for trip's `created_at` field. This filter is **inclusive**
+to_datetime   | string [date-time] | **Filter:** Maximum acceptable value for trip's `created_at` field. This filter is **inclusive**
+offset        | number [integer] | Give results excluding the first **offset** number of objects
+limit         | number [integer] | Give *at most* **limit** number of results. The default value is 100
+
+
+<aside class="notice">
+Server might not have or decide not to send you as many result items as <code>limit</code> but it never sends you more than that.
+</aside>
+
+### Response
+
+> Response example:
+
+```json
+{
+    "data": [
+        {
+            "area": {
+                "id": "27",
+                "name": "پونک"
+            },
+            "assigned_at": null,
+            "courier": null,
+            "courses": [
+                {
+                    "address": "هران، خیابان استاد معین، پلاک ۱۲",
+                    "bill_number": "DEL-119",
+                    "dropped_off_at": null,
+                    "id": "3b0e8576-f802-44f5-8654-d65e11fd3035",
+                    "location": {
+                        "latitude": 35.753515,
+                        "longitude": 51.332119
+                    },
+                    "manifest_items": [],
+                    "name": "علی علوی",
+                    "payment": {
+                        "payment_type": "cash",
+                        "price": 0
+                    },
+                    "phone_number": "09379187928",
+                    "tracking_url": "https://www.staging.mia.re/p/trip_watching/#!/3b0e8576f8",
+                    "trip_id": "05fd0397-5a78-4852-98e7-9fbc310685c0"
+                }
+            ],
+            "created_at": "2021-09-29T17:07:27+0330",
+            "id": "05fd0397-5a78-4852-98e7-9fbc310685c0",
+            "picked_up_at": null,
+            "pickup": {
+                "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
+                "deadline": "2021-09-29T17:19:19+0330",
+                "image": "https://example.com/restaurants/bm_logo.png",
+                "location": {
+                    "latitude": 35.753515,
+                    "longitude": 51.332119
+                },
+                "name": "بزرگ‌ترین رستوران خاور میانه و حواشی آن تا اقیانوس اطلس",
+                "phone_number": "09379187928"
+            },
+            "state": "canceled_by_miare"
+        }
+    ],
+    "next": "https://staging.ws.mia.re/trip-management/third-party-api/v2/trips/?offset=1&limit=1&from_datetime=2020-11-02T14:48:18Z&to_datetime=2021-12-02T14:48:18Z",
+    "previous": "",
+    "total_count": 35
+}
+```
+
+Value | Type | Description
+----- | ---- | -----------
+**data** | array | List of trips matching the given query. Each object in this array is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](/#create-trip) request.
+**next** | string [uri] **(nullable)** | The valid url to the next set of result with the same predicates. Will be **null** if there are no more objects left matching the given filters
+**previous** | string [uri] **(nullable)** | The valid url to the previous set of result with the same predicates. Will be **null** if there was no objects matching the given filters before this page
+**total_count** | number [integer] | The **total** number of objects matching the given filters (not only the items in this page)
+
+
+### Errors
+
+Code | Description
+---- | -----------
+not_authenticated | Token is missing or invalid
+
+
+# Areas
+
+Services related to getting information about working areas.
+
+
+## List Areas
+
+Returns list of Miare areas and your usage of concurrency in each area.
+
+> Request example:
+
+```shell
+curl --location --request GET "$BASE_URL/area/third-party-api/v2/areas" \
+--header "Authorization: Token <Your Token>"
+```
+
+```python
+import requests
+
+requests.get(
+  f"{base_url}/area/third-party-api/v2/areas/",
+  headers={"Authorization": "Token <Your Token>"},
+)
+```
+
+### HTTP Request
+
+`GET /area/third-party-api/v2/areas/`
+
+### Response
+
+> Response example:
+
+```json
+[{
+	"id": 27,
+	"max_ongoing_trips": 20,
+	"name": "پونک",
+	"ongoing_trips": 8,
+	"polygon": {
+		"type": "Polygon",
+		"coordinates": [
+			[
+				51.3318602487183,
+				35.7511077950424
+			],
+			[
+				51.3329908968811,
+				35.7402265889212
+			],
+			[
+				51.3408319127502,
+				35.7456830619354
+			],
+			[
+				51.3318602487183,
+				35.7511077950424
+			]
+		]
+	}
+}]
+```
+
+The response is an array of all of the active areas in the Miare whether you have any trips or concurrency in it or not.
+The details about properties of each objects is as follows:
+
+Value | Type | Description
+----- | ---- | -----------
+**id** | number [integer] | The constant identifier of the area
+**name** | string | The human readable name of the area
+**ongoing_trips** | number [integer] | The number of trips currently [**active**](/#trip) trips in this area.
+**max_ongoing_trips** | number [integer] | Your [**concurrency**](/#concurrency) limit in this area at this shift
+**polygon** | object | A valid [Polygon](https://geojson.org/geojson-spec.html#id4) object
+polygon.**type** | string | GeoJson feature type. Its value is always "Polygon"
+polygon.**coordinates** | array | Coordinates of the points forming the exterior ring of the polygon.
+
+<aside class="notice">
+Based on [GeoJson.org](https://geojson.org/geojson-spec.html#positions)'s convention, the order of coordinates in the coordinates inner arrays is <b>longitude</b>, <b>latitude</b>.
+</aside>
+
+### Errors
+
+Code | Description
+---- | -----------
+not_authenticated | Token is missing or invalid
 
