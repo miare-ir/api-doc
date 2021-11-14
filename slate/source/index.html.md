@@ -59,7 +59,7 @@ but multiple destinations (and multiple packages to be delivered at those destin
 Our clients may also indicate that they wish the courier to return to the source at the end of the trip.
 
 #### Trip states
-Each trip can be in only one the following state at any given time
+Each trip can be in only one the following states at any given time
 
 Name | Description
 ---- | -----------
