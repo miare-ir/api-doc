@@ -81,6 +81,10 @@ html, body {
   &>.search {
     position: relative;
 
+    ::-webkit-input-placeholder {
+      color: #d1d1d1;
+    }
+
     input {
       background: $nav-bg;
       border-width: 0 0 1px 0;

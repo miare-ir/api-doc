@@ -15,7 +15,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Token 8357c002a28512f778cab11a425ff91a7d3483d1"
+								"value": "Token {{token}}"
 							}
 						],
 						"body": {
@@ -28,11 +28,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://staging.ws.mia.re/trip-management/third-party-api/v2/trips/",
+							"raw": "https://{{staging_prefix}}ws.mia.re/trip-management/third-party-api/v2/trips/",
 							"protocol": "https",
 							"host": [
-								"staging",
-								"ws",
+								"{{staging_prefix}}ws",
 								"mia",
 								"re"
 							],
@@ -54,15 +53,14 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Token 8357c002a28512f778cab11a425ff91a7d3483d1"
+								"value": "Token {{token}}"
 							}
 						],
 						"url": {
-							"raw": "https://staging.ws.mia.re/trip-management/third-party-api/v2/trips/b3951922-4f3e-43dc-a051-a9b765b2cbe7/cancel/",
+							"raw": "https://{{staging_prefix}}ws.mia.re/trip-management/third-party-api/v2/trips/b3951922-4f3e-43dc-a051-a9b765b2cbe7/cancel/",
 							"protocol": "https",
 							"host": [
-								"staging",
-								"ws",
+								"{{staging_prefix}}ws",
 								"mia",
 								"re"
 							],
@@ -86,7 +84,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Token 8357c002a28512f778cab11a425ff91a7d3483d1"
+								"value": "Token {{token}}"
 							}
 						],
 						"body": {
@@ -99,11 +97,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://staging.ws.mia.re/trip-management/third-party-api/v2/trips/c9f7c2e8-2e37-42e2-8982-b0d6fd868653/courses/",
+							"raw": "https://{{staging_prefix}}ws.mia.re/trip-management/third-party-api/v2/trips/c9f7c2e8-2e37-42e2-8982-b0d6fd868653/courses/",
 							"protocol": "https",
 							"host": [
-								"staging",
-								"ws",
+								"{{staging_prefix}}ws",
 								"mia",
 								"re"
 							],
@@ -127,15 +124,14 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Token 8357c002a28512f778cab11a425ff91a7d3483d1"
+								"value": "Token {{token}}"
 							}
 						],
 						"url": {
-							"raw": "https://staging.ws.mia.re/trip-management/third-party-api/v2/courses/c9f7c2e8-2e37-42e2-8982-b0d6fd868653/",
+							"raw": "https://{{staging_prefix}}ws.mia.re/trip-management/third-party-api/v2/courses/c9f7c2e8-2e37-42e2-8982-b0d6fd868653/",
 							"protocol": "https",
 							"host": [
-								"staging",
-								"ws",
+								"{{staging_prefix}}ws",
 								"mia",
 								"re"
 							],
@@ -158,15 +154,14 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Token 8357c002a28512f778cab11a425ff91a7d3483d1"
+								"value": "Token {{token}}"
 							}
 						],
 						"url": {
-							"raw": "https://staging.ws.mia.re/trip-management/third-party-api/v2/trips/?area_id=2&state=pickup&from_datetime=2020-11-02T14:48:18Z&to_datetime=2021-12-02T14:48:18Z&offset=0&limit=10",
+							"raw": "https://{{staging_prefix}}ws.mia.re/trip-management/third-party-api/v2/trips/?area_id=2&state=pickup&from_datetime=2020-11-02T14:48:18Z&to_datetime=2021-12-02T14:48:18Z&offset=0&limit=10",
 							"protocol": "https",
 							"host": [
-								"staging",
-								"ws",
+								"{{staging_prefix}}ws",
 								"mia",
 								"re"
 							],
@@ -214,15 +209,14 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Token 8357c002a28512f778cab11a425ff91a7d3483d1"
+								"value": "Token {{token}}"
 							}
 						],
 						"url": {
-							"raw": "https://staging.ws.mia.re/area/third-party-api/v2/areas",
+							"raw": "https://{{staging_prefix}}ws.mia.re/area/third-party-api/v2/areas",
 							"protocol": "https",
 							"host": [
-								"staging",
-								"ws",
+								"{{staging_prefix}}ws",
 								"mia",
 								"re"
 							],
@@ -243,16 +237,15 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Token 8357c002a28512f778cab11a425ff91a7d3483d1"
+								"value": "Token {{token}}"
 							}
 						],
 						"url": {
-							"raw": "https://www.staging.mia.re/api/accounting/estimate/price?source=35.764090,51.331956&destination=35.767832,51.335135",
+							"raw": "https://www.{{staging_prefix}}mia.re/api/accounting/estimate/price?source=35.764090,51.331956&destination=35.767832,51.335135",
 							"protocol": "https",
 							"host": [
 								"www",
-								"staging",
-								"mia",
+								"{{staging_prefix}}mia",
 								"re"
 							],
 							"path": [
@@ -270,6 +263,38 @@
 									"key": "destination",
 									"value": "35.767832,51.335135"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Webhook",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"event\": \"added\",\n    \"trip\": {\n        \"area\": {\n            \"id\": \"3\",\n            \"name\": \"یوسف آباد\"\n        },\n        \"assigned_at\": null,\n        \"courier\": null,\n        \"courses\": [{\n            \"address\": \"تهران، خیابان استاد معین، پلاک ۱۲\",\n            \"bill_number\": \"DEL-119\",\n            \"dropped_off_at\": null,\n            \"id\": \"0f662083-284e-4729-b34d-2479bd7b558a\",\n            \"location\": {\n                \"latitude\": 35.737004,\n                \"longitude\": 51.413569\n            },\n            \"manifest_items\": [{\n                \"name\": \"پیتزا پپرونی خانواده\",\n                \"quantity\": 2\n            }],\n            \"name\": \"علی علوی\",\n            \"payment\": {\n                \"payment_type\": \"cash\",\n                \"price\": 0\n            },\n            \"phone_number\": \"09123456789\",\n            \"tracking_url\": \"https://www.staging.mia.re/p/trip_watching/#!/0f66208328\",\n            \"trip_id\": \"4f3d252a-ebbc-4147-b6e8-aba9b64200f3\"\n        }],\n        \"created_at\": \"2021-11-10T17:35:14+0330\",\n        \"id\": \"4f3d252a-ebbc-4147-b6e8-aba9b64200f3\",\n        \"picked_up_at\": null,\n        \"pickup\": {\n            \"address\": \"تهران، صادقیه، بلوار آیت الله کاشانی\",\n            \"deadline\": \"2021-11-10T21:06:00+0330\",\n            \"image\": \"https://example.com/restaurants/bm_logo.png\",\n            \"location\": {\n                \"latitude\": 35.737004,\n                \"longitude\": 51.413569\n            },\n            \"name\": \"رستوران بزرگمهر\",\n            \"phone_number\": \"09123456789\"\n        },\n        \"state\": \"assign_queue\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{callback_address}}",
+							"host": [
+								"{{callback_address}}"
 							]
 						}
 					},
