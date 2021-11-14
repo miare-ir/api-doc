@@ -6,8 +6,8 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - python
 
 toc_footers:
-  - <a href='/fa/'>نسخه فارسی</a>
-  - <a href='/Miare - Third Party API.postman_collection.json' download>Postman Collection</a>
+  - <a href='fa/'>نسخه فارسی</a>
+  - <a href='Miare - Third Party API.postman_collection.json' download>Postman Collection</a>
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
 search: true
@@ -196,7 +196,7 @@ You can find possible error codes of each endpoints in this document at the end 
 
 # Postman Collection
 
-All of the services included in this document can be downloaded as a [Postman Collection](https://www.postman.com/collection/) from <a href="/Miare - Third Party API.postman_collection.json" download>here</a>.
+All of the services included in this document can be downloaded as a [Postman Collection](https://www.postman.com/collection/) from <a href="Miare - Third Party API.postman_collection.json" download>here</a>.
 
 <aside class="notice">
 Webhook requests are not part of this collection since they are requests <b>made</b> by our server.
@@ -423,7 +423,7 @@ Value | Type | Description
 **created_at** | string [date-time] | The exact time this trip was created on our servers
 **assigned_at** | string [date-time] **(nullable)** | The assign datetime of the time this trip was assigned to its courier. Will be **null** if trip is not assigned to a courier yet
 **picked_up_at** | string [date-time] **(nullable)** | The datetime that the courier of the trip picked up its content from the source. Will be **null** if courier is not assigned or is not picked up packages just yet
-**state** | string | The current state of the trip. Is one of the following values: "assign_queue" "pickup" "dropoff" "delivered" "canceled_by_miare" "canceled_by_client". You can find a description about each of these states [here](/#trip)
+**state** | string | The current state of the trip. Is one of the following values: "assign_queue" "pickup" "dropoff" "delivered" "canceled_by_miare" "canceled_by_client". You can find a description about each of these states [here](#trip)
 **pickup** | object | The source of the trip
 pickup.**name** | string | The human readable name of the pickup
 pickup.**phone_number** | string | The phone number associated with the source which will be used by courier and support staffs in order to contact to pickup if necessary
@@ -516,7 +516,7 @@ Name | Type | Description
 trip_id | string | The ID of the trip to cancel
 
 <aside class="success">
-You can find ID of your trip in the response body of <a href="/#create-trip">Create Trip</a> request
+You can find ID of your trip in the response body of <a href="#create-trip">Create Trip</a> request
 </aside>
 
 <aside class="warning">
@@ -579,7 +579,7 @@ The given trip ID most belong to your client.
 }
 ```
 
-Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](/#create-trip) request.
+Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](#create-trip) request.
 
 <aside class="notice">
 Succesful calls to this endpoint will update the state of the trip to <code>canceled_by_client</code>.
@@ -684,7 +684,7 @@ Name | Type | Description
 trip_id | string | The ID of the trip to add a course to
 
 <aside class="success">
-You can find ID of your trip in the response body of <a href="/#create-trip">Create Trip</a> request
+You can find ID of your trip in the response body of <a href="#create-trip">Create Trip</a> request
 </aside>
 
 ### Body
@@ -760,7 +760,7 @@ manifest_items.**quantity** | string | The quanitiy of the item
 }
 ```
 
-Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](/#create-trip) request.
+Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](#create-trip) request.
 
 ### Errors
 
@@ -815,7 +815,7 @@ Name | Type | Description
 course_id | string | The ID of the course to delete
 
 <aside class="success">
-You can find ID of your course in the response body of <a href="/#create-trip">Create Trip</a> or <a href="/#add-course">Add Course</a> requests.
+You can find ID of your course in the response body of <a href="#create-trip">Create Trip</a> or <a href="#add-course">Add Course</a> requests.
 </aside>
 
 <aside class="warning">
@@ -878,7 +878,7 @@ The given course ID most belong to your client.
 }
 ```
 
-Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](/#create-trip) request.
+Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](#create-trip) request.
 
 ### Errors
 
@@ -929,7 +929,7 @@ Name | Type | Description
 trip_id | string | The ID of the trip
 
 <aside class="success">
-You can find ID of your trip in the response body of <a href="/#create-trip">Create Trip</a> request
+You can find ID of your trip in the response body of <a href="#create-trip">Create Trip</a> request
 </aside>
 
 <aside class="warning">
@@ -992,7 +992,7 @@ The given trip ID most belong to your client.
 }
 ```
 
-Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](/#create-trip) request.
+Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](#create-trip) request.
 
 ### Errors
 
@@ -1043,8 +1043,8 @@ requests.get(
 
 Name | Type | Description
 ---- | ---- | -----------
-area_id       | number [integer] | **Filter:** The ID of the area of the pickup location. You can find list of available areas in the [List Areas](/#list-areas) endpoint
-state         | string  | **Filter:** The state of the trip. Should be one of the states specified in [Trip](/#trip) definition
+area_id       | number [integer] | **Filter:** The ID of the area of the pickup location. You can find list of available areas in the [List Areas](#list-areas) endpoint
+state         | string  | **Filter:** The state of the trip. Should be one of the states specified in [Trip](#trip) definition
 from_datetime | string [date-time] | **Filter:** Minimum acceptable value for trip's `created_at` field. This filter is **inclusive**
 to_datetime   | string [date-time] | **Filter:** Maximum acceptable value for trip's `created_at` field. This filter is **inclusive**
 offset        | number [integer] | Give results excluding the first **offset** number of objects
@@ -1115,7 +1115,7 @@ Server might not have or decide not to send you as many result items as <code>li
 
 Value | Type | Description
 ----- | ---- | -----------
-**data** | array | List of trips matching the given query. Each object in this array is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](/#create-trip) request.
+**data** | array | List of trips matching the given query. Each object in this array is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](#create-trip) request.
 **next** | string [uri] **(nullable)** | The valid url to the next set of result with the same predicates. Will be **null** if there are no more objects left matching the given filters
 **previous** | string [uri] **(nullable)** | The valid url to the previous set of result with the same predicates. Will be **null** if there was no objects matching the given filters before this page
 **total_count** | number [integer] | The **total** number of objects matching the given filters (not only the items in this page)
@@ -1224,8 +1224,8 @@ Value | Type | Description
 ----- | ---- | -----------
 **id** | number [integer] | The constant identifier of the area
 **name** | string | The human readable name of the area
-**ongoing_trips** | number [integer] | The number of trips currently [**active**](/#trip) trips in this area.
-**max_ongoing_trips** | number [integer] | Your [**concurrency**](/#concurrency) limit in this area at this shift
+**ongoing_trips** | number [integer] | The number of trips currently [**active**](#trip) trips in this area.
+**max_ongoing_trips** | number [integer] | Your [**concurrency**](#concurrency) limit in this area at this shift
 **polygon** | object | A valid [Polygon](https://geojson.org/geojson-spec.html#id4) object
 polygon.**type** | string | GeoJson feature type. Its value is always "Polygon"
 polygon.**coordinates** | array | Coordinates of the points forming the exterior ring of the polygon.
@@ -1345,7 +1345,7 @@ In order to use this service, you need to provide us with a valid URL, pointing 
 authorization: Token 8357c002a28512f778cab11a425ff91a7d3483d1
 ```
 
-All requests made from our servers to yours, carry the `authorization` header. The value of this header is [your token](/#authentication) prefixed with a `Token ` string. 
+All requests made from our servers to yours, carry the `authorization` header. The value of this header is [your token](#authentication) prefixed with a `Token ` string. 
 
 <aside class="warning">
 You should discard any requests made to your webhook servers without a valid <code>authorization</code> header.
@@ -1366,7 +1366,7 @@ At this moment, we only support the latest version of API (v2). But there is a v
 We ignore the response body of the request made to your servers but expect a `2XX` response code. In case of a `5XX` error from your servers we'll retry the request up to 5 times. There will be a 5 seconds cooldown between each pair of retries.
 
 <aside class="notice">
-You should not rely solely on our webhook requests. In case of a network failures or a long service outage you should be able to recover to the latest state using a <a href="/#list-trips">List Trips</a> request.
+You should not rely solely on our webhook requests. In case of a network failures or a long service outage you should be able to recover to the latest state using a <a href="#list-trips">List Trips</a> request.
 </aside>
 
 
@@ -1430,7 +1430,7 @@ You should not rely solely on our webhook requests. In case of a network failure
 Value | Type | Description
 ----- | ---- | -----------
 **event** | string | The constant identifier of the event
-**trip**  | object | The affected trip. This is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](/#create-trip) request.
+**trip**  | object | The affected trip. This is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](#create-trip) request.
 
 
 ### Events
@@ -1486,7 +1486,7 @@ Event | Description
 Value | Type | Description
 ----- | ---- | -----------
 **event**  | string | The constant identifier of the event
-**course** | object | The affected course. This is a serialized course. For a detailed version of it take a look at the response body of [Create Trip](/#create-trip) request.
+**course** | object | The affected course. This is a serialized course. For a detailed version of it take a look at the response body of [Create Trip](#create-trip) request.
 
 ### Events
 
