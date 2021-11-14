@@ -6,7 +6,6 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - python
 
 toc_footers:
-  - <a href='fa/'>نسخه فارسی</a>
   - <a href='Miare - Third Party API.postman_collection.json' download>Postman Collection</a>
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
@@ -52,7 +51,7 @@ A registered user who can use Miare's delivery service.
 
 ### Courier
 A biker from our pool of bikers who can deliver packages from sources to destinations.
-In Miare, bikers don't pick and choose what packages they deliver. Instead, each order is automatically is assigned to one of the available couriers based on their distance from the source and many other parameters.
+In Miare, bikers don't pick and choose what packages they deliver. Instead, each order is automatically assigned to one of the available couriers based on their distance from the source and many other parameters.
 
 ### Trip
 An order given by one of our clients for one or more packages to be delivered. A trip can have one and only one source
@@ -64,17 +63,17 @@ Each trip can be in only one the following state at any given time
 
 Name | Description
 ---- | -----------
-assign_queue       | Trip is created but no driver has been assigned to it yet
+assign_queue       | Trip is created but no courier has been assigned to it yet
 pickup             | Trip is assigned to a courier and the courier is on his way to pickup packages from the source
-dropoff            | Trip is picked up by the courier and he is on his way to deliver of the packages
+dropoff            | Trip is picked up by the courier and he is on his way to deliver the packages
 delivered          | All of the packages of the trip are delivered (and if trip was a round trip, courier has returned to the source)
-canceled_by_miare  | Trip is canceled by our support staff. This only happens either with aggrement of the source or due to a violation of terms of service
+canceled_by_miare  | Trip is canceled by our support staff. This only happens with source's aggrement or due to a violation of terms of service
 canceled_by_client | Trip is canceled by client (either from the web panel or Third Party API)
 
 ### Course
 A destination and a package to be delivered at that destination. Each trip can have one or more courses. 
 As an example, if a **trip** has two **course**s, our courier will drive to the source, pick up two packages, 
-and deliver them to two separate clients in two different destinations.
+and deliver them to two separate customers in two different destinations.
 
 ### Area
 Part of the city defined by a set of latitude-longitudes forming a polygon that Miare operates in it.
@@ -99,7 +98,7 @@ midnight | 23:30 | 03:00
 ### Concurrency
 The maximum number of **active** trips in each **area** during each **shift** for a client.
 If the concurrency limit for a client is reached that is if the total number of its active trips is equal to its concurrency limit, the next attempts to create new trips will fail.
-Canceling a trip (by client) or ending it (will free up a concurrency limit (by moving the trip out of the active trips list).
+Canceling a trip (by client) or ending it will free up a concurrency limit (by moving the trip out of the active trips list).
 
 <aside class="success">
 Only trips in the <code>assign_queue</code>, <code>pickup</code>, <code>dropoff</code>, and <code>delivered</code> states are considered active and contribute to the concurrency limit of the client.
@@ -131,7 +130,7 @@ You should only start using our production server after all technical and non-te
 
 # Authentication
 
-Each client has a specific API key called **Token** for each of our servers. The token is the sole representative of an account on a server, its trips, courses, and financial transactions.
+Each client has a specific API key called **Token** for each of our servers. The token is the sole representative of an account on a server as well as its trips, courses, and financial transactions.
 The sales team will provide you with the staging token after the **registration** process and the production token after the **test** process.
 
 <aside class="success">
@@ -165,7 +164,7 @@ requests.post(
 
 Maire uses API Tokens to allow access to the API.
 
-Miare API expects for the token to be included in **ALL** API requests to the server in a header that looks like the following:
+Miare API expects for the token to be included in **ALL** API requests to the server in an `Authorization` header that looks like the following:
 
 `Authorization: Token <Your Token>`
 
@@ -198,9 +197,13 @@ You can find possible error codes of each endpoints in this document at the end 
 
 All of the services included in this document can be downloaded as a [Postman Collection](https://www.postman.com/collection/) from <a href="Miare - Third Party API.postman_collection.json" download>here</a>.
 
-<aside class="notice">
-Webhook requests are not part of this collection since they are requests <b>made</b> by our server.
-</aside>
+In order for the collection to be fully functional, you need to set three [Postman Variables](https://learning.postman.com/docs/sending-requests/variables/) in your environment.
+
+Name | Description
+----- | ---- | -----------
+**staging_prefix** | Set it to `staging.` for connection to staging servers or leave it empty for production servers
+**token** | Your token. Make sure it is token for the right server set
+**callback_address** | Address of your http server waiting for Miare webhook calls to come in
 
 
 # Delivery
@@ -495,7 +498,7 @@ curl --location --request POST "$BASE_URL/trips/$TRIP_ID/cancel/" \
 ```python
 import requests
 
-trip_id = '<Trip ID>'
+trip_id = "<Trip ID>"
 
 requests.post(
   f"{base_url}/trips/{trip_id}/cancel/",
@@ -612,7 +615,7 @@ You can only add a course to a trip in the <code>assign_queue</code> or <code>pi
 ```python
 import requests
 
-trip_id = '<Trip ID>'
+trip_id = "<Trip ID>"
 
 requests.post(
   f"{base_url}/trips/{trip_id}/cancel/",
@@ -908,7 +911,7 @@ curl --location --request GET "$BASE_URL/trips/$TRIP_ID/" \
 ```python
 import requests
 
-trip_id = '<Trip ID>'
+trip_id = "<Trip ID>"
 
 requests.get(
   f"{base_url}/trips/{trip_id}/",
@@ -1176,13 +1179,6 @@ requests.get(
 
 `GET /areas/`
 
-### Path parameters
-
-Name | Type | Description
----- | ---- | -----------
-source      | string | Latitude and Longitude of the source of the course. The **order** matters
-destination | string | Latitude and Longitude of the destination of the course. The **order** matters
-
 ### Response
 
 > Response example:
@@ -1305,6 +1301,13 @@ The output price is only the <b>course</b>'s cost. The final cost includes a <b>
 ### HTTP Request
 
 `GET /estimate/price/`
+
+### Path parameters
+
+Name | Type | Description
+---- | ---- | -----------
+source      | string | Latitude and Longitude of the source of the course. The **order** matters
+destination | string | Latitude and Longitude of the destination of the course. The **order** matters
 
 ### Response
 
@@ -1440,7 +1443,7 @@ There are 9 trip events each of which make a request to your server with one the
 Event | Description
 ----- | -----------
 **added**               | Trip has been successfully created
-**assigned**            | Trip has been assigned to a driver
+**assigned**            | Trip has been assigned to a courier
 **course_added**        | A new course has been added to the trip
 **course_deleted**      | A course has been deleted from the trip
 **picked_up**           | Courier picked up the packages from the source of the trip
