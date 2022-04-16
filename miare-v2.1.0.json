@@ -820,6 +820,14 @@
             "in": "query",
             "name": "limit",
             "description": "Limits count of trips returned in this response (used for pagination)"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "bill_number",
+            "description": "Returns trips with courses with the same bill_number as query values"
           }
         ],
         "tags": [
