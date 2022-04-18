@@ -1048,6 +1048,7 @@ Name | Type | Description
 ---- | ---- | -----------
 area_id       | number [integer] | **Filter:** The ID of the area of the pickup location. You can find list of available areas in the [List Areas](#list-areas) endpoint
 state         | string  | **Filter:** The state of the trip. Should be one of the states specified in [Trip](#trip) definition
+bill_number   | string  | **Filter:** The `bill_number` of the courses in the trips. For an array of `bill_number` values repeat the query parameter.  
 from_datetime | string [date-time] | **Filter:** Minimum acceptable value for trip's `created_at` field. This filter is **inclusive**
 to_datetime   | string [date-time] | **Filter:** Maximum acceptable value for trip's `created_at` field. This filter is **inclusive**
 offset        | number [integer] | Give results excluding the first **offset** number of objects
