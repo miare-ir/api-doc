@@ -1014,22 +1014,24 @@ Returns list of your trips matching the given conditions.
 > Request example:
 
 ```shell
-curl --location --request GET "$BASE_URL/trips/?area_id=2&state=pickup&from_datetime=2021-11-02T14:48:18+0330&to_datetime=2021-11-02T14:48:18+0330&offset=0&limit=10" \
+curl --location --request GET "$BASE_URL/trips/?area_id=2&state=pickup&bill_number=b1&bill_number=b3&from_datetime=2021-11-02T14:48:18+0330&to_datetime=2021-11-02T14:48:18+0330&offset=0&limit=10" \
 --header "Authorization: Token <Your Token>"
 ```
 
 ```python
 import requests
 
-params = {
-  'area_id': 2,
-  'state': 'pickup',
-  'from_datetime': '2021-11-02T14:48:18+0330',
-  'to_datetime': '2021-11-02T14:48:18+0330',
-  'offset': 0,
-  'limit': 10,
-}
-query = '&'.join([f'{k}={v}' for k, v in params.items()])
+params = [
+  ('area_id', 2),
+  ('state', 'pickup'),
+  ('bill_number', 'b1'),
+  ('bill_number', 'b3'),  
+  ('from_datetime', '2021-11-02T14:48:18+0330'),
+  ('to_datetime', '2021-11-02T14:48:18+0330'),
+  ('offset', 0),
+  ('limit', 10),
+]
+query = '&'.join([f'{k}={v}' for k, v in params])
 
 requests.get(
   f"{base_url}/trips/?{query}",
@@ -1048,7 +1050,7 @@ Name | Type | Description
 ---- | ---- | -----------
 area_id       | number [integer] | **Filter:** The ID of the area of the pickup location. You can find list of available areas in the [List Areas](#list-areas) endpoint
 state         | string  | **Filter:** The state of the trip. Should be one of the states specified in [Trip](#trip) definition
-bill_number   | string  | **Filter:** The `bill_number` of the courses in the trips. For an array of `bill_number` values repeat the query parameter.  
+bill_number   | string  | **Filter:** The `bill_number` of the courses in the trips.   
 from_datetime | string [date-time] | **Filter:** Minimum acceptable value for trip's `created_at` field. This filter is **inclusive**
 to_datetime   | string [date-time] | **Filter:** Maximum acceptable value for trip's `created_at` field. This filter is **inclusive**
 offset        | number [integer] | Give results excluding the first **offset** number of objects
