@@ -381,6 +381,7 @@ courses.manifest_items.**quantity** | string | The quanitiy of the item
     "id": "3",
     "name": "یوسف آباد"
   },
+  "devlivery_cost": null,
   "courier": {
       "image": "https://image.miare.ir/avatars/123456.jpeg",
       "location": {
@@ -421,7 +422,7 @@ courses.manifest_items.**quantity** | string | The quanitiy of the item
 ```
 
 Value | Type | Description
------ | ---- | -----------
+----- |------| -----------
 **id** | string | Universally unique identifier of this trip
 **created_at** | string [date-time] | The exact time this trip was created on our servers
 **assigned_at** | string [date-time] **(nullable)** | The assign datetime of the time this trip was assigned to its courier. Will be **null** if trip is not assigned to a courier yet
@@ -457,6 +458,7 @@ course.payment.**price** | string | The price of the package content (**not** to
 **area** | object | The detected area of the trip (based on pickup.location)
 area.**id** | string | The identifier of this trip's area
 area.**name** | string | Human readable name of this trip's area
+**delivery_cost** | integer **(nullable)** | The final cost of a Trip Delivery. It will be **null** until trip is not delivered 
 courier | object **(nullable)** | Courier of this trip. Will be **null** if trip is not assigned to a courier yet
 courier.**name** | string | Name of the courier
 courier.**phone_number** | string | Phone number of the courier
@@ -541,6 +543,7 @@ The given trip ID most belong to your client.
     "id": "3",
     "name": "یوسف آباد"
   },
+  "delivery_cost": null,
   "courier": null,
     "pickup": {
     "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
@@ -718,6 +721,7 @@ manifest_items.**quantity** | string | The quanitiy of the item
     "picked_up_at": null,
     "state": "assign_queue",
     "assigned_at": null,
+    "delivery_cost": null,
     "courier": null,
     "pickup": {
         "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
@@ -840,6 +844,7 @@ The given course ID most belong to your client.
     "id": "3",
     "name": "یوسف آباد"
   },
+  "delivery_cost": null,
   "courier": null,
     "pickup": {
     "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
@@ -954,6 +959,7 @@ The given trip ID most belong to your client.
     "id": "3",
     "name": "یوسف آباد"
   },
+  "delivery_cost": null,
   "courier": null,
     "pickup": {
     "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
@@ -1074,6 +1080,7 @@ Server might not have or decide not to send you as many result items as <code>li
                 "name": "پونک"
             },
             "assigned_at": null,
+            "delivery_cost": null,
             "courier": null,
             "courses": [
                 {
