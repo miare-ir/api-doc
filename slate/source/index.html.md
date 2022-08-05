@@ -43,7 +43,6 @@ Your token is our only way to make sure requests are coming from you, so keep it
 Authenticate process is further discussed in the <a href="#authentication">Authentication</a>
 </aside>
 
-
 # Definitions
 
 ### Client
@@ -61,14 +60,14 @@ Our clients may also indicate that they wish the courier to return to the source
 #### Trip states
 Each trip can be in only one the following states at any given time
 
-Name | Description
----- | -----------
-assign_queue       | Trip is created but no courier has been assigned to it yet
-pickup             | Trip is assigned to a courier and the courier is on his way to pickup packages from the source
-dropoff            | Trip is picked up by the courier and he is on his way to deliver the packages
-delivered          | All of the packages of the trip are delivered (and if trip was a round trip, courier has returned to the source)
-canceled_by_miare  | Trip is canceled by our support staff. This only happens with source's aggrement or due to a violation of terms of service
-canceled_by_client | Trip is canceled by client (either from the web panel or Third Party API)
+| Name               | Description                                                                                                                |
+|--------------------|----------------------------------------------------------------------------------------------------------------------------|
+| assign_queue       | Trip is created but no courier has been assigned to it yet                                                                 |
+| pickup             | Trip is assigned to a courier and the courier is on his way to pickup packages from the source                             |
+| dropoff            | Trip is picked up by the courier and he is on his way to deliver the packages                                              |
+| delivered          | All of the packages of the trip are delivered (and if trip was a round trip, courier has returned to the source)           |
+| canceled_by_miare  | Trip is canceled by our support staff. This only happens with source's aggrement or due to a violation of terms of service |
+| canceled_by_client | Trip is canceled by client (either from the web panel or Third Party API)                                                  |
 
 ### Course
 A destination and a package to be delivered at that destination. Each trip can have one or more courses. 
@@ -88,12 +87,12 @@ The current state of the shifts can be considered constant, and any change will 
 
 Start and end time of shifts area as follows:
 
-name | start | end
----- | ----- | ---
-morning  | 08:15 | 11:00
-noon     | 11:00 | 17:30
-night    | 17:30 | 23:30
-midnight | 23:30 | 03:00
+| name     | start | end   |
+|----------|-------|-------|
+| morning  | 08:15 | 11:00 |
+ | noon     | 11:00 | 17:30 |
+ | night    | 17:30 | 23:30 |
+ | midnight | 23:30 | 03:00 |
 
 ### Concurrency
 The maximum number of **active** trips in each **area** during each **shift** for a client.
@@ -103,6 +102,9 @@ Canceling a trip (by client) or ending it will free up a concurrency limit (by m
 <aside class="success">
 Only trips in the <code>assign_queue</code>, <code>pickup</code>, <code>dropoff</code>, and <code>delivered</code> states are considered active and contribute to the concurrency limit of the client.
 </aside>
+
+### Issue
+A problem that is reported or detected on a trip. 
 
 # Servers
 Miare has two sets of servers.
@@ -331,29 +333,28 @@ requests.post(
 ### Body
 
 
-Value | Type | Description
------ | ---- | -----------
-**pickup** | object | The source of the trip
-pickup.**name** | string | The human readable name of the pickup
-pickup.**phone_number** | string | The phone number associated with the source which will be used by courier and support staffs in order to contact to pickup if necessary
-pickup.**address** | string | The human readable address of the source, preferably down to every necessary detail for a human to find the source quickly
-pickup.**image** | string [uri] | A valid URL which points to an image file which should be the logo of the pickup. This image will be used in both support panel, and courier’s application. Make sure that the URL is both reachable and is configured to allow CORS requests
-pickup.**location** | object | The exact location of the pickup
-pickup.location.**latitude** | number [double] | The latitude of the pickup location
-pickup.location.**longitude** | number [double] | The longitude of the pickup location
-pickup.**deadline** | string [date-time] | The time that you expect the courier to arrive at the pickup, so optimally it should be the time package content is ready and packaged. **Can't be in the past**
-**courses** | array | List of destinations of the trips
-courses.**bill_number** | string | An string field left for you to store sort of a human readable bill number in it which will be used as a reference point among our support team, you and the pickup staffs
-courses.**name** | string | Name of the dropp-off
-courses.**phone_number** | string | The phone number associated with the drop-off which will be used by courier and support staffs in order to contact to them if necessary
-coureses.**address** | string | The human readable drop-off address, preferably down to every necessary detail for a human to find it quickly
-courses.location | object **(Optional)** | The exact location of the pickup. If there is no provided drop-off location, the courier will find the location based on the address and accounting calculations will be based on that location
-courses.location.**latitude** | number [double] | The latitude of the drop-off location
-courses.location.**longitude** | number [double] | The longitude of the drop-off location
-courses.manifest_items | array **(Optional)** | The contents of the package to be delivered to the drop-off
-courses.manifest_items.**name** | string | Human readable name of the content which will be verified by courier
-courses.manifest_items.**quantity** | string | The quanitiy of the item
-
+| Value                               | Type                  | Description                                                                                                                                                                                                                                   |
+|-------------------------------------|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **pickup**                          | object                | The source of the trip                                                                                                                                                                                                                        |
+| pickup.**name**                     | string                | The human readable name of the pickup                                                                                                                                                                                                         |
+| pickup.**phone_number**             | string                | The phone number associated with the source which will be used by courier and support staffs in order to contact to pickup if necessary                                                                                                       |
+| pickup.**address**                  | string                | The human readable address of the source, preferably down to every necessary detail for a human to find the source quickly                                                                                                                    |
+| pickup.**image**                    | string [uri]          | A valid URL which points to an image file which should be the logo of the pickup. This image will be used in both support panel, and courier’s application. Make sure that the URL is both reachable and is configured to allow CORS requests |
+| pickup.**location**                 | object                | The exact location of the pickup                                                                                                                                                                                                              |
+| pickup.location.**latitude**        | number [double]       | The latitude of the pickup location                                                                                                                                                                                                           |
+| pickup.location.**longitude**       | number [double]       | The longitude of the pickup location                                                                                                                                                                                                          |
+| pickup.**deadline**                 | string [date-time]    | The time that you expect the courier to arrive at the pickup, so optimally it should be the time package content is ready and packaged. **Can't be in the past**                                                                              |
+| **courses**                         | array                 | List of destinations of the trips                                                                                                                                                                                                             |
+| courses.**bill_number**             | string                | An string field left for you to store sort of a human readable bill number in it which will be used as a reference point among our support team, you and the pickup staffs                                                                    |
+| courses.**name**                    | string                | Name of the dropp-off                                                                                                                                                                                                                         |
+| courses.**phone_number**            | string                | The phone number associated with the drop-off which will be used by courier and support staffs in order to contact to them if necessary                                                                                                       |
+| coureses.**address**                | string                | The human readable drop-off address, preferably down to every necessary detail for a human to find it quickly                                                                                                                                 |
+| courses.location                    | object **(Optional)** | The exact location of the pickup. If there is no provided drop-off location, the courier will find the location based on the address and accounting calculations will be based on that location                                               |
+| courses.location.**latitude**       | number [double]       | The latitude of the drop-off location                                                                                                                                                                                                         |
+| courses.location.**longitude**      | number [double]       | The longitude of the drop-off location                                                                                                                                                                                                        |
+| courses.manifest_items              | array **(Optional)**  | The contents of the package to be delivered to the drop-off                                                                                                                                                                                   |
+| courses.manifest_items.**name**     | string                | Human readable name of the content which will be verified by courier                                                                                                                                                                          |
+| courses.manifest_items.**quantity** | string                | The quanitiy of the item                                                                                                                                                                                                                      |
 
 ### Response
 
@@ -417,68 +418,66 @@ courses.manifest_items.**quantity** | string | The quanitiy of the item
       }
     }
   ],
-  "tracking_url": "https://www.staging.mia.re/p/trip_watching/#!/7484f5305e",
+  "tracking_url": "https://www.staging.mia.re/p/trip_watching/#!/7484f5305e"
 }
 ```
 
-Value | Type | Description
------ |------| -----------
-**id** | string | Universally unique identifier of this trip
-**created_at** | string [date-time] | The exact time this trip was created on our servers
-**assigned_at** | string [date-time] **(nullable)** | The assign datetime of the time this trip was assigned to its courier. Will be **null** if trip is not assigned to a courier yet
-**picked_up_at** | string [date-time] **(nullable)** | The datetime that the courier of the trip picked up its content from the source. Will be **null** if courier is not assigned or is not picked up packages just yet
-**state** | string | The current state of the trip. Is one of the following values: "assign_queue" "pickup" "dropoff" "delivered" "canceled_by_miare" "canceled_by_client". You can find a description about each of these states [here](#trip)
-**pickup** | object | The source of the trip
-pickup.**name** | string | The human readable name of the pickup
-pickup.**phone_number** | string | The phone number associated with the source which will be used by courier and support staffs in order to contact to pickup if necessary
-pickup.**address** | string | The human readable address of the source, preferably down to every necessary detail for a human to find the source quickly
-pickup.**image** | string [uri] | A valid URL which points to an image file which should be the logo of the pickup. This image will be used in both support panel, and courier’s application. Make sure that the URL is both reachable and is configured to allow CORS requests
-pickup.**location** | object | The exact location of the pickup
-pickup.location.**latitude** | number [double] | The latitude of the pickup location
-pickup.location.**longitude** | number [double] | The longitude of the pickup location
-pickup.**deadline** | string [date-time] | The time that you expect the courier to arrive at the pickup, so optimally it should be the time package content is ready and packaged. **Can't be in the past**
-**courses** | array | List of destinations of the trips
-courses.**id** | string | Universally unique identifier of this course
-course.**trip_id** | string | Universally unique identifier of the trip that this course belongs to it
-courses.**bill_number** | string | An string field left for you to store sort of a human readable bill number in it which will be used as a reference point among our support team, you and the pickup staffs
-courses.**name** | string | Name of the dropp-off
-courses.**phone_number** | string | The phone number associated with the drop-off which will be used by courier and support staffs in order to contact to them if necessary
-coureses.**address** | string | The human readable drop-off address, preferably down to every necessary detail for a human to find it quickly
-courses.location | object **(nullable)** | The exact location of the pickup. If there is no provided drop-off location, the courier will find the location based on the address and accounting calculations will be based on that location
-courses.location.**latitude** | number [double] | The latitude of the drop-off location
-courses.location.**longitude** | number [double] | The longitude of the drop-off location
-courses.manifest_items | array **(nullable)** | The contents of the package to be delivered to the drop-off
-courses.manifest_items.**name** | string | Human readable name of the content which will be verified by courier
-courses.manifest_items.**quantity** | string | The quanitiy of the item
-course.**tracking_url** | string [uri] | The URL of a webpage in which the end customer can track the exact state and location of his/her package while it's being delivered
-course.**dropped_off_at** | string [date-time] **(nullable)** | The exact time this course we delivered to the customer. It will be **null** if the course is not delivered yet
-course.**payment** | object | The payment information of the course
-course.payment.**payment_type** | string | They selected method for this course's payment. At this moment the only available method for API users is `cash`
-course.payment.**price** | string | The price of the package content (**not** to be confused with delivery cost). At this moment the only available value for API users is 0
-**area** | object | The detected area of the trip (based on pickup.location)
-area.**id** | string | The identifier of this trip's area
-area.**name** | string | Human readable name of this trip's area
-**delivery_cost** | integer **(nullable)** | The final cost of a Trip Delivery. It will be **null** until trip is not delivered 
-courier | object **(nullable)** | Courier of this trip. Will be **null** if trip is not assigned to a courier yet
-courier.**name** | string | Name of the courier
-courier.**phone_number** | string | Phone number of the courier
-courier.**image** | string [uri] | The URL of courier's profile picture
-courier.**location** | object | Last known location of the courier
-courier.location.**latitude** | number [double] | Latitude of the last known location of the courier
-courier.location.**longitude** | number [double] | Longitude of the last known location of the courier
-courier.**location_updated_at** | string [date-time] | Datetime of the last location of the courier
-
+| Value                               | Type                              | Description                                                                                                                                                                                                                                   |
+|-------------------------------------|-----------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **id**                              | string                            | Universally unique identifier of this trip                                                                                                                                                                                                    |
+| **created_at**                      | string [date-time]                | The exact time this trip was created on our servers                                                                                                                                                                                           |
+| **assigned_at**                     | string [date-time] **(nullable)** | The assign datetime of the time this trip was assigned to its courier. Will be **null** if trip is not assigned to a courier yet                                                                                                              |
+| **picked_up_at**                    | string [date-time] **(nullable)** | The datetime that the courier of the trip picked up its content from the source. Will be **null** if courier is not assigned or is not picked up packages just yet                                                                            |
+| **state**                           | string                            | The current state of the trip. Is one of the following values: "assign_queue" "pickup" "dropoff" "delivered" "canceled_by_miare" "canceled_by_client". You can find a description about each of these states [here](#trip)                    |
+| **pickup**                          | object                            | The source of the trip                                                                                                                                                                                                                        |
+| pickup.**name**                     | string                            | The human readable name of the pickup                                                                                                                                                                                                         |
+| pickup.**phone_number**             | string                            | The phone number associated with the source which will be used by courier and support staffs in order to contact to pickup if necessary                                                                                                       |
+| pickup.**address**                  | string                            | The human readable address of the source, preferably down to every necessary detail for a human to find the source quickly                                                                                                                    |
+| pickup.**image**                    | string [uri]                      | A valid URL which points to an image file which should be the logo of the pickup. This image will be used in both support panel, and courier’s application. Make sure that the URL is both reachable and is configured to allow CORS requests |
+| pickup.**location**                 | object                            | The exact location of the pickup                                                                                                                                                                                                              |
+| pickup.location.**latitude**        | number [double]                   | The latitude of the pickup location                                                                                                                                                                                                           |
+| pickup.location.**longitude**       | number [double]                   | The longitude of the pickup location                                                                                                                                                                                                          |
+| pickup.**deadline**                 | string [date-time]                | The time that you expect the courier to arrive at the pickup, so optimally it should be the time package content is ready and packaged. **Can't be in the past**                                                                              |
+| **courses**                         | array                             | List of destinations of the trips                                                                                                                                                                                                             |
+| courses.**id**                      | string                            | Universally unique identifier of this course                                                                                                                                                                                                  |
+| course.**trip_id**                  | string                            | Universally unique identifier of the trip that this course belongs to it                                                                                                                                                                      |
+| courses.**bill_number**             | string                            | An string field left for you to store sort of a human readable bill number in it which will be used as a reference point among our support team, you and the pickup staffs                                                                    |
+| courses.**name**                    | string                            | Name of the dropp-off                                                                                                                                                                                                                         |
+| courses.**phone_number**            | string                            | The phone number associated with the drop-off which will be used by courier and support staffs in order to contact to them if necessary                                                                                                       |
+| coureses.**address**                | string                            | The human readable drop-off address, preferably down to every necessary detail for a human to find it quickly                                                                                                                                 |
+| courses.location                    | object **(nullable)**             | The exact location of the pickup. If there is no provided drop-off location, the courier will find the location based on the address and accounting calculations will be based on that location                                               |
+| courses.location.**latitude**       | number [double]                   | The latitude of the drop-off location                                                                                                                                                                                                         |
+| courses.location.**longitude**      | number [double]                   | The longitude of the drop-off location                                                                                                                                                                                                        |
+| courses.manifest_items              | array **(nullable)**              | The contents of the package to be delivered to the drop-off                                                                                                                                                                                   |
+| courses.manifest_items.**name**     | string                            | Human readable name of the content which will be verified by courier                                                                                                                                                                          |
+| courses.manifest_items.**quantity** | string                            | The quanitiy of the item                                                                                                                                                                                                                      |
+| course.**tracking_url**             | string [uri]                      | The URL of a webpage in which the end customer can track the exact state and location of his/her package while it's being delivered                                                                                                           |
+| course.**dropped_off_at**           | string [date-time] **(nullable)** | The exact time this course we delivered to the customer. It will be **null** if the course is not delivered yet                                                                                                                               |
+| course.**payment**                  | object                            | The payment information of the course                                                                                                                                                                                                         |
+| course.payment.**payment_type**     | string                            | They selected method for this course's payment. At this moment the only available method for API users is `cash`                                                                                                                              |
+| course.payment.**price**            | string                            | The price of the package content (**not** to be confused with delivery cost). At this moment the only available value for API users is 0                                                                                                      |
+| **area**                            | object                            | The detected area of the trip (based on pickup.location)                                                                                                                                                                                      |
+| area.**id**                         | string                            | The identifier of this trip's area                                                                                                                                                                                                            |
+| area.**name**                       | string                            | Human readable name of this trip's area                                                                                                                                                                                                       |
+| **delivery_cost**                   | integer **(nullable)**            | The final cost of a Trip Delivery. It will be **null** until trip is not delivered                                                                                                                                                            |
+| courier                             | object **(nullable)**             | Courier of this trip. Will be **null** if trip is not assigned to a courier yet                                                                                                                                                               |
+| courier.**name**                    | string                            | Name of the courier                                                                                                                                                                                                                           |
+| courier.**phone_number**            | string                            | Phone number of the courier                                                                                                                                                                                                                   |
+| courier.**image**                   | string [uri]                      | The URL of courier's profile picture                                                                                                                                                                                                          |
+| courier.**location**                | object                            | Last known location of the courier                                                                                                                                                                                                            |
+| courier.location.**latitude**       | number [double]                   | Latitude of the last known location of the courier                                                                                                                                                                                            |
+| courier.location.**longitude**      | number [double]                   | Longitude of the last known location of the courier                                                                                                                                                                                           |
+| courier.**location_updated_at**     | string [date-time]                | Datetime of the last location of the courier                                                                                                                                                                                                  |
 
 ### Errors
 
-Code | Description
----- | -----------
-not_authenticated    | Token is missing or invalid
-parse_error          | The request body is not a valid JSON string (has syntax error)
-invalid_request_body | Request body does not follow the valid format
-concurrency_limit    | Client does not have enough concurrency in the area of the pickup location in the shift specified by deadline
-service_level_order  | Based on the current enviromental state, your service level is too low to receive services from Miare. Service limitation error mostly happens due to whether conditions or special occasions. In order to increase your service level or if you need more details about this limitation please contant sales team.
-
+| Code                 | Description                                                                                                                                                                                                                                                                                                         |
+|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| not_authenticated    | Token is missing or invalid                                                                                                                                                                                                                                                                                         |
+| parse_error          | The request body is not a valid JSON string (has syntax error)                                                                                                                                                                                                                                                      |
+| invalid_request_body | Request body does not follow the valid format                                                                                                                                                                                                                                                                       |
+| concurrency_limit    | Client does not have enough concurrency in the area of the pickup location in the shift specified by deadline                                                                                                                                                                                                       |
+| service_level_order  | Based on the current enviromental state, your service level is too low to receive services from Miare. Service limitation error mostly happens due to whether conditions or special occasions. In order to increase your service level or if you need more details about this limitation please contant sales team. |
 
 ## Cancel Trip
 
@@ -516,9 +515,9 @@ requests.post(
 ### Path parameters
 
 
-Name | Type | Description
------ | ---- | -----------
-trip_id | string | The ID of the trip to cancel
+| Name    | Type   | Description                  |
+|---------|--------|------------------------------|
+| trip_id | string | The ID of the trip to cancel |
 
 <aside class="success">
 You can find ID of your trip in the response body of <a href="#create-trip">Create Trip</a> request
@@ -588,22 +587,21 @@ The given trip ID most belong to your client.
 Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](#create-trip) request.
 
 <aside class="notice">
-Succesful calls to this endpoint will update the state of the trip to <code>canceled_by_client</code>.
+Successful calls to this endpoint will update the state of the trip to <code>canceled_by_client</code>.
 </aside>
 
 ### Errors
 
-Code | Description
----- | -----------
-not_authenticated        | Token is missing or invalid
-parse_error              | The request body is not a valid JSON string (has syntax error)
-invalid_request_body     | Request body does not follow the valid format
-record_not_found         | A trip with the given ID does not belong to your client or doesn't exist at all
-canceling_after_deadline | The trip has been in assigned state for more than 30 seconds
-canceling_arrived_trip   | The trip's courier is already at the source location
-canceling_ended_trip     | The trip is already ended (delivered)
-invalid_state_change     | Changing the trip's state from its current state to canceled is not possible
-
+| Code                     | Description                                                                     |
+|--------------------------|---------------------------------------------------------------------------------|
+| not_authenticated        | Token is missing or invalid                                                     |
+| parse_error              | The request body is not a valid JSON string (has syntax error)                  |
+| invalid_request_body     | Request body does not follow the valid format                                   |
+| record_not_found         | A trip with the given ID does not belong to your client or doesn't exist at all |
+| canceling_after_deadline | The trip has been in assigned state for more than 30 seconds                    |
+| canceling_arrived_trip   | The trip's courier is already at the source location                            |
+| canceling_ended_trip     | The trip is already ended (delivered)                                           |
+| invalid_state_change     | Changing the trip's state from its current state to canceled is not possible    |
 
 ## Add Course
 
@@ -685,9 +683,9 @@ requests.patch(
 ### Path parameters
 
 
-Name | Type | Description
------ | ---- | -----------
-trip_id | string | The ID of the trip to add a course to
+| Name    | Type   | Description                           |
+|---------|--------|---------------------------------------|
+| trip_id | string | The ID of the trip to add a course to |
 
 <aside class="success">
 You can find ID of your trip in the response body of <a href="#create-trip">Create Trip</a> request
@@ -696,19 +694,18 @@ You can find ID of your trip in the response body of <a href="#create-trip">Crea
 ### Body
 
 
-Value | Type | Description
------ | ---- | -----------
-**bill_number** | string | An string field left for you to store sort of a human readable bill number in it which will be used as a reference point among our support team, you and the pickup staffs
-**name** | string | Name of the dropp-off
-**phone_number** | string | The phone number associated with the drop-off which will be used by courier and support staffs in order to contact to them if necessary
-**address** | string | The human readable drop-off address, preferably down to every necessary detail for a human to find it quickly
-location | object **(Optional)** | The exact location of the pickup. If there is no provided drop-off location, the courier will find the location based on the address and accounting calculations will be based on that location
-location.**latitude** | number [double] | The latitude of the drop-off location
-location.**longitude** | number [double] | The longitude of the drop-off location
-manifest_items | array **(Optional)** | The contents of the package to be delivered to the drop-off
-manifest_items.**name** | string | Human readable name of the content which will be verified by courier
-manifest_items.**quantity** | string | The quanitiy of the item
-
+| Value                       | Type                  | Description                                                                                                                                                                                     |
+|-----------------------------|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **bill_number**             | string                | An string field left for you to store sort of a human readable bill number in it which will be used as a reference point among our support team, you and the pickup staffs                      |
+| **name**                    | string                | Name of the dropp-off                                                                                                                                                                           |
+| **phone_number**            | string                | The phone number associated with the drop-off which will be used by courier and support staffs in order to contact to them if necessary                                                         |
+| **address**                 | string                | The human readable drop-off address, preferably down to every necessary detail for a human to find it quickly                                                                                   |
+| location                    | object **(Optional)** | The exact location of the pickup. If there is no provided drop-off location, the courier will find the location based on the address and accounting calculations will be based on that location |
+| location.**latitude**       | number [double]       | The latitude of the drop-off location                                                                                                                                                           |
+| location.**longitude**      | number [double]       | The longitude of the drop-off location                                                                                                                                                          |
+| manifest_items              | array **(Optional)**  | The contents of the package to be delivered to the drop-off                                                                                                                                     |
+| manifest_items.**name**     | string                | Human readable name of the content which will be verified by courier                                                                                                                            |
+| manifest_items.**quantity** | string                | The quanitiy of the item                                                                                                                                                                        |
 
 ### Response
 
@@ -771,15 +768,13 @@ Response body is a serialized trip. For a detailed version of it take a look at 
 
 ### Errors
 
-Code | Description
----- | -----------
-not_authenticated    | Token is missing or invalid
-parse_error          | The request body is not a valid JSON string (has syntax error)
-invalid_request_body | Request body does not follow the valid format
-record_not_found     | A trip with the given ID does not belong to your client or doesn't exist at all
-too_late             | Trip's state is later than `pickup`
-
-
+| Code                 | Description                                                                     |
+|----------------------|---------------------------------------------------------------------------------|
+| not_authenticated    | Token is missing or invalid                                                     |
+| parse_error          | The request body is not a valid JSON string (has syntax error)                  |
+| invalid_request_body | Request body does not follow the valid format                                   |
+| record_not_found     | A trip with the given ID does not belong to your client or doesn't exist at all |
+| too_late             | Trip's state is later than `pickup`                                             |
 
 ## Remove Course
 
@@ -817,9 +812,9 @@ requests.delete(
 ### Path parameters
 
 
-Name | Type | Description
------ | ---- | -----------
-course_id | string | The ID of the course to delete
+| Name      | Type   | Description                    |
+|-----------|--------|--------------------------------|
+| course_id | string | The ID of the course to delete |
 
 <aside class="success">
 You can find ID of your course in the response body of <a href="#create-trip">Create Trip</a> or <a href="#add-course">Add Course</a> requests.
@@ -890,15 +885,13 @@ Response body is a serialized trip. For a detailed version of it take a look at 
 
 ### Errors
 
-Code | Description
----- | -----------
-not_authenticated    | Token is missing or invalid
-parse_error          | The request body is not a valid JSON string (has syntax error)
-invalid_request_body | Request body does not follow the valid format
-record_not_found     | A course with the given ID does not belong to your client or doesn't exist at all
-single_course        | The course belongs to a trip that has only one course
-
-
+| Code                 | Description                                                                       |
+|----------------------|-----------------------------------------------------------------------------------|
+| not_authenticated    | Token is missing or invalid                                                       |
+| parse_error          | The request body is not a valid JSON string (has syntax error)                    |
+| invalid_request_body | Request body does not follow the valid format                                     |
+| record_not_found     | A course with the given ID does not belong to your client or doesn't exist at all |
+| single_course        | The course belongs to a trip that has only one course                             |
 
 ## Get Trip
 
@@ -932,9 +925,9 @@ requests.get(
 ### Path parameters
 
 
-Name | Type | Description
------ | ---- | -----------
-trip_id | string | The ID of the trip
+| Name    | Type   | Description        |
+|---------|--------|--------------------|
+| trip_id | string | The ID of the trip |
 
 <aside class="success">
 You can find ID of your trip in the response body of <a href="#create-trip">Create Trip</a> request
@@ -1005,13 +998,12 @@ Response body is a serialized trip. For a detailed version of it take a look at 
 
 ### Errors
 
-Code | Description
----- | -----------
-not_authenticated        | Token is missing or invalid
-parse_error              | The request body is not a valid JSON string (has syntax error)
-invalid_request_body     | Request body does not follow the valid format
-record_not_found         | A trip with the given ID does not belong to your client or doesn't exist at all
-
+| Code                 | Description                                                                     |
+|----------------------|---------------------------------------------------------------------------------|
+| not_authenticated    | Token is missing or invalid                                                     |
+| parse_error          | The request body is not a valid JSON string (has syntax error)                  |
+| invalid_request_body | Request body does not follow the valid format                                   |
+| record_not_found     | A trip with the given ID does not belong to your client or doesn't exist at all |
 
 ## List Trips
 
@@ -1052,16 +1044,15 @@ requests.get(
 
 ### Path parameters
 
-Name | Type | Description
----- | ---- | -----------
-area_id       | number [integer] | **Filter:** The ID of the area of the pickup location. You can find list of available areas in the [List Areas](#list-areas) endpoint
-state         | string  | **Filter:** The state of the trip. Should be one of the states specified in [Trip](#trip) definition
-bill_number   | string  | **Filter:** The `bill_number` of the courses in the trips.   
-from_datetime | string [date-time] | **Filter:** Minimum acceptable value for trip's `created_at` field. This filter is **inclusive**
-to_datetime   | string [date-time] | **Filter:** Maximum acceptable value for trip's `created_at` field. This filter is **inclusive**
-offset        | number [integer] | Give results excluding the first **offset** number of objects
-limit         | number [integer] | Give *at most* **limit** number of results. The default value is 100
-
+| Name          | Type               | Description                                                                                                                           |
+|---------------|--------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| area_id       | number [integer]   | **Filter:** The ID of the area of the pickup location. You can find list of available areas in the [List Areas](#list-areas) endpoint |
+| state         | string             | **Filter:** The state of the trip. Should be one of the states specified in [Trip](#trip) definition                                  |
+| bill_number   | string             | **Filter:** The `bill_number` of the courses in the trips.                                                                            |
+| from_datetime | string [date-time] | **Filter:** Minimum acceptable value for trip's `created_at` field. This filter is **inclusive**                                      |
+| to_datetime   | string [date-time] | **Filter:** Maximum acceptable value for trip's `created_at` field. This filter is **inclusive**                                      |
+| offset        | number [integer]   | Give results excluding the first **offset** number of objects                                                                         |
+| limit         | number [integer]   | Give *at most* **limit** number of results. The default value is 100                                                                  |
 
 <aside class="notice">
 Server might not have or decide not to send you as many result items as <code>limit</code> but it never sends you more than that.
@@ -1126,20 +1117,366 @@ Server might not have or decide not to send you as many result items as <code>li
 }
 ```
 
-Value | Type | Description
------ | ---- | -----------
-**data** | array | List of trips matching the given query. Each object in this array is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](#create-trip) request.
-**next** | string [uri] **(nullable)** | The valid url to the next set of result with the same predicates. Will be **null** if there are no more objects left matching the given filters
-**previous** | string [uri] **(nullable)** | The valid url to the previous set of result with the same predicates. Will be **null** if there was no objects matching the given filters before this page
-**total_count** | number [integer] | The **total** number of objects matching the given filters (not only the items in this page)
-
+| Value           | Type                        | Description                                                                                                                                                                                   |
+|-----------------|-----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **data**        | array                       | List of trips matching the given query. Each object in this array is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](#create-trip) request. |
+| **next**        | string [uri] **(nullable)** | The valid url to the next set of result with the same predicates. Will be **null** if there are no more objects left matching the given filters                                               |
+| **previous**    | string [uri] **(nullable)** | The valid url to the previous set of result with the same predicates. Will be **null** if there was no objects matching the given filters before this page                                    |
+| **total_count** | number [integer]            | The **total** number of objects matching the given filters (not only the items in this page)                                                                                                  |
 
 ### Errors
 
-Code | Description
----- | -----------
-not_authenticated | Token is missing or invalid
+| Code              | Description                 |
+|-------------------|-----------------------------|
+| not_authenticated | Token is missing or invalid |
 
+# Supports Integration
+
+> Base URL of staging servers for support services:
+
+```shell
+BASE_URL="https://staging.ws.mia.re/support/third-party-api/v2"
+```
+
+```python
+base_url = "https://staging.ws.mia.re/support/third-party-api/v2"
+```
+
+> Base URL of production servers for delivery services:
+
+```shell
+BASE_URL="https://ws.mia.re/support/third-party-api/v2"
+```
+
+```python
+base_url = "https://ws.mia.re/support/third-party-api/v2"
+```
+
+Services related to reporting, responding, and getting information about issues.
+
+## List Problems
+
+Returns list of Miare problems. Each `issue` is categorized based on its `problem`. API clients should store a mapping of Miare's problems and theirs.   
+
+> Request example:
+
+```shell
+curl --location --request GET "$BASE_URL/problems/" \
+--header "Authorization: Token <Your Token>"
+```
+
+```python
+import requests
+
+requests.get(
+  f"{base_url}/problems/",
+  headers={"Authorization": "Token <Your Token>"},
+)
+```
+
+### HTTP Request
+
+`GET /problems/`
+
+### Response
+
+> Response example:
+
+```json
+[
+  {
+    "id": "728cfd38-3267-4bd0-bcec-c4fc904cebda",
+    "title": "مجموعه سفارش را به کوریر تحویل نداده است",
+    "reporter_type": "miare"
+  },
+  {
+    "id": "728cfd38-3267-4bd0-bcec-c4fc904cebda",
+    "title": "مشتری سفارش را تحویل نگرفته است",
+    "reporter_type": "client"
+  }
+]
+```
+
+The response is an array of all the problems you may face in your webhook calls. 
+The details about properties of each object is as follows:
+
+| Value                 | Type   | Description                                                                                                                                                      |
+|-----------------------|--------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **id**                | string | Universally unique identifier of this problem                                                                                                                    |
+| **title**             | string | The human readable title of the problem                                                                                                                          |
+| **for_reporter_type** | string | The reporter user type.  Is one of the following values: "miare" "auto" "client". API clients are only allowed to report issues with problems of their own type. |
+
+### Errors
+
+| Code              | Description                 |
+|-------------------|-----------------------------|
+| not_authenticated | Token is missing or invalid |
+
+## Report Issue
+
+Creates an issue with given data. 
+
+> Request example:
+
+```shell
+curl --location --request POST "$BASE_URL/issue/" \
+--header 'Authorization: Token <Your Token>' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
+  "problem_id": "728cfd38-3267-4bd0-bcec-c4fc904cebda"
+}'
+```
+
+```python
+import requests
+
+data = {
+  "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
+  "problem_id": "728cfd38-3267-4bd0-bcec-c4fc904cebda"
+}
+
+requests.post(
+  base_url + "/issues/",
+  headers={"Authorization": "Token <Your Token>"},
+  data = data,
+)
+```
+
+### HTTP Request
+
+`POST /issues/`
+
+
+### Body
+
+| Value          | Type   | Description                                                        |
+|----------------|--------|--------------------------------------------------------------------|
+| **trip_id**    | string | The id of the trip in Miare services                               |
+| **problem_id** | string | The id of the problem for `client` reporter type in Miare services |
+
+### Response
+
+> Response example:
+
+```json
+{
+  "id": "ccba8f45-6ef6-409f-a1ee-453219aaa04f",
+  "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
+  "problem_id": "728cfd38-3267-miare4bd0-bcec-c4fc904cebda",
+  "reported_at": "2021-11-01T18:44:19+0330",
+  "reporter_type": "client",
+  "resolved_at": null,
+  "resolver_type": null,
+  "messages": [
+    {
+      "id": "9c212393-8ac3-4917-ac7a-844f76c361f2",
+      "created_at": "2021-11-01T18:46:19+0330",
+      "text": "سلام! رضا هستم از میاره",
+      "sender_type": "miare"
+    }
+  ]
+}
+```
+
+The success response is the serialized created issue.
+The details about properties of each object is as follows:
+
+| Value                    | Type                              | Description                                                                                                                            |
+|--------------------------|-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| **id**                   | string                            | Universally unique identifier of this issue                                                                                            |
+| **trip_id**              | string                            | Universally unique identifier of the trip that the issue is reported for                                                               |
+| **problem_id**           | string                            | Universally unique identifier of the problem that the issue is categorized for                                                         |
+| **reported_at**          | string [date-time]                | The datetime that the issue is reported at                                                                                             |
+| **reporter_type**        | string                            | The type of the reporter of the issue. Is one of the following values: "miare" "client".                                               |
+| **resolved_at**          | string [date-time] **(nullable)** | The datetime that the issue is resolved at. It is null for unresolved issues.                                                          |
+| **resolver_type**        | string **(nullable)**             | The type of the reporter of the issue. Is one of the following values: "miare" "client" null. The value is null for unresolved issues. |
+| **messages**             | array                             | List of messages relating to the issue                                                                                                 |
+| **messages.id**          | string                            | Universally unique identifier of this message                                                                                          |
+| **messages.created_at**  | string [date-time]                | The datetime that the message is created in Miare system                                                                               |
+| **messages.text**        | string                            | The body of this message                                                                                                               |
+| **messages.sender_type** | string                            | The type of the sender of the message. It is one of the following values: "miare" "client"                                             |
+
+### Errors
+
+| Code              | Description                                                                                                                                 |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| not_authenticated | Token is missing or invalid                                                                                                                 |
+| old_trip          | The trip is not in a situation to be able to accept new issues. Currently the trips requested before 3 hours from now are considered as old |
+| forbidden_problem | The relative problem of `problem_id` is not `for_reporter_type` of client                                                                   |
+
+## List Issues
+
+Returns list of issues of your trips matching the given conditions.
+
+> Request example:
+
+```shell
+curl --location --request GET "$BASE_URL/issues/?reporter_type=miare&reported_from_datetime=2021-11-02T14:48:18+0330&reported_to_datetime=2021-11-02T14:48:18+0330&resolved=1&offset=0&limit=10" \
+--header "Authorization: Token <Your Token>"
+```
+
+```python
+import requests
+
+params = [
+  ('reporter_type', 'miare'),
+  ('reported_from_datetime', '2021-11-02T14:48:18+0330'),
+  ('reported_to_datetime', '2021-11-02T14:48:18+0330'),
+  ('resolved', 1),
+  ('offset', 0),
+  ('limit', 10),
+]
+query = '&'.join([f'{k}={v}' for k, v in params])
+
+requests.get(
+  f"{base_url}/issues/?{query}",
+  headers={"Authorization": "Token <Your Token>"},
+)
+```
+
+### HTTP Request
+
+`GET /issues/`
+
+
+### Path parameters
+
+| Name                   | Type               | Description                                                                                        |
+|------------------------|--------------------|----------------------------------------------------------------------------------------------------|
+| reporter_type          | string             | **Filter:** The value of the user type that has reported the issue.                                |
+| reported_from_datetime | string [date-time] | **Filter:** Minimum acceptable value for issue's `reported_at` field. This filter is **inclusive** |
+| reported_to_datetime   | string [date-time] | **Filter:** Maximum acceptable value for issue's `reported_at` field. This filter is **inclusive** |
+| resolved               | boolean            | **Filter:** The value of issues's `resolved_at` comparing to `null`.                               |
+| offset                 | number [integer]   | Give results excluding the first **offset** number of objects                                      |
+| limit                  | number [integer]   | Give *at most* **limit** number of results. The default value is 100                               |
+
+<aside class="notice">
+Server might not have or decide not to send you as many result items as <code>limit</code> but it never sends you more than that.
+</aside>
+
+### Response
+
+> Response example:
+
+```json
+{
+  "data": [
+    {
+      "id": "ccba8f45-6ef6-409f-a1ee-453219aaa04f",
+      "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
+      "problem_id": "728cfd38-3267-4bd0-bcec-c4fc904cebda",
+      "reported_at": "2020-11-02T14:48:18Z",
+      "reporter_type": "client",
+      "resolved_at": null,
+      "resolver_type": null,
+      "messages": [
+        {
+          "id": "9c212393-8ac3-4917-ac7a-844f76c361f2",
+          "created_at": "2020-11-02T14:48:20Z",
+          "text": "سلام! رضا هستم از میاره",
+          "sender_type": "miare"
+        }
+      ]
+    }
+  ],
+  "next": "https://staging.ws.miare.ir/support/third-party-api/v2/issues/?offset=1&limit=1&reported_from_datetime=2020-11-02T14:48:18Z&reported_to_datetime=2021-12-02T14:48:18Z",
+  "previous": "",
+  "total_count": 35
+}
+```
+
+| Value           | Type                        | Description                                                                                                                                                                                       |
+|-----------------|-----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **data**        | array                       | List of issues matching the given query. Each object in this array is a serialized issue. For a detailed version of it take a look at the response body of [Report Issue](#report-issue) request. |
+| **next**        | string [uri] **(nullable)** | The valid url to the next set of result with the same predicates. Will be **null** if there are no more objects left matching the given filters                                                   |
+| **previous**    | string [uri] **(nullable)** | The valid url to the previous set of result with the same predicates. Will be **null** if there was no objects matching the given filters before this page                                        |
+| **total_count** | number [integer]            | The **total** number of objects matching the given filters (not only the items in this page)                                                                                                      |
+
+### Errors
+
+| Code              | Description                 |
+|-------------------|-----------------------------|
+| not_authenticated | Token is missing or invalid |
+
+## Append Message
+
+Appends a new message to an unresolved issue. 
+
+> Request example:
+
+```shell
+curl --location --request POST "$BASE_URL/issue/{issue_id}/messages/" \
+--header 'Authorization: Token <Your Token>' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "text": "با مشتری نهایی تماس گرفته شد و گفتن که به لابی تحویل بدین"
+}'
+```
+
+```python
+import requests
+
+data = {
+  "text": "با مشتری نهایی تماس گرفته شد و گفتن که به لابی تحویل بدین"
+}
+
+requests.post(
+  base_url + "/issues/{issue_id}/messages/",
+  headers={"Authorization": "Token <Your Token>"},
+  data = data,
+)
+```
+
+### HTTP Request
+
+`POST /issues/{issue_id}/messages/`
+
+
+### Path parameters
+
+| Name     | Type   | Description                                  |
+|----------|--------|----------------------------------------------|
+| issue_id | string | The ID of the issue to append the message to |
+
+### Body
+
+| Value    | Type   | Description                        |
+|----------|--------|------------------------------------|
+| **text** | string | The body of the message to be sent |
+
+### Response
+
+> Response example:
+
+```json
+{
+  "id": "ccba8f45-6ef6-409f-a1ee-453219aaa04f",
+  "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
+  "problem_id": "728cfd38-3267-4bd0-bcec-c4fc904cebda",
+  "reported_at": "2021-11-01T18:44:19+0330",
+  "reporter_type": "client",
+  "resolved_at": null,
+  "resolver_type": null,
+  "messages": [
+    {
+      "id": "9c212393-8ac3-4917-ac7a-844f76c361f2",
+      "created_at": "2021-11-01T18:46:19+0330",
+      "text": "با مشتری نهایی تماس گرفته شد و گفتن که به لابی تحویل بدین",
+      "sender_type": "client"
+    }
+  ]
+}
+```
+
+The success response is the serialized created issue. For a detailed version of it take a look at the response body of [Report Issue](#report-issue) request.
+
+### Errors
+
+| Code              | Description                   |
+|-------------------|-------------------------------|
+| not_authenticated | Token is missing or invalid   |
+| resolved_issue    | The issue is already resolved |
 
 # Areas
 
@@ -1226,15 +1563,15 @@ requests.get(
 The response is an array of all of the active areas in the Miare whether you have any trips or concurrency in it or not.
 The details about properties of each objects is as follows:
 
-Value | Type | Description
------ | ---- | -----------
-**id** | number [integer] | The constant identifier of the area
-**name** | string | The human readable name of the area
-**ongoing_trips** | number [integer] | The number of trips currently [**active**](#trip) trips in this area.
-**max_ongoing_trips** | number [integer] | Your [**concurrency**](#concurrency) limit in this area at this shift
-**polygon** | object | A valid [Polygon](https://geojson.org/geojson-spec.html#id4) object
-polygon.**type** | string | GeoJson feature type. Its value is always "Polygon"
-polygon.**coordinates** | array | Coordinates of the points forming the exterior ring of the polygon.
+| Value                   | Type             | Description                                                           |
+|-------------------------|------------------|-----------------------------------------------------------------------|
+| **id**                  | number [integer] | The constant identifier of the area                                   |
+| **name**                | string           | The human readable name of the area                                   |
+| **ongoing_trips**       | number [integer] | The number of trips currently [**active**](#trip) trips in this area. |
+| **max_ongoing_trips**   | number [integer] | Your [**concurrency**](#concurrency) limit in this area at this shift |
+| **polygon**             | object           | A valid [Polygon](https://geojson.org/geojson-spec.html#id4) object   |
+| polygon.**type**        | string           | GeoJson feature type. Its value is always "Polygon"                   |
+| polygon.**coordinates** | array            | Coordinates of the points forming the exterior ring of the polygon.   |
 
 <aside class="notice">
 Based on <a href="https://geojson.org/geojson-spec.html#positions">GeoJson.org</a>'s convention, the order of coordinates in the coordinates inner arrays is <b>longitude</b>, <b>latitude</b>.
@@ -1242,11 +1579,9 @@ Based on <a href="https://geojson.org/geojson-spec.html#positions">GeoJson.org</
 
 ### Errors
 
-Code | Description
----- | -----------
-not_authenticated | Token is missing or invalid
-
-
+| Code              | Description                 |
+|-------------------|-----------------------------|
+| not_authenticated | Token is missing or invalid |
 
 # Accounting
 
@@ -1314,10 +1649,10 @@ The output price is only the <b>course</b>'s cost. The final cost includes a <b>
 
 ### Path parameters
 
-Name | Type | Description
----- | ---- | -----------
-source      | string | Latitude and Longitude of the source of the course. The **order** matters
-destination | string | Latitude and Longitude of the destination of the course. The **order** matters
+| Name        | Type   | Description                                                                    |
+|-------------|--------|--------------------------------------------------------------------------------|
+| source      | string | Latitude and Longitude of the source of the course. The **order** matters      |
+| destination | string | Latitude and Longitude of the destination of the course. The **order** matters |
 
 ### Response
 
@@ -1330,19 +1665,17 @@ destination | string | Latitude and Longitude of the destination of the course. 
 }
 ```
 
-Value | Type | Description
------ | ---- | -----------
-**price**  | number [integer] | The estimated cost of the course's delivery
-**status** | string           | The human readable status of the request
+| Value      | Type             | Description                                 |
+|------------|------------------|---------------------------------------------|
+| **price**  | number [integer] | The estimated cost of the course's delivery |
+| **status** | string           | The human readable status of the request    |
 
 ### Errors
 
-Code | Description
----- | -----------
-not_authenticated | Token is missing or invalid
-invalid           | The given query params are not valid
-
-
+| Code              | Description                          |
+|-------------------|--------------------------------------|
+| not_authenticated | Token is missing or invalid          |
+| invalid           | The given query params are not valid |
 
 # Webhook
 
@@ -1383,7 +1716,7 @@ You should not rely solely on our webhook requests. In case of a network failure
 </aside>
 
 
-## Trip events
+## Trip Events
 
 ### Request Body
 
@@ -1440,29 +1773,28 @@ You should not rely solely on our webhook requests. In case of a network failure
 }
 ```
 
-Value | Type | Description
------ | ---- | -----------
-**event** | string | The constant identifier of the event
-**trip**  | object | The affected trip. This is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](#create-trip) request.
-
+| Value     | Type   | Description                                                                                                                                         |
+|-----------|--------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| **event** | string | The constant identifier of the event                                                                                                                |
+| **trip**  | object | The affected trip. This is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](#create-trip) request. |
 
 ### Events
 
 There are 9 trip events each of which make a request to your server with one the following strings as the event and a serialized trip.
 
-Event | Description
------ | -----------
-**added**               | Trip has been successfully created
-**assigned**            | Trip has been assigned to a courier
-**course_added**        | A new course has been added to the trip
-**course_deleted**      | A course has been deleted from the trip
-**picked_up**           | Courier picked up the packages from the source of the trip
-**course_dropped_off**  | Courier dropped off a package at one of the destinations of one of courses of the trip
-**delivered**           | Trip has been ended successfully
-**canceled_by_client**  | Trip has been cancelled by client (you)
-**canceled_by_miare**   | Trip has been cancelled by Miare (our support team)
+| Event                  | Description                                                                            |
+|------------------------|----------------------------------------------------------------------------------------|
+| **added**              | Trip has been successfully created                                                     |
+| **assigned**           | Trip has been assigned to a courier                                                    |
+| **course_added**       | A new course has been added to the trip                                                |
+| **course_deleted**     | A course has been deleted from the trip                                                |
+| **picked_up**          | Courier picked up the packages from the source of the trip                             |
+| **course_dropped_off** | Courier dropped off a package at one of the destinations of one of courses of the trip |
+| **delivered**          | Trip has been ended successfully                                                       |
+| **canceled_by_client** | Trip has been cancelled by client (you)                                                |
+| **canceled_by_miare**  | Trip has been cancelled by Miare (our support team)                                    |
 
-## Course events
+## Course Events
 
 ### Request Body
 
@@ -1496,15 +1828,61 @@ Event | Description
 }
 ```
 
-Value | Type | Description
------ | ---- | -----------
-**event**  | string | The constant identifier of the event
-**course** | object | The affected course. This is a serialized course. For a detailed version of it take a look at the response body of [Create Trip](#create-trip) request.
+| Value      | Type   | Description                                                                                                                                             |
+|------------|--------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **event**  | string | The constant identifier of the event                                                                                                                    |
+| **course** | object | The affected course. This is a serialized course. For a detailed version of it take a look at the response body of [Create Trip](#create-trip) request. |
 
 ### Events
 
 There is one course event that makes a request to your server with one the following string as the event and a serialized course.
 
-Event | Description
------ | -----------
-**course_added__course**  | Course has been added to a trip
+| Event                    | Description                     |
+|--------------------------|---------------------------------|
+| **course_added__course** | Course has been added to a trip |
+
+
+## Issue Events
+
+### Request Body
+
+> Request example:
+
+```json
+{
+	"event": "issue_added",
+	"issue": {
+      "id": "ccba8f45-6ef6-409f-a1ee-453219aaa04f",
+      "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
+      "problem_id": "728cfd38-3267-miare4bd0-bcec-c4fc904cebda",
+      "reported_at": "2021-11-01T18:44:19+0330",
+      "reporter_type": "client",
+      "resolved_at": null,
+      "resolver_type": null,
+      "messages": [
+        {
+          "id": "9c212393-8ac3-4917-ac7a-844f76c361f2",
+          "created_at": "2021-11-01T18:46:19+0330",
+          "text": "سلام! رضا هستم از میاره",
+          "sender_type": "miare"
+        }
+      ]
+    }
+}
+```
+
+| Value     | Type   | Description                                                                                                                                             |
+|-----------|--------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **event** | string | The constant identifier of the event.                                                                                                                   |
+| **issue** | object | The affected issue. This is a serialized issue. For a detailed version of it take a look at the response body of [Report Issue](#report-issue) request. |
+
+### Events
+
+There are 3 issue events each of which make a request to your server with one the following strings as the event and a serialized issue.
+
+| Event              | Description                               |
+|--------------------|-------------------------------------------|
+| **issue_added**    | Issue has been successfully created       |
+| **message_added**  | A new message has been added to the issue |
+| **issue_resolved** | The issue has been resolved               |
+
