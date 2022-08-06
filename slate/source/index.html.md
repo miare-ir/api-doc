@@ -113,7 +113,7 @@ Each issue can be in only one the following states at any given time
 |----------|------------------------------------------------------------------|
 | reported | Issue is created but no staff has picked the issue to follow yes |
 | picked   | Issue is picked by a staff and is investigating it               |
-| resolved | Issue is resolved by one of user types                           |
+| resolved | Issue is resolved by one of the user types                       |
 
 # Servers
 Miare has two sets of servers.
