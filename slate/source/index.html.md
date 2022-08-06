@@ -57,7 +57,7 @@ An order given by one of our clients for one or more packages to be delivered. A
 but multiple destinations (and multiple packages to be delivered at those destinations).
 Our clients may also indicate that they wish the courier to return to the source at the end of the trip.
 
-#### Trip states
+#### Trip States
 Each trip can be in only one the following states at any given time
 
 | Name               | Description                                                                                                                |
@@ -104,7 +104,16 @@ Only trips in the <code>assign_queue</code>, <code>pickup</code>, <code>dropoff<
 </aside>
 
 ### Issue
-A problem that is reported or detected on a trip. 
+An operational problem that is reported or detected on a trip. 
+
+#### Issue States
+Each issue can be in only one the following states at any given time
+
+| Name     | Description                                                      |
+|----------|------------------------------------------------------------------|
+| reported | Issue is created but no staff has picked the issue to follow yes |
+| picked   | Issue is picked by a staff and is investigating it               |
+| resolved | Issue is resolved by one of user types                           |
 
 # Servers
 Miare has two sets of servers.
@@ -1268,6 +1277,8 @@ requests.post(
   "reporter_type": "client",
   "resolved_at": null,
   "resolver_type": null,
+  "picked_at": null,
+  "state": "reported",
   "messages": [
     {
       "id": "9c212393-8ac3-4917-ac7a-844f76c361f2",
@@ -1282,20 +1293,22 @@ requests.post(
 The success response is the serialized created issue.
 The details about properties of each object is as follows:
 
-| Value                    | Type                              | Description                                                                                                                            |
-|--------------------------|-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| **id**                   | string                            | Universally unique identifier of this issue                                                                                            |
-| **trip_id**              | string                            | Universally unique identifier of the trip that the issue is reported for                                                               |
-| **problem_id**           | string                            | Universally unique identifier of the problem that the issue is categorized for                                                         |
-| **reported_at**          | string [date-time]                | The datetime that the issue is reported at                                                                                             |
-| **reporter_type**        | string                            | The type of the reporter of the issue. Is one of the following values: "miare" "client".                                               |
-| **resolved_at**          | string [date-time] **(nullable)** | The datetime that the issue is resolved at. It is null for unresolved issues.                                                          |
-| **resolver_type**        | string **(nullable)**             | The type of the reporter of the issue. Is one of the following values: "miare" "client" null. The value is null for unresolved issues. |
-| **messages**             | array                             | List of messages relating to the issue                                                                                                 |
-| **messages.id**          | string                            | Universally unique identifier of this message                                                                                          |
-| **messages.created_at**  | string [date-time]                | The datetime that the message is created in Miare system                                                                               |
-| **messages.text**        | string                            | The body of this message                                                                                                               |
-| **messages.sender_type** | string                            | The type of the sender of the message. It is one of the following values: "miare" "client"                                             |
+| Value                    | Type                              | Description                                                                                                                                                          |
+|--------------------------|-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **id**                   | string                            | Universally unique identifier of this issue                                                                                                                          |
+| **trip_id**              | string                            | Universally unique identifier of the trip that the issue is reported for                                                                                             |
+| **problem_id**           | string                            | Universally unique identifier of the problem that the issue is categorized for                                                                                       |
+| **reported_at**          | string [date-time]                | The datetime that the issue is reported at                                                                                                                           |
+| **reporter_type**        | string                            | The type of the reporter of the issue. Is one of the following values: "miare" "client".                                                                             |
+| **resolved_at**          | string [date-time] **(nullable)** | The datetime that the issue is resolved at. It is null for unresolved issues.                                                                                        |
+| **resolver_type**        | string **(nullable)**             | The type of the reporter of the issue. Is one of the following values: "miare" "client" null. The value is null for unresolved issues.                               |
+| **picked_at**            | string [date-time] **(nullable)** | The datetime that the issue has been picked by a staff.                                                                                                              |
+| **state**                | string                            | The current state of the issue. Is one of the following values: "reported" "picked" "resolved". You can find a description about each of these states [here](#issue) |
+| **messages**             | array                             | List of messages relating to the issue                                                                                                                               |
+| **messages.id**          | string                            | Universally unique identifier of this message                                                                                                                        |
+| **messages.created_at**  | string [date-time]                | The datetime that the message is created in Miare system                                                                                                             |
+| **messages.text**        | string                            | The body of this message                                                                                                                                             |
+| **messages.sender_type** | string                            | The type of the sender of the message. It is one of the following values: "miare" "client"                                                                           |
 
 ### Errors
 
@@ -1370,6 +1383,8 @@ Server might not have or decide not to send you as many result items as <code>li
       "reporter_type": "client",
       "resolved_at": null,
       "resolver_type": null,
+      "picked_at": null,
+      "state": "reported",
       "messages": [
         {
           "id": "9c212393-8ac3-4917-ac7a-844f76c361f2",
@@ -1458,6 +1473,8 @@ requests.post(
   "reporter_type": "client",
   "resolved_at": null,
   "resolver_type": null,
+  "picked_at": null,
+  "state": "reported",
   "messages": [
     {
       "id": "9c212393-8ac3-4917-ac7a-844f76c361f2",
@@ -1859,6 +1876,8 @@ There is one course event that makes a request to your server with one the follo
       "reporter_type": "client",
       "resolved_at": null,
       "resolver_type": null,
+      "picked_at": null,
+      "state": "reported",
       "messages": [
         {
           "id": "9c212393-8ac3-4917-ac7a-844f76c361f2",
