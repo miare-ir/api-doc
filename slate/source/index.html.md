@@ -1196,12 +1196,14 @@ requests.get(
   {
     "id": "728cfd38-3267-4bd0-bcec-c4fc904cebda",
     "title": "مجموعه سفارش را به کوریر تحویل نداده است",
-    "reporter_type": "miare"
+    "reporter_type": "miare",
+    "description_required": false
   },
   {
     "id": "728cfd38-3267-4bd0-bcec-c4fc904cebda",
     "title": "مشتری سفارش را تحویل نگرفته است",
-    "reporter_type": "client"
+    "reporter_type": "client",
+    "description_required": true
   }
 ]
 ```
@@ -1209,11 +1211,12 @@ requests.get(
 The response is an array of all the problems you may face in your webhook calls. 
 The details about properties of each object is as follows:
 
-| Value                 | Type   | Description                                                                                                                                                      |
-|-----------------------|--------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **id**                | string | Universally unique identifier of this problem                                                                                                                    |
-| **title**             | string | The human readable title of the problem                                                                                                                          |
-| **for_reporter_type** | string | The reporter user type.  Is one of the following values: "miare" "auto" "client". API clients are only allowed to report issues with problems of their own type. |
+| Value                    | Type    | Description                                                                                                                                              |
+|--------------------------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **id**                   | string  | Universally unique identifier of this problem                                                                                                            |
+| **title**                | string  | The human readable title of the problem                                                                                                                  |
+| **for_reporter_type**    | string  | The reporter user type.  Is one of the following values: "miare" "client". API clients are only allowed to report issues with problems of their own type |
+| **description_required** | boolean | Mentions if the issues reported for this problem are required to have `description` field                                                                |
 
 ### Errors
 
@@ -1243,6 +1246,7 @@ import requests
 data = {
   "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
   "problem_id": "728cfd38-3267-4bd0-bcec-c4fc904cebda"
+  "description": null
 }
 
 requests.post(
@@ -1259,10 +1263,11 @@ requests.post(
 
 ### Body
 
-| Value          | Type   | Description                                                        |
-|----------------|--------|--------------------------------------------------------------------|
-| **trip_id**    | string | The id of the trip in Miare services                               |
-| **problem_id** | string | The id of the problem for `client` reporter type in Miare services |
+| Value           | Type                  | Description                                                                                                                            |
+|-----------------|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| **trip_id**     | string                | The id of the trip in Miare services                                                                                                   |
+| **problem_id**  | string                | The id of the problem for `client` reporter type in Miare services                                                                     |
+| **description** | string **(nullable)** | The extra description in addition to problem, the nullability of this field depends on the `description_required` value of the problem |
 
 ### Response
 
@@ -1277,14 +1282,17 @@ requests.post(
   "reporter_type": "client",
   "resolved_at": null,
   "resolver_type": null,
+  "resolve_description": null,
   "picked_at": null,
+  "picker_type": null,
   "state": "reported",
   "messages": [
     {
-      "id": "9c212393-8ac3-4917-ac7a-844f76c361f2",
-      "created_at": "2021-11-01T18:46:19+0330",
-      "text": "سلام! رضا هستم از میاره",
-      "sender_type": "miare"
+      "id": "9ad24b31-8f1e-4c5e-b488-b715b2825792",
+      "created_at": "2021-11-02T14:48:18+0330",
+      "sender_type": "miare",
+      "type": "text",
+      "message": "سلام! پشتیبان میاره هستم. "
     }
   ]
 }
@@ -1301,22 +1309,26 @@ The details about properties of each object is as follows:
 | **reported_at**          | string [date-time]                | The datetime that the issue is reported at                                                                                                                           |
 | **reporter_type**        | string                            | The type of the reporter of the issue. Is one of the following values: "miare" "client".                                                                             |
 | **resolved_at**          | string [date-time] **(nullable)** | The datetime that the issue is resolved at. It is null for unresolved issues.                                                                                        |
+| **resolve_description**  | string **(nullable)**             | The description that is submitted about resolution of the issue. It is null for unresolved issues.                                                                   |
 | **resolver_type**        | string **(nullable)**             | The type of the reporter of the issue. Is one of the following values: "miare" "client" null. The value is null for unresolved issues.                               |
 | **picked_at**            | string [date-time] **(nullable)** | The datetime that the issue has been picked by a staff.                                                                                                              |
+| **picker_type**          | string **(nullable)**             | The type of the picker of the issue. Is one of the following values: "miare" "client" null. The value is null for issues that are waiting for pick.                  |
 | **state**                | string                            | The current state of the issue. Is one of the following values: "reported" "picked" "resolved". You can find a description about each of these states [here](#issue) |
 | **messages**             | array                             | List of messages relating to the issue                                                                                                                               |
 | **messages.id**          | string                            | Universally unique identifier of this message                                                                                                                        |
+| **messages.type**        | string                            | The type of the message. Is one of the following values: "text" (Other message types will be supported in further versions)                                          |
 | **messages.created_at**  | string [date-time]                | The datetime that the message is created in Miare system                                                                                                             |
-| **messages.text**        | string                            | The body of this message                                                                                                                                             |
 | **messages.sender_type** | string                            | The type of the sender of the message. It is one of the following values: "miare" "client"                                                                           |
+| **messages.message**     | string                            | The body of this message                                                                                                                                             |
 
 ### Errors
 
-| Code              | Description                                                                                                                                 |
-|-------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| not_authenticated | Token is missing or invalid                                                                                                                 |
-| old_trip          | The trip is not in a situation to be able to accept new issues. Currently the trips requested before 3 hours from now are considered as old |
-| forbidden_problem | The relative problem of `problem_id` is not `for_reporter_type` of client                                                                   |
+| Code                 | Description                                                                                                                                 |
+|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| not_authenticated    | Token is missing or invalid                                                                                                                 |
+| old_trip             | The trip is not in a situation to be able to accept new issues. Currently the trips requested before 3 hours from now are considered as old |
+| forbidden_problem    | The relative problem of `problem_id` is not `for_reporter_type` of client                                                                   |
+| description_required | The relative problem of `problem_id` is forcing `description` field on it's issues                                                          |
 
 ## List Issues
 
@@ -1325,7 +1337,7 @@ Returns list of issues of your trips matching the given conditions.
 > Request example:
 
 ```shell
-curl --location --request GET "$BASE_URL/issues/?reporter_type=miare&reported_from_datetime=2021-11-02T14:48:18+0330&reported_to_datetime=2021-11-02T14:48:18+0330&resolved=1&offset=0&limit=10" \
+curl --location --request GET "$BASE_URL/issues/?reporter_type=miare&picker_type=client&reported_from_datetime=2021-11-02T14:48:18+0330&reported_to_datetime=2021-11-02T14:48:18+0330&resolved=1&picked=0&trip_id=bf125e0a-840c-4f6f-80d0-f71db7406558&trip_id=0df33447-128c-41b3-bcbd-7eb36cf5e938&offset=0&limit=10" \
 --header "Authorization: Token <Your Token>"
 ```
 
@@ -1334,9 +1346,13 @@ import requests
 
 params = [
   ('reporter_type', 'miare'),
+  ('picker_type', 'client'),
   ('reported_from_datetime', '2021-11-02T14:48:18+0330'),
   ('reported_to_datetime', '2021-11-02T14:48:18+0330'),
   ('resolved', 1),
+  ('picked', 0),
+  ('trip_id', 'bf125e0a-840c-4f6f-80d0-f71db7406558'),
+  ('trip_id', '0df33447-128c-41b3-bcbd-7eb36cf5e938'),
   ('offset', 0),
   ('limit', 10),
 ]
@@ -1357,10 +1373,13 @@ requests.get(
 
 | Name                   | Type               | Description                                                                                        |
 |------------------------|--------------------|----------------------------------------------------------------------------------------------------|
-| reporter_type          | string             | **Filter:** The value of the user type that has reported the issue.                                |
+| reporter_type          | string             | **Filter:** The value of the user type that has reported the issue                                 |
+| picker_type            | string             | **Filter:** The value of the user type that has picked the issue                                   |
 | reported_from_datetime | string [date-time] | **Filter:** Minimum acceptable value for issue's `reported_at` field. This filter is **inclusive** |
 | reported_to_datetime   | string [date-time] | **Filter:** Maximum acceptable value for issue's `reported_at` field. This filter is **inclusive** |
-| resolved               | boolean            | **Filter:** The value of issues's `resolved_at` comparing to `null`.                               |
+| resolved               | boolean            | **Filter:** The value of issues's `resolved_at` comparing to `null`                                |
+| picked                 | boolean            | **Filter:** The value of issues's `picked_at` comparing to `null`                                  |
+| trip_id                | string             | **Filter:** The value of the trip that the issue is reported for                                   |
 | offset                 | number [integer]   | Give results excluding the first **offset** number of objects                                      |
 | limit                  | number [integer]   | Give *at most* **limit** number of results. The default value is 100                               |
 
@@ -1383,14 +1402,17 @@ Server might not have or decide not to send you as many result items as <code>li
       "reporter_type": "client",
       "resolved_at": null,
       "resolver_type": null,
+      "resolve_description": null,
       "picked_at": null,
+      "picker_type": null,
       "state": "reported",
       "messages": [
         {
-          "id": "9c212393-8ac3-4917-ac7a-844f76c361f2",
-          "created_at": "2020-11-02T14:48:20Z",
-          "text": "سلام! رضا هستم از میاره",
-          "sender_type": "miare"
+          "id": "9ad24b31-8f1e-4c5e-b488-b715b2825792",
+          "created_at": "2020-11-02T14:58:18Z",
+          "sender_type": "miare",
+          "type": "text",
+          "message": "سلام! پشتیبان میاره هستم. "
         }
       ]
     }
@@ -1414,51 +1436,38 @@ Server might not have or decide not to send you as many result items as <code>li
 |-------------------|-----------------------------|
 | not_authenticated | Token is missing or invalid |
 
-## Append Message
+## Pick Issue
 
-Appends a new message to an unresolved issue. 
+Picks an issue that means the issue is being checked by the client. 
 
 > Request example:
 
 ```shell
-curl --location --request POST "$BASE_URL/issue/{issue_id}/messages/" \
+curl --location --request POST "$BASE_URL/issue/{issue_id}/pick/" \
 --header 'Authorization: Token <Your Token>' \
---header 'Content-Type: application/json' \
---data-raw '{
-  "text": "با مشتری نهایی تماس گرفته شد و گفتن که به لابی تحویل بدین"
-}'
+--header 'Content-Type: application/json'
 ```
 
 ```python
 import requests
 
-data = {
-  "text": "با مشتری نهایی تماس گرفته شد و گفتن که به لابی تحویل بدین"
-}
-
 requests.post(
-  base_url + "/issues/{issue_id}/messages/",
+  base_url + "/issues/{issue_id}/pick/",
   headers={"Authorization": "Token <Your Token>"},
-  data = data,
 )
 ```
 
 ### HTTP Request
 
-`POST /issues/{issue_id}/messages/`
+`PATCH /issues/{issue_id}/pick/`
 
 
 ### Path parameters
 
-| Name     | Type   | Description                                  |
-|----------|--------|----------------------------------------------|
-| issue_id | string | The ID of the issue to append the message to |
+| Name     | Type   | Description                 |
+|----------|--------|-----------------------------|
+| issue_id | string | The ID of the issue to pick |
 
-### Body
-
-| Value    | Type   | Description                        |
-|----------|--------|------------------------------------|
-| **text** | string | The body of the message to be sent |
 
 ### Response
 
@@ -1473,13 +1482,170 @@ requests.post(
   "reporter_type": "client",
   "resolved_at": null,
   "resolver_type": null,
+  "resolve_description": null,
   "picked_at": null,
+  "picker_type": null,
+  "state": "reported",
+  "messages": []
+}
+```
+
+The success response is the serialized updated issue. For a detailed version of it take a look at the response body of [Report Issue](#report-issue) request.
+
+### Errors
+
+| Code              | Description                   |
+|-------------------|-------------------------------|
+| not_authenticated | Token is missing or invalid   |
+| resolved_issue    | The issue is already resolved |
+| picked_issue      | The issue is already picked   |
+
+## Resolve Issue
+
+Resolves an unresolved issue.
+
+> Request example:
+
+```shell
+curl --location --request POST "$BASE_URL/issue/{issue_id}/resolve/" \
+--header 'Authorization: Token <Your Token>' \
+--header 'Content-Type: application/json'
+```
+
+```python
+import requests
+
+data = {
+  "resolve_description": "سفارش تحویل کوریر داده شد. "
+}
+
+requests.post(
+  base_url + "/issues/{issue_id}/resolve/",
+  headers={"Authorization": "Token <Your Token>"},
+  data = data,
+)
+```
+
+### HTTP Request
+
+`PATCH /issues/{issue_id}/resolve/`
+
+
+### Path parameters
+
+| Name     | Type   | Description                    |
+|----------|--------|--------------------------------|
+| issue_id | string | The ID of the issue to resolve |
+
+### Body
+
+| Value                   | Type   | Description                                      |
+|-------------------------|--------|--------------------------------------------------|
+| **resolve_description** | string | The description required when resolving an issue |
+
+### Response
+
+> Response example:
+
+```json
+{
+  "id": "ccba8f45-6ef6-409f-a1ee-453219aaa04f",
+  "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
+  "problem_id": "728cfd38-3267-4bd0-bcec-c4fc904cebda",
+  "reported_at": "2021-11-01T18:44:19+0330",
+  "reporter_type": "client",
+  "resolved_at": null,
+  "resolver_type": null,
+  "resolve_description": null,
+  "picked_at": null,
+  "picker_type": null,
+  "state": "reported",
+  "messages": []
+}
+```
+
+The success response is the serialized updated issue. For a detailed version of it take a look at the response body of [Report Issue](#report-issue) request.
+
+### Errors
+
+| Code              | Description                                         |
+|-------------------|-----------------------------------------------------|
+| not_authenticated | Token is missing or invalid                         |
+| resolved_issue    | The issue is already resolved                       |
+| not_picked        | The issue is reported by `miare` but not picked yet |
+
+## Append Message
+
+Appends a new message to an unresolved issue. 
+
+<aside class="notice">
+Currently only messages with text type are supported.
+</aside>
+> Request example:
+
+```shell
+curl --location --request PATCH "$BASE_URL/issue/{issue_id}/messages/" \
+--header 'Authorization: Token <Your Token>' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "message": "با مشتری نهایی تماس گرفته شد و گفتن که به لابی تحویل بدین"
+}'
+```
+
+```python
+import requests
+
+data = {
+  "message": "با مشتری نهایی تماس گرفته شد و گفتن که به لابی تحویل بدین"
+}
+
+requests.patch(
+  base_url + "/issues/{issue_id}/messages/",
+  headers={"Authorization": "Token <Your Token>"},
+  data = data,
+)
+```
+
+### HTTP Request
+
+`PATCH /issues/{issue_id}/messages/`
+
+
+### Path parameters
+
+| Name     | Type   | Description                                  |
+|----------|--------|----------------------------------------------|
+| issue_id | string | The ID of the issue to append the message to |
+
+### Body
+
+| Value       | Type   | Description                        |
+|-------------|--------|------------------------------------|
+| **message** | string | The body of the message to be sent |
+
+### Response
+
+> Response example:
+
+```json
+{
+  "id": "ccba8f45-6ef6-409f-a1ee-453219aaa04f",
+  "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
+  "problem_id": "728cfd38-3267-4bd0-bcec-c4fc904cebda",
+  "reported_at": "2021-11-01T18:44:19+0330",
+  "reporter_type": "client",
+  "resolved_at": null,
+  "resolver_type": null,
+  "resolve_description": null,
+  "picked_at": null,
+  "picker_type": null,
   "state": "reported",
   "messages": [
     {
       "id": "9c212393-8ac3-4917-ac7a-844f76c361f2",
       "created_at": "2021-11-01T18:46:19+0330",
-      "text": "با مشتری نهایی تماس گرفته شد و گفتن که به لابی تحویل بدین",
+      "type": "text",
+      "message": "با مشتری نهایی تماس گرفته شد و گفتن که به لابی تحویل بدین",
       "sender_type": "client"
     }
   ]
@@ -1876,14 +2042,17 @@ There is one course event that makes a request to your server with one the follo
       "reporter_type": "client",
       "resolved_at": null,
       "resolver_type": null,
+      "resolve_description": null,
       "picked_at": null,
+      "picker_type": null,
       "state": "reported",
       "messages": [
         {
-          "id": "9c212393-8ac3-4917-ac7a-844f76c361f2",
-          "created_at": "2021-11-01T18:46:19+0330",
-          "text": "سلام! رضا هستم از میاره",
-          "sender_type": "miare"
+          "id": "9ad24b31-8f1e-4c5e-b488-b715b2825792",
+          "created_at": "2021-11-02T14:48:18+0330",
+          "sender_type": "miare",
+          "type": "text",
+          "message": "سلام! پشتیبان میاره هستم"
         }
       ]
     }
@@ -1897,11 +2066,12 @@ There is one course event that makes a request to your server with one the follo
 
 ### Events
 
-There are 3 issue events each of which make a request to your server with one the following strings as the event and a serialized issue.
+There are some issue events each of which make a request to your server with one the following strings as the event and a serialized issue.
 
 | Event              | Description                               |
 |--------------------|-------------------------------------------|
 | **issue_added**    | Issue has been successfully created       |
+| **issue_picked**   | Issue has been successfully picked        |
 | **message_added**  | A new message has been added to the issue |
 | **issue_resolved** | The issue has been resolved               |
 
