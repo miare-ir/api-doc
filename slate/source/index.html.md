@@ -1163,7 +1163,7 @@ base_url = "https://ws.mia.re/support/third-party-api/v2"
 
 Services related to reporting, responding, and getting information about issues.
 
-## List Problems
+## List Problems (Phase 1)
 
 Returns list of Miare problems. Each `issue` is categorized based on its `problem`. API clients should store a mapping of Miare's problems and theirs.   
 
@@ -1224,7 +1224,7 @@ The details about properties of each object is as follows:
 |-------------------|-----------------------------|
 | not_authenticated | Token is missing or invalid |
 
-## Report Issue
+## Report Issue (Phase 1)
 
 Creates an issue with given data. 
 
@@ -1330,7 +1330,7 @@ The details about properties of each object is as follows:
 | forbidden_problem    | The relative problem of `problem_id` is not `for_reporter_type` of client                                                                   |
 | description_required | The relative problem of `problem_id` is forcing `description` field on it's issues                                                          |
 
-## List Issues
+## List Issues (Phase 1)
 
 Returns list of issues of your trips matching the given conditions.
 
@@ -1436,7 +1436,7 @@ Server might not have or decide not to send you as many result items as <code>li
 |-------------------|-----------------------------|
 | not_authenticated | Token is missing or invalid |
 
-## Pick Issue
+## Pick Issue (Phase 2)
 
 Picks an issue that means the issue is being checked by the client. 
 
@@ -1500,7 +1500,7 @@ The success response is the serialized updated issue. For a detailed version of 
 | resolved_issue    | The issue is already resolved |
 | picked_issue      | The issue is already picked   |
 
-## Resolve Issue
+## Resolve Issue (Phase 1)
 
 Resolves an unresolved issue.
 
@@ -1568,13 +1568,13 @@ The success response is the serialized updated issue. For a detailed version of 
 
 ### Errors
 
-| Code              | Description                                         |
-|-------------------|-----------------------------------------------------|
-| not_authenticated | Token is missing or invalid                         |
-| resolved_issue    | The issue is already resolved                       |
-| not_picked        | The issue is reported by `miare` but not picked yet |
+| Code              | Description                                                   |
+|-------------------|---------------------------------------------------------------|
+| not_authenticated | Token is missing or invalid                                   |
+| resolved_issue    | The issue is already resolved                                 |
+| not_picked        | The issue is reported by `miare` but not picked yet (Phase 2) |
 
-## Append Message
+## Append Message (Phase 3)
 
 Appends a new message to an unresolved issue. 
 
@@ -2068,10 +2068,9 @@ There is one course event that makes a request to your server with one the follo
 
 There are some issue events each of which make a request to your server with one the following strings as the event and a serialized issue.
 
-| Event              | Description                               |
-|--------------------|-------------------------------------------|
-| **issue_added**    | Issue has been successfully created       |
-| **issue_picked**   | Issue has been successfully picked        |
-| **message_added**  | A new message has been added to the issue |
-| **issue_resolved** | The issue has been resolved               |
-
+| Event                   | Description                               |
+|-------------------------|-------------------------------------------|
+| **issue_added**         | Issue has been created                    |
+| **issue_picked**        | Issue has been picked                     |
+| **issue_message_added** | A new message has been added to the issue |
+| **issue_resolved**      | The issue has been resolved               |
