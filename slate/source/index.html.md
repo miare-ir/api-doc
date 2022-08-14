@@ -1263,11 +1263,11 @@ requests.post(
 
 ### Body
 
-| Value           | Type                  | Description                                                                                                                            |
-|-----------------|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| **trip_id**     | string                | The id of the trip in Miare services                                                                                                   |
-| **problem_id**  | string                | The id of the problem for `client` reporter type in Miare services                                                                     |
-| **description** | string **(nullable)** | The extra description in addition to problem, the nullability of this field depends on the `description_required` value of the problem |
+| Value           | Type                  | Description                                                                                                                                                                          |
+|-----------------|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **trip_id**     | string                | The id of the trip in Miare services                                                                                                                                                 |
+| **problem_id**  | string                | The id of the problem for `client` reporter type in Miare services                                                                                                                   |
+| **description** | string **(nullable)** | The extra description in addition to problem, the nullability of this field depends on the `description_required` value of the problem. Max length for this field is 256 characters. |
 
 ### Response
 
@@ -1309,7 +1309,7 @@ The details about properties of each object is as follows:
 | **reported_at**          | string [date-time]                | The datetime that the issue is reported at                                                                                                                           |
 | **reporter_type**        | string                            | The type of the reporter of the issue. Is one of the following values: "miare" "client".                                                                             |
 | **resolved_at**          | string [date-time] **(nullable)** | The datetime that the issue is resolved at. It is null for unresolved issues.                                                                                        |
-| **resolve_description**  | string **(nullable)**             | The description that is submitted about resolution of the issue. It is null for unresolved issues.                                                                   |
+| **resolve_description**  | string **(nullable)**             | The description that is submitted about resolution of the issue. Max length for this field is 256 characters. It is null for unresolved issues.                      |
 | **resolver_type**        | string **(nullable)**             | The type of the reporter of the issue. Is one of the following values: "miare" "client" null. The value is null for unresolved issues.                               |
 | **picked_at**            | string [date-time] **(nullable)** | The datetime that the issue has been picked by a staff.                                                                                                              |
 | **picker_type**          | string **(nullable)**             | The type of the picker of the issue. Is one of the following values: "miare" "client" null. The value is null for issues that are waiting for pick.                  |
@@ -1319,7 +1319,7 @@ The details about properties of each object is as follows:
 | **messages.type**        | string                            | The type of the message. Is one of the following values: "text" (Other message types will be supported in further versions)                                          |
 | **messages.created_at**  | string [date-time]                | The datetime that the message is created in Miare system                                                                                                             |
 | **messages.sender_type** | string                            | The type of the sender of the message. It is one of the following values: "miare" "client"                                                                           |
-| **messages.message**     | string                            | The body of this message                                                                                                                                             |
+| **messages.message**     | string                            | The body of this message. Max length for this field is 256 characters.                                                                                               |
 
 ### Errors
 
@@ -1329,6 +1329,7 @@ The details about properties of each object is as follows:
 | old_trip             | The trip is not in a situation to be able to accept new issues. Currently the trips requested before 3 hours from now are considered as old |
 | forbidden_problem    | The relative problem of `problem_id` is not `for_reporter_type` of client                                                                   |
 | description_required | The relative problem of `problem_id` is forcing `description` field on it's issues                                                          |
+| long_description     | The description value of the request is longer than the defined limit                                                                       |
 
 ## List Issues (Phase 1)
 
@@ -1475,9 +1476,9 @@ requests.post(
 
 ### Body
 
-| Value                   | Type   | Description                                      |
-|-------------------------|--------|--------------------------------------------------|
-| **resolve_description** | string | The description required when resolving an issue |
+| Value                   | Type   | Description                                                                                    |
+|-------------------------|--------|------------------------------------------------------------------------------------------------|
+| **resolve_description** | string | The description required when resolving an issue. Max length for this field is 256 characters. |
 
 ### Response
 
@@ -1504,11 +1505,12 @@ The success response is the serialized updated issue. For a detailed version of 
 
 ### Errors
 
-| Code              | Description                                                   |
-|-------------------|---------------------------------------------------------------|
-| not_authenticated | Token is missing or invalid                                   |
-| resolved_issue    | The issue is already resolved                                 |
-| not_picked        | The issue is reported by `miare` but not picked yet (Phase 2) |
+| Code                     | Description                                                                   |
+|--------------------------|-------------------------------------------------------------------------------|
+| not_authenticated        | Token is missing or invalid                                                   |
+| resolved_issue           | The issue is already resolved                                                 |
+| long_resolve_description | Teh resolve description value in the request is longer than the defined limit |
+| not_picked               | The issue is reported by `miare` but not picked yet (Phase 2)                 |
 
 ## Pick Issue (Phase 2)
 
@@ -1619,9 +1621,9 @@ requests.patch(
 
 ### Body
 
-| Value       | Type   | Description                        |
-|-------------|--------|------------------------------------|
-| **message** | string | The body of the message to be sent |
+| Value       | Type   | Description                                                                     |
+|-------------|--------|---------------------------------------------------------------------------------|
+| **message** | string | The body of the message to be sent.Max length for this field is 256 characters. |
 
 ### Response
 
@@ -1656,10 +1658,11 @@ The success response is the serialized created issue. For a detailed version of 
 
 ### Errors
 
-| Code              | Description                   |
-|-------------------|-------------------------------|
-| not_authenticated | Token is missing or invalid   |
-| resolved_issue    | The issue is already resolved |
+| Code              | Description                                                       |
+|-------------------|-------------------------------------------------------------------|
+| not_authenticated | Token is missing or invalid                                       |
+| resolved_issue    | The issue is already resolved                                     |
+| long_message      | The message value of the request is longer than the defined limit |
 
 # Areas
 
