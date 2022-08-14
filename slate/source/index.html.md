@@ -1139,7 +1139,7 @@ Server might not have or decide not to send you as many result items as <code>li
 |-------------------|-----------------------------|
 | not_authenticated | Token is missing or invalid |
 
-# Supports Integration
+# Supports Integration (WIP)
 
 > Base URL of staging servers for support services:
 
@@ -2025,7 +2025,7 @@ There is one course event that makes a request to your server with one the follo
 | **course_added__course** | Course has been added to a trip |
 
 
-## Issue Events
+## Issue Events (WIP)
 
 ### Request Body
 
