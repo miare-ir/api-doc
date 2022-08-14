@@ -1436,70 +1436,6 @@ Server might not have or decide not to send you as many result items as <code>li
 |-------------------|-----------------------------|
 | not_authenticated | Token is missing or invalid |
 
-## Pick Issue (Phase 2)
-
-Picks an issue that means the issue is being checked by the client. 
-
-> Request example:
-
-```shell
-curl --location --request POST "$BASE_URL/issue/{issue_id}/pick/" \
---header 'Authorization: Token <Your Token>' \
---header 'Content-Type: application/json'
-```
-
-```python
-import requests
-
-requests.post(
-  base_url + "/issues/{issue_id}/pick/",
-  headers={"Authorization": "Token <Your Token>"},
-)
-```
-
-### HTTP Request
-
-`PATCH /issues/{issue_id}/pick/`
-
-
-### Path parameters
-
-| Name     | Type   | Description                 |
-|----------|--------|-----------------------------|
-| issue_id | string | The ID of the issue to pick |
-
-
-### Response
-
-> Response example:
-
-```json
-{
-  "id": "ccba8f45-6ef6-409f-a1ee-453219aaa04f",
-  "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
-  "problem_id": "728cfd38-3267-4bd0-bcec-c4fc904cebda",
-  "reported_at": "2021-11-01T18:44:19+0330",
-  "reporter_type": "client",
-  "resolved_at": null,
-  "resolver_type": null,
-  "resolve_description": null,
-  "picked_at": null,
-  "picker_type": null,
-  "state": "reported",
-  "messages": []
-}
-```
-
-The success response is the serialized updated issue. For a detailed version of it take a look at the response body of [Report Issue](#report-issue) request.
-
-### Errors
-
-| Code              | Description                   |
-|-------------------|-------------------------------|
-| not_authenticated | Token is missing or invalid   |
-| resolved_issue    | The issue is already resolved |
-| picked_issue      | The issue is already picked   |
-
 ## Resolve Issue (Phase 1)
 
 Resolves an unresolved issue.
@@ -1573,6 +1509,70 @@ The success response is the serialized updated issue. For a detailed version of 
 | not_authenticated | Token is missing or invalid                                   |
 | resolved_issue    | The issue is already resolved                                 |
 | not_picked        | The issue is reported by `miare` but not picked yet (Phase 2) |
+
+## Pick Issue (Phase 2)
+
+Picks an issue that means the issue is being checked by the client. 
+
+> Request example:
+
+```shell
+curl --location --request POST "$BASE_URL/issue/{issue_id}/pick/" \
+--header 'Authorization: Token <Your Token>' \
+--header 'Content-Type: application/json'
+```
+
+```python
+import requests
+
+requests.post(
+  base_url + "/issues/{issue_id}/pick/",
+  headers={"Authorization": "Token <Your Token>"},
+)
+```
+
+### HTTP Request
+
+`PATCH /issues/{issue_id}/pick/`
+
+
+### Path parameters
+
+| Name     | Type   | Description                 |
+|----------|--------|-----------------------------|
+| issue_id | string | The ID of the issue to pick |
+
+
+### Response
+
+> Response example:
+
+```json
+{
+  "id": "ccba8f45-6ef6-409f-a1ee-453219aaa04f",
+  "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
+  "problem_id": "728cfd38-3267-4bd0-bcec-c4fc904cebda",
+  "reported_at": "2021-11-01T18:44:19+0330",
+  "reporter_type": "client",
+  "resolved_at": null,
+  "resolver_type": null,
+  "resolve_description": null,
+  "picked_at": null,
+  "picker_type": null,
+  "state": "reported",
+  "messages": []
+}
+```
+
+The success response is the serialized updated issue. For a detailed version of it take a look at the response body of [Report Issue](#report-issue) request.
+
+### Errors
+
+| Code              | Description                   |
+|-------------------|-------------------------------|
+| not_authenticated | Token is missing or invalid   |
+| resolved_issue    | The issue is already resolved |
+| picked_issue      | The issue is already picked   |
 
 ## Append Message (Phase 3)
 
