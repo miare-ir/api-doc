@@ -1338,7 +1338,7 @@ Returns list of issues of your trips matching the given conditions.
 > Request example:
 
 ```shell
-curl --location --request GET "$BASE_URL/issues/?reporter_type=miare&picker_type=client&reported_from_datetime=2021-11-02T14:48:18+0330&reported_to_datetime=2021-11-02T14:48:18+0330&resolved=1&picked=0&trip_id=bf125e0a-840c-4f6f-80d0-f71db7406558&trip_id=0df33447-128c-41b3-bcbd-7eb36cf5e938&offset=0&limit=10" \
+curl --location --request GET "$BASE_URL/issues/?reporter_type=miare&picker_type=client&reported_from_datetime=2021-11-02T14:48:18+0330&reported_to_datetime=2021-11-02T14:48:18+0330&resolved=1&state=resolved&picked=0&trip_id=bf125e0a-840c-4f6f-80d0-f71db7406558&trip_id=0df33447-128c-41b3-bcbd-7eb36cf5e938&offset=0&limit=10" \
 --header "Authorization: Token <Your Token>"
 ```
 
@@ -1351,6 +1351,7 @@ params = [
   ('reported_from_datetime', '2021-11-02T14:48:18+0330'),
   ('reported_to_datetime', '2021-11-02T14:48:18+0330'),
   ('resolved', 1),
+  ('state', 'resolved'),
   ('picked', 0),
   ('trip_id', 'bf125e0a-840c-4f6f-80d0-f71db7406558'),
   ('trip_id', '0df33447-128c-41b3-bcbd-7eb36cf5e938'),
@@ -1372,17 +1373,18 @@ requests.get(
 
 ### Path parameters
 
-| Name                   | Type               | Description                                                                                        |
-|------------------------|--------------------|----------------------------------------------------------------------------------------------------|
-| reporter_type          | string             | **Filter:** The value of the user type that has reported the issue                                 |
-| picker_type            | string             | **Filter:** The value of the user type that has picked the issue                                   |
-| reported_from_datetime | string [date-time] | **Filter:** Minimum acceptable value for issue's `reported_at` field. This filter is **inclusive** |
-| reported_to_datetime   | string [date-time] | **Filter:** Maximum acceptable value for issue's `reported_at` field. This filter is **inclusive** |
-| resolved               | boolean            | **Filter:** The value of issues's `resolved_at` comparing to `null`                                |
-| picked                 | boolean            | **Filter:** The value of issues's `picked_at` comparing to `null`                                  |
-| trip_id                | string             | **Filter:** The value of the trip that the issue is reported for                                   |
-| offset                 | number [integer]   | Give results excluding the first **offset** number of objects                                      |
-| limit                  | number [integer]   | Give *at most* **limit** number of results. The default value is 100                               |
+| Name                   | Type               | Description                                                                                              |
+|------------------------|--------------------|----------------------------------------------------------------------------------------------------------|
+| reporter_type          | string             | **Filter:** The value of the user type that has reported the issue                                       |
+| picker_type            | string             | **Filter:** The value of the user type that has picked the issue                                         |
+| reported_from_datetime | string [date-time] | **Filter:** Minimum acceptable value for issue's `reported_at` field. This filter is **inclusive**       |
+| reported_to_datetime   | string [date-time] | **Filter:** Maximum acceptable value for issue's `reported_at` field. This filter is **inclusive**       |
+| resolved               | boolean            | **Filter:** The value of issues's `resolved_at` comparing to `null`                                      |
+| state                  | string             | **Filter:** The value of issues's `state`. Acceptable values of state are available [here](#issue) |
+| picked                 | boolean            | **Filter:** The value of issues's `picked_at` comparing to `null`                                        |
+| trip_id                | string             | **Filter:** The value of the trip that the issue is reported for                                         |
+| offset                 | number [integer]   | Give results excluding the first **offset** number of objects                                            |
+| limit                  | number [integer]   | Give *at most* **limit** number of results. The default value is 100                                     |
 
 <aside class="notice">
 Server might not have or decide not to send you as many result items as <code>limit</code> but it never sends you more than that.
