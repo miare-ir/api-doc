@@ -109,11 +109,11 @@ An operational problem that is reported or detected on a trip.
 #### Issue States
 Each issue can be in only one the following states at any given time
 
-| Name     | Description                                                      |
-|----------|------------------------------------------------------------------|
-| reported | Issue is created but no staff has picked the issue to follow yes |
-| picked   | Issue is picked by a staff and is investigating it               |
-| resolved | Issue is resolved by one of the user types                       |
+| Name     | Description                                                  |
+|----------|--------------------------------------------------------------|
+| reported | Issue is created but no staff has picked the issue to follow |
+| picked   | Issue is picked by a staff and is investigating it           |
+| resolved | Issue is resolved by one of the user types                   |
 
 # Servers
 Miare has two sets of servers.
