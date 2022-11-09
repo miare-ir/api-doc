@@ -2,37 +2,46 @@
 title: Miare API
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - python
+
+- shell
+- python
 
 toc_footers:
-  - <a href='Miare - Third Party API.postman_collection.json' download>Postman Collection</a>
-  - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
+
+- <a href='Miare - Third Party API.postman_collection.json' download>Postman Collection</a>
+- <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
 search: true
 
 code_clipboard: true
 
 meta:
-  - name: description
-    content: Documentation for the Miare API
----
 
+- name: description
+  content: Documentation for the Miare API
+
+---
 
 # Introduction
 
-This is Miare's Third-Party API, designed to enable registered Miare users to integrate our delivery services into their applications.
+This is Miare's Third-Party API, designed to enable registered Miare users to integrate our delivery services into their
+applications.
 
 This document walks you through the steps required to use Miare's services and endpoints.
-If you need any further information about how Miare works or you are still not sure whether or not our services meet your needs, 
-feel free to check out our website <a href='https://mia.re'>mia.re</a> or contact us at <a href='mailto: tech@miare.ir'>tech@miare.ir</a>.
+If you need any further information about how Miare works or you are still not sure whether or not our services meet
+your needs,
+feel free to check out our website <a href='https://miare.ir'>miare.ir</a> or contact us at <a href='mailto: tech@miare.ir'>
+tech@miare.ir</a>.
 
 # Registration
-To use our services, you need to first have an API account. An API account is a specific type of account that 
+
+To use our services, you need to first have an API account. An API account is a specific type of account that
 can access our Third-Party endpoints and receive our event callbacks.
 
-In order to create an account and discuss the basic terms and financial details of our services, you can reach our sales team at 
-<a href=tel:02191009282>02191009282</a> Ext. 3, they will provide us with the required information to create your account.
+In order to create an account and discuss the basic terms and financial details of our services, you can reach our sales
+team at
+<a href=tel:02191009282>02191009282</a> Ext. 3, they will provide us with the required information to create your
+account.
 After registration, you'll be given a string called **Token**.
 
 <aside class="warning">
@@ -46,18 +55,23 @@ Authenticate process is further discussed in the <a href="#authentication">Authe
 # Definitions
 
 ### Client
+
 A registered user who can use Miare's delivery service.
 
 ### Courier
+
 A biker from our pool of bikers who can deliver packages from sources to destinations.
-In Miare, bikers don't pick and choose what packages they deliver. Instead, each order is automatically assigned to one of the available couriers based on their distance from the source and many other parameters.
+In Miare, bikers don't pick and choose what packages they deliver. Instead, each order is automatically assigned to one
+of the available couriers based on their distance from the source and many other parameters.
 
 ### Trip
+
 An order given by one of our clients for one or more packages to be delivered. A trip can have one and only one source
 but multiple destinations (and multiple packages to be delivered at those destinations).
 Our clients may also indicate that they wish the courier to return to the source at the end of the trip.
 
 #### Trip States
+
 Each trip can be in only one the following states at any given time
 
 | Name               | Description                                                                                                                |
@@ -70,16 +84,20 @@ Each trip can be in only one the following states at any given time
 | canceled_by_client | Trip is canceled by client (either from the web panel or Third Party API)                                                  |
 
 ### Course
-A destination and a package to be delivered at that destination. Each trip can have one or more courses. 
-As an example, if a **trip** has two **course**s, our courier will drive to the source, pick up two packages, 
+
+A destination and a package to be delivered at that destination. Each trip can have one or more courses.
+As an example, if a **trip** has two **course**s, our courier will drive to the source, pick up two packages,
 and deliver them to two separate customers in two different destinations.
 
 ### Area
+
 Part of the city defined by a set of latitude-longitudes forming a polygon that Miare operates in it.
 If **source** of a trip is inside an area, that trip is considered part of trips of that specific area.
 
 ### Shift
-A period of time in each day defined by a start and an end time. If deadline of a trip is within a shift, that trip is considered part of trips of that specific shift.
+
+A period of time in each day defined by a start and an end time. If deadline of a trip is within a shift, that trip is
+considered part of trips of that specific shift.
 
 <aside class="success">
 The current state of the shifts can be considered constant, and any change will be announced by the sales team.
@@ -90,23 +108,28 @@ Start and end time of shifts area as follows:
 | name     | start | end   |
 |----------|-------|-------|
 | morning  | 08:15 | 11:00 |
- | noon     | 11:00 | 17:30 |
- | night    | 17:30 | 23:30 |
- | midnight | 23:30 | 03:00 |
+| noon     | 11:00 | 17:30 |
+| night    | 17:30 | 23:30 |
+| midnight | 23:30 | 03:00 |
 
 ### Concurrency
+
 The maximum number of **active** trips in each **area** during each **shift** for a client.
-If the concurrency limit for a client is reached that is if the total number of its active trips is equal to its concurrency limit, the next attempts to create new trips will fail.
-Canceling a trip (by client) or ending it will free up a concurrency limit (by moving the trip out of the active trips list).
+If the concurrency limit for a client is reached that is if the total number of its active trips is equal to its
+concurrency limit, the next attempts to create new trips will fail.
+Canceling a trip (by client) or ending it will free up a concurrency limit (by moving the trip out of the active trips
+list).
 
 <aside class="success">
 Only trips in the <code>assign_queue</code>, <code>pickup</code>, <code>dropoff</code>, and <code>delivered</code> states are considered active and contribute to the concurrency limit of the client.
 </aside>
 
 ### Issue
-An operational problem that is reported or detected on a trip. 
+
+An operational problem that is reported or detected on a trip.
 
 #### Issue States
+
 Each issue can be in only one the following states at any given time
 
 | Name     | Description                                                  |
@@ -116,11 +139,15 @@ Each issue can be in only one the following states at any given time
 | resolved | Issue is resolved by one of the user types                   |
 
 # Servers
+
 Miare has two sets of servers.
 
 ## Staging
-Sandbox servers -usually referred to as **Staging**- are the playground for development teams to test integration of their application with ours.
-In the staging servers, your account will be given 10 concurrencies in each of our areas and all trips are free of charge.
+
+Sandbox servers -usually referred to as **Staging**- are the playground for development teams to test integration of
+their application with ours.
+In the staging servers, your account will be given 10 concurrencies in each of our areas and all trips are free of
+charge.
 
 <aside class="notice">
 There is no active courier on the staging so your trips will never be assigned to a courier, delivered, or ended so you have to cancel your trips to avoid reaching the concurrency limit.
@@ -131,18 +158,21 @@ Staging server addresses are same as production servers with a <code>staging.</c
 </aside>
 
 ## Production
+
 Main servers -usually referred to as **Production**- are the main product's servers for real-world use.
-In production servers, your concurrency should be purchased through the sales team and trips have normal rates applied to them.
+In production servers, your concurrency should be purchased through the sales team and trips have normal rates applied
+to them.
 
 <aside class="notice">
 You should only start using our production server after all technical and non-technical major integration issues are resolved.
 </aside>
 
-
 # Authentication
 
-Each client has a specific API key called **Token** for each of our servers. The token is the sole representative of an account on a server as well as its trips, courses, and financial transactions.
-The sales team will provide you with the staging token after the **registration** process and the production token after the **test** process.
+Each client has a specific API key called **Token** for each of our servers. The token is the sole representative of an
+account on a server as well as its trips, courses, and financial transactions.
+The sales team will provide you with the staging token after the **registration** process and the production token after
+the **test** process.
 
 <aside class="success">
 At this moment, there is no automatic process for resetting your token, but you can ask the sales team to reset it for you at any time.
@@ -153,7 +183,6 @@ Note that staging and production tokens are in no way related to each other and 
 </aside>
 
 > To authorize, pass the authorization token among headers and prefix it with `Token `:
-
 
 ```shell
 curl "api_endpoint_here" \
@@ -169,13 +198,13 @@ requests.post(
 )
 ```
 
-
 > Make sure to replace `<Your Token>` with your API Token.
 
 
 Maire uses API Tokens to allow access to the API.
 
-Miare API expects for the token to be included in **ALL** API requests to the server in an `Authorization` header that looks like the following:
+Miare API expects for the token to be included in **ALL** API requests to the server in an `Authorization` header that
+looks like the following:
 
 `Authorization: Token <Your Token>`
 
@@ -183,15 +212,16 @@ Miare API expects for the token to be included in **ALL** API requests to the se
 You must replace <code>&#60;Your Token&#62;</code> with your personal API key.
 </aside>
 
-
 # Errors
+
 All application level error of our API are in the following format:
 
 <code>
 {"code": "constant_error_code", "detail": "Variable human readable details"}
 </code>
 
-The `code` value is the main indicator of what went wrong. You can use it in a `switch-case` statement to determine the type of error.
+The `code` value is the main indicator of what went wrong. You can use it in a `switch-case` statement to determine the
+type of error.
 
 The `detail` value is human readable details of what went wrong which is suitable for developers (**not** users).
 
@@ -203,12 +233,14 @@ You should <b>not</b> rely on the value of the <code>detail</code> for automatic
 You can find possible error codes of each endpoints in this document at the end of each endpoint's related section.
 </aside>
 
-
 # Postman Collection
 
-All of the services included in this document can be downloaded as a [Postman Collection](https://www.postman.com/collection/) from <a href="Miare - Third Party API.postman_collection.json" download>here</a>.
+All of the services included in this document can be downloaded as
+a [Postman Collection](https://www.postman.com/collection/)
+from <a href="Miare - Third Party API.postman_collection.json" download>here</a>.
 
-In order for the collection to be fully functional, you need to set three [Postman Variables](https://learning.postman.com/docs/sending-requests/variables/) in your environment.
+In order for the collection to be fully functional, you need to set
+three [Postman Variables](https://learning.postman.com/docs/sending-requests/variables/) in your environment.
 
 Name | Description
 ----- | ---- | -----------
@@ -216,29 +248,27 @@ Name | Description
 **token** | Your token. Make sure it is token for the right server set
 **callback_address** | Address of your http server waiting for Miare webhook calls to come in
 
-
 # Delivery
 
 > Base URL of staging servers for delivery services:
 
 ```shell
-BASE_URL="https://staging.ws.mia.re/trip-management/third-party-api/v2"
+BASE_URL="https://staging.ws.miare.ir/trip-management/third-party-api/v2"
 ```
 
 ```python
-base_url = "https://staging.ws.mia.re/trip-management/third-party-api/v2"
+base_url = "https://staging.ws.miare.ir/trip-management/third-party-api/v2"
 ```
 
 > Base URL of production servers for delivery services:
 
 ```shell
-BASE_URL="https://ws.mia.re/trip-management/third-party-api/v2"
+BASE_URL="https://ws.miare.ir/trip-management/third-party-api/v2"
 ```
 
 ```python
-base_url = "https://ws.mia.re/trip-management/third-party-api/v2"
+base_url = "https://ws.miare.ir/trip-management/third-party-api/v2"
 ```
-
 
 Services related to creation and management of trips and courses.
 
@@ -331,39 +361,37 @@ requests.post(
 )
 ```
 
-> If you are getting the a `Deadline: (value_in_past)` error, make sure to update the `pickup.deadline` to a time in the future.
-
+> If you are getting the a `Deadline: (value_in_past)` error, make sure to update the `pickup.deadline` to a time in the
+> future.
 
 ### HTTP Request
 
 `POST /trips/`
 
-
 ### Body
 
-
-| Value                               | Type                  | Description                                                                                                                                                                                                                                   |
-|-------------------------------------|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **pickup**                          | object                | The source of the trip                                                                                                                                                                                                                        |
-| pickup.**name**                     | string                | The human readable name of the pickup                                                                                                                                                                                                         |
-| pickup.**phone_number**             | string                | The phone number associated with the source which will be used by courier and support staffs in order to contact to pickup if necessary                                                                                                       |
-| pickup.**address**                  | string                | The human readable address of the source, preferably down to every necessary detail for a human to find the source quickly                                                                                                                    |
-| pickup.**image**                    | string [uri]          | A valid URL which points to an image file which should be the logo of the pickup. This image will be used in both support panel, and courier’s application. Make sure that the URL is both reachable and is configured to allow CORS requests |
-| pickup.**location**                 | object                | The exact location of the pickup                                                                                                                                                                                                              |
-| pickup.location.**latitude**        | number [double]       | The latitude of the pickup location                                                                                                                                                                                                           |
-| pickup.location.**longitude**       | number [double]       | The longitude of the pickup location                                                                                                                                                                                                          |
-| pickup.**deadline**                 | string [date-time]    | The time that you expect the courier to arrive at the pickup, so optimally it should be the time package content is ready and packaged. **Can't be in the past**                                                                              |
-| **courses**                         | array                 | List of destinations of the trips                                                                                                                                                                                                             |
-| courses.**bill_number**             | string                | An string field left for you to store sort of a human readable bill number in it which will be used as a reference point among our support team, you and the pickup staffs                                                                    |
-| courses.**name**                    | string                | Name of the dropp-off                                                                                                                                                                                                                         |
-| courses.**phone_number**            | string                | The phone number associated with the drop-off which will be used by courier and support staffs in order to contact to them if necessary                                                                                                       |
-| coureses.**address**                | string                | The human readable drop-off address, preferably down to every necessary detail for a human to find it quickly                                                                                                                                 |
-| courses.location                    | object **(Optional)** | The exact location of the pickup. If there is no provided drop-off location, the courier will find the location based on the address and accounting calculations will be based on that location                                               |
-| courses.location.**latitude**       | number [double]       | The latitude of the drop-off location                                                                                                                                                                                                         |
-| courses.location.**longitude**      | number [double]       | The longitude of the drop-off location                                                                                                                                                                                                        |
-| courses.manifest_items              | array **(Optional)**  | The contents of the package to be delivered to the drop-off                                                                                                                                                                                   |
-| courses.manifest_items.**name**     | string                | Human readable name of the content which will be verified by courier                                                                                                                                                                          |
-| courses.manifest_items.**quantity** | string                | The quanitiy of the item                                                                                                                                                                                                                      |
+| Value                               | Type                 | Description                                                                                                                                                                                                                                   |
+|-------------------------------------|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **pickup**                          | object               | The source of the trip                                                                                                                                                                                                                        |
+| pickup.**name**                     | string               | The human readable name of the pickup                                                                                                                                                                                                         |
+| pickup.**phone_number**             | string               | The phone number associated with the source which will be used by courier and support staffs in order to contact to pickup if necessary                                                                                                       |
+| pickup.**address**                  | string               | The human readable address of the source, preferably down to every necessary detail for a human to find the source quickly                                                                                                                    |
+| pickup.**image**                    | string [uri]         | A valid URL which points to an image file which should be the logo of the pickup. This image will be used in both support panel, and courier’s application. Make sure that the URL is both reachable and is configured to allow CORS requests |
+| pickup.**location**                 | object               | The exact location of the pickup                                                                                                                                                                                                              |
+| pickup.location.**latitude**        | number [double]      | The latitude of the pickup location                                                                                                                                                                                                           |
+| pickup.location.**longitude**       | number [double]      | The longitude of the pickup location                                                                                                                                                                                                          |
+| pickup.**deadline**                 | string [date-time]   | The time that you expect the courier to arrive at the pickup, so optimally it should be the time package content is ready and packaged. **Can't be in the past**                                                                              |
+| **courses**                         | array                | List of destinations of the trips                                                                                                                                                                                                             |
+| courses.**bill_number**             | string               | An string field left for you to store sort of a human readable bill number in it which will be used as a reference point among our support team, you and the pickup staffs                                                                    |
+| courses.**name**                    | string               | Name of the dropp-off                                                                                                                                                                                                                         |
+| courses.**phone_number**            | string               | The phone number associated with the drop-off which will be used by courier and support staffs in order to contact to them if necessary                                                                                                       |
+| coureses.**address**                | string               | The human readable drop-off address, preferably down to every necessary detail for a human to find it quickly                                                                                                                                 |
+| courses.location                    | object               | The exact location of the drop-off.                                                                                                                                                                                                           |
+| courses.location.**latitude**       | number [double]      | The latitude of the drop-off location                                                                                                                                                                                                         |
+| courses.location.**longitude**      | number [double]      | The longitude of the drop-off location                                                                                                                                                                                                        |
+| courses.manifest_items              | array **(Optional)** | The contents of the package to be delivered to the drop-off                                                                                                                                                                                   |
+| courses.manifest_items.**name**     | string               | Human readable name of the content which will be verified by courier                                                                                                                                                                          |
+| courses.manifest_items.**quantity** | string               | The quanitiy of the item                                                                                                                                                                                                                      |
 
 ### Response
 
@@ -393,14 +421,14 @@ requests.post(
   },
   "devlivery_cost": null,
   "courier": {
-      "image": "https://image.miare.ir/avatars/123456.jpeg",
-      "location": {
-          "latitude": 35.753691,
-          "longitude": 51.332284
-      },
-      "location_updated_at": "2021-11-01T19:10:13+0330",
-      "name": "علی لطفی",
-      "phone_number": "09379187928"
+    "image": "https://image.miare.ir/avatars/123456.jpeg",
+    "location": {
+      "latitude": 35.753691,
+      "longitude": 51.332284
+    },
+    "location_updated_at": "2021-11-01T19:10:13+0330",
+    "name": "علی لطفی",
+    "phone_number": "09379187928"
   },
   "courses": [
     {
@@ -427,7 +455,7 @@ requests.post(
       }
     }
   ],
-  "tracking_url": "https://www.staging.mia.re/p/trip_watching/#!/7484f5305e"
+  "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/7484f5305e"
 }
 ```
 
@@ -520,9 +548,7 @@ requests.post(
 
 `POST /trips/{trip_id}/cancel/`
 
-
 ### Path parameters
-
 
 | Name    | Type   | Description                  |
 |---------|--------|------------------------------|
@@ -553,7 +579,7 @@ The given trip ID most belong to your client.
   },
   "delivery_cost": null,
   "courier": null,
-    "pickup": {
+  "pickup": {
     "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
     "deadline": "2021-11-01T20:42:00+0330",
     "image": "https://example.com/restaurants/bm_logo.png",
@@ -586,14 +612,15 @@ The given trip ID most belong to your client.
         "price": 0
       },
       "phone_number": "09123456789",
-      "tracking_url": "https://www.staging.mia.re/p/trip_watching/#!/7484f5305e",
+      "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/7484f5305e",
       "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7"
     }
   ]
 }
 ```
 
-Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](#create-trip) request.
+Response body is a serialized trip. For a detailed version of it take a look at the response body
+of [Create Trip](#create-trip) request.
 
 <aside class="notice">
 Successful calls to this endpoint will update the state of the trip to <code>canceled_by_client</code>.
@@ -632,7 +659,6 @@ requests.post(
   headers={"Authorization": "Token <Your Token>"},
 )
 ```
-
 
 ```shell
 TRIP_ID="<Trip ID>"
@@ -691,7 +717,6 @@ requests.patch(
 
 ### Path parameters
 
-
 | Name    | Type   | Description                           |
 |---------|--------|---------------------------------------|
 | trip_id | string | The ID of the trip to add a course to |
@@ -701,7 +726,6 @@ You can find ID of your trip in the response body of <a href="#create-trip">Crea
 </aside>
 
 ### Body
-
 
 | Value                       | Type                  | Description                                                                                                                                                                                     |
 |-----------------------------|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -722,58 +746,59 @@ You can find ID of your trip in the response body of <a href="#create-trip">Crea
 
 ```json
 {
-    "id": "8e209688-19c9-4982-a755-517408b6a29f",
-    "created_at": "2021-11-01T18:44:19+0330",
-    "picked_up_at": null,
-    "state": "assign_queue",
-    "assigned_at": null,
-    "delivery_cost": null,
-    "courier": null,
-    "pickup": {
-        "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
-        "deadline": "2021-11-01T20:42:00+0330",
-        "image": "https://example.com/restaurants/bm_logo.png",
-        "location": {
-            "latitude": 35.737004,
-            "longitude": 51.413569
-        },
-        "name": "رستوران بزرگمهر",
-        "phone_number": "09123456789"
+  "id": "8e209688-19c9-4982-a755-517408b6a29f",
+  "created_at": "2021-11-01T18:44:19+0330",
+  "picked_up_at": null,
+  "state": "assign_queue",
+  "assigned_at": null,
+  "delivery_cost": null,
+  "courier": null,
+  "pickup": {
+    "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
+    "deadline": "2021-11-01T20:42:00+0330",
+    "image": "https://example.com/restaurants/bm_logo.png",
+    "location": {
+      "latitude": 35.737004,
+      "longitude": 51.413569
     },
-    "area": {
-        "id": "3",
-        "name": "یوسف آباد"
-    },
-    "courses": [
+    "name": "رستوران بزرگمهر",
+    "phone_number": "09123456789"
+  },
+  "area": {
+    "id": "3",
+    "name": "یوسف آباد"
+  },
+  "courses": [
+    {
+      "address": "تهران، خیابان استاد معین، پلاک ۱۲",
+      "bill_number": "DEL-120",
+      "dropped_off_at": null,
+      "id": "c57cb6bc-e1c2-404a-a0d2-a54881fe96ec",
+      "location": {
+        "latitude": 35.737004,
+        "longitude": 51.413569
+      },
+      "manifest_items": [
         {
-            "address": "تهران، خیابان استاد معین، پلاک ۱۲",
-            "bill_number": "DEL-120",
-            "dropped_off_at": null,
-            "id": "c57cb6bc-e1c2-404a-a0d2-a54881fe96ec",
-            "location": {
-                "latitude": 35.737004,
-                "longitude": 51.413569
-            },
-            "manifest_items": [
-                {
-                    "name": "پیتزا پپرونی خانواده",
-                    "quantity": 2
-                }
-            ],
-            "name": "علی علوی",
-            "payment": {
-                "payment_type": "cash",
-                "price": 0
-            },
-            "phone_number": "09123456789",
-            "tracking_url": "https://www.staging.mia.re/p/trip_watching/#!/c57cb6bce1",
-            "trip_id": "8e209688-19c9-4982-a755-517408b6a29f"
+          "name": "پیتزا پپرونی خانواده",
+          "quantity": 2
         }
-    ]
+      ],
+      "name": "علی علوی",
+      "payment": {
+        "payment_type": "cash",
+        "price": 0
+      },
+      "phone_number": "09123456789",
+      "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/c57cb6bce1",
+      "trip_id": "8e209688-19c9-4982-a755-517408b6a29f"
+    }
+  ]
 }
 ```
 
-Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](#create-trip) request.
+Response body is a serialized trip. For a detailed version of it take a look at the response body
+of [Create Trip](#create-trip) request.
 
 ### Errors
 
@@ -817,9 +842,7 @@ requests.delete(
 
 `DELETE /courses/{course_id}/`
 
-
 ### Path parameters
-
 
 | Name      | Type   | Description                    |
 |-----------|--------|--------------------------------|
@@ -850,7 +873,7 @@ The given course ID most belong to your client.
   },
   "delivery_cost": null,
   "courier": null,
-    "pickup": {
+  "pickup": {
     "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
     "deadline": "2021-11-01T20:42:00+0330",
     "image": "https://example.com/restaurants/bm_logo.png",
@@ -883,14 +906,15 @@ The given course ID most belong to your client.
         "price": 0
       },
       "phone_number": "09123456789",
-      "tracking_url": "https://www.staging.mia.re/p/trip_watching/#!/7484f5305e",
+      "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/7484f5305e",
       "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7"
     }
   ]
 }
 ```
 
-Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](#create-trip) request.
+Response body is a serialized trip. For a detailed version of it take a look at the response body
+of [Create Trip](#create-trip) request.
 
 ### Errors
 
@@ -930,9 +954,7 @@ requests.get(
 
 `GET /trips/{trip_id}/`
 
-
 ### Path parameters
-
 
 | Name    | Type   | Description        |
 |---------|--------|--------------------|
@@ -963,7 +985,7 @@ The given trip ID most belong to your client.
   },
   "delivery_cost": null,
   "courier": null,
-    "pickup": {
+  "pickup": {
     "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
     "deadline": "2021-11-01T20:42:00+0330",
     "image": "https://example.com/restaurants/bm_logo.png",
@@ -996,14 +1018,15 @@ The given trip ID most belong to your client.
         "price": 0
       },
       "phone_number": "09123456789",
-      "tracking_url": "https://www.staging.mia.re/p/trip_watching/#!/7484f5305e",
+      "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/7484f5305e",
       "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7"
     }
   ]
 }
 ```
 
-Response body is a serialized trip. For a detailed version of it take a look at the response body of [Create Trip](#create-trip) request.
+Response body is a serialized trip. For a detailed version of it take a look at the response body
+of [Create Trip](#create-trip) request.
 
 ### Errors
 
@@ -1050,7 +1073,6 @@ requests.get(
 
 `GET /trips/`
 
-
 ### Path parameters
 
 | Name          | Type               | Description                                                                                                                           |
@@ -1073,56 +1095,56 @@ Server might not have or decide not to send you as many result items as <code>li
 
 ```json
 {
-    "data": [
+  "data": [
+    {
+      "area": {
+        "id": "27",
+        "name": "پونک"
+      },
+      "assigned_at": null,
+      "delivery_cost": null,
+      "courier": null,
+      "courses": [
         {
-            "area": {
-                "id": "27",
-                "name": "پونک"
-            },
-            "assigned_at": null,
-            "delivery_cost": null,
-            "courier": null,
-            "courses": [
-                {
-                    "address": "هران، خیابان استاد معین، پلاک ۱۲",
-                    "bill_number": "DEL-119",
-                    "dropped_off_at": null,
-                    "id": "3b0e8576-f802-44f5-8654-d65e11fd3035",
-                    "location": {
-                        "latitude": 35.753515,
-                        "longitude": 51.332119
-                    },
-                    "manifest_items": [],
-                    "name": "علی علوی",
-                    "payment": {
-                        "payment_type": "cash",
-                        "price": 0
-                    },
-                    "phone_number": "09379187928",
-                    "tracking_url": "https://www.staging.mia.re/p/trip_watching/#!/3b0e8576f8",
-                    "trip_id": "05fd0397-5a78-4852-98e7-9fbc310685c0"
-                }
-            ],
-            "created_at": "2021-09-29T17:07:27+0330",
-            "id": "05fd0397-5a78-4852-98e7-9fbc310685c0",
-            "picked_up_at": null,
-            "pickup": {
-                "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
-                "deadline": "2021-09-29T17:19:19+0330",
-                "image": "https://example.com/restaurants/bm_logo.png",
-                "location": {
-                    "latitude": 35.753515,
-                    "longitude": 51.332119
-                },
-                "name": "بزرگ‌ترین رستوران خاور میانه و حواشی آن تا اقیانوس اطلس",
-                "phone_number": "09379187928"
-            },
-            "state": "canceled_by_miare"
+          "address": "هران، خیابان استاد معین، پلاک ۱۲",
+          "bill_number": "DEL-119",
+          "dropped_off_at": null,
+          "id": "3b0e8576-f802-44f5-8654-d65e11fd3035",
+          "location": {
+            "latitude": 35.753515,
+            "longitude": 51.332119
+          },
+          "manifest_items": [],
+          "name": "علی علوی",
+          "payment": {
+            "payment_type": "cash",
+            "price": 0
+          },
+          "phone_number": "09379187928",
+          "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/3b0e8576f8",
+          "trip_id": "05fd0397-5a78-4852-98e7-9fbc310685c0"
         }
-    ],
-    "next": "https://staging.ws.mia.re/trip-management/third-party-api/v2/trips/?offset=1&limit=1&from_datetime=2020-11-02T14:48:18Z&to_datetime=2021-12-02T14:48:18Z",
-    "previous": "",
-    "total_count": 35
+      ],
+      "created_at": "2021-09-29T17:07:27+0330",
+      "id": "05fd0397-5a78-4852-98e7-9fbc310685c0",
+      "picked_up_at": null,
+      "pickup": {
+        "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
+        "deadline": "2021-09-29T17:19:19+0330",
+        "image": "https://example.com/restaurants/bm_logo.png",
+        "location": {
+          "latitude": 35.753515,
+          "longitude": 51.332119
+        },
+        "name": "بزرگ‌ترین رستوران خاور میانه و حواشی آن تا اقیانوس اطلس",
+        "phone_number": "09379187928"
+      },
+      "state": "canceled_by_miare"
+    }
+  ],
+  "next": "https://staging.ws.miare.ir/trip-management/third-party-api/v2/trips/?offset=1&limit=1&from_datetime=2020-11-02T14:48:18Z&to_datetime=2021-12-02T14:48:18Z",
+  "previous": "",
+  "total_count": 35
 }
 ```
 
@@ -1139,33 +1161,34 @@ Server might not have or decide not to send you as many result items as <code>li
 |-------------------|-----------------------------|
 | not_authenticated | Token is missing or invalid |
 
-# Supports Integration (WIP)
+# Supports Integration
 
 > Base URL of staging servers for support services:
 
 ```shell
-BASE_URL="https://staging.ws.mia.re/support/third-party-api/v2"
+BASE_URL="https://staging.ws.miare.ir/support/third-party-api/v2"
 ```
 
 ```python
-base_url = "https://staging.ws.mia.re/support/third-party-api/v2"
+base_url = "https://staging.ws.miare.ir/support/third-party-api/v2"
 ```
 
 > Base URL of production servers for delivery services:
 
 ```shell
-BASE_URL="https://ws.mia.re/support/third-party-api/v2"
+BASE_URL="https://ws.miare.ir/support/third-party-api/v2"
 ```
 
 ```python
-base_url = "https://ws.mia.re/support/third-party-api/v2"
+base_url = "https://ws.miare.ir/support/third-party-api/v2"
 ```
 
 Services related to reporting, responding, and getting information about issues.
 
-## List Problems (Phase 1)
+## List Problems
 
-Returns list of Miare problems. Each `issue` is categorized based on its `problem`. API clients should store a mapping of Miare's problems and theirs.   
+Returns list of Miare problems. Each `issue` is categorized based on its `problem`. API clients should store a mapping
+of Miare's problems and theirs.
 
 > Request example:
 
@@ -1208,7 +1231,7 @@ requests.get(
 ]
 ```
 
-The response is an array of all the problems you may face in your webhook calls. 
+The response is an array of all the problems you may face in your webhook calls.
 The details about properties of each object is as follows:
 
 | Value                    | Type    | Description                                                                                                                                              |
@@ -1224,9 +1247,9 @@ The details about properties of each object is as follows:
 |-------------------|-----------------------------|
 | not_authenticated | Token is missing or invalid |
 
-## Report Issue (Phase 1)
+## Report Issue
 
-Creates an issue with given data. 
+Creates an issue with given data.
 
 > Request example:
 
@@ -1259,7 +1282,6 @@ requests.post(
 ### HTTP Request
 
 `POST /issues/`
-
 
 ### Body
 
@@ -1331,7 +1353,7 @@ The details about properties of each object is as follows:
 | description_required | The relative problem of `problem_id` is forcing `description` field on it's issues                                                          |
 | long_description     | The description value of the request is longer than the defined limit                                                                       |
 
-## List Issues (Phase 1)
+## List Issues
 
 Returns list of issues of your trips matching the given conditions.
 
@@ -1369,7 +1391,6 @@ requests.get(
 ### HTTP Request
 
 `GET /issues/`
-
 
 ### Path parameters
 
@@ -1439,7 +1460,7 @@ Server might not have or decide not to send you as many result items as <code>li
 |-------------------|-----------------------------|
 | not_authenticated | Token is missing or invalid |
 
-## Resolve Issue (Phase 1)
+## Resolve Issue
 
 Resolves an unresolved issue.
 
@@ -1468,7 +1489,6 @@ requests.post(
 ### HTTP Request
 
 `PATCH /issues/{issue_id}/resolve/`
-
 
 ### Path parameters
 
@@ -1503,7 +1523,8 @@ requests.post(
 }
 ```
 
-The success response is the serialized updated issue. For a detailed version of it take a look at the response body of [Report Issue](#report-issue) request.
+The success response is the serialized updated issue. For a detailed version of it take a look at the response body
+of [Report Issue](#report-issue) request.
 
 ### Errors
 
@@ -1512,11 +1533,11 @@ The success response is the serialized updated issue. For a detailed version of 
 | not_authenticated        | Token is missing or invalid                                                   |
 | resolved_issue           | The issue is already resolved                                                 |
 | long_resolve_description | Teh resolve description value in the request is longer than the defined limit |
-| not_picked               | The issue is reported by `miare` but not picked yet (Phase 2)                 |
+| not_picked               | The issue is reported by `miare` but not picked yet                           |
 
-## Pick Issue (Phase 2)
+## Pick Issue
 
-Picks an issue that means the issue is being checked by the client. 
+Picks an issue that means the issue is being checked by the client.
 
 > Request example:
 
@@ -1539,13 +1560,11 @@ requests.post(
 
 `PATCH /issues/{issue_id}/pick/`
 
-
 ### Path parameters
 
 | Name     | Type   | Description                 |
 |----------|--------|-----------------------------|
 | issue_id | string | The ID of the issue to pick |
-
 
 ### Response
 
@@ -1568,7 +1587,8 @@ requests.post(
 }
 ```
 
-The success response is the serialized updated issue. For a detailed version of it take a look at the response body of [Report Issue](#report-issue) request.
+The success response is the serialized updated issue. For a detailed version of it take a look at the response body
+of [Report Issue](#report-issue) request.
 
 ### Errors
 
@@ -1578,9 +1598,9 @@ The success response is the serialized updated issue. For a detailed version of 
 | resolved_issue    | The issue is already resolved |
 | picked_issue      | The issue is already picked   |
 
-## Append Message (Phase 3)
+## Append Message
 
-Appends a new message to an unresolved issue. 
+Appends a new message to an unresolved issue.
 
 <aside class="notice">
 Currently only messages with text type are supported.
@@ -1613,7 +1633,6 @@ requests.patch(
 ### HTTP Request
 
 `PATCH /issues/{issue_id}/messages/`
-
 
 ### Path parameters
 
@@ -1656,7 +1675,8 @@ requests.patch(
 }
 ```
 
-The success response is the serialized created issue. For a detailed version of it take a look at the response body of [Report Issue](#report-issue) request.
+The success response is the serialized created issue. For a detailed version of it take a look at the response body
+of [Report Issue](#report-issue) request.
 
 ### Errors
 
@@ -1671,21 +1691,21 @@ The success response is the serialized created issue. For a detailed version of 
 > Base URL of staging servers for area services:
 
 ```shell
-BASE_URL="https://staging.ws.mia.re/area/third-party-api/v2"
+BASE_URL="https://staging.ws.miare.ir/area/third-party-api/v2"
 ```
 
 ```python
-base_url = "https://staging.ws.mia.re/area/third-party-api/v2"
+base_url = "https://staging.ws.miare.ir/area/third-party-api/v2"
 ```
 
 > Base URL of production servers for delivery services:
 
 ```shell
-BASE_URL="https://ws.mia.re/area/third-party-api/v2"
+BASE_URL="https://ws.miare.ir/area/third-party-api/v2"
 ```
 
 ```python
-base_url = "https://ws.mia.re/area/third-party-api/v2"
+base_url = "https://ws.miare.ir/area/third-party-api/v2"
 ```
 
 Services related to getting information about working areas.
@@ -1719,33 +1739,35 @@ requests.get(
 > Response example:
 
 ```json
-[{
-	"id": 27,
-	"max_ongoing_trips": 20,
-	"name": "پونک",
-	"ongoing_trips": 8,
-	"polygon": {
-		"type": "Polygon",
-		"coordinates": [
-			[
-				51.3318602487183,
-				35.7511077950424
-			],
-			[
-				51.3329908968811,
-				35.7402265889212
-			],
-			[
-				51.3408319127502,
-				35.7456830619354
-			],
-			[
-				51.3318602487183,
-				35.7511077950424
-			]
-		]
-	}
-}]
+[
+  {
+    "id": 27,
+    "max_ongoing_trips": 20,
+    "name": "پونک",
+    "ongoing_trips": 8,
+    "polygon": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          51.3318602487183,
+          35.7511077950424
+        ],
+        [
+          51.3329908968811,
+          35.7402265889212
+        ],
+        [
+          51.3408319127502,
+          35.7456830619354
+        ],
+        [
+          51.3318602487183,
+          35.7511077950424
+        ]
+      ]
+    }
+  }
+]
 ```
 
 The response is an array of all of the active areas in the Miare whether you have any trips or concurrency in it or not.
@@ -1776,25 +1798,24 @@ Based on <a href="https://geojson.org/geojson-spec.html#positions">GeoJson.org</
 > Base URL of staging servers for accounting services:
 
 ```shell
-BASE_URL="https://www.staging.mia.re/api/accounting"
+BASE_URL="https://www.staging.miare.ir/api/accounting"
 ```
 
 ```python
-base_url = "https://www.staging.mia.re/api/accounting"
+base_url = "https://www.staging.miare.ir/api/accounting"
 ```
 
 > Base URL of production servers for accounting services:
 
 ```shell
-BASE_URL="https://www.mia.re/api/accounting"
+BASE_URL="https://www.miare.ir/api/accounting"
 ```
 
 ```python
-base_url = "https://www.mia.re/api/accounting"
+base_url = "https://www.miare.ir/api/accounting"
 ```
 
 Accounting related services.
-
 
 ## Estimate Price
 
@@ -1819,7 +1840,6 @@ requests.get(
   headers={"Authorization": "Token <Your Token>"},
 )
 ```
-
 
 Estimates the delivery cost of the course based on the distance between the given source and destination.
 
@@ -1848,8 +1868,8 @@ The output price is only the <b>course</b>'s cost. The final cost includes a <b>
 
 ```json
 {
-    "price": 5000,
-    "status": "ok"
+  "price": 5000,
+  "status": "ok"
 }
 ```
 
@@ -1867,9 +1887,11 @@ The output price is only the <b>course</b>'s cost. The final cost includes a <b>
 
 # Webhook
 
-Other than services above which are exposed endpoints by Miare servers, we support a callback system to push events to your severs as they occur.
+Other than services above which are exposed endpoints by Miare servers, we support a callback system to push events to
+your severs as they occur.
 
-In order to use this service, you need to provide us with a valid URL, pointing to your servers, waiting for HTTP requests.
+In order to use this service, you need to provide us with a valid URL, pointing to your servers, waiting for HTTP
+requests.
 
 ## Authentication
 
@@ -1879,7 +1901,8 @@ In order to use this service, you need to provide us with a valid URL, pointing 
 authorization: Token 8357c002a28512f778cab11a425ff91a7d3483d1
 ```
 
-All requests made from our servers to yours, carry the `authorization` header. The value of this header is [your token](#authentication) prefixed with a `Token ` string. 
+All requests made from our servers to yours, carry the `authorization` header. The value of this header
+is [your token](#authentication) prefixed with a `Token ` string.
 
 <aside class="warning">
 You should discard any requests made to your webhook servers without a valid <code>authorization</code> header.
@@ -1893,16 +1916,18 @@ You should discard any requests made to your webhook servers without a valid <co
 x-miare-api-version: 2
 ```
 
-At this moment, we only support the latest version of API (v2). But there is a version included in all of requests made by our servers with the key `x-miare-api-version` and value of `2`.
+At this moment, we only support the latest version of API (v2). But there is a version included in all of requests made
+by our servers with the key `x-miare-api-version` and value of `2`.
 
 ## Retry
 
-We ignore the response body of the request made to your servers but expect a `2XX` response code. In case of a `5XX` error from your servers we'll retry the request up to 5 times. There will be a 5 seconds cooldown between each pair of retries.
+We ignore the response body of the request made to your servers but expect a `2XX` response code. In case of a `5XX`
+error from your servers we'll retry the request up to 5 times. There will be a 5 seconds cooldown between each pair of
+retries.
 
 <aside class="notice">
 You should not rely solely on our webhook requests. In case of a network failures or a long service outage you should be able to recover to the latest state using a <a href="#list-trips">List Trips</a> request.
 </aside>
-
 
 ## Trip Events
 
@@ -1912,52 +1937,56 @@ You should not rely solely on our webhook requests. In case of a network failure
 
 ```json
 {
-	"event": "added",
-	"trip": {
-		"area": {
-			"id": "3",
-			"name": "یوسف آباد"
-		},
-		"assigned_at": null,
-		"courier": null,
-		"courses": [{
-			"address": "تهران، خیابان استاد معین، پلاک ۱۲",
-			"bill_number": "DEL-119",
-			"dropped_off_at": null,
-			"id": "0f662083-284e-4729-b34d-2479bd7b558a",
-			"location": {
-				"latitude": 35.737004,
-				"longitude": 51.413569
-			},
-			"manifest_items": [{
-				"name": "پیتزا پپرونی خانواده",
-				"quantity": 2
-			}],
-			"name": "علی علوی",
-			"payment": {
-				"payment_type": "cash",
-				"price": 0
-			},
-			"phone_number": "09123456789",
-			"tracking_url": "https://www.staging.mia.re/p/trip_watching/#!/0f66208328",
-			"trip_id": "4f3d252a-ebbc-4147-b6e8-aba9b64200f3"
-		}],
-		"created_at": "2021-11-10T17:35:14+0330",
-		"id": "4f3d252a-ebbc-4147-b6e8-aba9b64200f3",
-		"picked_up_at": null,
-		"pickup": {
-			"address": "تهران، صادقیه، بلوار آیت الله کاشانی",
-			"deadline": "2021-11-10T21:06:00+0330",
-			"image": "https://example.com/restaurants/bm_logo.png",
-			"location": {
-				"latitude": 35.737004,
-				"longitude": 51.413569
-			},
-			"name": "رستوران بزرگمهر",
-			"phone_number": "09123456789"
-		},
-		"state": "assign_queue"
-	}
+  "event": "added",
+  "trip": {
+    "area": {
+      "id": "3",
+      "name": "یوسف آباد"
+    },
+    "assigned_at": null,
+    "courier": null,
+    "courses": [
+      {
+        "address": "تهران، خیابان استاد معین، پلاک ۱۲",
+        "bill_number": "DEL-119",
+        "dropped_off_at": null,
+        "id": "0f662083-284e-4729-b34d-2479bd7b558a",
+        "location": {
+          "latitude": 35.737004,
+          "longitude": 51.413569
+        },
+        "manifest_items": [
+          {
+            "name": "پیتزا پپرونی خانواده",
+            "quantity": 2
+          }
+        ],
+        "name": "علی علوی",
+        "payment": {
+          "payment_type": "cash",
+          "price": 0
+        },
+        "phone_number": "09123456789",
+        "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/0f66208328",
+        "trip_id": "4f3d252a-ebbc-4147-b6e8-aba9b64200f3"
+      }
+    ],
+    "created_at": "2021-11-10T17:35:14+0330",
+    "id": "4f3d252a-ebbc-4147-b6e8-aba9b64200f3",
+    "picked_up_at": null,
+    "pickup": {
+      "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
+      "deadline": "2021-11-10T21:06:00+0330",
+      "image": "https://example.com/restaurants/bm_logo.png",
+      "location": {
+        "latitude": 35.737004,
+        "longitude": 51.413569
+      },
+      "name": "رستوران بزرگمهر",
+      "phone_number": "09123456789"
+    },
+    "state": "assign_queue"
+  }
 }
 ```
 
@@ -1968,7 +1997,8 @@ You should not rely solely on our webhook requests. In case of a network failure
 
 ### Events
 
-There are 9 trip events each of which make a request to your server with one the following strings as the event and a serialized trip.
+There are 9 trip events each of which make a request to your server with one the following strings as the event and a
+serialized trip.
 
 | Event                  | Description                                                                            |
 |------------------------|----------------------------------------------------------------------------------------|
@@ -1990,29 +2020,31 @@ There are 9 trip events each of which make a request to your server with one the
 
 ```json
 {
-	"event": "course_added__course",
-	"course": {
-		"address": "تهران، خیابان استاد معین، پلاک ۱۲",
-		"bill_number": "DEL-119",
-		"dropped_off_at": null,
-		"id": "0f662083-284e-4729-b34d-2479bd7b558a",
-		"location": {
-			"latitude": 35.737004,
-			"longitude": 51.413569
-		},
-		"manifest_items": [{
-			"name": "پیتزا پپرونی خانواده",
-			"quantity": 2
-		}],
-		"name": "علی علوی",
-		"payment": {
-			"payment_type": "cash",
-			"price": 0
-		},
-		"phone_number": "09123456789",
-		"tracking_url": "https://www.staging.mia.re/p/trip_watching/#!/0f66208328",
-		"trip_id": "4f3d252a-ebbc-4147-b6e8-aba9b64200f3"
-	}
+  "event": "course_added__course",
+  "course": {
+    "address": "تهران، خیابان استاد معین، پلاک ۱۲",
+    "bill_number": "DEL-119",
+    "dropped_off_at": null,
+    "id": "0f662083-284e-4729-b34d-2479bd7b558a",
+    "location": {
+      "latitude": 35.737004,
+      "longitude": 51.413569
+    },
+    "manifest_items": [
+      {
+        "name": "پیتزا پپرونی خانواده",
+        "quantity": 2
+      }
+    ],
+    "name": "علی علوی",
+    "payment": {
+      "payment_type": "cash",
+      "price": 0
+    },
+    "phone_number": "09123456789",
+    "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/0f66208328",
+    "trip_id": "4f3d252a-ebbc-4147-b6e8-aba9b64200f3"
+  }
 }
 ```
 
@@ -2023,14 +2055,14 @@ There are 9 trip events each of which make a request to your server with one the
 
 ### Events
 
-There is one course event that makes a request to your server with one the following string as the event and a serialized course.
+There is one course event that makes a request to your server with one the following string as the event and a
+serialized course.
 
 | Event                    | Description                     |
 |--------------------------|---------------------------------|
 | **course_added__course** | Course has been added to a trip |
 
-
-## Issue Events (WIP)
+## Issue Events
 
 ### Request Body
 
@@ -2038,29 +2070,29 @@ There is one course event that makes a request to your server with one the follo
 
 ```json
 {
-	"event": "issue_added",
-	"issue": {
-      "id": "ccba8f45-6ef6-409f-a1ee-453219aaa04f",
-      "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
-      "problem_id": "728cfd38-3267-miare4bd0-bcec-c4fc904cebda",
-      "reported_at": "2021-11-01T18:44:19+0330",
-      "reporter_type": "client",
-      "resolved_at": null,
-      "resolver_type": null,
-      "resolve_description": null,
-      "picked_at": null,
-      "picker_type": null,
-      "state": "reported",
-      "messages": [
-        {
-          "id": "9ad24b31-8f1e-4c5e-b488-b715b2825792",
-          "created_at": "2021-11-02T14:48:18+0330",
-          "sender_type": "miare",
-          "type": "text",
-          "message": "سلام! پشتیبان میاره هستم"
-        }
-      ]
-    }
+  "event": "issue_added",
+  "issue": {
+    "id": "ccba8f45-6ef6-409f-a1ee-453219aaa04f",
+    "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
+    "problem_id": "728cfd38-3267-miare4bd0-bcec-c4fc904cebda",
+    "reported_at": "2021-11-01T18:44:19+0330",
+    "reporter_type": "client",
+    "resolved_at": null,
+    "resolver_type": null,
+    "resolve_description": null,
+    "picked_at": null,
+    "picker_type": null,
+    "state": "reported",
+    "messages": [
+      {
+        "id": "9ad24b31-8f1e-4c5e-b488-b715b2825792",
+        "created_at": "2021-11-02T14:48:18+0330",
+        "sender_type": "miare",
+        "type": "text",
+        "message": "سلام! پشتیبان میاره هستم"
+      }
+    ]
+  }
 }
 ```
 
@@ -2071,7 +2103,8 @@ There is one course event that makes a request to your server with one the follo
 
 ### Events
 
-There are some issue events each of which make a request to your server with one the following strings as the event and a serialized issue.
+There are some issue events each of which make a request to your server with one the following strings as the event and
+a serialized issue.
 
 | Event                   | Description                               |
 |-------------------------|-------------------------------------------|
