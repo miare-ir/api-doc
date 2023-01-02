@@ -402,8 +402,10 @@ requests.post(
   "id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
   "created_at": "2021-11-01T16:59:00+0330",
   "assigned_at": "2021-11-01T17:00:00+0330",
+  "arrived_at": "2021-11-01T17:02:00+0330",
   "picked_up_at": "2021-11-01T17:04:00+0330",
-  "state": "assign_queue",
+  "departed_at": "2021-11-01T17:06:00+0330",
+  "state": "dropoff",
   "pickup": {
     "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
     "deadline": "2021-11-01T20:42:00+0330",
@@ -439,6 +441,7 @@ requests.post(
       "address": "تهران، خیابان استاد معین، پلاک ۱۲",
       "dropped_off_at": null,
       "phone_number": "09123456789",
+      "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/7484f5305e",
       "location": {
         "latitude": 35.737004,
         "longitude": 51.413569
@@ -454,8 +457,7 @@ requests.post(
         "price": 0
       }
     }
-  ],
-  "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/7484f5305e"
+  ]
 }
 ```
 
@@ -464,7 +466,9 @@ requests.post(
 | **id**                              | string                            | Universally unique identifier of this trip                                                                                                                                                                                                    |
 | **created_at**                      | string [date-time]                | The exact time this trip was created on our servers                                                                                                                                                                                           |
 | **assigned_at**                     | string [date-time] **(nullable)** | The assign datetime of the time this trip was assigned to its courier. Will be **null** if trip is not assigned to a courier yet                                                                                                              |
-| **picked_up_at**                    | string [date-time] **(nullable)** | The datetime that the courier of the trip picked up its content from the source. Will be **null** if courier is not assigned or is not picked up packages just yet                                                                            |
+| **arrived_at**                      | string [date-time] **(nullable)** | The datetime that the courier of the trip arrived to the source. Will be **null** if courier has not assigned or has not arrived to the pickup location                                                                                       |
+| **picked_up_at**                    | string [date-time] **(nullable)** | The datetime that the courier of the trip picked up its content from the source. Will be **null** if courier is not assigned or is not picked up packages yet                                                                                 |
+| **departed_at**                     | string [date-time] **(nullable)** | The datetime that the courier of the trip has left the pickup location. Will be **null** if courier is not assigned or has not left the pickup location yet                                                                                   |
 | **state**                           | string                            | The current state of the trip. Is one of the following values: "assign_queue" "pickup" "dropoff" "delivered" "canceled_by_miare" "canceled_by_client". You can find a description about each of these states [here](#trip)                    |
 | **pickup**                          | object                            | The source of the trip                                                                                                                                                                                                                        |
 | pickup.**name**                     | string                            | The human readable name of the pickup                                                                                                                                                                                                         |
@@ -573,6 +577,8 @@ The given trip ID most belong to your client.
   "state": "canceled_by_client",
   "picked_up_at": null,
   "assigned_at": null,
+  "arrived_at": null,
+  "departed_at": null,
   "area": {
     "id": "3",
     "name": "یوسف آباد"
@@ -751,6 +757,8 @@ You can find ID of your trip in the response body of <a href="#create-trip">Crea
   "picked_up_at": null,
   "state": "assign_queue",
   "assigned_at": null,
+  "arrived_at": null,
+  "departed_at": null,
   "delivery_cost": null,
   "courier": null,
   "pickup": {
@@ -867,6 +875,8 @@ The given course ID most belong to your client.
   "state": "canceled_by_client",
   "picked_up_at": null,
   "assigned_at": null,
+  "arrived_at": null,
+  "departed_at": null,
   "area": {
     "id": "3",
     "name": "یوسف آباد"
@@ -979,6 +989,8 @@ The given trip ID most belong to your client.
   "state": "canceled_by_client",
   "picked_up_at": null,
   "assigned_at": null,
+  "arrived_at": null,
+  "departed_at": null,
   "area": {
     "id": "3",
     "name": "یوسف آباد"
@@ -1102,6 +1114,8 @@ Server might not have or decide not to send you as many result items as <code>li
         "name": "پونک"
       },
       "assigned_at": null,
+      "arrived_at": null,
+      "departed_at": null,
       "delivery_cost": null,
       "courier": null,
       "courses": [
@@ -1345,13 +1359,13 @@ The details about properties of each object is as follows:
 
 ### Errors
 
-| Code                 | Description                                                                                                                                 |
-|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| not_authenticated    | Token is missing or invalid                                                                                                                 |
-| old_trip             | The trip is not in a situation to be able to accept new issues. Currently the trips requested before 3 hours from now are considered as old |
-| forbidden_problem    | The relative problem of `problem_id` is not `for_reporter_type` of client                                                                   |
-| description_required | The relative problem of `problem_id` is forcing `description` field on it's issues                                                          |
-| long_description     | The description value of the request is longer than the defined limit                                                                       |
+| Code                 | Description                                                                                                                                         |
+|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| not_authenticated    | Token is missing or invalid                                                                                                                         |
+| trip_not_ongoing     | The trip is not in a situation to be able to accept new issues. Currently the trips requested before 3 hours from now are considered as not ongoing |
+| forbidden_problem    | The relative problem of `problem_id` is not `for_reporter_type` of client                                                                           |
+| description_required | The relative problem of `problem_id` is forcing `description` field on it's issues                                                                  |
+| long_description     | The description value of the request is longer than the defined limit                                                                               |
 
 ## List Issues
 
@@ -1944,6 +1958,8 @@ You should not rely solely on our webhook requests. In case of a network failure
       "name": "یوسف آباد"
     },
     "assigned_at": null,
+    "arrived_at": null,
+    "departed_at": null,
     "courier": null,
     "courses": [
       {
