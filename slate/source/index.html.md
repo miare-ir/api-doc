@@ -1301,10 +1301,13 @@ requests.post(
 
 | Value           | Type                  | Description                                                                                                                                                                          |
 |-----------------|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **trip_id**     | string                | The id of the trip in Miare services                                                                                                                                                 |
+| **trip_id**     | string **(nullable)** | The id of the trip in Miare services. could be null if course_id is provided                                                                                                         |
+| **course_id**   | string **(nullable)** | The id of the course in Miare services. could be null if trip_id is provided                                                                                                         |
 | **problem_id**  | string                | The id of the problem for `client` reporter type in Miare services                                                                                                                   |
 | **description** | string **(nullable)** | The extra description in addition to problem, the nullability of this field depends on the `description_required` value of the problem. Max length for this field is 256 characters. |
 
+**note:** both **trip_id** and **course_id** can **NOT** be null at the same time. if both are 
+provided, **trip_id** will be considered and **course_id** will be ignored.
 ### Response
 
 > Response example:
