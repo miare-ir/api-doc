@@ -82,6 +82,7 @@ Each trip can be in only one the following states at any given time
 | delivered          | All of the packages of the trip are delivered (and if trip was a round trip, courier has returned to the source)           |
 | canceled_by_miare  | Trip is canceled by our support staff. This only happens with source's aggrement or due to a violation of terms of service |
 | canceled_by_client | Trip is canceled by client (either from the web panel or Third Party API)                                                  |
+| batched            | Trip has been merged into another trip due to same or close destination                                                    |
 
 ### Course
 
@@ -469,6 +470,7 @@ requests.post(
 | **arrived_at**                      | string [date-time] **(nullable)** | The datetime that the courier of the trip arrived to the source. Will be **null** if courier has not assigned or has not arrived to the pickup location                                                                                       |
 | **picked_up_at**                    | string [date-time] **(nullable)** | The datetime that the courier of the trip picked up its content from the source. Will be **null** if courier is not assigned or is not picked up packages yet                                                                                 |
 | **departed_at**                     | string [date-time] **(nullable)** | The datetime that the courier of the trip has left the pickup location. Will be **null** if courier is not assigned or has not left the pickup location yet                                                                                   |
+| **batched_at**                      | string [date-time] **(nullable)** | The datetime that the trip has been batched. Will be **null** if batching has not been occurred                                                                                                                                               |
 | **state**                           | string                            | The current state of the trip. Is one of the following values: "assign_queue" "pickup" "dropoff" "delivered" "canceled_by_miare" "canceled_by_client". You can find a description about each of these states [here](#trip)                    |
 | **pickup**                          | object                            | The source of the trip                                                                                                                                                                                                                        |
 | pickup.**name**                     | string                            | The human readable name of the pickup                                                                                                                                                                                                         |
