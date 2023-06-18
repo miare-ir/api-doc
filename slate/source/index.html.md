@@ -438,7 +438,7 @@ requests.post(
     {
       "id": "7484f530-5e3e-491d-8a4a-9432f6db01d6",
       "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",,
-      "old_trip_id": null,
+      "old_trip_id": "00000000-0000-0000-0000-000000000000",
       "bill_number": "DEL-119",
       "name": "علی علوی",
       "address": "تهران، خیابان استاد معین، پلاک ۱۲",
@@ -487,7 +487,7 @@ requests.post(
 | **courses**                         | array                             | List of destinations of the trips                                                                                                                                                                                                             |
 | courses.**id**                      | string                            | Universally unique identifier of this course                                                                                                                                                                                                  |
 | course.**trip_id**                  | string                            | Universally unique identifier of the trip that this course belongs to it                                                                                                                                                                      |
-| course.**old_trip_id**              | string **(nullable)**             | The trip id of the trip before batching. Will be null if batching has not been occured                                                                                                                                                        |
+| course.**old_trip_id**              | string                            | The trip id of the trip before batching. Will be zero value if batching has not been occurred                                                                                                                                                 |
 | courses.**bill_number**             | string                            | An string field left for you to store sort of a human readable bill number in it which will be used as a reference point among our support team, you and the pickup staffs                                                                    |
 | courses.**name**                    | string                            | Name of the dropp-off                                                                                                                                                                                                                         |
 | courses.**phone_number**            | string                            | The phone number associated with the drop-off which will be used by courier and support staffs in order to contact to them if necessary                                                                                                       |
@@ -629,7 +629,7 @@ The given trip ID most belong to your client.
       "phone_number": "09123456789",
       "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/7484f5305e",
       "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
-      "old_trip_id": null
+      "old_trip_id": "00000000-0000-0000-0000-000000000000"
     }
   ]
 }
@@ -812,7 +812,7 @@ You can find ID of your trip in the response body of <a href="#create-trip">Crea
       "phone_number": "09123456789",
       "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/c57cb6bce1",
       "trip_id": "8e209688-19c9-4982-a755-517408b6a29f",
-      "old_trip_id": null
+      "old_trip_id": "00000000-0000-0000-0000-000000000000"
     }
   ]
 }
@@ -933,7 +933,7 @@ The given course ID most belong to your client.
       "phone_number": "09123456789",
       "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/7484f5305e",
       "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
-      "old_trip_id": null
+      "old_trip_id": "00000000-0000-0000-0000-000000000000"
     }
   ]
 }
@@ -1050,7 +1050,7 @@ The given trip ID most belong to your client.
       "phone_number": "09123456789",
       "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/7484f5305e",
       "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
-      "old_trip_id": null
+      "old_trip_id": "00000000-0000-0000-0000-000000000000"
     }
   ]
 }
@@ -1158,7 +1158,7 @@ Server might not have or decide not to send you as many result items as <code>li
           "phone_number": "09379187928",
           "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/3b0e8576f8",
           "trip_id": "05fd0397-5a78-4852-98e7-9fbc310685c0",
-          "old_trip_id": null
+          "old_trip_id": "00000000-0000-0000-0000-000000000000"
         }
       ],
       "created_at": "2021-09-29T17:07:27+0330",
@@ -2012,7 +2012,7 @@ You should not rely solely on our webhook requests. In case of a network failure
         "phone_number": "09123456789",
         "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/0f66208328",
         "trip_id": "4f3d252a-ebbc-4147-b6e8-aba9b64200f3",
-        "old_trip_id": null
+        "old_trip_id": "00000000-0000-0000-0000-000000000000"
       }
     ],
     "created_at": "2021-11-10T17:35:14+0330",
@@ -2041,7 +2041,7 @@ You should not rely solely on our webhook requests. In case of a network failure
 
 ### Events
 
-There are 9 trip events each of which make a request to your server with one the following strings as the event and a
+There are 10 trip events each of which make a request to your server with one the following strings as the event and a
 serialized trip.
 
 | Event                  | Description                                                                            |
@@ -2055,6 +2055,7 @@ serialized trip.
 | **delivered**          | Trip has been ended successfully                                                       |
 | **canceled_by_client** | Trip has been cancelled by client (you)                                                |
 | **canceled_by_miare**  | Trip has been cancelled by Miare (our support team)                                    |
+| **batched**            | Trip has been batched                                                                  |
 
 ## Course Events
 
@@ -2089,7 +2090,7 @@ serialized trip.
     "phone_number": "09123456789",
     "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/0f66208328",
     "trip_id": "4f3d252a-ebbc-4147-b6e8-aba9b64200f3",
-    "old_trip_id": null
+    "old_trip_id": "00000000-0000-0000-0000-000000000000"
   }
 }
 ```
