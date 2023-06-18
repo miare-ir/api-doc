@@ -406,6 +406,7 @@ requests.post(
   "arrived_at": "2021-11-01T17:02:00+0330",
   "picked_up_at": "2021-11-01T17:04:00+0330",
   "departed_at": "2021-11-01T17:06:00+0330",
+  "batched_at": null,
   "state": "dropoff",
   "pickup": {
     "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
@@ -436,11 +437,13 @@ requests.post(
   "courses": [
     {
       "id": "7484f530-5e3e-491d-8a4a-9432f6db01d6",
-      "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
+      "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",,
+      "old_trip_id": null,
       "bill_number": "DEL-119",
       "name": "علی علوی",
       "address": "تهران، خیابان استاد معین، پلاک ۱۲",
       "dropped_off_at": null,
+      "batched_at": null,
       "phone_number": "09123456789",
       "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/7484f5305e",
       "location": {
@@ -471,7 +474,7 @@ requests.post(
 | **picked_up_at**                    | string [date-time] **(nullable)** | The datetime that the courier of the trip picked up its content from the source. Will be **null** if courier is not assigned or is not picked up packages yet                                                                                 |
 | **departed_at**                     | string [date-time] **(nullable)** | The datetime that the courier of the trip has left the pickup location. Will be **null** if courier is not assigned or has not left the pickup location yet                                                                                   |
 | **batched_at**                      | string [date-time] **(nullable)** | The datetime that the trip has been batched. Will be **null** if batching has not been occurred                                                                                                                                               |
-| **state**                           | string                            | The current state of the trip. Is one of the following values: "assign_queue" "pickup" "dropoff" "delivered" "canceled_by_miare" "canceled_by_client". You can find a description about each of these states [here](#trip)                    |
+| **state**                           | string                            | The current state of the trip. Is one of the following values: "assign_queue" "pickup" "dropoff" "delivered" "canceled_by_miare" "canceled_by_client" "batched". You can find a description about each of these states [here](#trip)          |
 | **pickup**                          | object                            | The source of the trip                                                                                                                                                                                                                        |
 | pickup.**name**                     | string                            | The human readable name of the pickup                                                                                                                                                                                                         |
 | pickup.**phone_number**             | string                            | The phone number associated with the source which will be used by courier and support staffs in order to contact to pickup if necessary                                                                                                       |
@@ -484,6 +487,7 @@ requests.post(
 | **courses**                         | array                             | List of destinations of the trips                                                                                                                                                                                                             |
 | courses.**id**                      | string                            | Universally unique identifier of this course                                                                                                                                                                                                  |
 | course.**trip_id**                  | string                            | Universally unique identifier of the trip that this course belongs to it                                                                                                                                                                      |
+| course.**old_trip_id**              | string **(nullable)**             | The trip id of the trip before batching. Will be null if batching has not been occured                                                                                                                                                        |
 | courses.**bill_number**             | string                            | An string field left for you to store sort of a human readable bill number in it which will be used as a reference point among our support team, you and the pickup staffs                                                                    |
 | courses.**name**                    | string                            | Name of the dropp-off                                                                                                                                                                                                                         |
 | courses.**phone_number**            | string                            | The phone number associated with the drop-off which will be used by courier and support staffs in order to contact to them if necessary                                                                                                       |
@@ -496,6 +500,7 @@ requests.post(
 | courses.manifest_items.**quantity** | string                            | The quanitiy of the item                                                                                                                                                                                                                      |
 | course.**tracking_url**             | string [uri]                      | The URL of a webpage in which the end customer can track the exact state and location of his/her package while it's being delivered                                                                                                           |
 | course.**dropped_off_at**           | string [date-time] **(nullable)** | The exact time this course we delivered to the customer. It will be **null** if the course is not delivered yet                                                                                                                               |
+| course.**batched_at**               | string [date-time] **(nullable)** | The datetime that the course has been batched. Will be **null** if batching has not been occurred                                                                                                                                             |
 | course.**payment**                  | object                            | The payment information of the course                                                                                                                                                                                                         |
 | course.payment.**payment_type**     | string                            | They selected method for this course's payment. At this moment the only available method for API users is `cash`                                                                                                                              |
 | course.payment.**price**            | string                            | The price of the package content (**not** to be confused with delivery cost). At this moment the only available value for API users is 0                                                                                                      |
@@ -581,6 +586,7 @@ The given trip ID most belong to your client.
   "assigned_at": null,
   "arrived_at": null,
   "departed_at": null,
+  "batched_at": null,
   "area": {
     "id": "3",
     "name": "یوسف آباد"
@@ -603,6 +609,7 @@ The given trip ID most belong to your client.
       "address": "تهران، خیابان استاد معین، پلاک ۱۲",
       "bill_number": "DEL-119",
       "dropped_off_at": null,
+      "batched_at": null,
       "id": "7484f530-5e3e-491d-8a4a-9432f6db01d6",
       "location": {
         "latitude": 35.737004,
@@ -621,7 +628,8 @@ The given trip ID most belong to your client.
       },
       "phone_number": "09123456789",
       "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/7484f5305e",
-      "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7"
+      "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
+      "old_trip_id": null
     }
   ]
 }
@@ -761,6 +769,7 @@ You can find ID of your trip in the response body of <a href="#create-trip">Crea
   "assigned_at": null,
   "arrived_at": null,
   "departed_at": null,
+  "batched_at": null,
   "delivery_cost": null,
   "courier": null,
   "pickup": {
@@ -783,6 +792,7 @@ You can find ID of your trip in the response body of <a href="#create-trip">Crea
       "address": "تهران، خیابان استاد معین، پلاک ۱۲",
       "bill_number": "DEL-120",
       "dropped_off_at": null,
+      "batched_at": null,
       "id": "c57cb6bc-e1c2-404a-a0d2-a54881fe96ec",
       "location": {
         "latitude": 35.737004,
@@ -801,7 +811,8 @@ You can find ID of your trip in the response body of <a href="#create-trip">Crea
       },
       "phone_number": "09123456789",
       "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/c57cb6bce1",
-      "trip_id": "8e209688-19c9-4982-a755-517408b6a29f"
+      "trip_id": "8e209688-19c9-4982-a755-517408b6a29f",
+      "old_trip_id": null
     }
   ]
 }
@@ -879,6 +890,7 @@ The given course ID most belong to your client.
   "assigned_at": null,
   "arrived_at": null,
   "departed_at": null,
+  "batched_at": null,
   "area": {
     "id": "3",
     "name": "یوسف آباد"
@@ -901,6 +913,7 @@ The given course ID most belong to your client.
       "address": "تهران، خیابان استاد معین، پلاک ۱۲",
       "bill_number": "DEL-119",
       "dropped_off_at": null,
+      "batched_at": null,
       "id": "7484f530-5e3e-491d-8a4a-9432f6db01d6",
       "location": {
         "latitude": 35.737004,
@@ -919,7 +932,8 @@ The given course ID most belong to your client.
       },
       "phone_number": "09123456789",
       "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/7484f5305e",
-      "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7"
+      "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
+      "old_trip_id": null
     }
   ]
 }
@@ -993,6 +1007,7 @@ The given trip ID most belong to your client.
   "assigned_at": null,
   "arrived_at": null,
   "departed_at": null,
+  "batched_at": null,
   "area": {
     "id": "3",
     "name": "یوسف آباد"
@@ -1015,6 +1030,7 @@ The given trip ID most belong to your client.
       "address": "تهران، خیابان استاد معین، پلاک ۱۲",
       "bill_number": "DEL-119",
       "dropped_off_at": null,
+      "batched_at": null,
       "id": "7484f530-5e3e-491d-8a4a-9432f6db01d6",
       "location": {
         "latitude": 35.737004,
@@ -1033,7 +1049,8 @@ The given trip ID most belong to your client.
       },
       "phone_number": "09123456789",
       "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/7484f5305e",
-      "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7"
+      "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
+      "old_trip_id": null
     }
   ]
 }
@@ -1118,6 +1135,7 @@ Server might not have or decide not to send you as many result items as <code>li
       "assigned_at": null,
       "arrived_at": null,
       "departed_at": null,
+      "batched_at": null,
       "delivery_cost": null,
       "courier": null,
       "courses": [
@@ -1125,6 +1143,7 @@ Server might not have or decide not to send you as many result items as <code>li
           "address": "هران، خیابان استاد معین، پلاک ۱۲",
           "bill_number": "DEL-119",
           "dropped_off_at": null,
+          "batched_at": null,
           "id": "3b0e8576-f802-44f5-8654-d65e11fd3035",
           "location": {
             "latitude": 35.753515,
@@ -1138,7 +1157,8 @@ Server might not have or decide not to send you as many result items as <code>li
           },
           "phone_number": "09379187928",
           "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/3b0e8576f8",
-          "trip_id": "05fd0397-5a78-4852-98e7-9fbc310685c0"
+          "trip_id": "05fd0397-5a78-4852-98e7-9fbc310685c0",
+          "old_trip_id": null
         }
       ],
       "created_at": "2021-09-29T17:07:27+0330",
@@ -1965,12 +1985,14 @@ You should not rely solely on our webhook requests. In case of a network failure
     "assigned_at": null,
     "arrived_at": null,
     "departed_at": null,
+    "batched_at": null,
     "courier": null,
     "courses": [
       {
         "address": "تهران، خیابان استاد معین، پلاک ۱۲",
         "bill_number": "DEL-119",
         "dropped_off_at": null,
+        "batched_at": null,
         "id": "0f662083-284e-4729-b34d-2479bd7b558a",
         "location": {
           "latitude": 35.737004,
@@ -1989,7 +2011,8 @@ You should not rely solely on our webhook requests. In case of a network failure
         },
         "phone_number": "09123456789",
         "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/0f66208328",
-        "trip_id": "4f3d252a-ebbc-4147-b6e8-aba9b64200f3"
+        "trip_id": "4f3d252a-ebbc-4147-b6e8-aba9b64200f3",
+        "old_trip_id": null
       }
     ],
     "created_at": "2021-11-10T17:35:14+0330",
@@ -2046,6 +2069,7 @@ serialized trip.
     "address": "تهران، خیابان استاد معین، پلاک ۱۲",
     "bill_number": "DEL-119",
     "dropped_off_at": null,
+    "batched_at": null,
     "id": "0f662083-284e-4729-b34d-2479bd7b558a",
     "location": {
       "latitude": 35.737004,
@@ -2064,7 +2088,8 @@ serialized trip.
     },
     "phone_number": "09123456789",
     "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/0f66208328",
-    "trip_id": "4f3d252a-ebbc-4147-b6e8-aba9b64200f3"
+    "trip_id": "4f3d252a-ebbc-4147-b6e8-aba9b64200f3",
+    "old_trip_id": null
   }
 }
 ```
