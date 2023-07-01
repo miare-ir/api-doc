@@ -422,7 +422,7 @@ requests.post(
 | courses.location.**longitude**      | number [double]      | The longitude of the drop-off location                                                                                                                                                                                                        |
 | courses.manifest_items              | array **(Optional)** | The contents of the package to be delivered to the drop-off                                                                                                                                                                                   |
 | courses.manifest_items.**name**     | string               | Human readable name of the content which will be verified by courier                                                                                                                                                                          |
-| courses.manifest_items.**quantity** | string               | The quanitiy of the item                                                                                                                                                                                                                      |
+| courses.manifest_items.**quantity** | string               | The quantity of the item                                                                                                                                                                                                                      |
 
 ### Response
 
@@ -552,12 +552,12 @@ requests.post(
 
 ### Errors
 
-| Code                 | Description                                                                                                                                                                                                                                                                                                         |
-|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| not_authenticated    | Token is missing or invalid                                                                                                                                                                                                                                                                                         |
-| parse_error          | The request body is not a valid JSON string (has syntax error)                                                                                                                                                                                                                                                      |
-| invalid_request_body | Request body does not follow the valid format                                                                                                                                                                                                                                                                       |
-| concurrency_limit    | Client does not have enough concurrency in the area of the pickup location in the shift specified by deadline                                                                                                                                                                                                       |
+| Code                 | Description                                                                                                                                                                                                                                                                                                          |
+|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| not_authenticated    | Token is missing or invalid                                                                                                                                                                                                                                                                                          |
+| parse_error          | The request body is not a valid JSON string (has syntax error)                                                                                                                                                                                                                                                       |
+| invalid_request_body | Request body does not follow the valid format                                                                                                                                                                                                                                                                        |
+| concurrency_limit    | Client does not have enough concurrency in the area of the pickup location in the shift specified by deadline                                                                                                                                                                                                        |
 | service_level_order  | Based on the current environmental state, your service level is too low to receive services from Miare. Service limitation error mostly happens due to whether conditions or special occasions. In order to increase your service level or if you need more details about this limitation please contant sales team. |
 
 ## Cancel Trip
@@ -704,7 +704,11 @@ state can be returned and other states cannot be changed.
 TRIP_ID="<Trip ID>"
 
 curl --location --request POST "$BASE_URL/trips/$TRIP_ID/round_trip/" \
---header 'Authorization: Token <Your Token>'
+--header 'Authorization: Token <Your Token>' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "is_round_trip": "true",
+}'
 ```
 
 ```python
@@ -712,9 +716,14 @@ import requests
 
 trip_id = "<Trip ID>"
 
+data = {
+    "is_round_trip": True
+}
+
 requests.post(
     f"{base_url}/trips/{trip_id}/round_trip/",
     headers={"Authorization": "Token <Your Token>"},
+    data=data,
 )
 ```
 
@@ -735,6 +744,12 @@ You can find ID of your trip in the response body of <a href="#create-trip">Crea
 <aside class="warning">
 The given trip ID most belong to your client.
 </aside>
+
+### Body
+
+| Value         | Type    | Description                                                              |
+|---------------|---------|--------------------------------------------------------------------------|
+| is_round_trip | boolean | for convert trip to round trip set it to true. otherwise set it to false |
 
 ### Response
 
@@ -809,13 +824,13 @@ Successful calls to this endpoint will update the trip state, is_round_trip to
 
 ### Errors
 
-| Code                 | Description                                                                     |
-|----------------------|---------------------------------------------------------------------------------|
-| not_authenticated    | Token is missing or invalid                                                     |
-| parse_error          | The request body is not a valid JSON string (has syntax error)                  |
-| invalid_request_body | Request body does not follow the valid format                                   |
-| record_not_found     | A trip with the given ID does not belong to your client or doesn't exist at all |
-| invalid_state_change | Changing the trip's state from its current state to "returning" is not possible.|
+| Code                 | Description                                                                      |
+|----------------------|----------------------------------------------------------------------------------|
+| not_authenticated    | Token is missing or invalid                                                      |
+| parse_error          | The request body is not a valid JSON string (has syntax error)                   |
+| invalid_request_body | Request body does not follow the valid format                                    |
+| record_not_found     | A trip with the given ID does not belong to your client or doesn't exist at all  |
+| invalid_state_change | Changing the trip's state from its current state to "returning" is not possible. |
 
 ## Add Course
 
@@ -916,7 +931,7 @@ You can find ID of your trip in the response body of <a href="#create-trip">Crea
 | location.**longitude**      | number [double]       | The longitude of the drop-off location                                                                                                                                                          |
 | manifest_items              | array **(Optional)**  | The contents of the package to be delivered to the drop-off                                                                                                                                     |
 | manifest_items.**name**     | string                | Human readable name of the content which will be verified by courier                                                                                                                            |
-| manifest_items.**quantity** | string                | The quanitiy of the item                                                                                                                                                                        |
+| manifest_items.**quantity** | string                | The quantity of the item                                                                                                                                                                        |
 
 ### Response
 
@@ -1165,7 +1180,7 @@ The given trip ID most belong to your client.
   "created_at": "2021-11-01T16:59:00+0330",
   "id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
   "state": "canceled_by_client",
-  "is_round_trip": false ,
+  "is_round_trip": false,
   "picked_up_at": null,
   "assigned_at": null,
   "arrived_at": null,
@@ -1471,8 +1486,8 @@ import requests
 
 data = {
     "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
-    "problem_id": "728cfd38-3267-4bd0-bcec-c4fc904cebda"
-                  "description": null
+    "problem_id": "728cfd38-3267-4bd0-bcec-c4fc904cebda",
+    "description": None
 }
 
 requests.post(
