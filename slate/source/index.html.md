@@ -90,7 +90,7 @@ Each trip can be in only one the following states at any given time
 | dropoff            | Trip is picked up by the courier and he is on his way to deliver the packages                                              |
 | delivered          | All of the packages of the trip are delivered (and if trip was a round trip, courier has returned to the source)           |
 | canceled_by_miare  | Trip is canceled by our support staff. This only happens with source's aggrement or due to a violation of terms of service |
-| returning          | Trip is round trip                                                                                                         |
+| returning          | When the trip is a round trip and it is returning to the source.                                                           |
 | canceled_by_delay  | Trip has been cancelled by Miare due to fulfillment delay from your side                                                   |
 | canceled_by_client | Trip is canceled by client (either from the web panel or Third Party API)                                                  |
 | batched            | Trip has been merged into another trip due to same or close destination                                                    |
