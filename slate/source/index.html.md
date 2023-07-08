@@ -703,7 +703,7 @@ state can be returned and other states cannot be changed.
 ```shell
 TRIP_ID="<Trip ID>"
 
-curl --location --request POST "$BASE_URL/trips/$TRIP_ID/round_trip/" \
+curl --location --request POST "$BASE_URL/trips/$TRIP_ID/round-trip/" \
 --header 'Authorization: Token <Your Token>' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -721,7 +721,7 @@ data = {
 }
 
 requests.post(
-    f"{base_url}/trips/{trip_id}/round_trip/",
+    f"{base_url}/trips/{trip_id}/round-trip/",
     headers={"Authorization": "Token <Your Token>"},
     data=data,
 )
@@ -729,7 +729,7 @@ requests.post(
 
 ### HTTP Request
 
-`POST /trips/{trip_id}/round_trip/`
+`POST /trips/{trip_id}/round-trip/`
 
 ### Path parameters
 
