@@ -3,13 +3,13 @@ title: Miare API
 
 language_tabs: # must be one of https://git.io/vQNgJ
 
-  - shell
-  - python
+- shell
+- python
 
 toc_footers:
 
-  - <a href='Miare - Third Party API.postman_collection.json' download>Postman Collection</a>
-  - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
+- <a href='Miare - Third Party API.postman_collection.json' download>Postman Collection</a>
+- <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
 search: true
 
@@ -17,8 +17,8 @@ code_clipboard: true
 
 meta:
 
-  - name: description
-    content: Documentation for the Miare API
+- name: description
+  content: Documentation for the Miare API
 
 ---
 
@@ -552,13 +552,14 @@ requests.post(
 
 ### Errors
 
-| Code                 | Description                                                                                                                                                                                                                                                                                                          |
-|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| not_authenticated    | Token is missing or invalid                                                                                                                                                                                                                                                                                          |
-| parse_error          | The request body is not a valid JSON string (has syntax error)                                                                                                                                                                                                                                                       |
-| invalid_request_body | Request body does not follow the valid format                                                                                                                                                                                                                                                                        |
-| concurrency_limit    | Client does not have enough concurrency in the area of the pickup location in the shift specified by deadline                                                                                                                                                                                                        |
-| service_level_order  | Based on the current environmental state, your service level is too low to receive services from Miare. Service limitation error mostly happens due to whether conditions or special occasions. In order to increase your service level or if you need more details about this limitation please contant sales team. |
+| Code                   | Description                                                                                                                                                                                                                                                                                                          |
+|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| not_authenticated      | Token is missing or invalid                                                                                                                                                                                                                                                                                          |
+| parse_error            | The request body is not a valid JSON string (has syntax error)                                                                                                                                                                                                                                                       |
+| invalid_request_body   | Request body does not follow the valid format                                                                                                                                                                                                                                                                        |
+| concurrency_limit      | Client does not have enough concurrency in the area of the pickup location in the shift specified by deadline                                                                                                                                                                                                        |
+| service_level_order    | Based on the current environmental state, your service level is too low to receive services from Miare. Service limitation error mostly happens due to whether conditions or special occasions. In order to increase your service level or if you need more details about this limitation please contant sales team. |
+| duplicated_bill_number | There is already a course related to trip with states of (`assign_queue`, `pickup`, `dropoff`) with this bill number.                                                                                                                                                                                                |
 
 ## Cancel Trip
 
@@ -1000,13 +1001,14 @@ of [Create Trip](#create-trip) request.
 
 ### Errors
 
-| Code                 | Description                                                                     |
-|----------------------|---------------------------------------------------------------------------------|
-| not_authenticated    | Token is missing or invalid                                                     |
-| parse_error          | The request body is not a valid JSON string (has syntax error)                  |
-| invalid_request_body | Request body does not follow the valid format                                   |
-| record_not_found     | A trip with the given ID does not belong to your client or doesn't exist at all |
-| too_late             | Trip's state is later than `pickup`                                             |
+| Code                   | Description                                                                                                          |
+|------------------------|----------------------------------------------------------------------------------------------------------------------|
+| not_authenticated      | Token is missing or invalid                                                                                          |
+| parse_error            | The request body is not a valid JSON string (has syntax error)                                                       |
+| invalid_request_body   | Request body does not follow the valid format                                                                        |
+| record_not_found       | A trip with the given ID does not belong to your client or doesn't exist at all                                      |
+| too_late               | Trip's state is later than `pickup`                                                                                  |
+| duplicated_bill_number | There is already a course related to trip with states of (`assign_queue`, `pickup`, `dropoff`) with this bill number |
 
 ## Remove Course
 
