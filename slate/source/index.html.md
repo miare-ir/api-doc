@@ -1131,6 +1131,152 @@ of [Create Trip](#create-trip) request.
 | record_not_found     | A course with the given ID does not belong to your client or doesn't exist at all |
 | single_course        | The course belongs to a trip that has only one course                             |
 
+
+## Update Course
+
+Updates the course indicated by the given ID from the courses of its trip.
+
+<aside class="warning">
+You can only update courses from a trip in the <code>assign_queue</code> or <code>pickup</code> states.
+</aside>
+
+> Request example:
+
+```shell
+COURSE_ID="<Course ID>"
+
+curl --location --request PUT "$BASE_URL/courses/$COURSE_ID/" \
+--header 'Authorization: Token <Your Token>' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "manifest_items": [
+    {
+      "name": "پیتزا پپرونی خانواده",
+      "quantity": 2
+    }
+  ]
+}'
+```
+
+```python
+import requests
+
+data = {
+    "manifest_items": [
+        {
+            "name": "پیتزا پپرونی خانواده",
+            "quantity": 2
+        }
+    ]
+}
+
+requests.put(
+    f"{base_url}/courses/{course_id}/",
+    headers={"Authorization": "Token <Your Token>"},
+    data=data,
+)
+```
+
+### HTTP Request
+
+`PUT /courses/{course_id}/`
+
+### Path parameters
+
+| Name      | Type   | Description                    |
+|-----------|--------|--------------------------------|
+| course_id | string | The ID of the course to update |
+
+<aside class="success">
+You can find ID of your course in the response body of <a href="#create-trip">Create Trip</a> or <a href="#add-course">Add Course</a> requests.
+</aside>
+
+<aside class="warning">
+The given course ID most belong to your client.
+</aside>
+
+
+### Body
+
+| Value                       | Type                  | Description                                                                                                                                                                                     |
+|-----------------------------|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| manifest_items.**name**     | string                | Human readable name of the content which will be verified by courier                                                                                                                            |
+| manifest_items.**quantity** | string                | The quantity of the item                                                                                                                                                                        |
+
+### Response
+
+> Response example:
+
+```json
+{
+  "id": "8e209688-19c9-4982-a755-517408b6a29f",
+  "created_at": "2021-11-01T18:44:19+0330",
+  "picked_up_at": null,
+  "state": "assign_queue",
+  "assigned_at": null,
+  "arrived_at": null,
+  "departed_at": null,
+  "batched_at": null,
+  "delivery_cost": null,
+  "courier": null,
+  "pickup": {
+    "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
+    "deadline": "2021-11-01T20:42:00+0330",
+    "image": "https://example.com/restaurants/bm_logo.png",
+    "location": {
+      "latitude": 35.737004,
+      "longitude": 51.413569
+    },
+    "name": "رستوران بزرگمهر",
+    "phone_number": "09123456789"
+  },
+  "area": {
+    "id": "3",
+    "name": "یوسف آباد"
+  },
+  "courses": [
+    {
+      "address": "تهران، خیابان استاد معین، پلاک ۱۲",
+      "bill_number": "DEL-120",
+      "dropped_off_at": null,
+      "batched_at": null,
+      "id": "c57cb6bc-e1c2-404a-a0d2-a54881fe96ec",
+      "location": {
+        "latitude": 35.737004,
+        "longitude": 51.413569
+      },
+      "manifest_items": [
+        {
+          "name": "پیتزا پپرونی خانواده",
+          "quantity": 2
+        }
+      ],
+      "name": "علی علوی",
+      "payment": {
+        "payment_type": "cash",
+        "price": 0
+      },
+      "phone_number": "09123456789",
+      "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/c57cb6bce1",
+      "trip_id": "8e209688-19c9-4982-a755-517408b6a29f",
+      "old_trip_id": "00000000-0000-0000-0000-000000000000"
+    }
+  ]
+}
+```
+
+Response body is a serialized trip. For a detailed version of it take a look at the response body
+of [Create Trip](#create-trip) request.
+
+### Errors
+
+| Code                 | Description                                                                       |
+|----------------------|-----------------------------------------------------------------------------------|
+| not_authenticated    | Token is missing or invalid                                                       |
+| parse_error          | The request body is not a valid JSON string (has syntax error)                    |
+| invalid_request_body | Request body does not follow the valid format                                     |
+| record_not_found     | A course with the given ID does not belong to your client or doesn't exist at all |
+
 ## Get Trip
 
 Returns information about one of your trips indicated by its ID.
