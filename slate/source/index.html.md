@@ -833,6 +833,235 @@ Successful calls to this endpoint will update the trip state, is_round_trip to
 | record_not_found     | A trip with the given ID does not belong to your client or doesn't exist at all  |
 | invalid_state_change | Changing the trip's state from its current state to "returning" is not possible. |
 
+
+## Update Trip
+
+Updates an existing trip and it's courses.
+
+<aside class="warning">
+You can only update trip in the <code>assign_queue</code> or <code>pickup</code> states.
+</aside>
+
+> Request example:
+
+```shell
+TRIP_ID="<Trip ID>"
+
+curl --location --request PUT "$BASE_URL/trips/$TRIP_ID/ \
+--header 'Authorization: Token <Your Token>' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "pickup": {
+    "name": "رستوران بزرگمهر",
+    "phone_number": "09123456789",
+    "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
+    "image": "https://example.com/restaurants/bm_logo.png",
+    "location": {
+      "latitude": 35.737004,
+      "longitude": 51.413569
+    },
+    "deadline": "2021-11-01T17:12:00+0000"
+  },
+  "courses": [
+    {
+      "bill_number": "DEL-119",
+      "name": "علی علوی",
+      "phone_number": "09123456789",
+      "address": "تهران، خیابان استاد معین، پلاک ۱۲",
+      "location": {
+        "latitude": 35.737004,
+        "longitude": 51.413569
+      },
+      "manifest_items": [
+        {
+          "name": "پیتزا پپرونی خانواده",
+          "quantity": 2
+        }
+      ]
+    }
+  ]
+}'
+```
+
+```python
+import requests
+
+trip_id = "<Trip ID>"
+
+data = {
+    "pickup": {
+        "name": "رستوران بزرگمهر",
+        "phone_number": "09123456789",
+        "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
+        "image": "https://example.com/restaurants/bm_logo.png",
+        "location": {
+            "latitude": 35.737004,
+            "longitude": 51.413569
+        },
+        "deadline": "2021-11-01T17:12:00+0000"
+    },
+    "courses": [
+        {
+            "bill_number": "DEL-119",
+            "name": "علی علوی",
+            "phone_number": "09123456789",
+            "address": "تهران، خیابان استاد معین، پلاک ۱۲",
+            "location": {
+                "latitude": 35.737004,
+                "longitude": 51.413569
+            },
+            "manifest_items": [
+                {
+                    "name": "پیتزا پپرونی خانواده",
+                    "quantity": 2
+                }
+            ]
+        }
+    ]
+}
+
+requests.put(
+    base_url + "/trips/{trip_id}/",
+    headers={"Authorization": "Token <Your Token>"},
+    data=data,
+)
+```
+
+> If you are getting the a `Deadline: (value_in_past)` error, make sure to update
+> the `pickup.deadline` to a time in the
+> future.
+
+### HTTP Request
+
+`PUT /trips/{trip_id}/`
+
+### Path parameters
+
+| Name    | Type   | Description                           |
+|---------|--------|---------------------------------------|
+| trip_id | string | The ID of the trip to update |
+
+<aside class="success">
+You can find ID of your trip in the response body of <a href="#create-trip">Create Trip</a> request
+</aside>
+
+<aside class="warning">
+The given trip ID most belong to your client.
+</aside>
+
+### Body
+
+| Value                               | Type                 | Description                                                                                                                                                                                                                                   |
+|-------------------------------------|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **pickup**                          | object               | The source of the trip                                                                                                                                                                                                                        |
+| pickup.**name**                     | string               | The human readable name of the pickup                                                                                                                                                                                                         |
+| pickup.**phone_number**             | string               | The phone number associated with the source which will be used by courier and support staffs in order to contact to pickup if necessary                                                                                                       |
+| pickup.**address**                  | string               | The human readable address of the source, preferably down to every necessary detail for a human to find the source quickly                                                                                                                    |
+| pickup.**image**                    | string [uri]         | A valid URL which points to an image file which should be the logo of the pickup. This image will be used in both support panel, and courier’s application. Make sure that the URL is both reachable and is configured to allow CORS requests |
+| pickup.**location**                 | object               | The exact location of the pickup                                                                                                                                                                                                              |
+| pickup.location.**latitude**        | number [double]      | The latitude of the pickup location                                                                                                                                                                                                           |
+| pickup.location.**longitude**       | number [double]      | The longitude of the pickup location                                                                                                                                                                                                          |
+| pickup.**deadline**                 | string [date-time]   | The time that you expect the courier to arrive at the pickup, so optimally it should be the time package content is ready and packaged. **Can't be in the past**                                                                              |
+| **courses**                         | array                | List of destinations of the trips                                                                                                                                                                                                             |
+| courses.**bill_number**             | string               | An string field left for you to store sort of a human readable bill number in it which will be used as a reference point among our support team, you and the pickup staffs                                                                    |
+| courses.**name**                    | string               | Name of the dropp-off                                                                                                                                                                                                                         |
+| courses.**phone_number**            | string               | The phone number associated with the drop-off which will be used by courier and support staffs in order to contact to them if necessary                                                                                                       |
+| coureses.**address**                | string               | The human readable drop-off address, preferably down to every necessary detail for a human to find it quickly                                                                                                                                 |
+| courses.location                    | object               | The exact location of the drop-off.                                                                                                                                                                                                           |
+| courses.location.**latitude**       | number [double]      | The latitude of the drop-off location                                                                                                                                                                                                         |
+| courses.location.**longitude**      | number [double]      | The longitude of the drop-off location                                                                                                                                                                                                        |
+| courses.manifest_items              | array **(Optional)** | The contents of the package to be delivered to the drop-off                                                                                                                                                                                   |
+| courses.manifest_items.**name**     | string               | Human readable name of the content which will be verified by courier                                                                                                                                                                          |
+| courses.manifest_items.**quantity** | string               | The quantity of the item                                                                                                                                                                                                                      |
+
+### Response
+
+> Response example:
+
+```json
+{
+  "id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
+  "is_round_trip": false,
+  "created_at": "2021-11-01T16:59:00+0330",
+  "assigned_at": "2021-11-01T17:00:00+0330",
+  "arrived_at": "2021-11-01T17:02:00+0330",
+  "picked_up_at": "2021-11-01T17:04:00+0330",
+  "departed_at": "2021-11-01T17:06:00+0330",
+  "batched_at": null,
+  "state": "dropoff",
+  "pickup": {
+    "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
+    "deadline": "2021-11-01T20:42:00+0330",
+    "image": "https://example.com/restaurants/bm_logo.png",
+    "location": {
+      "latitude": 35.737004,
+      "longitude": 51.413569
+    },
+    "name": "رستوران بزرگمهر",
+    "phone_number": "09123456789"
+  },
+  "area": {
+    "id": "3",
+    "name": "یوسف آباد"
+  },
+  "devlivery_cost": null,
+  "courier": {
+    "image": "https://image.miare.ir/avatars/123456.jpeg",
+    "location": {
+      "latitude": 35.753691,
+      "longitude": 51.332284
+    },
+    "location_updated_at": "2021-11-01T19:10:13+0330",
+    "name": "علی لطفی",
+    "phone_number": "09379187928"
+  },
+  "courses": [
+    {
+      "id": "7484f530-5e3e-491d-8a4a-9432f6db01d6",
+      "trip_id": "b3951922-4f3e-43dc-a051-a9b765b2cbe7",
+      ,
+      "old_trip_id": "00000000-0000-0000-0000-000000000000",
+      "bill_number": "DEL-119",
+      "name": "علی علوی",
+      "address": "تهران، خیابان استاد معین، پلاک ۱۲",
+      "dropped_off_at": null,
+      "batched_at": null,
+      "phone_number": "09123456789",
+      "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/7484f5305e",
+      "location": {
+        "latitude": 35.737004,
+        "longitude": 51.413569
+      },
+      "manifest_items": [
+        {
+          "name": "پیتزا پپرونی خانواده",
+          "quantity": 2
+        }
+      ],
+      "payment": {
+        "payment_type": "cash",
+        "price": 0
+      }
+    }
+  ]
+}
+```
+
+Response body is a serialized trip. For a detailed version of it take a look at the response body
+of [Create Trip](#create-trip) request.
+
+### Errors
+
+| Code                   | Description                                                                                                          |
+|------------------------|----------------------------------------------------------------------------------------------------------------------|
+| not_authenticated      | Token is missing or invalid                                                                                          |
+| parse_error            | The request body is not a valid JSON string (has syntax error)                                                       |
+| invalid_request_body   | Request body does not follow the valid format                                                                        |
+| record_not_found       | A trip with the given ID does not belong to your client or doesn't exist at all                                      |
+| too_late               | Trip's state is later than `pickup`                                                                                  |
+| duplicated_bill_number | There is already a course related to trip with states of (`assign_queue`, `pickup`, `dropoff`) with this bill number |
+
+
 ## Add Course
 
 Adds a new course to the courses of a trip.
@@ -1130,152 +1359,6 @@ of [Create Trip](#create-trip) request.
 | invalid_request_body | Request body does not follow the valid format                                     |
 | record_not_found     | A course with the given ID does not belong to your client or doesn't exist at all |
 | single_course        | The course belongs to a trip that has only one course                             |
-
-
-## Update Course
-
-Updates the course indicated by the given ID from the courses of its trip.
-
-<aside class="warning">
-You can only update courses from a trip in the <code>assign_queue</code> or <code>pickup</code> states.
-</aside>
-
-> Request example:
-
-```shell
-COURSE_ID="<Course ID>"
-
-curl --location --request PUT "$BASE_URL/courses/$COURSE_ID/" \
---header 'Authorization: Token <Your Token>' \
---header 'Content-Type: application/json' \
---data-raw '{
-  "manifest_items": [
-    {
-      "name": "پیتزا پپرونی خانواده",
-      "quantity": 2
-    }
-  ]
-}'
-```
-
-```python
-import requests
-
-data = {
-    "manifest_items": [
-        {
-            "name": "پیتزا پپرونی خانواده",
-            "quantity": 2
-        }
-    ]
-}
-
-requests.put(
-    f"{base_url}/courses/{course_id}/",
-    headers={"Authorization": "Token <Your Token>"},
-    data=data,
-)
-```
-
-### HTTP Request
-
-`PUT /courses/{course_id}/`
-
-### Path parameters
-
-| Name      | Type   | Description                    |
-|-----------|--------|--------------------------------|
-| course_id | string | The ID of the course to update |
-
-<aside class="success">
-You can find ID of your course in the response body of <a href="#create-trip">Create Trip</a> or <a href="#add-course">Add Course</a> requests.
-</aside>
-
-<aside class="warning">
-The given course ID most belong to your client.
-</aside>
-
-
-### Body
-
-| Value                       | Type                  | Description                                                                                                                                                                                     |
-|-----------------------------|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| manifest_items.**name**     | string                | Human readable name of the content which will be verified by courier                                                                                                                            |
-| manifest_items.**quantity** | string                | The quantity of the item                                                                                                                                                                        |
-
-### Response
-
-> Response example:
-
-```json
-{
-  "id": "8e209688-19c9-4982-a755-517408b6a29f",
-  "created_at": "2021-11-01T18:44:19+0330",
-  "picked_up_at": null,
-  "state": "assign_queue",
-  "assigned_at": null,
-  "arrived_at": null,
-  "departed_at": null,
-  "batched_at": null,
-  "delivery_cost": null,
-  "courier": null,
-  "pickup": {
-    "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
-    "deadline": "2021-11-01T20:42:00+0330",
-    "image": "https://example.com/restaurants/bm_logo.png",
-    "location": {
-      "latitude": 35.737004,
-      "longitude": 51.413569
-    },
-    "name": "رستوران بزرگمهر",
-    "phone_number": "09123456789"
-  },
-  "area": {
-    "id": "3",
-    "name": "یوسف آباد"
-  },
-  "courses": [
-    {
-      "address": "تهران، خیابان استاد معین، پلاک ۱۲",
-      "bill_number": "DEL-120",
-      "dropped_off_at": null,
-      "batched_at": null,
-      "id": "c57cb6bc-e1c2-404a-a0d2-a54881fe96ec",
-      "location": {
-        "latitude": 35.737004,
-        "longitude": 51.413569
-      },
-      "manifest_items": [
-        {
-          "name": "پیتزا پپرونی خانواده",
-          "quantity": 2
-        }
-      ],
-      "name": "علی علوی",
-      "payment": {
-        "payment_type": "cash",
-        "price": 0
-      },
-      "phone_number": "09123456789",
-      "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/c57cb6bce1",
-      "trip_id": "8e209688-19c9-4982-a755-517408b6a29f",
-      "old_trip_id": "00000000-0000-0000-0000-000000000000"
-    }
-  ]
-}
-```
-
-Response body is a serialized trip. For a detailed version of it take a look at the response body
-of [Create Trip](#create-trip) request.
-
-### Errors
-
-| Code                 | Description                                                                       |
-|----------------------|-----------------------------------------------------------------------------------|
-| not_authenticated    | Token is missing or invalid                                                       |
-| parse_error          | The request body is not a valid JSON string (has syntax error)                    |
-| invalid_request_body | Request body does not follow the valid format                                     |
-| record_not_found     | A course with the given ID does not belong to your client or doesn't exist at all |
 
 ## Get Trip
 
