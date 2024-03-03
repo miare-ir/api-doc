@@ -326,7 +326,7 @@ curl --location --request POST "$BASE_URL/trips/" \
       "latitude": 35.737004,
       "longitude": 51.413569
     },
-    "deadline": "2021-11-01T17:12:00+0000"
+    "deadline": "2021-11-01T17:12:00+0330"
   },
   "courses": [
     {
