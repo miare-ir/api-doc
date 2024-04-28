@@ -28,12 +28,12 @@
 							}
 						},
 						"url": {
-							"raw": "https://{{staging_prefix}}ws.miare.ir/trip-management/third-party-api/v2/trips/",
+							"raw": "https://ws.{{staging_prefix}}miare.ir/trip-management/third-party-api/v2/trips/",
 							"protocol": "https",
 							"host": [
-								"{{staging_prefix}}ws",
-								"mia",
-								"re"
+								"ws",
+								"{{staging_prefix}}miare",
+								"ir"
 							],
 							"path": [
 								"trip-management",
@@ -57,12 +57,12 @@
 							}
 						],
 						"url": {
-							"raw": "https://{{staging_prefix}}ws.miare.ir/trip-management/third-party-api/v2/trips/b3951922-4f3e-43dc-a051-a9b765b2cbe7/cancel/",
+							"raw": "https://ws.{{staging_prefix}}miare.ir/trip-management/third-party-api/v2/trips/b3951922-4f3e-43dc-a051-a9b765b2cbe7/cancel/",
 							"protocol": "https",
 							"host": [
-								"{{staging_prefix}}ws",
-								"mia",
-								"re"
+								"ws",
+								"{{staging_prefix}}miare",
+								"ir"
 							],
 							"path": [
 								"trip-management",
@@ -97,12 +97,12 @@
 							}
 						},
 						"url": {
-							"raw": "https://{{staging_prefix}}ws.miare.ir/trip-management/third-party-api/v2/trips/c9f7c2e8-2e37-42e2-8982-b0d6fd868653/courses/",
+							"raw": "https://ws.{{staging_prefix}}miare.ir/trip-management/third-party-api/v2/trips/c9f7c2e8-2e37-42e2-8982-b0d6fd868653/courses/",
 							"protocol": "https",
 							"host": [
-								"{{staging_prefix}}ws",
-								"mia",
-								"re"
+								"ws",
+								"{{staging_prefix}}miare",
+								"ir"
 							],
 							"path": [
 								"trip-management",
@@ -128,12 +128,12 @@
 							}
 						],
 						"url": {
-							"raw": "https://{{staging_prefix}}ws.miare.ir/trip-management/third-party-api/v2/courses/c9f7c2e8-2e37-42e2-8982-b0d6fd868653/",
+							"raw": "https://ws.{{staging_prefix}}miare.ir/trip-management/third-party-api/v2/courses/c9f7c2e8-2e37-42e2-8982-b0d6fd868653/",
 							"protocol": "https",
 							"host": [
-								"{{staging_prefix}}ws",
-								"mia",
-								"re"
+								"ws",
+								"{{staging_prefix}}miare",
+								"ir"
 							],
 							"path": [
 								"trip-management",
@@ -158,12 +158,12 @@
 							}
 						],
 						"url": {
-							"raw": "https://{{staging_prefix}}ws.miare.ir/trip-management/third-party-api/v2/trips/?area_id=2&state=pickup&from_datetime=2020-11-02T14:48:18Z&to_datetime=2021-12-02T14:48:18Z&offset=0&limit=10",
+							"raw": "https://ws.{{staging_prefix}}miare.ir/trip-management/third-party-api/v2/trips/?area_id=2&state=pickup&from_datetime=2020-11-02T14:48:18Z&to_datetime=2021-12-02T14:48:18Z&offset=0&limit=10",
 							"protocol": "https",
 							"host": [
-								"{{staging_prefix}}ws",
-								"mia",
-								"re"
+								"ws",
+								"{{staging_prefix}}miare",
+								"ir"
 							],
 							"path": [
 								"trip-management",
@@ -213,12 +213,12 @@
 							}
 						],
 						"url": {
-							"raw": "https://{{staging_prefix}}ws.miare.ir/area/third-party-api/v2/areas",
+							"raw": "https://ws.{{staging_prefix}}miare.ir/area/third-party-api/v2/areas",
 							"protocol": "https",
 							"host": [
-								"{{staging_prefix}}ws",
-								"mia",
-								"re"
+								"ws",
+								"{{staging_prefix}}miare",
+								"ir"
 							],
 							"path": [
 								"area",
@@ -245,8 +245,8 @@
 							"protocol": "https",
 							"host": [
 								"www",
-								"{{staging_prefix}}mia",
-								"re"
+								"{{staging_prefix}}miare",
+								"ir"
 							],
 							"path": [
 								"api",

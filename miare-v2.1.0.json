@@ -32,7 +32,7 @@
       "description": "Production server of trip management."
     },
     {
-      "url": "https://staging.ws.mia.re",
+      "url": "https://ws.staging.mia.re",
       "description": "Staging server of trip management."
     },
     {
@@ -663,14 +663,14 @@
                     "next": {
                       "type": "string",
                       "description": "URL to fetch next page of this data. Could be an empty string if there's no more pages available.",
-                      "example": " https://staging.ws.mia.re/trip-management/third-party-api/v2/trips/?offset=100",
+                      "example": " https://ws.staging.mia.re/trip-management/third-party-api/v2/trips/?offset=100",
                       "minLength": 0
                     },
                     "previous": {
                       "type": "string",
                       "description": "URL to fetch previous page of this data. Could be an empty string if this is the first page.",
                       "minLength": 0,
-                      "example": " https://staging.ws.mia.re/trip-management/third-party-api/v2/trips/?offset=100"
+                      "example": " https://ws.staging.mia.re/trip-management/third-party-api/v2/trips/?offset=100"
                     },
                     "total_count": {
                       "type": "integer",
@@ -745,8 +745,8 @@
                           "test_mode": false
                         }
                       ],
-                      "next": " https://staging.ws.mia.re/trip-management/third-party-api/v2/trips/?offset=100",
-                      "previous": " https://staging.ws.mia.re/trip-management/third-party-api/v2/trips/?offset=100",
+                      "next": " https://ws.staging.mia.re/trip-management/third-party-api/v2/trips/?offset=100",
+                      "previous": " https://ws.staging.mia.re/trip-management/third-party-api/v2/trips/?offset=100",
                       "total_count": 742
                     }
                   }

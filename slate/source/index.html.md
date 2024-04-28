@@ -175,7 +175,7 @@ There is no active courier on the staging so your trips will never be assigned t
 </aside>
 
 <aside class="success">
-Staging server addresses are same as production servers with a <code>staging.</code> prefix.
+The main url part for staging server is <code>staging.miare.ir</code> according to the production servers which is <code>miare.ir</code>.
 </aside>
 
 ## Production
@@ -283,11 +283,11 @@ production servers
 > Base URL of staging servers for delivery services:
 
 ```shell
-BASE_URL="https://staging.ws.miare.ir/trip-management/third-party-api/v2"
+BASE_URL="https://ws.staging.miare.ir/trip-management/third-party-api/v2"
 ```
 
 ```python
-base_url = "https://staging.ws.miare.ir/trip-management/third-party-api/v2"
+base_url = "https://ws.staging.miare.ir/trip-management/third-party-api/v2"
 ```
 
 > Base URL of production servers for delivery services:
@@ -1590,7 +1590,7 @@ Server might not have or decide not to send you as many result items as <code>li
       "is_round_trip": false
     }
   ],
-  "next": "https://staging.ws.miare.ir/trip-management/third-party-api/v2/trips/?offset=1&limit=1&from_datetime=2020-11-02T14:48:18Z&to_datetime=2021-12-02T14:48:18Z",
+  "next": "https://ws.staging.miare.ir/trip-management/third-party-api/v2/trips/?offset=1&limit=1&from_datetime=2020-11-02T14:48:18Z&to_datetime=2021-12-02T14:48:18Z",
   "previous": "",
   "total_count": 35
 }
@@ -1614,11 +1614,11 @@ Server might not have or decide not to send you as many result items as <code>li
 > Base URL of staging servers for support services:
 
 ```shell
-BASE_URL="https://staging.ws.miare.ir/support/third-party-api/v2"
+BASE_URL="https://ws.staging.miare.ir/support/third-party-api/v2"
 ```
 
 ```python
-base_url = "https://staging.ws.miare.ir/support/third-party-api/v2"
+base_url = "https://ws.staging.miare.ir/support/third-party-api/v2"
 ```
 
 > Base URL of production servers for delivery services:
@@ -1894,7 +1894,7 @@ Server might not have or decide not to send you as many result items as <code>li
       ]
     }
   ],
-  "next": "https://staging.ws.miare.ir/support/third-party-api/v2/issues/?offset=1&limit=1&reported_from_datetime=2020-11-02T14:48:18Z&reported_to_datetime=2021-12-02T14:48:18Z",
+  "next": "https://ws.staging.miare.ir/support/third-party-api/v2/issues/?offset=1&limit=1&reported_from_datetime=2020-11-02T14:48:18Z&reported_to_datetime=2021-12-02T14:48:18Z",
   "previous": "",
   "total_count": 35
 }
@@ -2147,11 +2147,11 @@ of [Report Issue](#report-issue) request.
 > Base URL of staging servers for area services:
 
 ```shell
-BASE_URL="https://staging.ws.miare.ir/area/third-party-api/v2"
+BASE_URL="https://ws.staging.miare.ir/area/third-party-api/v2"
 ```
 
 ```python
-base_url = "https://staging.ws.miare.ir/area/third-party-api/v2"
+base_url = "https://ws.staging.miare.ir/area/third-party-api/v2"
 ```
 
 > Base URL of production servers for delivery services:
