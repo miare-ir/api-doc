@@ -3,13 +3,13 @@ title: Miare API
 
 language_tabs: # must be one of https://git.io/vQNgJ
 
-- shell
-- python
+  - shell
+  - python
 
 toc_footers:
 
-- <a href='Miare - Third Party API.postman_collection.json' download>Postman Collection</a>
-- <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
+  - <a href='Miare - Third Party API.postman_collection.json' download>Postman Collection</a>
+  - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
 search: true
 
@@ -17,8 +17,8 @@ code_clipboard: true
 
 meta:
 
-- name: description
-  content: Documentation for the Miare API
+  - name: description
+    content: Documentation for the Miare API
 
 ---
 
@@ -833,7 +833,6 @@ Successful calls to this endpoint will update the trip state, is_round_trip to
 | record_not_found     | A trip with the given ID does not belong to your client or doesn't exist at all  |
 | invalid_state_change | Changing the trip's state from its current state to "returning" is not possible. |
 
-
 ## Update Trip
 
 Updates an existing trip and it's courses.
@@ -937,8 +936,8 @@ requests.put(
 
 ### Path parameters
 
-| Name    | Type   | Description                           |
-|---------|--------|---------------------------------------|
+| Name    | Type   | Description                  |
+|---------|--------|------------------------------|
 | trip_id | string | The ID of the trip to update |
 
 <aside class="success">
@@ -1060,7 +1059,6 @@ of [Create Trip](#create-trip) request.
 | record_not_found       | A trip with the given ID does not belong to your client or doesn't exist at all                                      |
 | too_late               | Trip's state is later than `pickup`                                                                                  |
 | duplicated_bill_number | There is already a course related to trip with states of (`assign_queue`, `pickup`, `dropoff`) with this bill number |
-
 
 ## Add Course
 
@@ -2327,14 +2325,16 @@ The output price is only the <b>course</b>'s cost. The final cost includes a <b>
 ```json
 {
   "price": 5000,
-  "status": "ok"
+  "status": "ok",
+  "area_coverage": true
 }
 ```
 
-| Value      | Type             | Description                                 |
-|------------|------------------|---------------------------------------------|
-| **price**  | number [integer] | The estimated cost of the course's delivery |
-| **status** | string           | The human readable status of the request    |
+| Value             | Type             | Description                                                    |
+|-------------------|------------------|----------------------------------------------------------------|
+| **price**         | number [integer] | The estimated cost of the course's delivery                    |
+| **status**        | string           | The human readable status of the request                       |
+| **area_coverage** | boolean          | Check if the source location is within the Miare areas or not. |
 
 ### Errors
 
