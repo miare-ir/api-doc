@@ -93,7 +93,6 @@ Each trip can be in only one the following states at any given time
 | returning          | When the trip is a round trip and it is returning to the source.                                                           |
 | canceled_by_delay  | Trip has been cancelled by Miare due to fulfillment delay from your side                                                   |
 | canceled_by_client | Trip is canceled by client (either from the web panel or Third Party API)                                                  |
-| batched            | Trip has been merged into another trip due to same or close destination                                                    |
 
 ### Course
 
@@ -437,7 +436,6 @@ requests.post(
   "arrived_at": "2021-11-01T17:02:00+0330",
   "picked_up_at": "2021-11-01T17:04:00+0330",
   "departed_at": "2021-11-01T17:06:00+0330",
-  "batched_at": null,
   "state": "dropoff",
   "pickup": {
     "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
@@ -475,7 +473,6 @@ requests.post(
       "name": "علی علوی",
       "address": "تهران، خیابان استاد معین، پلاک ۱۲",
       "dropped_off_at": null,
-      "batched_at": null,
       "phone_number": "09123456789",
       "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/7484f5305e",
       "location": {
@@ -497,58 +494,56 @@ requests.post(
 }
 ```
 
-| Value                               | Type                              | Description                                                                                                                                                                                                                                                           |
-|-------------------------------------|-----------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **id**                              | string                            | Universally unique identifier of this trip                                                                                                                                                                                                                            |
-| **is_round_trip**                   | boolean                           | The is_round_trip determines that a trip is a round trip or not                                                                                                                                                                                                       |
-| **created_at**                      | string [date-time]                | The exact time this trip was created on our servers                                                                                                                                                                                                                   |
-| **assigned_at**                     | string [date-time] **(nullable)** | The assign datetime of the time this trip was assigned to its courier. Will be **null** if trip is not assigned to a courier yet                                                                                                                                      |
-| **arrived_at**                      | string [date-time] **(nullable)** | The datetime that the courier of the trip arrived to the source. Will be **null** if courier has not assigned or has not arrived to the pickup location                                                                                                               |
-| **picked_up_at**                    | string [date-time] **(nullable)** | The datetime that the courier of the trip picked up its content from the source. Will be **null** if courier is not assigned or is not picked up packages yet                                                                                                         |
-| **departed_at**                     | string [date-time] **(nullable)** | The datetime that the courier of the trip has left the pickup location. Will be **null** if courier is not assigned or has not left the pickup location yet                                                                                                           |
-| **batched_at**                      | string [date-time] **(nullable)** | The datetime that the trip has been batched. Will be **null** if batching has not been occurred                                                                                                                                                                       |
-| **state**                           | string                            | The current state of the trip. Is one of the following values: "assign_queue" "pickup" "dropoff" "delivered" "canceled_by_miare" "returning" "canceled_by_delay" "canceled_by_client" "batched" . You can find a description about each of these states [here](#trip) |
-| **pickup**                          | object                            | The source of the trip                                                                                                                                                                                                                                                |
-| pickup.**name**                     | string                            | The human readable name of the pickup                                                                                                                                                                                                                                 |
-| pickup.**phone_number**             | string                            | The phone number associated with the source which will be used by courier and support staffs in order to contact to pickup if necessary                                                                                                                               |
-| pickup.**address**                  | string                            | The human readable address of the source, preferably down to every necessary detail for a human to find the source quickly                                                                                                                                            |
-| pickup.**image**                    | string [uri]                      | A valid URL which points to an image file which should be the logo of the pickup. This image will be used in both support panel, and courier’s application. Make sure that the URL is both reachable and is configured to allow CORS requests                         |
-| pickup.**location**                 | object                            | The exact location of the pickup                                                                                                                                                                                                                                      |
-| pickup.location.**latitude**        | number [double]                   | The latitude of the pickup location                                                                                                                                                                                                                                   |
-| pickup.location.**longitude**       | number [double]                   | The longitude of the pickup location                                                                                                                                                                                                                                  |
-| pickup.**deadline**                 | string [date-time]                | The time that you expect the courier to arrive at the pickup, so optimally it should be the time package content is ready and packaged. **Can't be in the past**                                                                                                      |
-| **courses**                         | array                             | List of destinations of the trips                                                                                                                                                                                                                                     |
-| courses.**id**                      | string                            | Universally unique identifier of this course                                                                                                                                                                                                                          |
-| course.**trip_id**                  | string                            | Universally unique identifier of the trip that this course belongs to it                                                                                                                                                                                              |
-| course.**old_trip_id**              | string                            | The trip id of the trip before batching. Will be zero value if batching has not been occurred                                                                                                                                                                         |
-| courses.**bill_number**             | string                            | An string field left for you to store sort of a human readable bill number in it which will be used as a reference point among our support team, you and the pickup staffs                                                                                            |
-| courses.**name**                    | string                            | Name of the dropp-off                                                                                                                                                                                                                                                 |
-| courses.**phone_number**            | string                            | The phone number associated with the drop-off which will be used by courier and support staffs in order to contact to them if necessary                                                                                                                               |
-| coureses.**address**                | string                            | The human readable drop-off address, preferably down to every necessary detail for a human to find it quickly                                                                                                                                                         |
-| courses.location                    | object **(nullable)**             | The exact location of the pickup. If there is no provided drop-off location, the courier will find the location based on the address and accounting calculations will be based on that location                                                                       |
-| courses.location.**latitude**       | number [double]                   | The latitude of the drop-off location                                                                                                                                                                                                                                 |
-| courses.location.**longitude**      | number [double]                   | The longitude of the drop-off location                                                                                                                                                                                                                                |
-| courses.manifest_items              | array **(nullable)**              | The contents of the package to be delivered to the drop-off                                                                                                                                                                                                           |
-| courses.manifest_items.**name**     | string                            | Human readable name of the content which will be verified by courier                                                                                                                                                                                                  |
-| courses.manifest_items.**quantity** | string                            | The quanitiy of the item                                                                                                                                                                                                                                              |
-| course.**tracking_url**             | string [uri]                      | The URL of a webpage in which the end customer can track the exact state and location of his/her package while it's being delivered                                                                                                                                   |
-| course.**dropped_off_at**           | string [date-time] **(nullable)** | The exact time this course we delivered to the customer. It will be **null** if the course is not delivered yet                                                                                                                                                       |
-| course.**batched_at**               | string [date-time] **(nullable)** | The datetime that the course has been batched. Will be **null** if batching has not been occurred                                                                                                                                                                     |
-| course.**payment**                  | object                            | The payment information of the course                                                                                                                                                                                                                                 |
-| course.payment.**payment_type**     | string                            | They selected method for this course's payment. At this moment the only available method for API users is `cash`                                                                                                                                                      |
-| course.payment.**price**            | string                            | The price of the package content (**not** to be confused with delivery cost). At this moment the only available value for API users is 0                                                                                                                              |
-| **area**                            | object                            | The detected area of the trip (based on pickup.location)                                                                                                                                                                                                              |
-| area.**id**                         | string                            | The identifier of this trip's area                                                                                                                                                                                                                                    |
-| area.**name**                       | string                            | Human readable name of this trip's area                                                                                                                                                                                                                               |
-| **delivery_cost**                   | integer **(nullable)**            | The final cost of a Trip Delivery. It will be **null** until trip is not delivered                                                                                                                                                                                    |
-| courier                             | object **(nullable)**             | Courier of this trip. Will be **null** if trip is not assigned to a courier yet                                                                                                                                                                                       |
-| courier.**name**                    | string                            | Name of the courier                                                                                                                                                                                                                                                   |
-| courier.**phone_number**            | string                            | Phone number of the courier                                                                                                                                                                                                                                           |
-| courier.**image**                   | string [uri]                      | The URL of courier's profile picture                                                                                                                                                                                                                                  |
-| courier.**location**                | object                            | Last known location of the courier                                                                                                                                                                                                                                    |
-| courier.location.**latitude**       | number [double]                   | Latitude of the last known location of the courier                                                                                                                                                                                                                    |
-| courier.location.**longitude**      | number [double]                   | Longitude of the last known location of the courier                                                                                                                                                                                                                   |
-| courier.**location_updated_at**     | string [date-time]                | Datetime of the last location of the courier                                                                                                                                                                                                                          |
+| Value                               | Type                              | Description                                                                                                                                                                                                                                                         |
+|-------------------------------------|-----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **id**                              | string                            | Universally unique identifier of this trip                                                                                                                                                                                                                          |
+| **is_round_trip**                   | boolean                           | The is_round_trip determines that a trip is a round trip or not                                                                                                                                                                                                     |
+| **created_at**                      | string [date-time]                | The exact time this trip was created on our servers                                                                                                                                                                                                                 |
+| **assigned_at**                     | string [date-time] **(nullable)** | The assign datetime of the time this trip was assigned to its courier. Will be **null** if trip is not assigned to a courier yet                                                                                                                                    |
+| **arrived_at**                      | string [date-time] **(nullable)** | The datetime that the courier of the trip arrived to the source. Will be **null** if courier has not assigned or has not arrived to the pickup location                                                                                                             |
+| **picked_up_at**                    | string [date-time] **(nullable)** | The datetime that the courier of the trip picked up its content from the source. Will be **null** if courier is not assigned or is not picked up packages yet                                                                                                       |
+| **departed_at**                     | string [date-time] **(nullable)** | The datetime that the courier of the trip has left the pickup location. Will be **null** if courier is not assigned or has not left the pickup location yet                                                                                                         |
+| **state**                           | string                            | The current state of the trip. Is one of the following values: "assign_queue" "pickup" "dropoff" "delivered" "canceled_by_miare" "returning" "canceled_by_delay" "canceled_by_client"  . You can find a description about each of these states [here](#trip) |
+| **pickup**                          | object                            | The source of the trip                                                                                                                                                                                                                                              |
+| pickup.**name**                     | string                            | The human readable name of the pickup                                                                                                                                                                                                                               |
+| pickup.**phone_number**             | string                            | The phone number associated with the source which will be used by courier and support staffs in order to contact to pickup if necessary                                                                                                                             |
+| pickup.**address**                  | string                            | The human readable address of the source, preferably down to every necessary detail for a human to find the source quickly                                                                                                                                          |
+| pickup.**image**                    | string [uri]                      | A valid URL which points to an image file which should be the logo of the pickup. This image will be used in both support panel, and courier’s application. Make sure that the URL is both reachable and is configured to allow CORS requests                       |
+| pickup.**location**                 | object                            | The exact location of the pickup                                                                                                                                                                                                                                    |
+| pickup.location.**latitude**        | number [double]                   | The latitude of the pickup location                                                                                                                                                                                                                                 |
+| pickup.location.**longitude**       | number [double]                   | The longitude of the pickup location                                                                                                                                                                                                                                |
+| pickup.**deadline**                 | string [date-time]                | The time that you expect the courier to arrive at the pickup, so optimally it should be the time package content is ready and packaged. **Can't be in the past**                                                                                                    |
+| **courses**                         | array                             | List of destinations of the trips                                                                                                                                                                                                                                   |
+| courses.**id**                      | string                            | Universally unique identifier of this course                                                                                                                                                                                                                        |
+| course.**trip_id**                  | string                            | Universally unique identifier of the trip that this course belongs to it                                                                                                                                                                                            |
+| course.**old_trip_id**              | string                            | The trip id of the trip before batching. Will be zero value if batching has not been occurred                                                                                                                                                                       |
+| courses.**bill_number**             | string                            | An string field left for you to store sort of a human readable bill number in it which will be used as a reference point among our support team, you and the pickup staffs                                                                                          |
+| courses.**name**                    | string                            | Name of the dropp-off                                                                                                                                                                                                                                               |
+| courses.**phone_number**            | string                            | The phone number associated with the drop-off which will be used by courier and support staffs in order to contact to them if necessary                                                                                                                             |
+| coureses.**address**                | string                            | The human readable drop-off address, preferably down to every necessary detail for a human to find it quickly                                                                                                                                                       |
+| courses.location                    | object **(nullable)**             | The exact location of the pickup. If there is no provided drop-off location, the courier will find the location based on the address and accounting calculations will be based on that location                                                                     |
+| courses.location.**latitude**       | number [double]                   | The latitude of the drop-off location                                                                                                                                                                                                                               |
+| courses.location.**longitude**      | number [double]                   | The longitude of the drop-off location                                                                                                                                                                                                                              |
+| courses.manifest_items              | array **(nullable)**              | The contents of the package to be delivered to the drop-off                                                                                                                                                                                                         |
+| courses.manifest_items.**name**     | string                            | Human readable name of the content which will be verified by courier                                                                                                                                                                                                |
+| courses.manifest_items.**quantity** | string                            | The quanitiy of the item                                                                                                                                                                                                                                            |
+| course.**tracking_url**             | string [uri]                      | The URL of a webpage in which the end customer can track the exact state and location of his/her package while it's being delivered                                                                                                                                 |
+| course.**dropped_off_at**           | string [date-time] **(nullable)** | The exact time this course we delivered to the customer. It will be **null** if the course is not delivered yet                                                                                                                                                     |
+| course.**payment**                  | object                            | The payment information of the course                                                                                                                                                                                                                               |
+| course.payment.**payment_type**     | string                            | They selected method for this course's payment. At this moment the only available method for API users is `cash`                                                                                                                                                    |
+| course.payment.**price**            | string                            | The price of the package content (**not** to be confused with delivery cost). At this moment the only available value for API users is 0                                                                                                                            |
+| **area**                            | object                            | The detected area of the trip (based on pickup.location)                                                                                                                                                                                                            |
+| area.**id**                         | string                            | The identifier of this trip's area                                                                                                                                                                                                                                  |
+| area.**name**                       | string                            | Human readable name of this trip's area                                                                                                                                                                                                                             |
+| **delivery_cost**                   | integer **(nullable)**            | The final cost of a Trip Delivery. It will be **null** until trip is not delivered                                                                                                                                                                                  |
+| courier                             | object **(nullable)**             | Courier of this trip. Will be **null** if trip is not assigned to a courier yet                                                                                                                                                                                     |
+| courier.**name**                    | string                            | Name of the courier                                                                                                                                                                                                                                                 |
+| courier.**phone_number**            | string                            | Phone number of the courier                                                                                                                                                                                                                                         |
+| courier.**image**                   | string [uri]                      | The URL of courier's profile picture                                                                                                                                                                                                                                |
+| courier.**location**                | object                            | Last known location of the courier                                                                                                                                                                                                                                  |
+| courier.location.**latitude**       | number [double]                   | Latitude of the last known location of the courier                                                                                                                                                                                                                  |
+| courier.location.**longitude**      | number [double]                   | Longitude of the last known location of the courier                                                                                                                                                                                                                 |
+| courier.**location_updated_at**     | string [date-time]                | Datetime of the last location of the courier                                                                                                                                                                                                                        |
 
 ### Errors
 
@@ -621,7 +616,6 @@ The given trip ID most belong to your client.
   "assigned_at": null,
   "arrived_at": null,
   "departed_at": null,
-  "batched_at": null,
   "area": {
     "id": "3",
     "name": "یوسف آباد"
@@ -644,7 +638,6 @@ The given trip ID most belong to your client.
       "address": "تهران، خیابان استاد معین، پلاک ۱۲",
       "bill_number": "DEL-119",
       "dropped_off_at": null,
-      "batched_at": null,
       "id": "7484f530-5e3e-491d-8a4a-9432f6db01d6",
       "location": {
         "latitude": 35.737004,
@@ -766,7 +759,6 @@ The given trip ID most belong to your client.
   "assigned_at": null,
   "arrived_at": null,
   "departed_at": null,
-  "batched_at": null,
   "area": {
     "id": "3",
     "name": "یوسف آباد"
@@ -789,7 +781,6 @@ The given trip ID most belong to your client.
       "address": "تهران، خیابان استاد معین، پلاک ۱۲",
       "bill_number": "DEL-119",
       "dropped_off_at": null,
-      "batched_at": null,
       "id": "7484f530-5e3e-491d-8a4a-9432f6db01d6",
       "location": {
         "latitude": 35.737004,
@@ -986,7 +977,6 @@ The given trip ID most belong to your client.
   "arrived_at": "2021-11-01T17:02:00+0330",
   "picked_up_at": "2021-11-01T17:04:00+0330",
   "departed_at": "2021-11-01T17:06:00+0330",
-  "batched_at": null,
   "state": "dropoff",
   "pickup": {
     "address": "تهران، صادقیه، بلوار آیت الله کاشانی",
@@ -1024,7 +1014,6 @@ The given trip ID most belong to your client.
       "name": "علی علوی",
       "address": "تهران، خیابان استاد معین، پلاک ۱۲",
       "dropped_off_at": null,
-      "batched_at": null,
       "phone_number": "09123456789",
       "tracking_url": "https://www.staging.miare.ir/p/trip_watching/#!/7484f5305e",
       "location": {
@@ -1174,7 +1163,6 @@ You can find ID of your trip in the response body of <a href="#create-trip">Crea
   "assigned_at": null,
   "arrived_at": null,
   "departed_at": null,
-  "batched_at": null,
   "delivery_cost": null,
   "courier": null,
   "pickup": {
@@ -1197,7 +1185,6 @@ You can find ID of your trip in the response body of <a href="#create-trip">Crea
       "address": "تهران، خیابان استاد معین، پلاک ۱۲",
       "bill_number": "DEL-120",
       "dropped_off_at": null,
-      "batched_at": null,
       "id": "c57cb6bc-e1c2-404a-a0d2-a54881fe96ec",
       "location": {
         "latitude": 35.737004,
@@ -1296,7 +1283,6 @@ The given course ID most belong to your client.
   "assigned_at": null,
   "arrived_at": null,
   "departed_at": null,
-  "batched_at": null,
   "area": {
     "id": "3",
     "name": "یوسف آباد"
@@ -1319,7 +1305,6 @@ The given course ID most belong to your client.
       "address": "تهران، خیابان استاد معین، پلاک ۱۲",
       "bill_number": "DEL-119",
       "dropped_off_at": null,
-      "batched_at": null,
       "id": "7484f530-5e3e-491d-8a4a-9432f6db01d6",
       "location": {
         "latitude": 35.737004,
@@ -1414,7 +1399,6 @@ The given trip ID most belong to your client.
   "assigned_at": null,
   "arrived_at": null,
   "departed_at": null,
-  "batched_at": null,
   "area": {
     "id": "3",
     "name": "یوسف آباد"
@@ -1437,7 +1421,6 @@ The given trip ID most belong to your client.
       "address": "تهران، خیابان استاد معین، پلاک ۱۲",
       "bill_number": "DEL-119",
       "dropped_off_at": null,
-      "batched_at": null,
       "id": "7484f530-5e3e-491d-8a4a-9432f6db01d6",
       "location": {
         "latitude": 35.737004,
@@ -1544,7 +1527,6 @@ Server might not have or decide not to send you as many result items as <code>li
       "assigned_at": null,
       "arrived_at": null,
       "departed_at": null,
-      "batched_at": null,
       "delivery_cost": null,
       "courier": null,
       "courses": [
@@ -1552,7 +1534,6 @@ Server might not have or decide not to send you as many result items as <code>li
           "address": "هران، خیابان استاد معین، پلاک ۱۲",
           "bill_number": "DEL-119",
           "dropped_off_at": null,
-          "batched_at": null,
           "id": "3b0e8576-f802-44f5-8654-d65e11fd3035",
           "location": {
             "latitude": 35.753515,
@@ -2410,14 +2391,12 @@ You should not rely solely on our webhook requests. In case of a network failure
     "assigned_at": null,
     "arrived_at": null,
     "departed_at": null,
-    "batched_at": null,
     "courier": null,
     "courses": [
       {
         "address": "تهران، خیابان استاد معین، پلاک ۱۲",
         "bill_number": "DEL-119",
         "dropped_off_at": null,
-        "batched_at": null,
         "id": "0f662083-284e-4729-b34d-2479bd7b558a",
         "location": {
           "latitude": 35.737004,
@@ -2484,7 +2463,6 @@ serialized trip.
 | **canceled_by_miare**  | Trip has been cancelled by Miare (our support team)                                    |
 | **returning**          | Trip state changed to returning                                                        |
 | **canceled_by_delay**  | Trip has been cancelled by Miare due to fulfillment delay from your side               |
-| **batched**            | Trip has been batched                                                                  |
 
 ## Course Events
 
@@ -2499,7 +2477,6 @@ serialized trip.
     "address": "تهران، خیابان استاد معین، پلاک ۱۲",
     "bill_number": "DEL-119",
     "dropped_off_at": null,
-    "batched_at": null,
     "id": "0f662083-284e-4729-b34d-2479bd7b558a",
     "location": {
       "latitude": 35.737004,
